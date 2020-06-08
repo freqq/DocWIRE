@@ -1,0 +1,27 @@
+description = 'components'
+
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+}
+
+allprojects {
+    group = 'com.pwr'
+
+    repositories {
+        mavenLocal()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+subprojects {
+    sourceCompatibility = 1.11
+    targetCompatibility = 1.11
+
+    compileJava {
+        options.compilerArgs << "-Xlint:all"
+    }
+}

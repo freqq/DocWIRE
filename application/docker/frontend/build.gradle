@@ -1,0 +1,53 @@
+apply from: "$configurationDir/docker.gradle"
+
+description 'frontend'
+
+import com.bmuschko.gradle.docker.DockerRegistryCredentials
+import com.bmuschko.gradle.docker.tasks.image.*
+
+def copyDir = getComponentBuildDir("frontend")
+def componentDir = getComponentDir("frontend")
+
+task copyArchToDocker(type: Copy, dependsOn: ':components:frontend:yarnBuild') {
+    from file("${copyDir}")
+    into "${buildDir}"
+}
+
+task generateDockerFile(type: Dockerfile, dependsOn: copyArchToDocker) {
+    destFile = project.file("${buildDir}/Dockerfile")
+    from("node:12.4.0-alpine")
+    workingDir("/app")
+    copyFile("dist", "/app/dist")
+    copyFile("server.js", "/app/server.js")
+    entryPoint("node", "server.js")
+    doFirst {
+        if (new File("${project.buildDir}/dev").exists()) {
+            copyFile("dev", "/app/dev")
+        } else {
+            runCommand("rm -rf /yarn")
+        }
+    }
+}
+
+task dockerBuildFrontend(type: DockerBuildImage, dependsOn: generateDockerFile) {
+    inputDir = file("${buildDir}")
+    tag = "${dockerHubName}/${project.name}:${imageTag}"
+}
+
+task prepareDev(type: Copy) {
+    from '.'
+    into "${project.buildDir}/dev"
+    exclude 'build/**', '.gradle/**', 'coverage/**', 'k8s/**', 'node_modules/.cache/**', 'build.gradle'
+}
+
+task dockerPushFrontend(type: DockerPushImage, dependsOn: [dockerBuildFrontend, prepareDev]) {
+    imageName = "${dockerHubName}/${project.name}"
+    tag = "${imageTag}"
+    registryCredentials = new DockerRegistryCredentials()
+    registryCredentials.username = "${registryUsername}"
+    registryCredentials.password = "${registryPassword}"
+}
+
+prepareDev.mustRunAfter copyArchToDocker
+dockerBuildFrontend.mustRunAfter prepareDev
+dockerPush.dependsOn dockerPushFrontend

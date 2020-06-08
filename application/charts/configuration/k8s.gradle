@@ -1,0 +1,8 @@
+project.ext {
+    functionsScript = "${rootProject.rootDir}/../deployment/functions.sh"
+    appNamespace = 'medic-app'
+    ingressRepoUrl = 'https://helm.nginx.com/stable'
+}
+
+task appLoad()
+task appInstall()

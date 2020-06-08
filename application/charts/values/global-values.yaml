@@ -1,0 +1,14 @@
+image:
+  pullPolicy: IfNotPresent
+  tag: v1
+
+config:
+  frontend:
+    hostname: frontend
+    port: 9040
+
+securityContext:
+  user:
+    runAsUser: 985
+    fsGroup: 985
+    runAsNonRoot: true

@@ -1,0 +1,37 @@
+description = 'docker'
+
+apply plugin: 'base'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    ext {
+        configurationDir = "${project.rootDir}/docker/configuration"
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.6.0'
+    }
+}
+
+subprojects {
+    apply plugin: 'com.bmuschko.docker-remote-api'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+}
+
+def getComponentBuildDir(service_name) {
+    return "${project.rootDir}/components/${service_name}/build/"
+}
+
+def getComponentDir(service_name) {
+    return "${project.rootDir}/components/${service_name}"
+}

@@ -1,0 +1,8 @@
+project.ext {
+    imageTag = 'v1'
+    dockerHubName = 'freq'
+    registryUsername = 'freq'
+    registryPassword = 'zsdcxxx412'
+}
+
+task dockerPush {}

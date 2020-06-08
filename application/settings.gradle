@@ -1,0 +1,9 @@
+rootProject.name = 'online_doctor_app'
+
+include ':charts'
+include ':charts:frontend'
+include ':charts:namespace'
+include ':components'
+include ':components:frontend'
+include ':docker'
+include ':docker:frontend'

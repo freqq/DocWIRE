@@ -1,0 +1,8 @@
+description = 'charts'
+
+buildscript {
+    ext {
+        configurationDir = "${project.rootDir}/charts/configuration"
+        globalValues = "${project.rootDir}/charts/values/global-values.yaml"
+    }
+}

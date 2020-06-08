@@ -1,0 +1,11 @@
+description = 'online_doctor_app'
+
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+}
+
+allprojects {
+    project.version = (project.hasProperty('buildVersion')) ? "$project.buildVersion" : "0.1-SNAPSHOT"
+}
