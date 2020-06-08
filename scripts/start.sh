@@ -14,7 +14,7 @@ function app_start() (
     ./gradlew charts:frontend:appInstall
 
     cd -
-    echo "Streaming learning app started."
+    echo "Online doctor app started."
 )
 
 app_start
