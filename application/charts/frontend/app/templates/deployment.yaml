@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+        service: {{ .Chart.Name }}
+    name: {{ .Chart.Name }}
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: {{ .Chart.Name }}
+    template:
+        metadata:
+            labels:
+                app: {{ .Chart.Name }}
+        spec:
+            securityContext:
+              runAsUser: 1000
+            containers:
+            - name: {{ .Chart.Name }}
+              image: freq/frontend:v1
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              readinessProbe:
+                httpGet:
+                  path: /
+                  port: {{ .Values.config.frontend.port }}
+                  scheme: HTTP
+                timeoutSeconds: {{ .Values.healthCheck.frontend.readinessProbe.timeoutSeconds }}
+                initialDelaySeconds: {{ .Values.healthCheck.frontend.readinessProbe.initialDelaySeconds }}
+                periodSeconds: {{ .Values.healthCheck.frontend.readinessProbe.periodSeconds }}
+                failureThreshold: {{ .Values.healthCheck.frontend.readinessProbe.failureThreshold }}
+              ports:
+              - name: http-port
+                containerPort: {{ .Values.config.frontend.port }}
+              {{- if .Values.profile.frontend.devProfile }}
+              command: ["/bin/sh", "-c"]
+              args: [ "yarn --cwd {{ .Values.profile.frontend.devDirectory }} start" ]
+              {{- else }}
+              command: ["/bin/sh", "-c"]
+              args: ["node --max-http-header-size={{ .Values.maxHttpHeaderSize }} server.js"]
+              {{- end }}
+              volumeMounts:
+                {{- if .Values.profile.frontend.devProfile }}
+                - name: dev-directory
+                  mountPath: {{ .Values.profile.frontend.devDirectory }}
+                {{- end }}
+              resources:
+                requests:
+                      cpu: 20m
+                      memory: 100Mi
+                limits:
+                      memory: 256Mi
+                      cpu: 150m
+              env:
+                - name: PORT
+                  value: "{{ .Values.config.frontend.port }}"
+                - name: PUBLIC_PATH
+                  value: '/'
+            volumes:
+              {{- if .Values.profile.frontend.devProfile }}
+              - name: dev-directory
+                hostPath:
+                  path: {{ .Values.frontPath }}
+                  type: Directory
+              {{- end }}

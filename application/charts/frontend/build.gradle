@@ -1,0 +1,33 @@
+description 'frontend'
+
+apply from: "$configurationDir/k8s.gradle"
+
+task removeApp(type: Exec) {
+    commandLine 'bash', '-c', "helm del ${project.name} -n ${project.ext.appNamespace}"
+    ignoreExitValue = true
+}
+
+task waitForAppRemove(type: Exec, dependsOn: removeApp) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.appNamespace} && " +
+            "waitForPodDelete ${project.name}"
+}
+
+task helmInstall(type: Exec, dependsOn: waitForAppRemove) {
+    commandLine 'helm', 'install',
+            "${project.name}",
+            "${projectDir}/app/",
+            '--namespace', "${project.ext.appNamespace}",
+            '--values', "${globalValues}",
+            '--set', "frontPath=${project.rootDir}/components/frontend/src",
+            '--set', "profile.frontend.devProfile=true",
+            '--set', "profile.frontend.devDirectory=/app/dev/src",
+            '--set', "image.pullPolicy=Always"
+}
+
+task waitForInstall(type: Exec, dependsOn: helmInstall) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.appNamespace} && " +
+            "waitForReadyPod ${project.name}"
+}
+
+appLoad.dependsOn  ':docker:frontend:dockerPush'
+appInstall.dependsOn waitForInstall
