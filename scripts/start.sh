@@ -22,4 +22,5 @@ function app_start() (
     echo "Online doctor app started."
 )
 
+enable_ingres_on_minikube
 app_start

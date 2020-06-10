@@ -1,0 +1,127 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dompurify": "^1.0.10",
+    "express": "^4.16.3",
+    "history": "^4.7.2",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "morgan": "^1.9.1",
+    "nocache": "^2.0.0",
+    "promise": "8.0.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.13.1",
+    "react-dev-utils": "^5.0.2",
+    "react-dom": "^16.13.1",
+    "react-infinite-scroller": "^1.2.4",
+    "react-loadable": "^5.5.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "next",
+    "react-transition-group": "^2.4.0",
+    "recharts": "^1.5.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "shortid": "^2.2.13",
+    "styled-components": "^3.4.9",
+    "whatwg-fetch": "3.0.0"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^23.0.1",
+    "babel-loader": "^7.1.4",
+    "babel-preset-react-app": "^3.1.2",
+    "babel-runtime": "^6.26.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "chalk": "2.4.1",
+    "concurrently": "^4.0.1",
+    "connect-history-api-fallback": "^1.5.0",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "dotenv": "^6.0.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "enzyme-to-json": "^3.3.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-flowtype": "^2.49.3",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.9.1",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.1.0",
+    "jest-sonar-reporter": "2.0.0",
+    "jest-styled-components": "^6.2.0",
+    "mini-css-extract-plugin": "^0.4.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "prettier": "^1.14.3",
+    "redux-mock-store": "^1.5.3",
+    "style-loader": "^0.23.0",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-middleware": "^3.3.0",
+    "webpack-dev-server": "^3.1.8",
+    "webpack-hot-middleware": "^2.24.0",
+    "webpack-manifest-plugin": "^2.0.4"
+  },
+  "scripts": {
+    "start": "node --max-http-header-size=48000 config/webpackDevServer.js",
+    "build": "concurrently \"yarn build:front\" \"yarn build:server\"",
+    "build:front": "webpack --config config/webpack.config.prod.js",
+    "build:server": "webpack --config config/webpack.config.server.js",
+    "test": "jest --env=jsdom --coverage",
+    "test:watch": "jest --env=jsdom --watch",
+    "lint": "eslint --ext js,jsx src"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js",
+      "<rootDir>/config/jest/testSetup.js"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx}",
+      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx}"
+    ],
+    "testResultsProcessor": "jest-sonar-reporter",
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  },
+  "jestSonar": {
+    "reportPath": "build/test-results",
+    "reportFile": "jest.xml"
+  }
+}
