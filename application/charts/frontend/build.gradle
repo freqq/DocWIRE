@@ -29,5 +29,5 @@ task waitForInstall(type: Exec, dependsOn: helmInstall) {
             "waitForReadyPod ${project.name}"
 }
 
-appLoad.dependsOn  ':docker:frontend:dockerPush'
+appLoad.dependsOn ':docker:frontend:dockerPush'
 appInstall.dependsOn waitForInstall
