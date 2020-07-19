@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import nextIcon from 'images/icons/next.svg';
 
 const MainPageCardWrapper = styled.div.attrs({ className: 'main-page-card-wrapper' })`
-  margin: 5% auto 0 auto;
+  margin: 7% auto 0 auto;
   font-family: 'Roboto', sans-serif;
 `;
 

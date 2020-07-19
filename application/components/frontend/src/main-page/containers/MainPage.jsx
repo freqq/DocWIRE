@@ -13,9 +13,9 @@ const MainPageWrapper = styled.div.attrs({ className: 'main-page-wrapper' })`
   height: 100vh;
   overflow: hidden;
   background: url(${mainPageBackground});
-  background-size: 40%;
+  background-size: 35%;
   background-repeat: no-repeat;
-  background-position: right 100px center;
+  background-position: right 120px center;
 
   @media only screen and (max-width: 1000px) {
     background: none;
