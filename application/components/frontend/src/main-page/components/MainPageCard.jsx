@@ -37,6 +37,7 @@ const StartDiagnosisButton = styled.button.attrs({ className: 'start-diagnosis-b
   transition: 0.3s;
   background: #2e4663;
   position: relative;
+  outline: none;
 
   &:hover {
     opacity: 0.8;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import phoneIcon from 'images/icons/phone_small.svg';
 import clockIcon from 'images/icons/clock.svg';
+import locationIcon from 'images/icons/location.svg';
 
 const OverNavBarWrapper = styled.div.attrs({
   className: 'over-nav-bar-wrapper',
@@ -60,19 +61,34 @@ const ItemName = styled.span.attrs({ className: 'item-name' })`
   font-size: 11px;
   display: inline-block;
   height: 12px;
+  margin-right: 5px;
+`;
+
+const ItemValue = styled.span.attrs({ className: 'item-value' })`
+  font-size: 11px;
+  display: inline-block;
+  height: 12px;
   text-decoration: underline;
 `;
 
 const OVER_NAVBAR_ITEMS = [
   {
     id: 0,
-    name: 'Phone: +48 999 23 42',
+    name: 'Phone: ',
+    value: '+48 999 23 42',
     icon: phoneIcon,
   },
   {
     id: 1,
-    name: 'Availability: 8-20',
+    name: 'Availability: ',
+    value: '8-20',
     icon: clockIcon,
+  },
+  {
+    id: 2,
+    name: 'Location: ',
+    value: '4935 Apple Lane, Peoria Illinois',
+    icon: locationIcon,
   },
 ];
 
@@ -84,6 +100,7 @@ const OverNavBar = () => {
           <ImageHelper />
           <ItemIcon src={item.icon} alt={item.name} />
           <ItemName>{item.name}</ItemName>
+          <ItemValue>{item.value}</ItemValue>
         </OverNavbarMenuItem>
       ))}
     </OverNavbarMenu>

@@ -13,7 +13,7 @@ const MainPageNavbarWrapper = styled.div.attrs({ className: 'main-page-navbar-wr
   padding-top: 10px;
   height: 50px;
   font-family: 'Roboto', sans-serif;
-  font-weight: 200;
+  font-weight: 400;
 `;
 
 const NavbarLogo = styled.img.attrs({ className: 'navbar-logo' })`
