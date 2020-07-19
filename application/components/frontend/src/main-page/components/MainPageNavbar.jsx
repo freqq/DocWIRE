@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ import phoneIcon from 'images/icons/phone.svg';
 
 const MainPageNavbarWrapper = styled.div.attrs({ className: 'main-page-navbar-wrapper' })`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 5fr;
   grid-template-areas: 'navbar-logo navbar-menu';
   padding-top: 10px;
   height: 50px;
@@ -69,7 +70,7 @@ const ImageHelper = styled.span.attrs({ className: 'image-helper' })`
 `;
 
 const ItemName = styled.span.attrs({ className: 'item-name' })`
-  font-size: 11px;
+  font-size: 13px;
   display: inline-block;
   height: 24px;
 `;
@@ -78,6 +79,18 @@ const NAVBAR_MENU_ITEMS = [
   {
     name: 'Contact',
     icon: phoneIcon,
+  },
+  {
+    name: 'How It Works',
+    icon: accountIcon,
+  },
+  {
+    name: 'For Patients',
+    icon: accountIcon,
+  },
+  {
+    name: 'Doctors',
+    icon: accountIcon,
   },
   {
     name: 'My account',
@@ -91,7 +104,6 @@ const MainPageNavbar = () => {
       {NAVBAR_MENU_ITEMS.map(item => (
         <NavbarMenuItem key={item.name}>
           <ImageHelper />
-          <ItemIcon src={item.icon} alt={item.name} />
           <ItemName>{item.name}</ItemName>
         </NavbarMenuItem>
       ))}

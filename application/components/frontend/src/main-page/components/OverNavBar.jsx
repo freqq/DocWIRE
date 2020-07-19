@@ -60,18 +60,18 @@ const ItemName = styled.span.attrs({ className: 'item-name' })`
   font-size: 11px;
   display: inline-block;
   height: 12px;
-  font-style: italic;
+  text-decoration: underline;
 `;
 
 const OVER_NAVBAR_ITEMS = [
   {
     id: 0,
-    name: 'Phone: 999999',
+    name: 'Phone: +48 999 23 42',
     icon: phoneIcon,
   },
   {
     id: 1,
-    name: 'Availability: 9-18',
+    name: 'Availability: 8-20',
     icon: clockIcon,
   },
 ];
