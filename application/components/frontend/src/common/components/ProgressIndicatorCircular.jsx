@@ -1,5 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-export default function ProgressIndicatorCircular() {
-  return <div>ProgressIndicatorCircular</div>;
-}
+import progressImage from 'images/circle_progress.svg';
+
+const ImageContainer = styled.img.attrs({
+  className: 'image-container-progress',
+  alt: 'image-container-progress',
+})`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+`;
+
+const ProgressIndicatorCircular = ({ size }) => (
+  <ImageContainer style={{ height: `${size}px` }} src={progressImage} alt="progress-circular" />
+);
+
+ProgressIndicatorCircular.defaultProps = {
+  size: 60,
+};
+
+ProgressIndicatorCircular.propTypes = {
+  size: PropTypes.number,
+};
+
+export default ProgressIndicatorCircular;
