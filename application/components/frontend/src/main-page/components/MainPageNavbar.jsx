@@ -49,12 +49,7 @@ const NavbarMenuItem = styled.li.attrs({ className: 'navbar-menu-item' })`
   display: inline-block;
   margin-left: 40px;
   cursor: pointer;
-  transition: 0.2s;
   white-space: nowrap;
-
-  &:hover {
-    opacity: 0.6;
-  }
 
   @media only screen and (max-width: 910px) {
     display: none;
@@ -96,6 +91,12 @@ const ItemName = styled.span.attrs({ className: 'item-name' })`
   font-size: 13px;
   display: inline-block;
   height: 24px;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.6;
+    text-decoration: underline;
+  }
 `;
 
 const NAVBAR_MENU_ITEMS = [
