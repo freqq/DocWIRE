@@ -10,10 +10,10 @@ const CommonIssuesNavigationWrapper = styled.div.attrs({
 })`
   text-align: right;
   margin-top: 20px;
-  grid-column: 3/3;
+  grid-column: 1/4;
 
   @media only screen and (max-width: 730px) {
-    display: none;
+    text-align: center;
   }
 `;
 

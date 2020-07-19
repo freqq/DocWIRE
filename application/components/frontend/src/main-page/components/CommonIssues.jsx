@@ -8,7 +8,7 @@ import lungsIcon from 'images/icons/lungs.svg';
 import earIcon from 'images/icons/ear.svg';
 
 const CommonIssuesWrapper = styled.div.attrs({ className: 'common-issues-wrapper' })`
-  width: 60%;
+  width: 50%;
   margin-top: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

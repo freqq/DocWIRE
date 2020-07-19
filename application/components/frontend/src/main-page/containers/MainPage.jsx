@@ -4,6 +4,7 @@ import MainPageNavbar from 'main-page/components/MainPageNavbar';
 import MainPageCard from 'main-page/components/MainPageCard';
 import CommonIssues from 'main-page/components/CommonIssues';
 import MainPageFooter from 'main-page/components/MainPageFooter';
+import OverNavBar from 'main-page/components/OverNavBar';
 
 import mainPageBackground from 'images/main_page_bg.svg';
 
@@ -12,11 +13,11 @@ const MainPageWrapper = styled.div.attrs({ className: 'main-page-wrapper' })`
   height: 100vh;
   overflow: hidden;
   background: url(${mainPageBackground});
-  background-size: 50%;
+  background-size: 40%;
   background-repeat: no-repeat;
-  background-position: right 80px center;
+  background-position: right 100px center;
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 1000px) {
     background: none;
   }
 `;
@@ -28,6 +29,7 @@ const MainPageContainer = styled.div.attrs({ className: 'main-page-continer' })`
 
 const MainPage = () => (
   <MainPageWrapper>
+    <OverNavBar />
     <MainPageContainer>
       <MainPageNavbar />
       <MainPageCard />

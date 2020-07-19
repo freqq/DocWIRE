@@ -9,14 +9,14 @@ const MainPageNavbarWrapper = styled.div.attrs({ className: 'main-page-navbar-wr
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 'navbar-logo navbar-menu';
-  padding-top: 20px;
+  padding-top: 10px;
   height: 50px;
   font-family: 'Roboto', sans-serif;
   font-weight: 200;
 `;
 
 const NavbarLogo = styled.img.attrs({ className: 'navbar-logo' })`
-  height: 70px;
+  height: 60px;
   cursor: pointer;
   transition: 0.2s;
 
@@ -32,7 +32,7 @@ const NavbarLogoWrapper = styled.div.attrs({ className: 'navbar-logo-wrapper' })
 const NavbarMenuWrapper = styled.div.attrs({ className: 'navbar-menu-wrapper' })`
   grid: navbar-menu;
   text-align: right;
-  line-height: 70px;
+  line-height: 60px;
 `;
 
 const NavbarMenu = styled.ul.attrs({ className: 'navbar-menu' })`
@@ -69,7 +69,7 @@ const ImageHelper = styled.span.attrs({ className: 'image-helper' })`
 `;
 
 const ItemName = styled.span.attrs({ className: 'item-name' })`
-  font-size: 12px;
+  font-size: 11px;
   display: inline-block;
   height: 24px;
 `;
