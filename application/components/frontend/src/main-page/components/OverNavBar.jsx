@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import phoneIcon from 'images/icons/phone_small.svg';
 import clockIcon from 'images/icons/clock.svg';
-import locationIcon from 'images/icons/location.svg';
 
 const OverNavBarWrapper = styled.div.attrs({
   className: 'over-nav-bar-wrapper',
@@ -83,12 +82,6 @@ const OVER_NAVBAR_ITEMS = [
     name: 'Availability: ',
     value: '8-20',
     icon: clockIcon,
-  },
-  {
-    id: 2,
-    name: 'Location: ',
-    value: '4935 Apple Lane, Peoria Illinois',
-    icon: locationIcon,
   },
 ];
 

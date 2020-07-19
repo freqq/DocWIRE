@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import mainLogo from 'images/main_logo.svg';
 import accountIcon from 'images/icons/account.svg';
 import phoneIcon from 'images/icons/phone.svg';
+import menuIcon from 'images/icons/open-menu.svg';
 
 const MainPageNavbarWrapper = styled.div.attrs({ className: 'main-page-navbar-wrapper' })`
   display: grid;
@@ -53,6 +54,28 @@ const NavbarMenuItem = styled.li.attrs({ className: 'navbar-menu-item' })`
 
   &:hover {
     opacity: 0.6;
+  }
+
+  @media only screen and (max-width: 910px) {
+    display: none;
+  }
+`;
+
+const ToggleButton = styled.li.attrs({ className: 'toggle-button' })`
+  margin: 0;
+  padding: 0;
+  margin-left: 40px;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+  display: none;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  @media only screen and (max-width: 910px) {
+    display: inline-block;
   }
 `;
 
@@ -107,6 +130,10 @@ const MainPageNavbar = () => {
           <ItemName>{item.name}</ItemName>
         </NavbarMenuItem>
       ))}
+      <ToggleButton>
+        <ImageHelper />
+        <ItemIcon src={menuIcon} alt="menuIcon" />
+      </ToggleButton>
     </NavbarMenu>
   );
 
