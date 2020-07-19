@@ -8,8 +8,6 @@ const IssueCardWrapper = styled.div.attrs({ className: 'issue-card-wrapper' })`
   height: calc(100%-20px);
   border: 1px solid #f0f0f0;
   display: inline-block;
-  width: calc(33% - 40px);
-  margin-right: 20px;
   transition: 0.2s;
   cursor: pointer;
   -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);

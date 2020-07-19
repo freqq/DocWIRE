@@ -45,7 +45,7 @@ const NavbarMenuItem = styled.li.attrs({ className: 'navbar-menu-item' })`
   margin: 0;
   padding: 0;
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 40px;
   cursor: pointer;
   transition: 0.2s;
   white-space: nowrap;

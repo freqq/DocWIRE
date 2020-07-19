@@ -10,6 +10,13 @@ import earIcon from 'images/icons/ear.svg';
 const CommonIssuesWrapper = styled.div.attrs({ className: 'common-issues-wrapper' })`
   width: 60%;
   margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 15px;
+
+  @media only screen and (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 const ISSUE_CARDS = [

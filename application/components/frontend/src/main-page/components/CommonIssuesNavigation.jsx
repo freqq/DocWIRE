@@ -10,7 +10,11 @@ const CommonIssuesNavigationWrapper = styled.div.attrs({
 })`
   text-align: right;
   margin-top: 20px;
-  padding-right: 25px;
+  grid-column: 3/3;
+
+  @media only screen and (max-width: 730px) {
+    display: none;
+  }
 `;
 
 const RightArrow = styled.img.attrs({

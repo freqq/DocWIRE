@@ -15,6 +15,10 @@ const MainPageWrapper = styled.div.attrs({ className: 'main-page-wrapper' })`
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: right 80px center;
+
+  @media only screen and (max-width: 900px) {
+    background: none;
+  }
 `;
 
 const MainPageContainer = styled.div.attrs({ className: 'main-page-continer' })`
