@@ -1,6 +1,6 @@
-# docwire - online doctor video consulting 
+# DocWIRE - online doctor video consulting 
 
-App used to consult a family doctor during online videoconference.
+WebApp used to consult a family doctor using online videoconferences.
 
 Tech stack:
 
