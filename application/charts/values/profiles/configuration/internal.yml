@@ -1,0 +1,7 @@
+profile:
+    accountService:
+      logging:
+        level: DEBUG
+  
+    frontend:
+      devProfile: false

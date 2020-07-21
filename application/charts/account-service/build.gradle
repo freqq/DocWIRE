@@ -1,4 +1,4 @@
-description 'frontend'
+description 'account-service'
 
 apply from: "$configurationDir/k8s.gradle"
 
@@ -14,16 +14,13 @@ task waitForAppRemove(type: Exec, dependsOn: removeApp) {
 
 task helmInstall(type: Exec, dependsOn: waitForAppRemove) {
     commandLine 'helm', 'install',
-            "${project.name}",
+            '--name', "${project.name}",
             "${projectDir}/app/",
-            '--namespace', "${project.ext.appNamespace}",
             '--values', "${globalValues}",
             '--values', "${project.ext.componentValues}",
             '--values', "${configurationProfile}",
             '--values', "${resourcesProfile}",
-            '--set', "frontPath=${project.rootDir}/components/frontend/src",
-            '--set', "profile.frontend.devProfile=true",
-            '--set', "profile.frontend.devDirectory=/app/dev/src",
+            '--namespace', "${project.ext.appNamespace}",
             '--set', "image.pullPolicy=Always"
 }
 
@@ -32,5 +29,5 @@ task waitForInstall(type: Exec, dependsOn: helmInstall) {
             "waitForReadyPod ${project.name}"
 }
 
-appLoad.dependsOn ':docker:frontend:dockerPush'
+appLoad.dependsOn ':docker:account-service:dockerPush'
 appInstall.dependsOn waitForInstall

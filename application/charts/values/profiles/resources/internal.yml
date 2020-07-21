@@ -1,0 +1,27 @@
+##
+## Profile with minimal replicas count dedicated for internal usage
+##
+
+profile:  
+    accountService:
+      replicas: 1
+      resources:
+        requests:
+          memory: 768Mi
+          cpu: 150m
+        limits:
+          memory: 2Gi
+          cpu: 500m
+      memory:
+        xmx: 1536M
+  
+    frontend:
+      replicas: 1
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 20m
+        limits:
+          memory: 256Mi
+          cpu: 150m
+  

@@ -28,10 +28,20 @@ subprojects {
     }
 }
 
-def getComponentBuildDir(service_name) {
-    return "${project.rootDir}/components/${service_name}/build/"
-}
-
 def getComponentDir(service_name) {
     return "${project.rootDir}/components/${service_name}"
+}
+
+def getComponentBuildDir(service_name) {
+    return getComponentDir(service_name) + "/build/"
+}
+
+def getComponentLibsDir(service_name) {
+    return getComponentBuildDir(service_name) + "/libs/"
+}
+
+def getBaseImageProperties(service_name) {
+    def imageProperties = new Properties()
+    file("${project.rootDir}/images/${service_name}/image.properties").withInputStream {imageProperties.load(it)}
+    return imageProperties
 }

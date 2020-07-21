@@ -15,6 +15,8 @@ function app_start() (
 
     ./gradlew charts:namespace:appInstall
     ./gradlew charts:ingress-controller:appInstall
+    ./gradlew charts:account-service:appLoad
+    ./gradlew charts:account-service:appInstall
     ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall
 

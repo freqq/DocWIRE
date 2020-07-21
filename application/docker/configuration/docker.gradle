@@ -3,6 +3,8 @@ project.ext {
     dockerHubName = 'freq'
     registryUsername = 'freq'
     registryPassword = 'zsdcxxx412'
+    dockerDirPath = "${project.buildDir}/docker"
+    jarName = project.name.replaceAll('_', '-')
 }
 
 task dockerPush {}

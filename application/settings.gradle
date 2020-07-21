@@ -1,10 +1,13 @@
 rootProject.name = 'online_doctor_app'
 
 include ':charts'
+include ':charts:account-service'
 include ':charts:frontend'
 include ':charts:ingress-controller'
 include ':charts:namespace'
 include ':components'
+include ':components:account-service'
 include ':components:frontend'
 include ':docker'
+include ':docker:account-service'
 include ':docker:frontend'
