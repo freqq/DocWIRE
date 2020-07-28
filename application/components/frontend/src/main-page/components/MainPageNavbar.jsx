@@ -88,10 +88,11 @@ const ImageHelper = styled.span.attrs({ className: 'image-helper' })`
 `;
 
 const ItemName = styled.span.attrs({ className: 'item-name' })`
-  font-size: 13px;
+  font-size: 12px;
   display: inline-block;
   height: 24px;
   transition: 0.2s;
+  text-transform: uppercase;
 
   &:hover {
     opacity: 0.6;
