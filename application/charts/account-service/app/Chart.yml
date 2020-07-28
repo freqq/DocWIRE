@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Account Service
+name: account-service
+version: 1.0.0

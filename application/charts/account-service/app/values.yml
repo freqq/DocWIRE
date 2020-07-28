@@ -1,0 +1,26 @@
+image:
+    name: account-service
+  
+profile:
+  accountService:
+    logging:
+      level: INFO
+
+credentials:
+  encryption:
+    truststorePassword: changeit
+    keystorePassword: changeit
+    keyPassword: changeit
+  
+healthCheck:
+  accountService:
+    readinessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 0
+      failureThreshold: 5
+      periodSeconds: 5
+    livenessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 180
+      failureThreshold: 5
+      periodSeconds: 5

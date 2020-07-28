@@ -1,0 +1,15 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: {{ .Chart.Name }}-crt
+  namespace: {{ .Release.Namespace }}
+spec:
+  secretName: {{ .Chart.Name }}-tls
+  issuerRef:
+    name: {{ .Values.certManager.caIssuer.name }}
+    kind: ClusterIssuer
+  duration: 8760h # 365d
+  renewBefore: 360h # 15d
+  commonName: {{ .Values.config.accountService.hostname }}.{{ .Release.Namespace }}{{ .Values.dns.domain }}
+  organization:
+    - PWR
