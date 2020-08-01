@@ -8,6 +8,7 @@ const MainCardFooterWrapper = styled.div.attrs({ className: 'main-card-footer-wr
   padding: 10px;
   width: calc(100% - 20px);
   border-top: 1px solid #f0f0f0;
+  z-index: 999;
 `;
 
 const FooterButton = styled.button`

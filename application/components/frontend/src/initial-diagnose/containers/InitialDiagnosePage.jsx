@@ -16,44 +16,37 @@ const STEPS = [
   {
     number: 1,
     name: 'Choose your sex',
-    description:
-      'In order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your moma',
+    description: 'Select your gender to indicate biological differences.',
   },
   {
     number: 2,
     name: 'Select your age',
-    description:
-      'In order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your moma',
+    description: 'Provide us with our age that plays a great role while diagnosis.',
   },
   {
     number: 3,
     name: 'Quick survey',
-    description:
-      'In order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your moma',
+    description: 'Answer few initial questions that will tell us more about you.',
   },
   {
     number: 4,
     name: 'Symptoms',
-    description:
-      'In order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your moma',
+    description: 'Describe as many symptoms as you can, so we can correctly diagnose your disease.',
   },
   {
     number: 5,
     name: 'Regions you visited',
-    description:
-      'In order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your moma',
+    description: 'Select regions that you visited within last 12 months.',
   },
   {
     number: 6,
     name: 'Few more questions',
-    description:
-      'In order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your moma',
+    description: 'Anserw last few questions that are generated based on the info provided earlier.',
   },
   {
     number: 7,
     name: 'Results',
-    description:
-      'In order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your momaIn order to magnifiy your moma',
+    description: 'See your results!',
   },
 ];
 

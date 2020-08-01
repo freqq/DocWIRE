@@ -9,6 +9,10 @@ import maleIcon from 'images/icons/male.svg';
 const ChooseSexCards = styled.div.attrs({ className: 'choose-sex-cards' })`
   width: 100%;
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const SexCard = styled.div.attrs({ className: 'sex-card' })`
@@ -22,8 +26,8 @@ const SexCard = styled.div.attrs({ className: 'sex-card' })`
   margin: 0 10px;
   transition: 0.2s;
   cursor: pointer;
-  width: 15%;
-  padding: 20px 0;
+  width: 20%;
+  padding: 50px 0;
 
   &:hover {
     background: #f0f0f0;

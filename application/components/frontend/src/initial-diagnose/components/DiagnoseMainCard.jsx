@@ -12,8 +12,9 @@ import Symptoms from 'initial-diagnose/components/steps/Symptoms';
 import VisitedRegions from 'initial-diagnose/components/steps/VisitedRegions';
 import LastSurvey from 'initial-diagnose/components/steps/LastSurvey';
 import Results from 'initial-diagnose/components/steps/Results';
-
 import mainLogo from 'images/main_logo.svg';
+
+import 'initial-diagnose/components/styles/DiagnoseMainCard.css';
 
 const DiagnoseMainCardWrapper = styled.div.attrs({ className: 'diagnose-main-card-wrapper' })`
   position: absolute;
@@ -32,6 +33,7 @@ const CardWrapper = styled.div.attrs({ className: 'card-wrapper' })`
   padding: 15px 15px 0 15px;
   font-size: 12px;
   font-family: 'Roboto', sans-serif;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
 `;
 
 const RelativeWrapper = styled.div.attrs({ className: 'relative-wrapper' })`
@@ -44,6 +46,7 @@ const DiagnoseMainLogo = styled.img.attrs({ className: 'diagnose-main-logo' })`
   height: 50px;
   transition: 0.2s;
   cursor: pointer;
+  margin-bottom: 10px;
 
   &:hover {
     opacity: 0.8;
@@ -56,6 +59,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
     <CardWrapper>
       <RelativeWrapper>
         <StepWizard
+          className="step-wizard"
           isHashEnabled
           nav={<MainCardFooter setCurrentStepNumber={setCurrentStepNumber} />}
         >

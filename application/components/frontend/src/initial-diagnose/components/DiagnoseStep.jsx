@@ -8,7 +8,7 @@ import completedIcon from 'images/icons/completed.svg';
 const DiagnoseStepWrapper = styled.div.attrs({ className: 'diagnose-step-wrapper' })`
   display: grid;
   grid-template-columns: 1fr 10fr;
-  margin: 0 0 12px 0;
+  margin: 0 0 30px 0;
   color: rgba(255, 255, 255, 0.2);
   font-family: 'Roboto', sans-serif;
 `;
