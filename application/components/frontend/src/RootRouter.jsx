@@ -5,12 +5,17 @@ import makeLoadable from 'common/utils/loadable';
 import NotFoundPage from 'common/components/NotFoundPage';
 
 export const ROOT_PATH = getPath('/');
+export const DIAGNOSE_PATH = getPath('/diagnose');
 
 export const LoadableMainPage = makeLoadable(() => import('main-page/containers/MainPage'));
+export const LoadableInitialDiagnosePage = makeLoadable(() =>
+  import('initial-diagnose/containers/InitialDiagnosePage'),
+);
 
 const RootRouter = () => (
   <Switch>
     <Route exact path={ROOT_PATH} component={LoadableMainPage} />
+    <Route exact path={DIAGNOSE_PATH} component={LoadableInitialDiagnosePage} />
     <Route component={NotFoundPage} />
   </Switch>
 );
