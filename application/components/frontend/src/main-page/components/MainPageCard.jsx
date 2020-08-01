@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import nextIcon from 'images/icons/next.svg';
@@ -56,16 +57,20 @@ const ButtonIcon = styled.img.attrs({ className: 'button-icon' })`
   margin-left: 20px;
 `;
 
-const MainPageCard = () => (
+const MainPageCard = ({ setStartDiagnose }) => (
   <MainPageCardWrapper>
     <TopSign>Medical care</TopSign>
     <BottomSign>anytime, anywhere</BottomSign>
     <SubSign>Speak to the doctor, therapist or nurse from any place in the world!</SubSign>
-    <StartDiagnosisButton>
+    <StartDiagnosisButton onClick={setStartDiagnose}>
       <ButtonText>Start diagnosis</ButtonText>
       <ButtonIcon src={nextIcon} alt="button-icon" />
     </StartDiagnosisButton>
   </MainPageCardWrapper>
 );
+
+MainPageCard.propTypes = {
+  setStartDiagnose: PropTypes.func.isRequired,
+};
 
 export default MainPageCard;

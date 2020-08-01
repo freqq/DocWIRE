@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import MainPageNavbar from 'main-page/components/MainPageNavbar';
 import MainPageCard from 'main-page/components/MainPageCard';
 import CommonIssues from 'main-page/components/CommonIssues';
 import MainPageFooter from 'main-page/components/MainPageFooter';
 import OverNavBar from 'main-page/components/OverNavBar';
+import MainPageLoader from 'main-page/components/MainPageLoader';
 
 import mainPageBackground from 'images/main_page_bg.svg';
 
@@ -22,21 +23,26 @@ const MainPageWrapper = styled.div.attrs({ className: 'main-page-wrapper' })`
   }
 `;
 
-const MainPageContainer = styled.div.attrs({ className: 'main-page-continer' })`
+const MainPageContainer = styled.div.attrs({ className: 'main-page-container' })`
   width: 70%;
   margin: 0 auto;
 `;
 
-const MainPage = () => (
-  <MainPageWrapper>
-    <OverNavBar />
-    <MainPageContainer>
-      <MainPageNavbar />
-      <MainPageCard />
-      <CommonIssues />
-      <MainPageFooter />
-    </MainPageContainer>
-  </MainPageWrapper>
-);
+const MainPage = () => {
+  const [startDiagnose, setStartDiagnose] = useState(false);
+
+  return (
+    <MainPageWrapper>
+      <OverNavBar />
+      <MainPageContainer>
+        <MainPageNavbar />
+        <MainPageCard setStartDiagnose={setStartDiagnose} />
+        <CommonIssues />
+        <MainPageFooter />
+      </MainPageContainer>
+      <MainPageLoader startDiagnose={startDiagnose} />
+    </MainPageWrapper>
+  );
+};
 
 export default MainPage;

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import IssueCard from 'main-page/components/IssueCard';
 import CommonIssuesNavigation from 'main-page/components/CommonIssuesNavigation';
 
-import boneIcon from 'images/icons/bone.svg';
-import lungsIcon from 'images/icons/lungs.svg';
-import earIcon from 'images/icons/ear.svg';
+import pharmacyIcon from 'images/icons/main-page/pharmacy.svg';
+import dnaIcon from 'images/icons/main-page/dna.svg';
+import earIcon from 'images/icons/main-page/ear.svg';
 
 const CommonIssuesWrapper = styled.div.attrs({ className: 'common-issues-wrapper' })`
   width: 50%;
@@ -22,8 +22,8 @@ const CommonIssuesWrapper = styled.div.attrs({ className: 'common-issues-wrapper
 const ISSUE_CARDS = [
   {
     id: 0,
-    name: 'Infections',
-    image: lungsIcon,
+    name: 'Block Pain',
+    image: pharmacyIcon,
   },
   {
     id: 1,
@@ -32,8 +32,8 @@ const ISSUE_CARDS = [
   },
   {
     id: 2,
-    name: 'Joint Pain',
-    image: boneIcon,
+    name: 'DNA Pain',
+    image: dnaIcon,
   },
 ];
 
