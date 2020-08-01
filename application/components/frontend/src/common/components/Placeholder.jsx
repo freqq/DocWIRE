@@ -17,12 +17,12 @@ const Img = styled.img.attrs({
   alt: props => props.alt,
 })``;
 
-const Placeholder = props => (
-  <PlaceholderContainer customClassName={props.customClassName}>
-    <Img src={props.src} alt={props.alt} />
+const Placeholder = ({ customClassName, alt, title, subtitle, src }) => (
+  <PlaceholderContainer customClassName={customClassName}>
+    <Img src={src} alt={alt} />
     <Center>
-      <Title>{props.title}</Title>
-      <Subtitle>{props.subtitle}</Subtitle>
+      <Title>{title}</Title>
+      <Subtitle>{subtitle}</Subtitle>
     </Center>
   </PlaceholderContainer>
 );

@@ -1,25 +1,24 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { store, history } from 'store';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { createGlobalStyle } from 'styled-components';
 import RootRouter from 'RootRouter';
-import { injectGlobal } from 'styled-components';
 
-/* eslint-disable no-unused-expressions */
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: "Roboto-Light", sans-serif !important;
   }
 `;
-/* eslint-enable no-unused-expressions */
 
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Fragment>
+      <>
+        <GlobalStyle />
         <RootRouter />
-      </Fragment>
+      </>
     </ConnectedRouter>
   </Provider>
 );
