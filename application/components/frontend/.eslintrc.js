@@ -1,8 +1,5 @@
 module.exports = {
-  extends: [
-    'airbnb',
-    'prettier',
-  ],
+  extends: ['airbnb', 'prettier'],
   parser: 'babel-eslint',
   env: {
     browser: true,
@@ -15,11 +12,9 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    'jest',
-    'prettier',
-  ],
+  plugins: ['jest', 'prettier'],
   rules: {
-    "prettier/prettier": "error",
+    'jsx-a11y': 0,
+    'prettier/prettier': 'error',
   },
 };

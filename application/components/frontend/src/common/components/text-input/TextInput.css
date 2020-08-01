@@ -1,0 +1,185 @@
+.textfield-outlined {
+  position: relative;
+  margin-bottom: 20px;
+  padding-top: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.4px;
+}
+.textfield-outlined input,
+.textfield-outlined textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 9px 13px 9px;
+  font-size: 12px;
+  line-height: inherit;
+  color: #272e36;
+  border-style: solid;
+  border-width: 1px;
+  border-color: transparent #92969a #92969a;
+  border-radius: 4px;
+  -webkit-text-fill-color: currentColor;
+  background-color: transparent;
+  caret-color: #3d6f9e;
+  -webkit-transition: border 0.2s, box-shadow 0.2s;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.textfield-outlined input:not(:focus):placeholder-shown,
+.textfield-outlined textarea:not(:focus):placeholder-shown {
+  border-top-color: #92969a;
+}
+.textfield-outlined input + label,
+.textfield-outlined textarea + label {
+  display: -webkit-box;
+  display: flex;
+  width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 12px;
+  line-height: 15px;
+  color: #92969a;
+  cursor: text;
+  -webkit-transition: color 0.2s, font-size 0.2s, line-height 0.2s;
+  transition: color 0.2s, font-size 0.2s, line-height 0.2s;
+}
+.textfield-outlined input:not(:focus):placeholder-shown + label,
+.textfield-outlined textarea:not(:focus):placeholder-shown + label {
+  font-size: 12px;
+  line-height: 54px;
+}
+.textfield-outlined input + label::before,
+.textfield-outlined input + label::after,
+.textfield-outlined textarea + label::before,
+.textfield-outlined textarea + label::after {
+  content: '';
+  display: block;
+  box-sizing: border-box;
+  height: 8px;
+  min-width: 10px;
+  margin-top: 6px;
+  border-top: solid 1px #92969a;
+  pointer-events: none;
+  box-shadow: inset 0 1px transparent;
+  -webkit-transition: border 0.2s;
+  transition: border 0.2s;
+}
+.textfield-outlined input + label::before,
+.textfield-outlined textarea + label::before {
+  margin-right: 4px;
+  border-left: solid 1px transparent;
+  border-radius: 4px 0;
+}
+.textfield-outlined input + label::after,
+.textfield-outlined textarea + label::after {
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  margin-left: 4px;
+  border-right: solid 1px transparent;
+  border-radius: 0 4px;
+}
+.textfield-outlined input:not(:focus):placeholder-shown + label::before,
+.textfield-outlined input:not(:focus):placeholder-shown + label::after,
+.textfield-outlined textarea:not(:focus):placeholder-shown + label::before,
+.textfield-outlined textarea:not(:focus):placeholder-shown + label::after {
+  border-top-color: transparent;
+}
+.textfield-outlined input:focus,
+.textfield-outlined textarea:focus {
+  border-color: transparent #3d6f9e #3d6f9e;
+  outline: none;
+}
+.textfield-outlined input:focus + label,
+.textfield-outlined textarea:focus + label {
+  color: #3d6f9e;
+}
+.textfield-outlined input:focus + label::before,
+.textfield-outlined input:focus + label::after,
+.textfield-outlined textarea:focus + label::before,
+.textfield-outlined textarea:focus + label::after {
+  border-top-color: #3d6f9e;
+}
+.textfield-outlined input:disabled,
+.textfield-outlined input:disabled + label,
+.textfield-outlined textarea:disabled,
+.textfield-outlined textarea:disabled + label {
+  color: rgba(189, 192, 197, 0.5);
+  border-color: transparent rgba(189, 192, 197, 0.5) rgba(189, 192, 197, 0.5);
+  cursor: not-allowed;
+}
+.textfield-outlined input:disabled + label::before,
+.textfield-outlined input:disabled + label::after,
+.textfield-outlined textarea:disabled + label::before,
+.textfield-outlined textarea:disabled + label::after {
+  border-top-color: rgba(189, 192, 197, 0.5);
+}
+.textfield-outlined input:disabled:placeholder-shown,
+.textfield-outlined input:disabled:placeholder-shown + label,
+.textfield-outlined textarea:disabled:placeholder-shown,
+.textfield-outlined textarea:disabled:placeholder-shown + label {
+  border-top-color: rgba(189, 192, 197, 0.5);
+}
+.textfield-outlined input:disabled:placeholder-shown + label::before,
+.textfield-outlined input:disabled:placeholder-shown + label::after,
+.textfield-outlined textarea:disabled:placeholder-shown + label::before,
+.textfield-outlined textarea:disabled:placeholder-shown + label::after {
+  border-top-color: transparent;
+}
+.textfield-outlined--error input,
+.textfield-outlined--error textarea {
+  border-color: transparent red red;
+}
+.textfield-outlined--error input + label,
+.textfield-outlined--error textarea + label {
+  color: red;
+}
+.textfield-outlined--error input + label::before,
+.textfield-outlined--error input + label::after,
+.textfield-outlined--error textarea + label::before,
+.textfield-outlined--error textarea + label::after {
+  border-top-color: red;
+}
+.textfield-outlined--error input:not(:focus):placeholder-shown,
+.textfield-outlined--error input:not(:focus):placeholder-shown + label,
+.textfield-outlined--error textarea:not(:focus):placeholder-shown,
+.textfield-outlined--error textarea:not(:focus):placeholder-shown + label {
+  border-top-color: red;
+  color: red;
+}
+.textfield-outlined--error input:not(:focus):placeholder-shown + label::before,
+.textfield-outlined--error input:not(:focus):placeholder-shown + label::after,
+.textfield-outlined--error textarea:not(:focus):placeholder-shown + label::before,
+.textfield-outlined--error textarea:not(:focus):placeholder-shown + label::after {
+  border-top-color: transparent;
+}
+.textfield-outlined--error input:focus,
+.textfield-outlined--error textarea:focus {
+  border-color: transparent red red;
+}
+.textfield-outlined--error input:focus + label,
+.textfield-outlined--error textarea:focus + label {
+  color: red;
+}
+.textfield-outlined--error input:focus + label::before,
+.textfield-outlined--error input:focus + label::after,
+.textfield-outlined--error textarea:focus + label::before,
+.textfield-outlined--error textarea:focus + label::after {
+  border-top-color: red;
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .textfield-outlined > input,
+    .textfield-outlined > input + label,
+    .textfield-outlined > input + label::before,
+    .textfield-outlined > input + label::after,
+    .textfield-outlined > textarea,
+    .textfield-outlined > textarea + label,
+    .textfield-outlined > textarea + label::before,
+    .textfield-outlined > textarea + label::after {
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s;
+    }
+  }
+}

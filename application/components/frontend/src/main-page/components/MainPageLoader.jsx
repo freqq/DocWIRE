@@ -50,7 +50,7 @@ const MainLoader = styled.img.attrs({ className: 'main-loader' })`
   }
 `;
 
-const REDIRECT_TIME = 3000;
+const REDIRECT_TIME = 4000;
 
 const MainPageLoader = ({ startDiagnose }) => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
