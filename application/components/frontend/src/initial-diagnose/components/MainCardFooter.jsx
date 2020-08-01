@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const MainCardFooterWrapper = styled.div.attrs({ className: 'main-card-footer-wrapper' })`
   position: absolute;
-  bottom: 0;
+  bottom: 15px;
   padding: 10px;
   width: calc(100% - 20px);
   border-top: 1px solid #f0f0f0;

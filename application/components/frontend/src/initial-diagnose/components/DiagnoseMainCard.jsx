@@ -4,8 +4,15 @@ import StepWizard from 'react-step-wizard';
 import PropTypes from 'prop-types';
 
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
+
 import ChooseSex from 'initial-diagnose/components/steps/ChooseSex';
 import ChooseAge from 'initial-diagnose/components/steps/ChooseAge';
+import QuickSurvey from 'initial-diagnose/components/steps/QuickSurvey';
+import Symptoms from 'initial-diagnose/components/steps/Symptoms';
+import VisitedRegions from 'initial-diagnose/components/steps/VisitedRegions';
+import LastSurvey from 'initial-diagnose/components/steps/LastSurvey';
+import Results from 'initial-diagnose/components/steps/Results';
+
 import mainLogo from 'images/main_logo.svg';
 
 const DiagnoseMainCardWrapper = styled.div.attrs({ className: 'diagnose-main-card-wrapper' })`
@@ -21,6 +28,7 @@ const CardWrapper = styled.div.attrs({ className: 'card-wrapper' })`
   border-radius: 2px;
   height: 70vh;
   width: 60vw;
+  overflow: hidden;
   padding: 15px 15px 0 15px;
   font-size: 12px;
   font-family: 'Roboto', sans-serif;
@@ -34,6 +42,12 @@ const RelativeWrapper = styled.div.attrs({ className: 'relative-wrapper' })`
 
 const DiagnoseMainLogo = styled.img.attrs({ className: 'diagnose-main-logo' })`
   height: 50px;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
@@ -47,6 +61,11 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
         >
           <ChooseSex hashKey="choose-sex" />
           <ChooseAge hashKey="choose-age" />
+          <QuickSurvey hashKey="quick-survey" />
+          <Symptoms hashKey="symptoms" />
+          <VisitedRegions hashKey="visited-regions" />
+          <LastSurvey hashKey="last-survey" />
+          <Results hashKey="results" />
         </StepWizard>
       </RelativeWrapper>
     </CardWrapper>

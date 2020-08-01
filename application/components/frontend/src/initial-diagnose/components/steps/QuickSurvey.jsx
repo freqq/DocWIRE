@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GenericStep from 'initial-diagnose/components/GenericStep';
 
-const ChooseAge = ({ currentStep, totalSteps }) => (
-  <GenericStep stepName="Choose age" currentStep={currentStep} totalSteps={totalSteps}>
-    ChooseAge
+const QuickSurvey = ({ currentStep, totalSteps }) => (
+  <GenericStep stepName="Quick survey" currentStep={currentStep} totalSteps={totalSteps}>
+    QuickSurver
   </GenericStep>
 );
 
-ChooseAge.propTypes = {
+QuickSurvey.propTypes = {
   currentStep: PropTypes.number.isRequired,
   totalSteps: PropTypes.number.isRequired,
 };
 
-export default ChooseAge;
+export default QuickSurvey;
