@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import mainLogo from 'images/main_logo.svg';
+import StepWizard from 'react-step-wizard';
+import PropTypes from 'prop-types';
 
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
+import ChooseSex from 'initial-diagnose/components/steps/ChooseSex';
+import ChooseAge from 'initial-diagnose/components/steps/ChooseAge';
+import mainLogo from 'images/main_logo.svg';
 
 const DiagnoseMainCardWrapper = styled.div.attrs({ className: 'diagnose-main-card-wrapper' })`
   position: absolute;
@@ -33,16 +36,25 @@ const DiagnoseMainLogo = styled.img.attrs({ className: 'diagnose-main-logo' })`
   height: 50px;
 `;
 
-const DiagnoseMainCard = () => (
+const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
   <DiagnoseMainCardWrapper>
     <DiagnoseMainLogo src={mainLogo} alt="mainLogo" />
     <CardWrapper>
       <RelativeWrapper>
-        123
-        <MainCardFooter />
+        <StepWizard
+          isHashEnabled
+          nav={<MainCardFooter setCurrentStepNumber={setCurrentStepNumber} />}
+        >
+          <ChooseSex hashKey="choose-sex" />
+          <ChooseAge hashKey="choose-age" />
+        </StepWizard>
       </RelativeWrapper>
     </CardWrapper>
   </DiagnoseMainCardWrapper>
 );
+
+DiagnoseMainCard.propTypes = {
+  setCurrentStepNumber: PropTypes.func.isRequired,
+};
 
 export default DiagnoseMainCard;

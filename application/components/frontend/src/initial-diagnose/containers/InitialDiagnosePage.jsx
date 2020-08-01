@@ -62,7 +62,7 @@ const InitialDiagnosePage = () => {
 
   return (
     <InitialDiagnosePageWrapper>
-      <DiagnoseLeftSide />
+      <DiagnoseLeftSide setCurrentStepNumber={setCurrentStepNumber} />
       <DiagnoseRightSide steps={STEPS} currentStepNumber={currentStepNumber} />
     </InitialDiagnosePageWrapper>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const MainCardFooterWrapper = styled.div.attrs({ className: 'main-card-footer-wrapper' })`
@@ -34,13 +35,40 @@ const PreviousStepButton = styled(FooterButton).attrs({ className: 'previous-ste
   color: #2e4663;
 `;
 
-const MainCardFooter = () => {
+const MainCardFooter = ({ currentStep, previousStep, nextStep, setCurrentStepNumber }) => {
+  const goForward = () => {
+    setCurrentStepNumber(currentStep + 1);
+    nextStep();
+  };
+
+  const goBack = () => {
+    setCurrentStepNumber(currentStep - 1);
+    previousStep();
+  };
+
   return (
     <MainCardFooterWrapper>
-      <NextStepButton>Next step &gt;</NextStepButton>
-      <PreviousStepButton>&lt; Previous step</PreviousStepButton>
+      <NextStepButton onClick={goForward}>
+        {currentStep === 6 ? 'Submit' : <>Next step &gt;</>}
+      </NextStepButton>
+      {currentStep !== 1 && (
+        <PreviousStepButton onClick={goBack}>&lt; Previous step</PreviousStepButton>
+      )}
     </MainCardFooterWrapper>
   );
+};
+
+MainCardFooter.defaultProps = {
+  currentStep: null,
+  previousStep: null,
+  nextStep: null,
+};
+
+MainCardFooter.propTypes = {
+  currentStep: PropTypes.number,
+  previousStep: PropTypes.func,
+  nextStep: PropTypes.func,
+  setCurrentStepNumber: PropTypes.func.isRequired,
 };
 
 export default MainCardFooter;
