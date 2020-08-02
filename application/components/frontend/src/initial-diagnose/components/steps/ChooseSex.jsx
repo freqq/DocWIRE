@@ -59,8 +59,13 @@ const CHOSEN_CARD_STYLE = {
   opacity: '0.6',
 };
 
-const ChooseSex = ({ currentStep, totalSteps }) => {
+const ChooseSex = ({ currentStep, totalSteps, nextStep }) => {
   const [chosenSex, setChosenSex] = useState(null);
+
+  const selectSex = sexName => {
+    setChosenSex(sexName);
+    nextStep();
+  };
 
   return (
     <GenericStep stepName="Choose sex" currentStep={currentStep} totalSteps={totalSteps}>
@@ -69,7 +74,7 @@ const ChooseSex = ({ currentStep, totalSteps }) => {
           <SexCard
             style={chosenSex === sex.name ? CHOSEN_CARD_STYLE : {}}
             key={sex.name}
-            onClick={() => setChosenSex(sex.name)}
+            onClick={() => selectSex(sex.name)}
           >
             <SexIcon src={sex.icon} />
             <SexName>{sex.name}</SexName>
@@ -83,11 +88,13 @@ const ChooseSex = ({ currentStep, totalSteps }) => {
 ChooseSex.defaultProps = {
   currentStep: null,
   totalSteps: null,
+  nextStep: null,
 };
 
 ChooseSex.propTypes = {
   currentStep: PropTypes.number,
   totalSteps: PropTypes.number,
+  nextStep: PropTypes.func,
 };
 
 export default ChooseSex;

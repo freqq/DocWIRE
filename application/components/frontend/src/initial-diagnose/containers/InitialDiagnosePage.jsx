@@ -15,36 +15,41 @@ const InitialDiagnosePageWrapper = styled.div.attrs({ className: 'initial-diagno
 const STEPS = [
   {
     number: 1,
+    name: 'Introduction',
+    description: 'Few points that will provide you information about our diagnose system.',
+  },
+  {
+    number: 2,
     name: 'Choose your sex',
     description: 'Select your gender to indicate biological differences.',
   },
   {
-    number: 2,
+    number: 3,
     name: 'Select your age',
     description: 'Provide us with our age that plays a great role while diagnosis.',
   },
   {
-    number: 3,
+    number: 4,
     name: 'Quick survey',
     description: 'Answer few initial questions that will tell us more about you.',
   },
   {
-    number: 4,
+    number: 5,
     name: 'Symptoms',
     description: 'Describe as many symptoms as you can, so we can correctly diagnose your disease.',
   },
   {
-    number: 5,
+    number: 6,
     name: 'Regions you visited',
     description: 'Select regions that you visited within last 12 months.',
   },
   {
-    number: 6,
+    number: 7,
     name: 'Interview',
     description: 'Answer last few questions that are generated based on the info provided earlier.',
   },
   {
-    number: 7,
+    number: 8,
     name: 'Results',
     description: 'See your results!',
   },

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
 import DiagnoseFooter from 'initial-diagnose/components/DiagnoseFooter';
 
+import Introduction from 'initial-diagnose/components/steps/Introduction';
 import ChooseSex from 'initial-diagnose/components/steps/ChooseSex';
 import ChooseAge from 'initial-diagnose/components/steps/ChooseAge';
 import QuickSurvey from 'initial-diagnose/components/steps/QuickSurvey';
@@ -64,6 +65,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
           isHashEnabled
           nav={<MainCardFooter setCurrentStepNumber={setCurrentStepNumber} />}
         >
+          <Introduction hashKey="Introduction" />
           <ChooseSex hashKey="choose-sex" />
           <ChooseAge hashKey="choose-age" />
           <QuickSurvey hashKey="quick-survey" />
