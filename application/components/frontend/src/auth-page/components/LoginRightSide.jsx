@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import loginPageBg from 'images/login_page_bg.jpg';
+import loginPageBg from 'images/login_page_bg.svg';
 
 const LoginRightSideWrapper = styled.div.attrs({ className: 'login-right-side-wrapper' })`
   border-left: 1px solid #f0f0f0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: url(${loginPageBg});
+  background: url(${loginPageBg}) #f9fafb;
   background-size: 70%;
   background-repeat: no-repeat;
-  background-position: center 120px;
+  background-position: center 220px;
 `;
 
 const LoginPageMenu = styled.ul.attrs({ className: 'login-page-menu' })`
@@ -42,7 +42,7 @@ const LoginPageTitle = styled.p.attrs({ className: 'login-page-title' })`
   font-weight: 100;
   font-size: 60px;
   font-family: 'Roboto', sans-serif;
-  margin-top: 70px;
+  margin-top: 40px;
 `;
 
 const BoldSpan = styled.span.attrs({ className: 'bold-span' })`
