@@ -40,7 +40,7 @@ const MainPage = () => {
         <CommonIssues />
         <MainPageFooter />
       </MainPageContainer>
-      <MainPageLoader startDiagnose={startDiagnose} />
+      {startDiagnose && <MainPageLoader startDiagnose={startDiagnose} />}
     </MainPageWrapper>
   );
 };

@@ -17,7 +17,7 @@ const DiagnoseFooterList = styled.ul.attrs({ className: 'diagnose-footer-list' }
 `;
 
 const DiagnoseFooterListItem = styled.li.attrs({ className: 'diagnose-footer-list-item' })`
-  margin: 0 10px;
+  margin: 0 25px;
   display: inline-block;
   transition: 0.2s;
   cursor: pointer;

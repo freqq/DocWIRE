@@ -62,7 +62,7 @@ const MainPageCard = ({ setStartDiagnose }) => (
     <TopSign>Medical care</TopSign>
     <BottomSign>anytime, anywhere</BottomSign>
     <SubSign>Speak to the doctor, therapist or nurse from any place in the world!</SubSign>
-    <StartDiagnosisButton onClick={setStartDiagnose}>
+    <StartDiagnosisButton onClick={() => setStartDiagnose(true)}>
       <ButtonText>Start diagnosis</ButtonText>
       <ButtonIcon src={nextIcon} alt="button-icon" />
     </StartDiagnosisButton>

@@ -6,7 +6,12 @@ import Select from 'common/components/Select';
 const AnswerRowWrapper = styled.li.attrs({ className: 'answer-row-wrapper' })`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 15px 0;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   &:hover {
     background: #fafafa;
