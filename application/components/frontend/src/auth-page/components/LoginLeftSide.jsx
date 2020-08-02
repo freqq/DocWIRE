@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import LoginFooter from 'auth-page/components/LoginFooter';
 import TextInput from 'common/components/text-input/TextInput';
 import Checkbox from 'common/components/Checkbox';
 import mainLogo from 'images/main_logo.svg';
 
 const LoginLeftSideWrapper = styled.div.attrs({ className: 'login-left-side-wrapper' })`
   font-family: 'Roboto', sans-serif;
+  width: 100%;
 `;
 
 const LoginMainHeader = styled.div.attrs({ className: 'login-main-header' })`
-  padding: 15px 30px;
+  padding: 15px 70px;
   border-bottom: 1px solid #f0f0f0;
 `;
 
 const LoginMainContent = styled.div.attrs({ className: 'login-main-content' })`
-  padding: 30px 30px 15px 30px;
+  padding: 50px 70px 0 70px;
+  height: calc(100% - 50px);
+  width: calc(100% - 140px);
+  position: relative;
 `;
 
 const LoginMainLogo = styled.img.attrs({ className: 'login-main-logo' })`
@@ -29,14 +34,15 @@ const LoginMainLogo = styled.img.attrs({ className: 'login-main-logo' })`
 `;
 
 const LoginTitle = styled.p.attrs({ className: 'login-title' })`
-  font-weight: 600;
+  font-weight: 400;
   margin: 0;
   font-size: 35px;
+  color: #2e4663;
 `;
 
 const LoginSubTitle = styled.p.attrs({ className: 'login-sub-title' })`
   font-weight: 100;
-  margin: 5px 0;
+  margin: 5px 0 30px 0;
   font-size: 15px;
 `;
 
@@ -90,12 +96,19 @@ const LoginButton = styled.button.attrs({ className: 'login-button' })`
   &:hover {
     opacity: 0.8;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
 const LoginLeftSide = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberPassword, setRememberPassword] = useState(false);
+
+  const isLoginDisabled = () => email.length === 0 || password.length === 0;
 
   return (
     <LoginLeftSideWrapper>
@@ -130,11 +143,12 @@ const LoginLeftSide = () => {
           </RememberPassword>
           <ForgotPassword>Forgot Password</ForgotPassword>
         </UnderInuptsGrid>
-        <LoginButton>Login</LoginButton>
+        <LoginButton disabled={isLoginDisabled()}>Continue</LoginButton>
         <AlreadyAccount>
           <span>Already have an account? </span>
           <SignHere>Sign in here</SignHere>
         </AlreadyAccount>
+        <LoginFooter />
       </LoginMainContent>
     </LoginLeftSideWrapper>
   );

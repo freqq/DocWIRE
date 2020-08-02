@@ -46,16 +46,14 @@ const FOOTER_ITEMS = [
   },
 ];
 
-const DiagnoseFooter = () => {
-  return (
-    <DiagnoseFooterWrapper>
-      <DiagnoseFooterList>
-        {FOOTER_ITEMS.map(item => (
-          <DiagnoseFooterListItem key={item.id}>{item.content}</DiagnoseFooterListItem>
-        ))}
-      </DiagnoseFooterList>
-    </DiagnoseFooterWrapper>
-  );
-};
+const DiagnoseFooter = () => (
+  <DiagnoseFooterWrapper>
+    <DiagnoseFooterList>
+      {FOOTER_ITEMS.map(item => (
+        <DiagnoseFooterListItem key={item.id}>{item.content}</DiagnoseFooterListItem>
+      ))}
+    </DiagnoseFooterList>
+  </DiagnoseFooterWrapper>
+);
 
 export default DiagnoseFooter;

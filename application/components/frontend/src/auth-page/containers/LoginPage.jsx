@@ -9,7 +9,7 @@ const LoginPageWrapper = styled.div.attrs({ className: 'login-page-wrapper' })`
   height: 100vh;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 1fr 2fr;
 `;
 
 const LoginPage = () => (
