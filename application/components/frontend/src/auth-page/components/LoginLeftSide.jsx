@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import LoginFooter from 'auth-page/components/LoginFooter';
+import LoginWithButton from 'auth-page/components/LoginWithButton';
 import TextInput from 'common/components/text-input/TextInput';
 import Checkbox from 'common/components/Checkbox';
 import mainLogo from 'images/main_logo.svg';
+import googleIcon from 'images/icons/google.svg';
+import facebookIcon from 'images/icons/facebook.svg';
 
 const LoginLeftSideWrapper = styled.div.attrs({ className: 'login-left-side-wrapper' })`
   font-family: 'Roboto', sans-serif;
@@ -49,6 +52,8 @@ const LoginSubTitle = styled.p.attrs({ className: 'login-sub-title' })`
 const AlreadyAccount = styled.p.attrs({ className: 'already-account' })`
   font-weight: 100;
   font-size: 14px;
+  margin-top: 30px;
+  font-size: 12px;
 `;
 
 const ForgotPassword = styled.p.attrs({ className: 'forgot-password' })`
@@ -70,6 +75,38 @@ const UnderInuptsGrid = styled.div.attrs({ className: 'under-inputs-grid' })`
 `;
 
 const RememberPassword = styled.div.attrs({ className: 'remember-password' })``;
+
+const OrLine = styled.h1.attrs({ className: 'or-line' })`
+  text-align: center;
+  overflow: hidden;
+  margin: 0;
+`;
+
+const OrLineSpan = styled.span.attrs({ className: 'or-line-span' })`
+  display: inline-block;
+  position: relative;
+  padding: 0 10px;
+  font-weight: 100;
+  font-size: 11px;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    width: 1000px;
+    position: absolute;
+    top: 0.73em;
+    border-top: 1px dotted black;
+  }
+
+  &:before {
+    right: 100%;
+  }
+
+  &:after {
+    left: 100%;
+  }
+`;
 
 const SignHere = styled.span.attrs({ className: 'sign-here' })`
   color: #2e4663;
@@ -116,7 +153,7 @@ const LoginLeftSide = () => {
         <LoginMainLogo src={mainLogo} alt="mainLogo" />
       </LoginMainHeader>
       <LoginMainContent>
-        <LoginTitle>Login</LoginTitle>
+        <LoginTitle>Welcome back</LoginTitle>
         <LoginSubTitle>Enter your credentials</LoginSubTitle>
         <TextInput
           value={email}
@@ -144,9 +181,14 @@ const LoginLeftSide = () => {
           <ForgotPassword>Forgot Password</ForgotPassword>
         </UnderInuptsGrid>
         <LoginButton disabled={isLoginDisabled()}>Continue</LoginButton>
+        <OrLine>
+          <OrLineSpan>OR</OrLineSpan>
+        </OrLine>
+        <LoginWithButton text="Continue with Google" icon={googleIcon} color="#a8c7fa" />
+        <LoginWithButton text="Continue with Facebook" icon={facebookIcon} color="#3b5999" />
         <AlreadyAccount>
-          <span>Already have an account? </span>
-          <SignHere>Sign in here</SignHere>
+          <span>Dont have an account? </span>
+          <SignHere>Click here</SignHere>
         </AlreadyAccount>
         <LoginFooter />
       </LoginMainContent>

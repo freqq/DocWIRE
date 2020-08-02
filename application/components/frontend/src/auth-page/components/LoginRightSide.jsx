@@ -79,7 +79,7 @@ const LoginRightSide = () => (
     </LoginPageMenu>
     <LoginPageTitle>
       <span>We care about </span>
-      <BoldSpan>YOU.</BoldSpan>
+      <BoldSpan>you.</BoldSpan>
     </LoginPageTitle>
   </LoginRightSideWrapper>
 );
