@@ -8,9 +8,14 @@ const LastSurvey = ({ currentStep, totalSteps }) => (
   </GenericStep>
 );
 
+LastSurvey.defaultProps = {
+  currentStep: null,
+  totalSteps: null,
+};
+
 LastSurvey.propTypes = {
-  currentStep: PropTypes.number.isRequired,
-  totalSteps: PropTypes.number.isRequired,
+  currentStep: PropTypes.number,
+  totalSteps: PropTypes.number,
 };
 
 export default LastSurvey;

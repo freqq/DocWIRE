@@ -10,6 +10,7 @@ const SelectedAge = styled.p.attrs({ className: 'selected-age' })`
   text-align: center;
   font-size: 20px;
   margin-bottom: 40px;
+  font-weight: 100;
 `;
 
 const CenterWrapper = styled.div.attrs({ className: 'center-wrapper' })`
@@ -52,7 +53,7 @@ const ChooseAge = ({ currentStep, totalSteps }) => {
   return (
     <GenericStep stepName="Select your age" currentStep={currentStep} totalSteps={totalSteps}>
       <CenterWrapper>
-        <SelectedAge>{ageValue}</SelectedAge>
+        <SelectedAge>{`Age: ${ageValue}`}</SelectedAge>
         <SliderWrapper>
           <ManipulateButton onClick={() => setAgeValue(ageValue - 1)}>-</ManipulateButton>
           <Slider
@@ -70,9 +71,14 @@ const ChooseAge = ({ currentStep, totalSteps }) => {
   );
 };
 
+ChooseAge.defaultProps = {
+  currentStep: null,
+  totalSteps: null,
+};
+
 ChooseAge.propTypes = {
-  currentStep: PropTypes.number.isRequired,
-  totalSteps: PropTypes.number.isRequired,
+  currentStep: PropTypes.number,
+  totalSteps: PropTypes.number,
 };
 
 export default ChooseAge;

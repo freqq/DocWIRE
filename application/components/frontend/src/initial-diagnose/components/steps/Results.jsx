@@ -8,9 +8,14 @@ const Results = ({ currentStep, totalSteps }) => (
   </GenericStep>
 );
 
+Results.defaultProps = {
+  currentStep: null,
+  totalSteps: null,
+};
+
 Results.propTypes = {
-  currentStep: PropTypes.number.isRequired,
-  totalSteps: PropTypes.number.isRequired,
+  currentStep: PropTypes.number,
+  totalSteps: PropTypes.number,
 };
 
 export default Results;

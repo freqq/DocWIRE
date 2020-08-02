@@ -12,9 +12,14 @@ const VisitedRegions = ({ currentStep, totalSteps }) => (
   </GenericStep>
 );
 
+VisitedRegions.defaultProps = {
+  currentStep: null,
+  totalSteps: null,
+};
+
 VisitedRegions.propTypes = {
-  currentStep: PropTypes.number.isRequired,
-  totalSteps: PropTypes.number.isRequired,
+  currentStep: PropTypes.number,
+  totalSteps: PropTypes.number,
 };
 
 export default VisitedRegions;

@@ -80,9 +80,14 @@ const ChooseSex = ({ currentStep, totalSteps }) => {
   );
 };
 
+ChooseSex.defaultProps = {
+  currentStep: null,
+  totalSteps: null,
+};
+
 ChooseSex.propTypes = {
-  currentStep: PropTypes.number.isRequired,
-  totalSteps: PropTypes.number.isRequired,
+  currentStep: PropTypes.number,
+  totalSteps: PropTypes.number,
 };
 
 export default ChooseSex;
