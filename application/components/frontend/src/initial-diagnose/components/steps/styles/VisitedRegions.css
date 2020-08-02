@@ -1,0 +1,17 @@
+.svg-map {
+  width: 50%;
+  margin: 20px auto 0 auto;
+  display: block;
+}
+
+.svg-map__location {
+  fill: #2e4663 !important;
+}
+
+.svg-map__location:hover {
+  fill: #446691 !important;
+}
+
+.svg-map__location[aria-checked='true'] {
+  fill: #628cc4 !important;
+}

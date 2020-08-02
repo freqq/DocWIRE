@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@svg-maps/world": "^1.0.1",
     "axios": "^0.19.2",
     "connected-react-router": "^6.8.0",
     "dompurify": "^2.0.12",
@@ -24,6 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^4.0.8",
     "react-step-wizard": "^5.3.2",
+    "react-svg-map": "^2.1.2",
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
