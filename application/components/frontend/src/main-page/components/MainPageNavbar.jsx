@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import mainLogo from 'images/main_logo.svg';
 import accountIcon from 'images/icons/account.svg';
@@ -28,6 +29,10 @@ const NavbarLogo = styled.img.attrs({ className: 'navbar-logo' })`
 
 const NavbarLogoWrapper = styled.div.attrs({ className: 'navbar-logo-wrapper' })`
   grid: navbar-logo;
+`;
+
+const StyledLink = styled(Link).attrs({ className: 'styled-link' })`
+  color: #000;
 `;
 
 const NavbarMenuWrapper = styled.div.attrs({ className: 'navbar-menu-wrapper' })`
@@ -119,6 +124,7 @@ const NAVBAR_MENU_ITEMS = [
   {
     name: 'My account',
     icon: accountIcon,
+    to: '/login',
   },
 ];
 
@@ -128,7 +134,9 @@ const MainPageNavbar = () => {
       {NAVBAR_MENU_ITEMS.map(item => (
         <NavbarMenuItem key={item.name}>
           <ImageHelper />
-          <ItemName>{item.name}</ItemName>
+          <StyledLink to={item.to}>
+            <ItemName>{item.name}</ItemName>
+          </StyledLink>
         </NavbarMenuItem>
       ))}
       <ToggleButton>
