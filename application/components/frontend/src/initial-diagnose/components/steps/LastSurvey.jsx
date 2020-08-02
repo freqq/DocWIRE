@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import GenericStep from 'initial-diagnose/components/GenericStep';
 
 const LastSurvey = ({ currentStep, totalSteps }) => (
-  <GenericStep stepName="Few more questions" currentStep={currentStep} totalSteps={totalSteps}>
+  <GenericStep stepName="Interview" currentStep={currentStep} totalSteps={totalSteps}>
     LastSurvey
   </GenericStep>
 );

@@ -40,8 +40,8 @@ const STEPS = [
   },
   {
     number: 6,
-    name: 'Few more questions',
-    description: 'Anserw last few questions that are generated based on the info provided earlier.',
+    name: 'Interview',
+    description: 'Answer last few questions that are generated based on the info provided earlier.',
   },
   {
     number: 7,
