@@ -17,8 +17,8 @@ const LoginRightSideWrapper = styled.div.attrs({ className: 'login-right-side-wr
 const LoginPageMenu = styled.ul.attrs({ className: 'login-page-menu' })`
   list-style-type: none;
   margin: 0;
-  height: 95px;
-  line-height: 95px;
+  height: 85px;
+  line-height: 85px;
   text-align: center;
   border-bottom: 1px solid #f0f0f0;
 `;
@@ -32,7 +32,8 @@ const LoginPageMenuItem = styled.li.attrs({ className: 'login-page-menu-item' })
   cursor: pointer;
 
   &:hover {
-    color: #4e93d7;
+    color: #2e4663;
+    text-decoration: underline;
   }
 `;
 

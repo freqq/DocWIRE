@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const LoginWithButtonWrapper = styled.p.attrs({ className: 'login-with-button-wrapper' })`
+const LoginWithButtonWrapper = styled.div.attrs({ className: 'login-with-button-wrapper' })`
   width: calc(100% - 20px);
   border-radius: 5px;
   padding: 10px;
@@ -10,9 +10,10 @@ const LoginWithButtonWrapper = styled.p.attrs({ className: 'login-with-button-wr
   text-align: center;
   cursor: pointer;
   transition: 0.2s;
+  margin: 10px 0;
 
   &:hover {
-    opacity: 0.7;
+    background: #f9fafb;
   }
 `;
 
@@ -44,7 +45,7 @@ const LoginWithButton = ({ text, icon, color }) => (
 LoginWithButton.propTypes = {
   text: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  icon: PropTypes.instanceOf(Object).isRequired,
+  icon: PropTypes.string.isRequired,
 };
 
 export default LoginWithButton;

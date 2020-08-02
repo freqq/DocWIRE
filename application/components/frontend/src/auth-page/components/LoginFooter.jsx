@@ -9,7 +9,7 @@ const LoginFooterWrapper = styled.p.attrs({ className: 'login-footer-wrapper' })
   color: #2e4663;
   text-align: center;
   bottom: 150px;
-  margin-top: 100px;
+  margin-top: 120px;
 `;
 
 const LoginFooter = () => <LoginFooterWrapper>&copy; 2020 DOCWIRE.com</LoginFooterWrapper>;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import LoginFooter from 'auth-page/components/LoginFooter';
 import LoginWithButton from 'auth-page/components/LoginWithButton';
@@ -15,7 +16,7 @@ const LoginLeftSideWrapper = styled.div.attrs({ className: 'login-left-side-wrap
 `;
 
 const LoginMainHeader = styled.div.attrs({ className: 'login-main-header' })`
-  padding: 15px 70px;
+  padding: 10px 70px;
   border-bottom: 1px solid #f0f0f0;
 `;
 
@@ -41,6 +42,10 @@ const LoginTitle = styled.p.attrs({ className: 'login-title' })`
   margin: 0;
   font-size: 35px;
   color: #2e4663;
+`;
+
+const StyledLink = styled(Link).attrs({ className: 'styled-link' })`
+  color: #000;
 `;
 
 const LoginSubTitle = styled.p.attrs({ className: 'login-sub-title' })`
@@ -188,7 +193,9 @@ const LoginLeftSide = () => {
         <LoginWithButton text="Continue with Facebook" icon={facebookIcon} color="#3b5999" />
         <AlreadyAccount>
           <span>Dont have an account? </span>
-          <SignHere>Click here</SignHere>
+          <SignHere>
+            <StyledLink to="/register">Click here</StyledLink>
+          </SignHere>
         </AlreadyAccount>
         <LoginFooter />
       </LoginMainContent>
