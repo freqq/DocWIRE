@@ -53,7 +53,7 @@ const Symptoms = ({ currentStep, totalSteps }) => {
   };
 
   const onAdd = chip => {
-    setChips([...chips, chip]);
+    if (!chips.some(item => item.id === chip.id)) setChips([...chips, chip]);
   };
 
   return (

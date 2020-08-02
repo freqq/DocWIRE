@@ -4,6 +4,7 @@ import StepWizard from 'react-step-wizard';
 import PropTypes from 'prop-types';
 
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
+import DiagnoseFooter from 'initial-diagnose/components/DiagnoseFooter';
 
 import ChooseSex from 'initial-diagnose/components/steps/ChooseSex';
 import ChooseAge from 'initial-diagnose/components/steps/ChooseAge';
@@ -73,6 +74,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
         </StepWizard>
       </RelativeWrapper>
     </CardWrapper>
+    <DiagnoseFooter />
   </DiagnoseMainCardWrapper>
 );
 
