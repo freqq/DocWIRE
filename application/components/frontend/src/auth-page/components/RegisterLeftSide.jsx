@@ -26,6 +26,7 @@ const LoginMainContent = styled.div.attrs({ className: 'login-main-content' })`
   width: calc(100% - 140px);
   position: relative;
   font-size: 10px;
+  font-weight: 100;
 `;
 
 const LoginMainLogo = styled.img.attrs({ className: 'login-main-logo' })`

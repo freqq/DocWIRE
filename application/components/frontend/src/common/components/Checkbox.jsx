@@ -1,13 +1,16 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import 'common/components/Checkbox.css';
+
 const Checkbox = ({ id, label, checked, onClick }) => (
-  <label htmlFor={id}>
-    <input type="checkbox" id={id} checked={checked} onClick={onClick} />
-    <span>{label}</span>
-  </label>
+  <div>
+    <input type="checkbox" id={id} onClick={onClick} checked={checked} />
+    <label htmlFor={id}>{label}</label>
+  </div>
 );
 
 Checkbox.propTypes = {

@@ -152,6 +152,15 @@ const LoginLeftSide = () => {
 
   const isLoginDisabled = () => email.length === 0 || password.length === 0;
 
+  const onLogin = () => {
+    const loginRequest = {
+      email,
+      password,
+    };
+
+    console.log(loginRequest);
+  };
+
   return (
     <LoginLeftSideWrapper>
       <LoginMainHeader>
@@ -185,9 +194,13 @@ const LoginLeftSide = () => {
               label="Remember password"
             />
           </RememberPassword>
-          <ForgotPassword>Forgot Password</ForgotPassword>
+          <StyledLink to="/forgot-password">
+            <ForgotPassword>Forgot Password</ForgotPassword>
+          </StyledLink>
         </UnderInuptsGrid>
-        <LoginButton disabled={isLoginDisabled()}>Continue</LoginButton>
+        <LoginButton onClick={onLogin} disabled={isLoginDisabled()}>
+          Continue
+        </LoginButton>
         <OrLine>
           <OrLineSpan>OR</OrLineSpan>
         </OrLine>
