@@ -15,9 +15,9 @@ const InputComponent = styled.input.attrs({ className: 'input-component' })`
   border-radius: 3px;
   border: 1px solid #f0f0f0;
   outline: none;
-  padding: 15px 25px;
+  padding: 15px 45px 15px 25px;
   font-size: 11px;
-  width: calc(100% - 50px);
+  width: calc(100% - 70px);
 `;
 
 const SearchIcon = styled.img.attrs({ className: 'search-icon' })`

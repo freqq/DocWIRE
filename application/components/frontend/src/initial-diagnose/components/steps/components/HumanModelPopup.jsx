@@ -86,7 +86,7 @@ const HumanModelPopup = ({ bodyPart, onClose, onAdd }) => {
       <RelativeWrapper>
         <PopupHeader>
           {bodyPart}
-          <CloseIcon onClick={onClose}>X</CloseIcon>
+          <CloseIcon onClick={onClose}>&#10006;</CloseIcon>
         </PopupHeader>
         <PopupList>
           {BODY_PARTS.map(part => (

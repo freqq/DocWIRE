@@ -124,7 +124,7 @@ const LoginLeftSide = () => {
         </Link>
       </LoginMainHeader>
       <LoginMainContent>
-        <LoginTitle>Forgot your password ?</LoginTitle>
+        <LoginTitle>Password recovery</LoginTitle>
         <LoginSubTitle>
           Please enter the e-mail address you used when creating your account, we&apos;ll send you
           instructions to reset your password

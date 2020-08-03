@@ -50,7 +50,7 @@ const MainLoader = styled.img.attrs({ className: 'main-loader' })`
   }
 `;
 
-const REDIRECT_TIME = 3000;
+const REDIRECT_TIME = 30000;
 
 const MainPageLoader = ({ startDiagnose }) => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -64,7 +64,7 @@ const MainPageLoader = ({ startDiagnose }) => {
   return shouldRedirect ? (
     <Redirect to={DIAGNOSE_PATH} />
   ) : (
-    <CSSTransition in={startDiagnose} timeout={500} classNames="diagnose-loader" unmountOnExit>
+    <CSSTransition in={startDiagnose} timeout={5000} classNames="diagnose-loader" unmountOnExit>
       <MainPageLoaderWrapper>
         <MainLoaderWrapper>
           <MainLogo src={mainLogo} alt="mainLogo" />

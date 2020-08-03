@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import MainPageNavbar from 'main-page/components/MainPageNavbar';
 import MainPageCard from 'main-page/components/MainPageCard';
 import CommonIssues from 'main-page/components/CommonIssues';
