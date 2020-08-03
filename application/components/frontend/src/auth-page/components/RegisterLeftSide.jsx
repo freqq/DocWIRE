@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 import zxcvbn from 'zxcvbn';
 
 import TextInput from 'common/components/text-input/TextInput';
@@ -73,7 +74,6 @@ const RegisterButton = styled.button.attrs({ className: 'register-button' })`
   color: #ffffff;
   cursor: pointer;
   transition: 0.2s;
-  margin-top: 20px;
 
   &:hover {
     opacity: 0.8;
@@ -87,6 +87,14 @@ const RegisterButton = styled.button.attrs({ className: 'register-button' })`
 
 const StyledLink = styled(Link).attrs({ className: 'styled-link' })`
   color: #000;
+`;
+
+const ReCAPTCHAContainer = styled.div.attrs({ className: 'recaptcha-container' })`
+  transform: scale(0.77);
+  -webkit-transform: scale(0.77);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  margin-top: 20px;
 `;
 
 const AlreadyAccount = styled.p.attrs({ className: 'already-account' })`
@@ -106,6 +114,7 @@ const RegisterLeftSide = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [acceptRules, setAcceptRules] = useState(false);
+  const [isCaptcha, setIsCaptcha] = useState(false);
 
   const changeUsername = name => {
     if (name.length === 0) {
@@ -165,6 +174,10 @@ const RegisterLeftSide = () => {
     console.log(registerRequest);
   };
 
+  const onCaptchaChange = () => setIsCaptcha(true);
+
+  const onCaptchaExpire = () => setIsCaptcha(false);
+
   const isRegisterEnabled = () =>
     username.length > 0 &&
     !usernameError &&
@@ -174,7 +187,8 @@ const RegisterLeftSide = () => {
     confirmPassword.length > 0 &&
     password === confirmPassword &&
     !confirmPasswordError &&
-    acceptRules;
+    acceptRules &&
+    isCaptcha;
 
   return (
     <RegisterLeftSideWrapper>
@@ -228,6 +242,16 @@ const RegisterLeftSide = () => {
           id="accept-rules"
           label="By creating an account you agree to the terms of use and privacy policy."
         />
+        <ReCAPTCHAContainer>
+          <ReCAPTCHA
+            onChange={onCaptchaChange}
+            onExpired={onCaptchaExpire}
+            onErrored={onCaptchaExpire}
+            theme="light"
+            sitekey="6Lda3bkZAAAAAHrbrhLK8lMp18pmkYqRkOCzEH-j"
+          />
+        </ReCAPTCHAContainer>
+
         <RegisterButton onClick={onRegister} disabled={!isRegisterEnabled()}>
           Create account
         </RegisterButton>
