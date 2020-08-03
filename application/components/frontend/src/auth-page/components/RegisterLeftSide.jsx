@@ -107,24 +107,48 @@ const RegisterLeftSide = () => {
   const [acceptRules, setAcceptRules] = useState(false);
 
   const changeUsername = name => {
+    if (name.length === 0) {
+      setUsernameError(false);
+      setUsername(name);
+      return;
+    }
+
     if (validateUsername(name)) setUsernameError(false);
     else setUsernameError(true);
     setUsername(name);
   };
 
   const changeEmail = mail => {
+    if (mail.length === 0) {
+      setEmailError(false);
+      setEmail(mail);
+      return;
+    }
+
     if (validateEmail(mail)) setEmailError(false);
     else setEmailError(true);
     setEmail(mail);
   };
 
   const changePassword = pass => {
-    if (zxcvbn(pass).score >= 3) setPasswordError(false);
+    if (pass.length === 0) {
+      setPasswordError(false);
+      setPassword(pass);
+      return;
+    }
+
+    if (zxcvbn(pass).score >= 3 && pass.length > 7) setPasswordError(false);
     else setPasswordError(true);
     setPassword(pass);
   };
 
   const changeConfirmPassword = confPassword => {
+    if (confPassword.length === 0) {
+      setConfirmPasswordError(false);
+      setConfirmPassword(confPassword);
+      return;
+    }
+
     if (confPassword === password) setConfirmPasswordError(false);
     else setConfirmPasswordError(true);
     setConfirmPassword(confPassword);
@@ -154,7 +178,9 @@ const RegisterLeftSide = () => {
   return (
     <RegisterLeftSideWrapper>
       <LoginMainHeader>
-        <LoginMainLogo src={mainLogo} alt="mainLogo" />
+        <Link to="/">
+          <LoginMainLogo src={mainLogo} alt="mainLogo" />
+        </Link>
       </LoginMainHeader>
       <LoginMainContent>
         <LoginTitle>Register</LoginTitle>

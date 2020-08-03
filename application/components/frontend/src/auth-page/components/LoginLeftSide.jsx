@@ -155,7 +155,9 @@ const LoginLeftSide = () => {
   return (
     <LoginLeftSideWrapper>
       <LoginMainHeader>
-        <LoginMainLogo src={mainLogo} alt="mainLogo" />
+        <Link to="/">
+          <LoginMainLogo src={mainLogo} alt="mainLogo" />
+        </Link>
       </LoginMainHeader>
       <LoginMainContent>
         <LoginTitle>Welcome back</LoginTitle>
