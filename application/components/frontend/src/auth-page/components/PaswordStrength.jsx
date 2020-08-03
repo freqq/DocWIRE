@@ -45,7 +45,13 @@ const PaswordStrength = ({ password }) => {
       <PasswordStrengthBarsGrid>
         {[...Array(5)].map((_, index) => (
           <PasswordStrengthBarItem
-            style={zxcvbn(password).score >= index + 1 ? { background: 'red' } : {}}
+            style={
+              zxcvbn(password).score >= index + 1
+                ? zxcvbn(password).score >= MIN_STRENGTH
+                  ? { background: '#3CB371' }
+                  : { background: 'red' }
+                : {}
+            }
           />
         ))}
       </PasswordStrengthBarsGrid>

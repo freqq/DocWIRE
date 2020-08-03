@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import zxcvbn from 'zxcvbn';
 
 import TextInput from 'common/components/text-input/TextInput';
 import PasswordStrength from 'auth-page/components/PaswordStrength';
 import LoginFooter from 'auth-page/components/LoginFooter';
+import { validateUsername, validateEmail } from 'auth-page/components/validators';
 import Checkbox from 'common/components/Checkbox';
 import mainLogo from 'images/main_logo.svg';
 
@@ -45,7 +47,7 @@ const LoginTitle = styled.p.attrs({ className: 'login-title' })`
 
 const LoginSubTitle = styled.p.attrs({ className: 'login-sub-title' })`
   font-weight: 100;
-  margin: 5px 0 30px 0;
+  margin: 5px 0 10px 0;
   font-size: 15px;
 `;
 
@@ -95,10 +97,59 @@ const AlreadyAccount = styled.p.attrs({ className: 'already-account' })`
 
 const RegisterLeftSide = () => {
   const [username, setUsername] = useState('');
+  const [usernameError, setUsernameError] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [acceptRules, setAcceptRules] = useState(false);
+
+  const changeUsername = name => {
+    if (validateUsername(name)) setUsernameError(false);
+    else setUsernameError(true);
+    setUsername(name);
+  };
+
+  const changeEmail = mail => {
+    if (validateEmail(mail)) setEmailError(false);
+    else setEmailError(true);
+    setEmail(mail);
+  };
+
+  const changePassword = pass => {
+    if (zxcvbn(pass).score >= 3) setPasswordError(false);
+    else setPasswordError(true);
+    setPassword(pass);
+  };
+
+  const changeConfirmPassword = confPassword => {
+    if (confPassword === password) setConfirmPasswordError(false);
+    else setConfirmPasswordError(true);
+    setConfirmPassword(confPassword);
+  };
+
+  const onRegister = () => {
+    const registerRequest = {
+      username,
+      email,
+      password,
+    };
+
+    console.log(registerRequest);
+  };
+
+  const isRegisterEnabled = () =>
+    username.length > 0 &&
+    !usernameError &&
+    email.length > 0 &&
+    !emailError &&
+    password.length > 0 &&
+    confirmPassword.length > 0 &&
+    password === confirmPassword &&
+    !confirmPasswordError &&
+    acceptRules;
 
   return (
     <RegisterLeftSideWrapper>
@@ -110,40 +161,49 @@ const RegisterLeftSide = () => {
         <LoginSubTitle>Create new account on our page</LoginSubTitle>
         <TextInput
           value={username}
-          onChange={evt => setUsername(evt.target.value)}
-          id="email"
-          type="email"
-          label="Email"
+          onChange={evt => changeUsername(evt.target.value)}
+          id="username"
+          type="text"
+          label="Username"
+          isError={usernameError}
+          errorText="Username is not correct."
         />
         <TextInput
           value={email}
-          onChange={evt => setEmail(evt.target.value)}
+          onChange={evt => changeEmail(evt.target.value)}
           id="email"
           type="email"
           label="Email"
+          isError={emailError}
+          errorText="Email is not in correct format."
         />
+        <PasswordStrength password={password} />
         <TextInput
           value={password}
-          onChange={evt => setPassword(evt.target.value)}
+          onChange={evt => changePassword(evt.target.value)}
           id="password"
           type="password"
           label="Password"
+          isError={passwordError}
         />
         <TextInput
           value={confirmPassword}
-          onChange={evt => setConfirmPassword(evt.target.value)}
+          onChange={evt => changeConfirmPassword(evt.target.value)}
           id="confirm-password"
           type="password"
           label="Confirm password"
+          isError={confirmPasswordError}
+          errorText="Passwords don't match."
         />
-        <PasswordStrength password={password} />
         <Checkbox
           onClick={() => setAcceptRules(!acceptRules)}
           checked={acceptRules}
           id="accept-rules"
           label="By creating an account you agree to the terms of use and privacy policy."
         />
-        <RegisterButton disabled>Create account</RegisterButton>
+        <RegisterButton onClick={onRegister} disabled={!isRegisterEnabled()}>
+          Create account
+        </RegisterButton>
         <AlreadyAccount>
           <span>Already have an account? </span>
           <SignHere>

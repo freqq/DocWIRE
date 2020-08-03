@@ -8,6 +8,11 @@
   font-weight: 100;
 }
 
+.error-box {
+  margin-bottom: 5px;
+  color: red;
+}
+
 .textfield-outlined .show-password-icon {
   position: absolute;
   top: 12px;

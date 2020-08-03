@@ -21,6 +21,7 @@ const LoginPageMenu = styled.ul.attrs({ className: 'login-page-menu' })`
   line-height: 85px;
   text-align: center;
   border-bottom: 1px solid #f0f0f0;
+  background: #ffffff;
 `;
 
 const LoginPageMenuItem = styled.li.attrs({ className: 'login-page-menu-item' })`

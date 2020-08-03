@@ -47,24 +47,35 @@ const SliderWrapper = styled.div.attrs({ className: 'slider-wrapper' })`
   grid-template-columns: 1fr 80% 1fr;
 `;
 
+const MIN_AGE = 18;
+const MAX_AGE = 122;
+
 const ChooseAge = ({ currentStep, totalSteps }) => {
   const [ageValue, setAgeValue] = useState(70);
+
+  const onAgeAdd = () => {
+    if (ageValue < MAX_AGE) setAgeValue(ageValue + 1);
+  };
+
+  const onAgeRemove = () => {
+    if (ageValue > MIN_AGE) setAgeValue(ageValue - 1);
+  };
 
   return (
     <GenericStep stepName="Select your age" currentStep={currentStep} totalSteps={totalSteps}>
       <CenterWrapper>
         <SelectedAge>{`Age: ${ageValue}`}</SelectedAge>
         <SliderWrapper>
-          <ManipulateButton onClick={() => setAgeValue(ageValue - 1)}>-</ManipulateButton>
+          <ManipulateButton onClick={onAgeRemove}>-</ManipulateButton>
           <Slider
             tooltip={false}
-            min={18}
-            max={122}
+            min={MIN_AGE}
+            max={MAX_AGE}
             value={ageValue}
             orientation="horizontal"
             onChange={setAgeValue}
           />
-          <ManipulateButton onClick={() => setAgeValue(ageValue + 1)}>+</ManipulateButton>
+          <ManipulateButton onClick={onAgeAdd}>+</ManipulateButton>
         </SliderWrapper>
       </CenterWrapper>
     </GenericStep>
