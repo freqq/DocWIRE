@@ -61,7 +61,7 @@ const SectionTitleBadge = styled.div.attrs({ className: 'section-title-text' })`
 
 const CovidInfoContent = styled.div.attrs({ className: 'covid-info-icon' })``;
 
-const CovidInfoButton = styled.div.attrs({ className: 'covid-info-icon' })`
+const CovidInfoButton = styled.div.attrs({ className: 'covid-info-button' })`
   border: 1px solid #f0f0f0;
   padding: 10px;
   font-size: 11px;

@@ -50,7 +50,7 @@ const Medication = ({ name, dose, description, lastRefil }) => (
     <MoreIcon src={moreIcon} alt="moreIcon" />
     <MedicationName>{`${name} (${dose})`}</MedicationName>
     <MedicationDescription>{description}</MedicationDescription>
-    <MedicationLastRefil>{`Last Refil  ${lastRefil}`}</MedicationLastRefil>
+    <MedicationLastRefil>{`Last Refil ${lastRefil}`}</MedicationLastRefil>
   </MedicationWrapper>
 );
 
