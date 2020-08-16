@@ -23,15 +23,15 @@ const DashboardGrid = styled.div.attrs({ className: 'dashboard-grid' })`
   height: calc(100% - 108px);
 `;
 
-const TopGrid = styled.div.attrs({ className: 'top-grid' })`
+const TwoSideGrid = styled.div.attrs({ className: 'two-side-grid' })`
   display: grid;
   gap: 20px;
   grid-template-columns: 1fr 2fr;
 `;
 
-const BottomGrid = styled.div.attrs({ className: 'bottom-grid' })`
+const BottomRightGrid = styled.div.attrs({ className: 'bottom-right-grid' })`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 `;
 
@@ -39,15 +39,17 @@ const AppDashbaord = () => (
   <AppDashbaordWrapper>
     <CovidInformation />
     <DashboardGrid>
-      <TopGrid>
+      <TwoSideGrid>
         <Appointments />
         <RecentActivity />
-      </TopGrid>
-      <BottomGrid>
+      </TwoSideGrid>
+      <TwoSideGrid>
         <Medications />
-        <CurrentConditions />
-        <RecentBills />
-      </BottomGrid>
+        <BottomRightGrid>
+          <CurrentConditions />
+          <RecentBills />
+        </BottomRightGrid>
+      </TwoSideGrid>
     </DashboardGrid>
   </AppDashbaordWrapper>
 );

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import locationIcon from 'images/icons/pin.svg';
 import fileIcon from 'images/icons/document.svg';
 import doctorImage from 'images/doctor.jpg';
+import moreIcon from 'images/icons/more.svg';
 
 const RecentBillsWrapper = styled.div.attrs({ className: 'appointments-wrapper' })``;
 
@@ -22,6 +23,7 @@ const CardContent = styled.div.attrs({ className: 'card-content' })`
   border: 1px solid #f0f0f0;
   background: #ffffff;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
+  position: relative;
 `;
 
 const TwoSideGrid = styled.div.attrs({ className: 'two-side-grid' })`
@@ -127,10 +129,20 @@ const BillDetailItemFile = styled.p.attrs({ className: 'bill-details-item-file' 
   line-height: 20px;
 `;
 
+const MoreIcon = styled.img.attrs({ className: 'more-icon' })`
+  height: 15px;
+  display: inline-block;
+  position: absolute;
+  cursor: pointer;
+  top: 25px;
+  right: 20px;
+`;
+
 const RecentBills = () => (
   <RecentBillsWrapper>
     <CardTitle>Recent Bills</CardTitle>
     <CardContent>
+      <MoreIcon src={moreIcon} alt="moreIcon" />
       <TwoSideGrid>
         <GridElement>
           <Title>Your payment</Title>
