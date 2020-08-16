@@ -8,7 +8,7 @@ import RootRouter from 'RootRouter';
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    font-family: "Roboto-Light", sans-serif !important;
+    font-family: 'Roboto', sans-serif;
   }
 `;
 

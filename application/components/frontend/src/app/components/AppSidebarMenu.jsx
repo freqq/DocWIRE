@@ -44,7 +44,6 @@ const MenuItem = styled.li.attrs({ className: 'menu-item' })`
   margin: 0;
   padding: 10px;
   cursor: pointer;
-  transition: 0.2s;
   font-weight: 100;
 
   &:hover {

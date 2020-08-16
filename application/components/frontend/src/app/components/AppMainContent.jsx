@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import AppNavbar from 'app/components/AppNavbar';
+import AppNavbar from 'app/components/navbar/AppNavbar';
 import AppDashboard from 'app/components/AppDashboard';
 
 const AppMainContentWrapper = styled.div.attrs({ className: 'app-main-content-wrapper' })`
