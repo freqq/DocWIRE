@@ -6,16 +6,15 @@ import UserSection from 'app/components/navbar/UserSection';
 import NotificationsBell from 'app/components/navbar/NotificationsBell';
 
 const AppNavbarWrapper = styled.div.attrs({ className: 'app-navbar-wrapper' })`
-  width: 100%;
+  width: calc(100% - 50px);
   height: 50px;
   line-height: 50px;
-  padding: 10px;
+  padding: 10px 25px;
   border-bottom: 1px solid #f0f0f0;
 `;
 
 const RightSide = styled.div.attrs({ className: 'right-side' })`
   float: right;
-  margin-right: 50px;
 `;
 
 const AppNavbar = () => (
