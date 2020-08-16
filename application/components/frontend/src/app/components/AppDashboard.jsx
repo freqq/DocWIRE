@@ -18,7 +18,7 @@ const AppDashbaordWrapper = styled.div.attrs({ className: 'app-dashboard-wrapper
 const DashboardGrid = styled.div.attrs({ className: 'dashboard-grid' })`
   display: grid;
   gap: 20px;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: fit-content(40%);
   margin-top: 20px;
   height: calc(100% - 108px);
 `;

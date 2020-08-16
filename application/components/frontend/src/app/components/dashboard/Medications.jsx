@@ -1,29 +1,59 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Medication from 'app/components/dashboard/Medication';
+
 const MedicationsWrapper = styled.div.attrs({ className: 'appointments-wrapper' })`
   border-radius: 5px;
-  border: 1px solid #f0f0f0;
-  background: #ffffff;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
 `;
 
 const CardTitle = styled.div.attrs({ className: 'card-title' })`
   border-bottom: 1px solid #f0f0f0;
-  padding: 10px;
+  padding: 5px 10px;
   font-weight: 400;
   font-size: 15px;
 `;
 
 const CardContent = styled.div.attrs({ className: 'card-content' })`
-  padding: 10px;
   font-size: 12px;
   font-weight: 100;
 `;
+
+const MEDICATIONS_LIST = [
+  {
+    name: 'Fenofibrate',
+    dose: '48mg',
+    description: 'Take with food every morning',
+    lastRefil: '27 Apr, 2020',
+  },
+  {
+    name: 'Alfuzosin',
+    dose: '10mg',
+    description: 'Take 1 with food twice a day and avoid drinking alcohol for 2 hours after',
+    lastRefil: '27 Apr, 2019',
+  },
+  {
+    name: 'Dexamethasone',
+    dose: '4mg',
+    description: 'Take 3 pills, 3 times a day for 7 days',
+    lastRefil: '27 Apr, 2018',
+  },
+];
+
 const Medications = () => (
   <MedicationsWrapper>
     <CardTitle>Medications</CardTitle>
-    <CardContent>123</CardContent>
+    <CardContent>
+      {MEDICATIONS_LIST.map(item => (
+        <Medication
+          name={item.name}
+          dose={item.dose}
+          description={item.description}
+          lastRefil={item.lastRefil}
+        />
+      ))}
+    </CardContent>
   </MedicationsWrapper>
 );
 
