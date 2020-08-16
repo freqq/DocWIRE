@@ -11,21 +11,21 @@ const NotificationsBellWrapper = styled.div.attrs({ className: 'notifications-be
 `;
 
 const BellIconImage = styled.img.attrs({ className: 'bell-icon-image' })`
-  height: 25px;
+  height: 20px;
   cursor: pointer;
   vertical-align: middle;
 `;
 
 const NotificationCount = styled.div.attrs({ className: 'notifications-count' })`
   position: absolute;
-  top: 6px;
+  top: 10px;
   right: -7px;
   border-radius: 50%;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
   text-align: center;
   font-size: 10px;
-  line-height: 18px;
+  line-height: 16px;
   background: #2d4564;
   color: #ffffff;
 `;

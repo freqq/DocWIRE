@@ -41,7 +41,7 @@ const MenuWrapper = styled.ul.attrs({ className: 'menu-wrapper' })`
 `;
 
 const MenuItem = styled.li.attrs({ className: 'menu-item' })`
-  margin: 0;
+  margin: 0 0 3px 0;
   padding: 10px;
   cursor: pointer;
   font-weight: 100;

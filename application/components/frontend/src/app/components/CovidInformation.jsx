@@ -7,9 +7,10 @@ const CovidInformationWrapper = styled.div.attrs({ className: 'covid-information
   border: 1px solid #f0f0f0;
   border-radius: 5px;
   display: grid;
-  grid-template-columns: 40px 8fr 1fr;
+  grid-template-columns: 30px 8fr 1fr;
   padding: 15px;
   gap: 30px;
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.05);
 `;
 
 const CovidInfoIcon = styled.div.attrs({ className: 'covid-info-icon' })`
@@ -19,8 +20,9 @@ const CovidInfoIcon = styled.div.attrs({ className: 'covid-info-icon' })`
   color: #1894f8;
   font-weight: 900;
   text-align: center;
-  line-height: 40px;
-  height: 40px;
+  line-height: 30px;
+  font-size: 14px;
+  height: 30px;
 `;
 
 const SectionTitle = styled.div.attrs({ className: 'section-title' })``;
@@ -31,13 +33,14 @@ const BoldText = styled.span.attrs({ className: 'bold-text' })`
 
 const SectionSubtitle = styled.div.attrs({ className: 'section-subtitle' })`
   font-weight: 100;
-  margin-top: 5px;
-  font-size: 13px;
+  margin-top: 10px;
+  font-size: 11px;
 `;
 
 const SectionTitleText = styled.p.attrs({ className: 'section-title-text' })`
   margin: 0;
   padding: 0;
+  font-size: 13px;
   font-weight: 400;
   display: inline-block;
 `;
@@ -61,7 +64,7 @@ const CovidInfoContent = styled.div.attrs({ className: 'covid-info-icon' })``;
 const CovidInfoButton = styled.div.attrs({ className: 'covid-info-icon' })`
   border: 1px solid #f0f0f0;
   padding: 10px;
-  font-size: 13px;
+  font-size: 11px;
   height: 20px;
   text-align: center;
   transition: 0.2s;

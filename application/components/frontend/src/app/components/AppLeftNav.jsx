@@ -17,7 +17,7 @@ const AppLogoHeader = styled.div.attrs({ className: 'app-logo-header' })`
   height: 50px;
   line-height: 50px;
   text-align: left;
-  padding: 10px;
+  padding: 10px 15px;
   vertical-align: middle;
   width: 100%;
 `;
