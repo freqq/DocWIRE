@@ -59,11 +59,12 @@ const CHOSEN_CARD_STYLE = {
   opacity: '0.6',
 };
 
-const ChooseSex = ({ currentStep, totalSteps, nextStep }) => {
+const ChooseSex = ({ currentStep, totalSteps, nextStep, setCurrentStepNumber }) => {
   const [chosenSex, setChosenSex] = useState(null);
 
   const selectSex = sexName => {
     setChosenSex(sexName);
+    setCurrentStepNumber(currentStep + 1);
     nextStep();
   };
 
@@ -95,6 +96,7 @@ ChooseSex.propTypes = {
   currentStep: PropTypes.number,
   totalSteps: PropTypes.number,
   nextStep: PropTypes.func,
+  setCurrentStepNumber: PropTypes.func.isRequired,
 };
 
 export default ChooseSex;

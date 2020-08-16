@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import MainPageNavbar from 'main-page/components/MainPageNavbar';
 import OverNavBar from 'main-page/components/OverNavBar';
@@ -72,7 +73,7 @@ const NotFoundPageButton = styled.button.attrs({ className: 'not-found-page-butt
   }
 `;
 
-const NotFoundPage = () => (
+const NotFoundPage = ({ history }) => (
   <NotFoundWrapper>
     <OverNavBar />
     <NotFoundPageContainer>
@@ -82,9 +83,7 @@ const NotFoundPage = () => (
         <NotFoundPageContent>
           <NotFoundPageTitle>404</NotFoundPageTitle>
           <NotFoundPageSubTitle>Page Not Found</NotFoundPageSubTitle>
-          <Link to="/">
-            <NotFoundPageButton>Go back</NotFoundPageButton>
-          </Link>
+          <NotFoundPageButton onClick={history.goBack}>Go back</NotFoundPageButton>
         </NotFoundPageContent>
       </NotFoundPageGrid>
       <MainPageFooter />
@@ -92,4 +91,10 @@ const NotFoundPage = () => (
   </NotFoundWrapper>
 );
 
-export default NotFoundPage;
+NotFoundPage.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withRouter(NotFoundPage);

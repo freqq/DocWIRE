@@ -5,12 +5,14 @@ import makeLoadable from 'common/utils/loadable';
 import NotFoundPage from 'common/components/NotFoundPage';
 
 export const ROOT_PATH = getPath('/');
+export const APP_PATH = getPath('/app');
 export const LOGIN_PATH = getPath('/login');
 export const REGISTER_PATH = getPath('/register');
 export const FORGOT_PASSWORD_PATH = getPath('/forgot-password');
 export const DIAGNOSE_PATH = getPath('/diagnose');
 
 export const LoadableMainPage = makeLoadable(() => import('main-page/containers/MainPage'));
+export const LoadableAppPage = makeLoadable(() => import('app/containers/AppPage'));
 export const LoadableLoginPage = makeLoadable(() => import('auth-page/containers/LoginPage'));
 export const LoadableRegisterPage = makeLoadable(() => import('auth-page/containers/RegisterPage'));
 export const LoadableForgotPasswordPage = makeLoadable(() =>
@@ -23,6 +25,7 @@ export const LoadableInitialDiagnosePage = makeLoadable(() =>
 const RootRouter = () => (
   <Switch>
     <Route exact path={ROOT_PATH} component={LoadableMainPage} />
+    <Route exact path={APP_PATH} component={LoadableAppPage} />
     <Route exact path={LOGIN_PATH} component={LoadableLoginPage} />
     <Route exact path={REGISTER_PATH} component={LoadableRegisterPage} />
     <Route exact path={FORGOT_PASSWORD_PATH} component={LoadableForgotPasswordPage} />

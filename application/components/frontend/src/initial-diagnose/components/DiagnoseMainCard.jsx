@@ -66,7 +66,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
           nav={<MainCardFooter setCurrentStepNumber={setCurrentStepNumber} />}
         >
           <Introduction hashKey="Introduction" />
-          <ChooseSex hashKey="choose-sex" />
+          <ChooseSex hashKey="choose-sex" setCurrentStepNumber={setCurrentStepNumber} />
           <ChooseAge hashKey="choose-age" />
           <QuickSurvey hashKey="quick-survey" />
           <Symptoms hashKey="symptoms" />

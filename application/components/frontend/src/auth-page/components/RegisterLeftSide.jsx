@@ -22,7 +22,7 @@ const LoginMainHeader = styled.div.attrs({ className: 'login-main-header' })`
 `;
 
 const LoginMainContent = styled.div.attrs({ className: 'login-main-content' })`
-  padding: 50px 70px 0 70px;
+  padding: 10px 70px 0 70px;
   height: calc(100% - 50px);
   width: calc(100% - 140px);
   position: relative;
