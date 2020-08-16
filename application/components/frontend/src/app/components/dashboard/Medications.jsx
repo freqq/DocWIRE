@@ -33,12 +33,6 @@ const MEDICATIONS_LIST = [
     description: 'Take 1 with food twice a day and avoid drinking alcohol for 2 hours after',
     lastRefil: '27 Apr, 2019',
   },
-  {
-    name: 'Dexamethasone',
-    dose: '4mg',
-    description: 'Take 3 pills, 3 times a day for 7 days',
-    lastRefil: '27 Apr, 2018',
-  },
 ];
 
 const Medications = () => (

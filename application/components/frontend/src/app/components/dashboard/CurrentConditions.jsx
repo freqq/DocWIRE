@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import moreIcon from 'images/icons/more.svg';
 import doctorImage from 'images/doctor.jpg';
 
-const CurrentConditionsWrapper = styled.div.attrs({ className: 'appointments-wrapper' })`
-  border-radius: 5px;
-`;
+const CurrentConditionsWrapper = styled.div.attrs({ className: 'appointments-wrapper' })``;
 
 const CardTitle = styled.div.attrs({ className: 'card-title' })`
   border-bottom: 1px solid #f0f0f0;
@@ -23,6 +21,7 @@ const CardContent = styled.div.attrs({ className: 'card-content' })`
   background: #ffffff;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
   position: relative;
+  border-radius: 5px;
 `;
 
 const MoreIcon = styled.img.attrs({ className: 'more-icon' })`
