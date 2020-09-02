@@ -11,6 +11,7 @@ const LayoutNavbarWrapper = styled.div.attrs({ className: 'layout-navbar-wrapper
   line-height: 50px;
   padding: 10px 25px;
   border-bottom: 1px solid #f0f0f0;
+  background: #ffffff;
 `;
 
 const RightSide = styled.div.attrs({ className: 'right-side' })`
