@@ -11,7 +11,7 @@ const DiagnoseRightSideWrapper = styled.div.attrs({ className: 'diagnose-right-s
 const DiagnoseStepsWrapper = styled.div.attrs({ className: 'diagnose-steps-wrapper' })`
   position: absolute;
   top: 52%;
-  left: 105%;
+  left: 105.5%;
   height: 70vh;
   width: 60vw;
   transform: translate(-50%, -50%);

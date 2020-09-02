@@ -14,7 +14,7 @@ import java.security.Principal;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class AccountController {
     private static final Logger LOGGER = new Logger();
 
@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     /**
-     * Creates a new user account.
+     * Gets info about currently logged in user.
      *
      * @param principal   Principal currently logged user
      */
