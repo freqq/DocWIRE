@@ -79,7 +79,7 @@ const MENU_ITEMS = [
   {
     sectionTitle: 'Dashboard',
     options: [
-      { name: 'Home', icon: homeIcon, to: '/app' },
+      { name: 'Home', icon: homeIcon, to: '/dashboard' },
       { name: 'Appointments', icon: appointmentsIcon, to: '/appointments' },
       { name: 'Messages', icon: chatIcon, to: '/messages' },
       { name: 'Contacts', icon: contactsIcon, to: '/contacts' },

@@ -9,6 +9,7 @@
     "dompurify": "^2.0.12",
     "express": "^4.17.1",
     "history": "^4.10.1",
+    "javascript-time-ago": "^2.0.13",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "morgan": "^1.10.0",

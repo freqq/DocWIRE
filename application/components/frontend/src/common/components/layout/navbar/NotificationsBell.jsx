@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import NotificationsDropdown from 'common/components/layout/navbar/NotificationsDropdown';
 
 import bellIcon from 'images/icons/bell.svg';
 
@@ -30,11 +32,22 @@ const NotificationCount = styled.div.attrs({ className: 'notifications-count' })
   color: #ffffff;
 `;
 
-const NotificationsBell = () => (
-  <NotificationsBellWrapper>
-    <BellIconImage src={bellIcon} alt="bellIcon" />
-    <NotificationCount>2</NotificationCount>
-  </NotificationsBellWrapper>
-);
+const NotificationsBell = () => {
+  const [showNotificationsDropdown, setShowNotificationsDropdown] = useState(false);
+
+  return (
+    <NotificationsBellWrapper>
+      <BellIconImage
+        src={bellIcon}
+        alt="bellIcon"
+        onClick={() => setShowNotificationsDropdown(true)}
+      />
+      <NotificationCount>2</NotificationCount>
+      {showNotificationsDropdown && (
+        <NotificationsDropdown onOutsideClick={() => setShowNotificationsDropdown(false)} />
+      )}
+    </NotificationsBellWrapper>
+  );
+};
 
 export default NotificationsBell;

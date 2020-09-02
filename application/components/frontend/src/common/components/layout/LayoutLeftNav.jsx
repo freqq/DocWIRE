@@ -35,7 +35,7 @@ const LayoutLogoHeaderImage = styled.img.attrs({ className: 'app-logo-header-ima
 const LayoutLeftNav = () => (
   <LayoutLeftNavWrapper>
     <LayoutLogoHeader>
-      <Link to="/app">
+      <Link to="/dashboard">
         <LayoutLogoHeaderImage src={mainLogo} />
       </Link>
     </LayoutLogoHeader>
