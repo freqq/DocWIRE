@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CovidInformation from 'app/components/CovidInformation';
-import Appointments from 'app/components/dashboard/Appointments';
-import RecentActivity from 'app/components/dashboard/RecentActivity';
-import Medications from 'app/components/dashboard/Medications';
-import CurrentConditions from 'app/components/dashboard/CurrentConditions';
-import RecentBills from 'app/components/dashboard/RecentBills';
+import CovidInformation from 'dashboard-page/components/CovidInformation';
+import Appointments from 'dashboard-page/components/Appointments';
+import RecentActivity from 'dashboard-page/components/RecentActivity';
+import Medications from 'dashboard-page/components/Medications';
+import CurrentConditions from 'dashboard-page/components/CurrentConditions';
+import RecentBills from 'dashboard-page/components/RecentBills';
 
-const AppDashbaordWrapper = styled.div.attrs({ className: 'app-dashboard-wrapper' })`
+const AppDashboardWrapper = styled.div.attrs({ className: 'app-dashboard-wrapper' })`
   width: calc(100% - 50px);
   height: calc(100% - 110px);
   padding: 20px 25px;
@@ -35,8 +35,8 @@ const BottomRightGrid = styled.div.attrs({ className: 'bottom-right-grid' })`
   gap: 20px;
 `;
 
-const AppDashbaord = () => (
-  <AppDashbaordWrapper>
+const DashboardPage = () => (
+  <AppDashboardWrapper>
     <CovidInformation />
     <DashboardGrid>
       <TwoSideGrid>
@@ -51,7 +51,7 @@ const AppDashbaord = () => (
         </BottomRightGrid>
       </TwoSideGrid>
     </DashboardGrid>
-  </AppDashbaordWrapper>
+  </AppDashboardWrapper>
 );
 
-export default AppDashbaord;
+export default DashboardPage;

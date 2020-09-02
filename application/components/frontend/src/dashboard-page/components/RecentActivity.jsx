@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Activity from 'app/components/dashboard/Activity';
+import Activity from 'dashboard-page/components/Activity';
 import doctorImage from 'images/doctor.jpg';
 
 const RecentActivityWrapper = styled.div.attrs({ className: 'appointments-wrapper' })`

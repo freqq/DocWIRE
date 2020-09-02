@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Medication from 'app/components/dashboard/Medication';
+import Medication from 'dashboard-page/components/Medication';
 
 const MedicationsWrapper = styled.div.attrs({ className: 'appointments-wrapper' })`
   border-radius: 5px;
