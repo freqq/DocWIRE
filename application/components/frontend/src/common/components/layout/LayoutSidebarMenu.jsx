@@ -42,24 +42,32 @@ const MenuItem = styled.li.attrs({ className: 'menu-item' })`
   padding: 10px;
   cursor: pointer;
   font-weight: 100;
+  border-radius: 3px;
+  transition: 0.2s;
 
   &:hover {
-    background: #f0f0f0;
-    color: #2d4564;
-    font-weight: 400;
+    background: #607086;
+  }
+
+  &:hover a {
+    color: #ffffff;
+  }
+
+  &:hover a img {
+    filter: invert(1);
   }
 `;
 
 const StyledLink = styled(Link).attrs({ className: 'styled-link' })`
   color: #000;
-  display: grid;
-  grid-template-columns: 1fr 6fr;
+  display: flex;
   text-decoration: none;
+  transition: 0.2s;
 `;
 
 const MenuItemIcon = styled.img.attrs({ className: 'menu-item-icon' })`
   width: 15px;
-  display: inline-block;
+  margin-right: 10px;
 `;
 
 const MenuItemName = styled.p.attrs({ className: 'menu-item-name' })`
@@ -68,9 +76,15 @@ const MenuItemName = styled.p.attrs({ className: 'menu-item-name' })`
 `;
 
 const ACTIVE_TAB_STYLE = {
-  background: '#f0f0f0',
-  color: '#2d4564',
-  fontWeight: '400',
+  background: '#607086',
+};
+
+const ACTIVE_LINK_STYLE = {
+  color: '#ffffff',
+};
+
+const ACTIVE_IMG_STYLE = {
+  filter: 'invert(1)',
 };
 
 const MENU_ITEMS = [
@@ -123,8 +137,16 @@ const LayoutSidebarMenu = () => {
           <SectionTitle>{menuItem.sectionTitle}</SectionTitle>
           {menuItem.options.map(sectionOption => (
             <MenuItem style={activeTab === sectionOption.to ? ACTIVE_TAB_STYLE : {}}>
-              <StyledLink to={sectionOption.to} onClick={() => setActiveTab(sectionOption.to)}>
-                <MenuItemIcon src={sectionOption.icon} alt="sectionOption" />
+              <StyledLink
+                style={activeTab === sectionOption.to ? ACTIVE_LINK_STYLE : {}}
+                to={sectionOption.to}
+                onClick={() => setActiveTab(sectionOption.to)}
+              >
+                <MenuItemIcon
+                  style={activeTab === sectionOption.to ? ACTIVE_IMG_STYLE : {}}
+                  src={sectionOption.icon}
+                  alt="sectionOption"
+                />
                 <MenuItemName>{sectionOption.name}</MenuItemName>
               </StyledLink>
             </MenuItem>
