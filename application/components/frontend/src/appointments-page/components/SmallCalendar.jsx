@@ -12,6 +12,9 @@ const Frame = styled.div`
   background: #ffffff;
   height: calc(100% - 25px);
   width: calc(100% - 20px);
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid #f0f0f0;
+  border-radius: 3px;
 `;
 
 const Header = styled.div`
@@ -38,6 +41,7 @@ const Day = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: 0.2s;
 
   &:hover {
     background-color: #2e4663;

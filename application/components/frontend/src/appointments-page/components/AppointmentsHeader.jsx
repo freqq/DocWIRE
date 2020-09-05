@@ -12,7 +12,6 @@ import arrowLeft from 'images/icons/left-arrow.svg';
 import arrowRight from 'images/icons/right-arrow.svg';
 
 const AppointmentsHeaderWrapper = styled.div.attrs({ className: 'appointments-header-wrapper' })`
-  width: 100%;
   padding-bottom: 10px;
   border-bottom: 1px solid #f0f0f0;
 `;
@@ -36,7 +35,8 @@ const AppointmentsYear = styled.div.attrs({ className: 'appointments-year' })`
 `;
 
 const DayChooseWarpper = styled.div.attrs({ className: 'day-choose-wrapper' })`
-  width: 100%;
+  width: 65%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 5% repeat(7, 1fr) 5%;
   gap: 10px;
@@ -51,9 +51,14 @@ const DayButton = styled.div.attrs({ className: 'day-button' })`
   border-radius: 5px;
   cursor: pointer;
   transition: 0.2s;
+  border: 1px solid #ffffff;
+  border-radius: 3px;
 
   &:hover {
-    background: #f2f2f9;
+    background: #fafbfd;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
+    border: 1px solid #f0f0f0;
+    transform: scale(1.07);
   }
 `;
 
@@ -73,10 +78,18 @@ const ArrowButtonImage = styled.img.attrs({ className: 'arrow-button-image' })`
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.5;
+    transform: scale(1.2) translateY(-50%);
+  }
 `;
 
 const ACTIVE_DAY_STYLE = {
-  background: '#f2f2f9',
+  background: '#fafbfd',
+  boxShadow: '0px 3px 15px rgba(0, 0, 0, 0.02)',
+  border: '1px solid #f0f0f0',
 };
 
 const AppointmentsHeader = () => {

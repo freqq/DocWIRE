@@ -3,9 +3,13 @@ import styled from 'styled-components';
 
 import Medication from 'dashboard-page/components/Medication';
 
-const MedicationsWrapper = styled.div.attrs({ className: 'appointments-wrapper' })`
+const MedicationsWrapper = styled.div.attrs({ className: 'medications-wrapper' })`
   border-radius: 5px;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
+  height: calc(100% - 40px);
+  max-height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const CardTitle = styled.div.attrs({ className: 'card-title' })`
@@ -18,6 +22,9 @@ const CardTitle = styled.div.attrs({ className: 'card-title' })`
 const CardContent = styled.div.attrs({ className: 'card-content' })`
   font-size: 12px;
   font-weight: 100;
+  max-height: calc(100% - 50px);
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const MEDICATIONS_LIST = [
@@ -31,6 +38,12 @@ const MEDICATIONS_LIST = [
     name: 'Alfuzosin',
     dose: '10mg',
     description: 'Take 1 with food twice a day and avoid drinking alcohol for 2 hours after',
+    lastRefil: '27 Apr, 2019',
+  },
+  {
+    name: 'Predozinos',
+    dose: '69mg',
+    description: 'Eat it when you feel like eating it',
     lastRefil: '27 Apr, 2019',
   },
 ];

@@ -8,7 +8,7 @@ const AppointmentsPageWrapper = styled.div.attrs({ className: 'appointments-page
   height: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 40%;
+  grid-template-columns: 1fr 30%;
   gap: 30px;
 `;
 

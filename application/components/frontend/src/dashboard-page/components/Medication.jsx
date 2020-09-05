@@ -15,6 +15,10 @@ const MedicationWrapper = styled.div.attrs({ className: 'medication-wrapper' })`
   cursor: pointer;
   position: relative;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &:hover {
     opacity: 0.7;
   }

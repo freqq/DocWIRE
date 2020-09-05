@@ -10,23 +10,25 @@ import RecentBills from 'dashboard-page/components/RecentBills';
 
 const AppDashboardWrapper = styled.div.attrs({ className: 'app-dashboard-wrapper' })`
   width: calc(100% - 50px);
-  height: calc(100% - 110px);
+  height: calc(100vh - 70px - 40px);
   padding: 20px 25px;
   background: #fafbfd;
+  overflow: hidden;
 `;
 
 const DashboardGrid = styled.div.attrs({ className: 'dashboard-grid' })`
   display: grid;
   gap: 20px;
-  grid-template-rows: fit-content(40%);
-  margin-top: 20px;
-  height: calc(100% - 108px);
+  grid-template-rows: 10% 35% 55%;
+  overflow: hidden;
+  height: 100%;
 `;
 
 const TwoSideGrid = styled.div.attrs({ className: 'two-side-grid' })`
   display: grid;
   gap: 20px;
   grid-template-columns: 1fr 2fr;
+  height: 100%;
 `;
 
 const BottomRightGrid = styled.div.attrs({ className: 'bottom-right-grid' })`
@@ -37,8 +39,8 @@ const BottomRightGrid = styled.div.attrs({ className: 'bottom-right-grid' })`
 
 const DashboardPage = () => (
   <AppDashboardWrapper>
-    <CovidInformation />
     <DashboardGrid>
+      <CovidInformation />
       <TwoSideGrid>
         <Appointments />
         <RecentActivity />

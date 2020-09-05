@@ -7,7 +7,7 @@ import LayoutNavbar from 'common/components/layout/navbar/LayoutNavbar';
 const LayoutContentWrapper = styled.div.attrs({ className: 'app-main-content-wrapper' })`
   width: 100%;
   height: 100%;
-  background: #f4f4fa;
+  background: #fafbfd;
 `;
 
 const LayoutMainContent = ({ children }) => (

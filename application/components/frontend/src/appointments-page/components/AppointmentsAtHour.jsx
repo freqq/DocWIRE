@@ -8,6 +8,7 @@ const AppointmentsAtHourWrapper = styled.div.attrs({ className: 'appointments-at
   width: 100%;
   display: grid;
   grid-template-columns: 20% 1fr;
+  margin-bottom: 20px;
 `;
 
 const AppointmentsTime = styled.div.attrs({ className: 'appointments-time' })`

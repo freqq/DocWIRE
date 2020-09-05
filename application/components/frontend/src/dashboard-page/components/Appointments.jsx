@@ -10,7 +10,10 @@ const AppointmentsWrapper = styled.div.attrs({ className: 'appointments-wrapper'
   border-radius: 5px;
   border: 1px solid #f0f0f0;
   background: #ffffff;
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
+  height: 100%;
+  max-height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const CardTitle = styled.div.attrs({ className: 'card-title' })`
@@ -42,6 +45,9 @@ const CardContent = styled.div.attrs({ className: 'card-content' })`
   padding: 10px 25px;
   font-size: 12px;
   font-weight: 100;
+  height: calc(100% - 55px);
+  overflow-x: hidden;
+  overflow-y: scroll;
 `;
 
 const DoctorDetails = styled.div.attrs({ className: 'doctor-details' })`
@@ -138,22 +144,10 @@ const VisitDuration = styled.div.attrs({ className: 'visit-duration' })`
   margin-top: 2px;
 `;
 
-const InterestsList = styled.ul.attrs({ className: 'interests-list' })`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const InterestsListItem = styled.li.attrs({ className: 'interests-list-item' })`
-  font-weight: 100;
-`;
-
 const ButtonIcon = styled.img.attrs({ className: 'button-icon' })`
   height: 12px;
   margin-right: 5px;
 `;
-
-const INTERESTS = ['Mens health', 'Travel medicine', 'Travel advice'];
 
 const Appointments = () => {
   const cancelBooking = () => console.log('cancelBooking');
@@ -188,28 +182,6 @@ const Appointments = () => {
                 <ClockIcon src={clockIcon} />
                 30mins
               </VisitDuration>
-            </Content>
-          </GridElement>
-        </TwoSideGrid>
-        <TwoSideGrid>
-          <GridElement>
-            <Title>Address</Title>
-            <Content>
-              Suite 405, Level 4/188
-              <br />
-              Edward St, Sydney
-              <br />
-              NSW
-            </Content>
-          </GridElement>
-          <GridElement>
-            <Title>Areas of interest</Title>
-            <Content>
-              <InterestsList>
-                {INTERESTS.map(item => (
-                  <InterestsListItem>{item}</InterestsListItem>
-                ))}
-              </InterestsList>
             </Content>
           </GridElement>
         </TwoSideGrid>

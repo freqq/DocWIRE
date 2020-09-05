@@ -4,11 +4,15 @@ import styled from 'styled-components';
 import Activity from 'dashboard-page/components/Activity';
 import doctorImage from 'images/doctor.jpg';
 
-const RecentActivityWrapper = styled.div.attrs({ className: 'appointments-wrapper' })`
+const RecentActivityWrapper = styled.div.attrs({ className: 'recent-activity-wrapper' })`
   border-radius: 5px;
   border: 1px solid #f0f0f0;
   background: #ffffff;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
+  height: 100%;
+  max-height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const CardTitle = styled.div.attrs({ className: 'card-title' })`
@@ -19,9 +23,12 @@ const CardTitle = styled.div.attrs({ className: 'card-title' })`
 `;
 
 const CardContent = styled.div.attrs({ className: 'card-content' })`
-  padding: 10px 25px;
+  padding: 10px 25px 25px 25px;
   font-size: 12px;
   font-weight: 100;
+  height: calc(100% - 55px);
+  overflow-x: hidden;
+  overflow-y: scroll;
 `;
 
 const ACTIVITIES = [

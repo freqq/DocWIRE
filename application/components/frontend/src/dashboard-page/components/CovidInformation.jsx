@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CovidInformationWrapper = styled.div.attrs({ className: 'covid-information-wrapper' })`
-  width: calc(100% - 30px);
+  width: calc(100% - 32px);
   background: #ffffff;
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
   border: 1px solid #f0f0f0;
-  border-radius: 5px;
+  border-radius: 3px;
   display: grid;
   grid-template-columns: 30px 8fr 1fr;
   padding: 15px;
   gap: 30px;
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.05);
 `;
 
 const CovidInfoIcon = styled.div.attrs({ className: 'covid-info-icon' })`

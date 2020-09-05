@@ -13,11 +13,16 @@ const AppointmentCardWrapper = styled.div.attrs({
   width: calc(100% - 30px);
   font-size: 12px;
   padding: 15px;
-  border-radius: 3px;
+  border-radius: 5px;
   margin-bottom: 10px;
   border: 1px solid #f2f2f9;
   cursor: pointer;
   transition: 0.2s;
+  background: rgba(46, 70, 99, 0.05);
+
+  &:nth-child(2n) {
+    background: rgba(46, 70, 99, 0.12);
+  }
 
   &:hover {
     transform: scale(1.02);
@@ -58,18 +63,13 @@ const AppointmentCardFooter = styled.div.attrs({
 })`
   margin-top: 5px;
   padding-top: 15px;
-  border-top: 1px solid #778e9ea2;
+  border-top: 1px solid rgba(46, 70, 99, 0.2);
   text-align: right;
 `;
 
-const CARD_COLORS = ['#e3f3fd', '#ffefef', '#fffaed', '#f6f5fa'];
-
 const AppointmentCard = ({ time, firstName, lastName, appointmentType }) => {
-  const getRandomBackgroundColor = () =>
-    CARD_COLORS[Math.floor(CARD_COLORS.length * Math.random())];
-
   return (
-    <AppointmentCardWrapper style={{ background: getRandomBackgroundColor() }}>
+    <AppointmentCardWrapper>
       <AppointmentCardHeader>
         <AppointmentTime>{time}</AppointmentTime>
         <AppointmentMoreIconContainer>

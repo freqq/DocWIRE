@@ -9,7 +9,7 @@ const AppointmentsRightCardWrapper = styled.div.attrs({
 })`
   height: 78vh;
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 35% 50%;
   gap: 30px;
 `;
 
