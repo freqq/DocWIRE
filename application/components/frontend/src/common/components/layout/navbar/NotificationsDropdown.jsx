@@ -139,6 +139,27 @@ const NotificationsHeader = styled.p.attrs({ className: 'notifications-header' }
   margin: 0;
   padding: 10px;
   font-family: 'Roboto-Medium', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
+const NotificationsHeaderTitle = styled.p.attrs({ className: 'notifications-header-title' })`
+  text-align: left;
+  margin: 0;
+`;
+
+const NotificationsHeaderMarkAsRead = styled.p.attrs({
+  className: 'notifications-header-mark-as-read',
+})`
+  text-align: right;
+  color: #2d4564;
+  margin: 0;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const NotificationsFooter = styled.p.attrs({ className: 'notifications-footer' })`
@@ -192,6 +213,41 @@ const NOTIFICATIONS = [
   },
   {
     id: 2,
+    read: false,
+    author: 'przemek',
+    content: 'Notification content - 2',
+    dateTime: Date.UTC(),
+  },
+  {
+    id: 3,
+    read: true,
+    author: 'przemek',
+    content: 'Notification content - 2',
+    dateTime: Date.UTC(),
+  },
+  {
+    id: 4,
+    read: true,
+    author: 'przemek',
+    content: 'Notification content - 2',
+    dateTime: Date.UTC(),
+  },
+  {
+    id: 5,
+    read: true,
+    author: 'przemek',
+    content: 'Notification content - 2',
+    dateTime: Date.UTC(),
+  },
+  {
+    id: 6,
+    read: true,
+    author: 'przemek',
+    content: 'Notification content - 2',
+    dateTime: Date.UTC(),
+  },
+  {
+    id: 7,
     read: true,
     author: 'przemek',
     content: 'Notification content - 2',
@@ -212,6 +268,9 @@ const NotificationDropdown = ({ onOutsideClick }) => {
 
     return newDate;
   };
+
+  const checkIfAnyUnreadNotifications = () =>
+    NOTIFICATIONS.some(notification => !notification.read);
 
   const renderList = () => (
     <NotificationsList>
@@ -241,7 +300,12 @@ const NotificationDropdown = ({ onOutsideClick }) => {
   return (
     <NotificationsMenu>
       <RelativeBox>
-        <NotificationsHeader>Notifications</NotificationsHeader>
+        <NotificationsHeader>
+          <NotificationsHeaderTitle>Notifications</NotificationsHeaderTitle>
+          {checkIfAnyUnreadNotifications() && (
+            <NotificationsHeaderMarkAsRead>Mark all as read</NotificationsHeaderMarkAsRead>
+          )}
+        </NotificationsHeader>
         {NOTIFICATIONS.length === 0 ? (
           <NoNotificationsBox>No avialable notifictations.</NoNotificationsBox>
         ) : (
