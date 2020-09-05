@@ -16,7 +16,7 @@ const MessagesListAreaWrapper = styled.div.attrs({ className: 'messages-list-are
 `;
 
 const MessagesList = styled.div.attrs({ className: 'messages-list' })`
-  margin-top: 10px;
+  margin-top: 12px;
   max-height: 95vh;
 
   &:hover {
@@ -30,10 +30,8 @@ const MessagesList = styled.div.attrs({ className: 'messages-list' })`
 
 const NewMessageButton = styled.div.attrs({ className: 'new-mesage-button' })`
   display: inline-block;
-  border-radius: 5px;
   width: 5%;
   padding: 10px 13px 5px 10px;
-  border: 1px solid #f0f0f0;
   transition: 0.2s;
   cursor: pointer;
   float: right;

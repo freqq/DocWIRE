@@ -11,7 +11,6 @@ const UserSectionWrapper = styled.div.attrs({ className: 'user-section-wrapper' 
 
 const FlexBox = styled.div.attrs({ className: 'flex-box' })`
   display: flex;
-  height: 40px;
 `;
 
 const UserCircle = styled.div.attrs({ className: 'user-circle' })`
@@ -53,7 +52,7 @@ const UserSection = ({ firstName, lastName, bottomText, showIcon, circleSize, ci
 
   return (
     <UserSectionWrapper>
-      <FlexBox>
+      <FlexBox style={{ height: `${circleSize}px` }}>
         <UserCircle
           style={{
             height: `${circleSize}px`,

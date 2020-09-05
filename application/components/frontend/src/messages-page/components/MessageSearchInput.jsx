@@ -7,7 +7,7 @@ const MessageSearchInputWrapper = styled.div.attrs({ className: 'message-serach-
   position: relative;
   margin-top: 10px;
   display: inline-block;
-  width: 60%;
+  width: 70%;
 
   @media only screen and (max-width: 1130px) {
     width: 40%;
@@ -22,14 +22,14 @@ const MessageSearchInputComponent = styled.input.attrs({
   className: 'message-search-input-component',
 })`
   border-radius: 5px;
-  background: #f5f7f9;
+  background: #fafbfd;
   color: #cbced0;
   font-weight: 300;
   padding: 15px 15px 15px 40px;
   border: 1px solid #f0f0f0;
   outline: none;
   color: #000000;
-  font-size: 10px;
+  font-size: 9px;
   width: 70%;
   margin-left: 10px;
 `;

@@ -2,33 +2,48 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import sendIcon from 'images/icons/send.svg';
-
 const MessageMainInputWrapper = styled.div.attrs({ className: 'message-main-input-wrapper' })`
   background: #ffffff;
   border-top: 1px solid #f0f0f0;
   padding: 20px;
-  position: absolute;
-  width: 98%;
   z-index: 1;
   border-right: 1px solid #f0f0f0;
+  display: grid;
+  grid-template-columns: 90% 10%;
 `;
 
-const InputWrapper = styled.div.attrs({ className: 'input-wrapper' })`
-  position: relative;
+const SendMessageButton = styled.button.attrs({ className: 'send-message-button' })`
+  display: inline-block;
+  font-size: 12px;
+  outline: none;
+  border: 1px solid #f0f0f0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  height: 100%;
+  padding: 10px 20px;
+  font-weight: 100;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: 0.2s;
+  border-left: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 const MessageInputComponent = styled.input.attrs({ className: 'message-input-component' })`
-  border-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   background: #f5f7f9;
   outline: none;
-  padding: 10px 60px 10px 20px;
+  padding: 10px 20px;
   font-size: 12px;
-  border: 1px solid #f5f7f9;
   display: block;
   margin: 0 auto;
-  width: 85%;
+  width: calc(100% - 40px);
   border: 1px solid #f0f0f0;
+  border-right: none;
 
   @media only screen and (max-width: 1150px) {
     width: 75%;
@@ -37,35 +52,6 @@ const MessageInputComponent = styled.input.attrs({ className: 'message-input-com
   @media only screen and (max-width: 680px) {
     width: 65%;
     margin-left: 0;
-  }
-`;
-
-const SendMessageIcon = styled.img.attrs({
-  className: 'send-message-icon',
-  alt: 'send-message-icon',
-})`
-  position: absolute;
-  right: 34px;
-  padding: 10px 15px 10px 15px;
-  cursor: pointer;
-  top: 1px;
-  width: 16px;
-  height: 16px;
-  border-left: 1px solid #f0f0f0;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  transition: 0.2s;
-
-  &:hover {
-    background: #f0f0f0;
-  }
-
-  @media only screen and (max-width: 680px) {
-    right: 80px;
-  }
-
-  @media only screen and (max-width: 530px) {
-    right: 40px;
   }
 `;
 
@@ -116,15 +102,13 @@ const MessageMainInput = ({ sender, receiver, onSend }) => {
 
   return (
     <MessageMainInputWrapper>
-      <InputWrapper>
-        <MessageInputComponent
-          placeholder={PLACEHOLDER}
-          value={textInput}
-          onKeyDown={onEnter}
-          onChange={onChange}
-        />
-        <SendMessageIcon src={sendIcon} onClick={sendMessage} />
-      </InputWrapper>
+      <MessageInputComponent
+        placeholder={PLACEHOLDER}
+        value={textInput}
+        onKeyDown={onEnter}
+        onChange={onChange}
+      />
+      <SendMessageButton onClick={() => sendMessage()}>Send</SendMessageButton>
     </MessageMainInputWrapper>
   );
 };

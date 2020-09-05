@@ -8,10 +8,11 @@ import MessagesMainComponent from 'messages-page/components/MessagesMainComponen
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 
 const MessagesMainAreaWrapper = styled.div.attrs({ className: 'messages-main-area-wrapper' })`
-  grid: messages-main-area;
   position: relative;
-  height: 91%;
+  height: calc(100% - 40px - 24px);
   font-family: 'Roboto-Light', sans-serif;
+  display: grid;
+  grid-template-rows: 88% 12%;
 `;
 
 const ErrorBlock = styled.div.attrs({ className: 'error-block' })`
@@ -27,6 +28,54 @@ const isChatHistoryLoadingError = false;
 const chosenChatUser = 'admin';
 const currentUsername = 'admin';
 const chatHistory = [
+  {
+    id: 1,
+    sender: 'wojtek',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
+  {
+    id: 2,
+    sender: 'admin',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
+  {
+    id: 1,
+    sender: 'wojtek',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
+  {
+    id: 2,
+    sender: 'admin',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
+  {
+    id: 1,
+    sender: 'wojtek',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
+  {
+    id: 2,
+    sender: 'admin',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
+  {
+    id: 1,
+    sender: 'wojtek',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
+  {
+    id: 2,
+    sender: 'admin',
+    dateTime: new Date(),
+    content: 'contennnt',
+  },
   {
     id: 1,
     sender: 'wojtek',

@@ -8,7 +8,7 @@ const MessagesMainComponentWrapper = styled.div.attrs({
   className: 'messages-main-component-wrapper',
 })`
   position: relative;
-  height: 72vh;
+  height: 100%;
   width: 100%;
   font-family: 'Roboto-Light', sans-serif;
 
@@ -26,6 +26,7 @@ const MessagesList = styled.ul.attrs({ className: 'messages-list' })`
   width: 95%;
   font-size: 13px;
   bottom: 0;
+  height: calc(100% - 40px);
 
   overflow: hidden;
 
