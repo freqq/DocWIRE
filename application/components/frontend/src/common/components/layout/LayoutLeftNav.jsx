@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -32,15 +32,23 @@ const LayoutLogoHeaderImage = styled.img.attrs({ className: 'app-logo-header-ima
   }
 `;
 
-const LayoutLeftNav = () => (
-  <LayoutLeftNavWrapper>
-    <LayoutLogoHeader>
-      <Link to="/dashboard">
-        <LayoutLogoHeaderImage src={mainLogo} />
-      </Link>
-    </LayoutLogoHeader>
-    <LayoutSidebarMenu />
-  </LayoutLeftNavWrapper>
-);
+const LayoutLeftNav = () => {
+  const [activeTab, setActiveTab] = useState('/dashboard');
+
+  useEffect(() => {
+    setActiveTab(window.location.pathname);
+  }, []);
+
+  return (
+    <LayoutLeftNavWrapper>
+      <LayoutLogoHeader>
+        <Link to="/dashboard" onClick={() => setActiveTab('/dashboard')}>
+          <LayoutLogoHeaderImage src={mainLogo} />
+        </Link>
+      </LayoutLogoHeader>
+      <LayoutSidebarMenu activeTab={activeTab} setActiveTab={setActiveTab} />
+    </LayoutLeftNavWrapper>
+  );
+};
 
 export default LayoutLeftNav;

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import SearchBar from 'common/components/layout/navbar/SearchBar';
 import UserSection from 'common/components/layout/navbar/UserSection';
 import NotificationsBell from 'common/components/layout/navbar/NotificationsBell';
+import UserDropdownMenu from 'common/components/layout/navbar/UserDropdownMenu';
 
 const LayoutNavbarWrapper = styled.div.attrs({ className: 'layout-navbar-wrapper' })`
   width: calc(100% - 50px);
@@ -16,16 +17,30 @@ const LayoutNavbarWrapper = styled.div.attrs({ className: 'layout-navbar-wrapper
 
 const RightSide = styled.div.attrs({ className: 'right-side' })`
   float: right;
+  position: relative;
 `;
 
-const LayoutNavbar = () => (
-  <LayoutNavbarWrapper>
-    <SearchBar />
-    <RightSide>
-      <NotificationsBell />
-      <UserSection firstName="Steven" lastName="Holland" bottomText="Patient" circleSize={35} />
-    </RightSide>
-  </LayoutNavbarWrapper>
-);
+const LayoutNavbar = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const switchShowDropdown = () => setShowDropdown(!showDropdown);
+
+  return (
+    <LayoutNavbarWrapper>
+      <SearchBar />
+      <RightSide>
+        <NotificationsBell />
+        <UserSection
+          firstName="Steven"
+          lastName="Holland"
+          bottomText="Patient"
+          circleSize={35}
+          switchShowDropdown={switchShowDropdown}
+        />
+        {showDropdown && <UserDropdownMenu onOutsideClick={switchShowDropdown} />}
+      </RightSide>
+    </LayoutNavbarWrapper>
+  );
+};
 
 export default LayoutNavbar;

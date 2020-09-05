@@ -93,6 +93,7 @@ const MessageContent = styled.p.attrs({ className: 'messages-content' })`
   border-top-left-radius: 0;
   display: inline-block;
   overflow-wrap: break-word;
+  font-size: 11px;
 `;
 
 const MessageUserImage = styled.div.attrs({ className: 'message-user-image' })`

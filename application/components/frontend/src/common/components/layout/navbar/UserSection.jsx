@@ -20,6 +20,7 @@ const UserCircle = styled.div.attrs({ className: 'user-circle' })`
   color: #ffffff;
   display: inline-block;
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const UserDetails = styled.div.attrs({ className: 'user-details' })`
@@ -47,7 +48,15 @@ const ArrowDown = styled.img.attrs({ className: 'arrow-down' })`
   cursor: pointer;
 `;
 
-const UserSection = ({ firstName, lastName, bottomText, showIcon, circleSize, circleFontSize }) => {
+const UserSection = ({
+  firstName,
+  lastName,
+  bottomText,
+  showIcon,
+  circleSize,
+  circleFontSize,
+  switchShowDropdown,
+}) => {
   const getCircleText = () => firstName.charAt(0) + lastName.charAt(0);
 
   return (
@@ -75,6 +84,7 @@ const UserSection = ({ firstName, lastName, bottomText, showIcon, circleSize, ci
           src={arrowDownIcon}
           alt="arrowDownIcon"
           style={showIcon ? {} : { display: 'none' }}
+          onClick={switchShowDropdown}
         />
       </FlexBox>
     </UserSectionWrapper>
@@ -85,6 +95,7 @@ UserSection.defaultProps = {
   showIcon: true,
   circleSize: 40,
   circleFontSize: 11,
+  switchShowDropdown: null,
 };
 
 UserSection.propTypes = {
@@ -94,6 +105,7 @@ UserSection.propTypes = {
   showIcon: PropTypes.bool,
   circleSize: PropTypes.number,
   circleFontSize: PropTypes.number,
+  switchShowDropdown: PropTypes.func,
 };
 
 export default UserSection;

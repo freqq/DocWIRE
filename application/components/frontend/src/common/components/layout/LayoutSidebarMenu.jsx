@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -123,38 +124,35 @@ const MENU_ITEMS = [
   },
 ];
 
-const LayoutSidebarMenu = () => {
-  const [activeTab, setActiveTab] = useState('Home');
+const LayoutSidebarMenu = ({ setActiveTab, activeTab }) => (
+  <LayoutSidebarMenuWrapper>
+    {MENU_ITEMS.map(menuItem => (
+      <MenuWrapper>
+        <SectionTitle>{menuItem.sectionTitle}</SectionTitle>
+        {menuItem.options.map(sectionOption => (
+          <MenuItem style={activeTab === sectionOption.to ? ACTIVE_TAB_STYLE : {}}>
+            <StyledLink
+              style={activeTab === sectionOption.to ? ACTIVE_LINK_STYLE : {}}
+              to={sectionOption.to}
+              onClick={() => setActiveTab(sectionOption.to)}
+            >
+              <MenuItemIcon
+                style={activeTab === sectionOption.to ? ACTIVE_IMG_STYLE : {}}
+                src={sectionOption.icon}
+                alt="sectionOption"
+              />
+              <MenuItemName>{sectionOption.name}</MenuItemName>
+            </StyledLink>
+          </MenuItem>
+        ))}
+      </MenuWrapper>
+    ))}
+  </LayoutSidebarMenuWrapper>
+);
 
-  useEffect(() => {
-    setActiveTab(window.location.pathname);
-  }, []);
-
-  return (
-    <LayoutSidebarMenuWrapper>
-      {MENU_ITEMS.map(menuItem => (
-        <MenuWrapper>
-          <SectionTitle>{menuItem.sectionTitle}</SectionTitle>
-          {menuItem.options.map(sectionOption => (
-            <MenuItem style={activeTab === sectionOption.to ? ACTIVE_TAB_STYLE : {}}>
-              <StyledLink
-                style={activeTab === sectionOption.to ? ACTIVE_LINK_STYLE : {}}
-                to={sectionOption.to}
-                onClick={() => setActiveTab(sectionOption.to)}
-              >
-                <MenuItemIcon
-                  style={activeTab === sectionOption.to ? ACTIVE_IMG_STYLE : {}}
-                  src={sectionOption.icon}
-                  alt="sectionOption"
-                />
-                <MenuItemName>{sectionOption.name}</MenuItemName>
-              </StyledLink>
-            </MenuItem>
-          ))}
-        </MenuWrapper>
-      ))}
-    </LayoutSidebarMenuWrapper>
-  );
+LayoutSidebarMenu.propTypes = {
+  setActiveTab: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default LayoutSidebarMenu;
