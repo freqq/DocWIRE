@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import arrowDownIcon from 'images/icons/down-arrow.svg';
@@ -14,14 +15,10 @@ const FlexBox = styled.div.attrs({ className: 'flex-box' })`
 `;
 
 const UserCircle = styled.div.attrs({ className: 'user-circle' })`
-  height: 40px;
-  width: 40px;
   background: #2d4564;
   border-radius: 50%;
-  line-height: 40px;
   text-align: center;
   color: #ffffff;
-  font-size: 12px;
   display: inline-block;
   margin-right: 10px;
 `;
@@ -51,17 +48,53 @@ const ArrowDown = styled.img.attrs({ className: 'arrow-down' })`
   cursor: pointer;
 `;
 
-const UserSection = () => (
-  <UserSectionWrapper>
-    <FlexBox>
-      <UserCircle>A</UserCircle>
-      <UserDetails>
-        <UserName>Steven Holland</UserName>
-        <UserRole>Patient</UserRole>
-      </UserDetails>
-      <ArrowDown src={arrowDownIcon} alt="arrowDownIcon" />
-    </FlexBox>
-  </UserSectionWrapper>
-);
+const UserSection = ({ firstName, lastName, bottomText, showIcon, circleSize, circleFontSize }) => {
+  const getCircleText = () => firstName.charAt(0) + lastName.charAt(0);
+
+  return (
+    <UserSectionWrapper>
+      <FlexBox>
+        <UserCircle
+          style={{
+            height: `${circleSize}px`,
+            width: `${circleSize}px`,
+            lineHeight: `${circleSize}px`,
+            fontSize: `${circleFontSize}px`,
+          }}
+        >
+          {getCircleText()}
+        </UserCircle>
+        <UserDetails
+          style={{
+            lineHeight: `${circleSize / 2}px`,
+          }}
+        >
+          <UserName>{`${firstName} ${lastName}`}</UserName>
+          <UserRole>{bottomText}</UserRole>
+        </UserDetails>
+        <ArrowDown
+          src={arrowDownIcon}
+          alt="arrowDownIcon"
+          style={showIcon ? {} : { display: 'none' }}
+        />
+      </FlexBox>
+    </UserSectionWrapper>
+  );
+};
+
+UserSection.defaultProps = {
+  showIcon: true,
+  circleSize: 40,
+  circleFontSize: 11,
+};
+
+UserSection.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  bottomText: PropTypes.string.isRequired,
+  showIcon: PropTypes.bool,
+  circleSize: PropTypes.number,
+  circleFontSize: PropTypes.number,
+};
 
 export default UserSection;

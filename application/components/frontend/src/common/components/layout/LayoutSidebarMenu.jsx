@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,7 +6,6 @@ import appointmentsIcon from 'images/menu-icons/appointments.svg';
 import billingsIcon from 'images/menu-icons/billings.svg';
 import carePlansIcon from 'images/menu-icons/care_plans.svg';
 import chatIcon from 'images/menu-icons/chat.svg';
-import contactsIcon from 'images/menu-icons/contacts.svg';
 import historyIcon from 'images/menu-icons/history.svg';
 import homeIcon from 'images/menu-icons/home.svg';
 import labIcon from 'images/menu-icons/lab.svg';
@@ -82,7 +80,6 @@ const MENU_ITEMS = [
       { name: 'Home', icon: homeIcon, to: '/dashboard' },
       { name: 'Appointments', icon: appointmentsIcon, to: '/appointments' },
       { name: 'Messages', icon: chatIcon, to: '/messages' },
-      { name: 'Contacts', icon: contactsIcon, to: '/contacts' },
     ],
   },
   {
@@ -115,14 +112,18 @@ const MENU_ITEMS = [
 const LayoutSidebarMenu = () => {
   const [activeTab, setActiveTab] = useState('Home');
 
+  useEffect(() => {
+    setActiveTab(window.location.pathname);
+  }, []);
+
   return (
     <LayoutSidebarMenuWrapper>
       {MENU_ITEMS.map(menuItem => (
         <MenuWrapper>
           <SectionTitle>{menuItem.sectionTitle}</SectionTitle>
           {menuItem.options.map(sectionOption => (
-            <MenuItem style={activeTab === sectionOption.name ? ACTIVE_TAB_STYLE : {}}>
-              <StyledLink to={sectionOption.to}>
+            <MenuItem style={activeTab === sectionOption.to ? ACTIVE_TAB_STYLE : {}}>
+              <StyledLink to={sectionOption.to} onClick={() => setActiveTab(sectionOption.to)}>
                 <MenuItemIcon src={sectionOption.icon} alt="sectionOption" />
                 <MenuItemName>{sectionOption.name}</MenuItemName>
               </StyledLink>

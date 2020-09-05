@@ -5,6 +5,8 @@
   "dependencies": {
     "@svg-maps/world": "^1.0.1",
     "axios": "^0.19.2",
+    "chart.js": "^2.9.3",
+    "chartjs-plugin-datalabels": "^0.7.0",
     "connected-react-router": "^6.8.0",
     "dompurify": "^2.0.12",
     "express": "^4.17.1",
@@ -17,6 +19,7 @@
     "promise": "8.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.10.0",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
     "react-google-recaptcha": "^2.1.0",

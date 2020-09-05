@@ -8,7 +8,10 @@ const MessagesPageWrapper = styled.div.attrs({ className: 'message-page-wrapper'
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-areas: 'messages-list-area message-box-area';
-  height: 100%;
+  height: 90%%;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid red;
 `;
 
 const MessagesPage = () => (

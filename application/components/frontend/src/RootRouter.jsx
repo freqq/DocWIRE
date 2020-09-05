@@ -8,6 +8,7 @@ import Layout from 'common/components/layout/Layout';
 export const ROOT_PATH = getPath('/');
 export const DASHBOARD_PATH = getPath('/dashboard');
 export const MESSAGES_PATH = getPath('/messages');
+export const APPOINTMENTS_PATH = getPath('/appointments');
 export const LOGIN_PATH = getPath('/login');
 export const REGISTER_PATH = getPath('/register');
 export const FORGOT_PASSWORD_PATH = getPath('/forgot-password');
@@ -19,6 +20,9 @@ export const LoadableDashboardPage = makeLoadable(() =>
 );
 export const LoadableMessagesPage = makeLoadable(() =>
   import('messages-page/containers/MessagesPage'),
+);
+export const LoadableAppointmentsPage = makeLoadable(() =>
+  import('appointments-page/containers/AppointmentsPage'),
 );
 export const LoadableLoginPage = makeLoadable(() => import('auth-page/containers/LoginPage'));
 export const LoadableRegisterPage = makeLoadable(() => import('auth-page/containers/RegisterPage'));
@@ -39,6 +43,7 @@ const RootRouter = () => (
     <Layout>
       <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
       <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />
+      <Route exact path={APPOINTMENTS_PATH} component={LoadableAppointmentsPage} />
     </Layout>
     <Route component={NotFoundPage} />
   </Switch>

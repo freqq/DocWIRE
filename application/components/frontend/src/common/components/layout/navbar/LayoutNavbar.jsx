@@ -23,7 +23,7 @@ const LayoutNavbar = () => (
     <SearchBar />
     <RightSide>
       <NotificationsBell />
-      <UserSection />
+      <UserSection firstName="Steven" lastName="Holland" bottomText="Patient" />
     </RightSide>
   </LayoutNavbarWrapper>
 );
