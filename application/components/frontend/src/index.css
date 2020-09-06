@@ -1,0 +1,7 @@
+.rccs {
+  margin-top: 18px;
+}
+
+.rccs__card--unknown > div {
+  background: #2d4564;
+}

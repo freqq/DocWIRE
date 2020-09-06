@@ -47,15 +47,8 @@ const MenuItem = styled.li.attrs({ className: 'menu-item' })`
   transition: 0.2s;
 
   &:hover {
-    background: #607086;
-  }
-
-  &:hover a {
-    color: #ffffff;
-  }
-
-  &:hover a img {
-    filter: invert(1);
+    background: #e2eff8;
+    border-right: 2px solid #2d4564;
   }
 `;
 
@@ -77,15 +70,8 @@ const MenuItemName = styled.p.attrs({ className: 'menu-item-name' })`
 `;
 
 const ACTIVE_TAB_STYLE = {
-  background: '#607086',
-};
-
-const ACTIVE_LINK_STYLE = {
-  color: '#ffffff',
-};
-
-const ACTIVE_IMG_STYLE = {
-  filter: 'invert(1)',
+  background: '#e2eff8',
+  borderRight: '2px solid #2d4564',
 };
 
 const MENU_ITEMS = [
@@ -131,16 +117,8 @@ const LayoutSidebarMenu = ({ setActiveTab, activeTab }) => (
         <SectionTitle>{menuItem.sectionTitle}</SectionTitle>
         {menuItem.options.map(sectionOption => (
           <MenuItem style={activeTab === sectionOption.to ? ACTIVE_TAB_STYLE : {}}>
-            <StyledLink
-              style={activeTab === sectionOption.to ? ACTIVE_LINK_STYLE : {}}
-              to={sectionOption.to}
-              onClick={() => setActiveTab(sectionOption.to)}
-            >
-              <MenuItemIcon
-                style={activeTab === sectionOption.to ? ACTIVE_IMG_STYLE : {}}
-                src={sectionOption.icon}
-                alt="sectionOption"
-              />
+            <StyledLink to={sectionOption.to} onClick={() => setActiveTab(sectionOption.to)}>
+              <MenuItemIcon src={sectionOption.icon} alt="sectionOption" />
               <MenuItemName>{sectionOption.name}</MenuItemName>
             </StyledLink>
           </MenuItem>

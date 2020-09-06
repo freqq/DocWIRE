@@ -7,7 +7,8 @@ import Layout from 'common/components/layout/Layout';
 
 export const ROOT_PATH = getPath('/');
 export const DASHBOARD_PATH = getPath('/dashboard');
-export const PATIENT_DETAILS_PAGE = getPath('/patient/:patientId');
+export const PATIENT_DETAILS_PATH = getPath('/patient/:patientId');
+export const PROFILE_SETTINGS_PATH = getPath('/settings');
 export const MESSAGES_PATH = getPath('/messages');
 export const APPOINTMENTS_PATH = getPath('/appointments');
 export const LOGIN_PATH = getPath('/login');
@@ -24,6 +25,9 @@ export const LoadableMessagesPage = makeLoadable(() =>
 );
 export const LoadableAppointmentsPage = makeLoadable(() =>
   import('appointments-page/containers/AppointmentsPage'),
+);
+export const LoadableProfileSettingsPage = makeLoadable(() =>
+  import('profile-settings-page/containers/ProfileSettingsPage'),
 );
 export const LoadablePatientDetailsPage = makeLoadable(() =>
   import('patient-details-page/containers/PatientDetailsPage'),
@@ -48,7 +52,8 @@ const RootRouter = () => (
       <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
       <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />
       <Route exact path={APPOINTMENTS_PATH} component={LoadableAppointmentsPage} />
-      <Route exact path={PATIENT_DETAILS_PAGE} component={LoadablePatientDetailsPage} />
+      <Route exact path={PATIENT_DETAILS_PATH} component={LoadablePatientDetailsPage} />
+      <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
     </Layout>
     <Route component={NotFoundPage} />
   </Switch>

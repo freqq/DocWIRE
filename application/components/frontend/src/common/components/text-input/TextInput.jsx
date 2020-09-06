@@ -11,7 +11,18 @@ import 'common/components/text-input/TextInput.css';
 
 const EMPTY_PLACEHOLDER = ' ';
 
-const TextInput = ({ id, type, label, disabled, isError, value, onChange, errorText }) => {
+const TextInput = ({
+  id,
+  type,
+  label,
+  disabled,
+  isError,
+  value,
+  onChange,
+  errorText,
+  onFocus,
+  maxLength,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const switchShowPassword = () => setShowPassword(!showPassword);
@@ -30,6 +41,8 @@ const TextInput = ({ id, type, label, disabled, isError, value, onChange, errorT
           placeholder={EMPTY_PLACEHOLDER}
           disabled={disabled}
           value={value}
+          onFocus={onFocus}
+          maxLength={maxLength}
         />
         <label htmlFor={id}>{label}</label>
         {type === 'password' && (
@@ -49,6 +62,8 @@ TextInput.defaultProps = {
   disabled: false,
   isError: false,
   errorText: '',
+  onFocus: null,
+  maxLength: null,
 };
 
 TextInput.propTypes = {
@@ -60,6 +75,8 @@ TextInput.propTypes = {
   value: PropTypes.string.isRequired,
   errorText: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  maxLength: PropTypes.number,
 };
 
 export default TextInput;
