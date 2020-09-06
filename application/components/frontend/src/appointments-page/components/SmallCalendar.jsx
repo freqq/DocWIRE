@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 import shortid from 'shortid';
 
 const Frame = styled.div`
-  box-shadow: 2px 2px 2px #eee;
   font-size: 12px;
   margin-top: 20px;
   border-radius: 5px;
