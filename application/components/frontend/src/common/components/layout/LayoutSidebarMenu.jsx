@@ -13,7 +13,6 @@ import labIcon from 'images/menu-icons/lab.svg';
 import medicalIcon from 'images/menu-icons/medical.svg';
 import prescriptionsIcon from 'images/menu-icons/prescriptions.svg';
 import reportsIcon from 'images/menu-icons/reports.svg';
-import supportIcon from 'images/menu-icons/support.svg';
 import faqIcon from 'images/menu-icons/faq.svg';
 import formsIcon from 'images/menu-icons/forms.svg';
 
@@ -103,10 +102,7 @@ const MENU_ITEMS = [
   },
   {
     sectionTitle: 'Understand',
-    options: [
-      { name: 'FAQ', icon: faqIcon, to: '/faq' },
-      { name: 'Support', icon: supportIcon, to: '/support' },
-    ],
+    options: [{ name: 'FAQ', icon: faqIcon, to: '/faq' }],
   },
 ];
 

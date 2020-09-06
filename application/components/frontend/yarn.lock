@@ -8246,6 +8246,11 @@ react-chartjs-2@^2.10.0:
     lodash "^4.17.19"
     prop-types "^15.7.2"
 
+react-collapsible@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/react-collapsible/-/react-collapsible-2.8.0.tgz#dce2ff7703d4456c5bb70cc1b53d3f80acf76526"
+  integrity sha512-QTxGyp4iL8N57FcU1RGt4wD7vqOTRYAHNukxtSeVMkZ+/d1WNWXRIakzhYhC/5TDERihPdp1IvKIJlrLLPyQ/A==
+
 react-credit-cards@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-credit-cards/-/react-credit-cards-0.8.3.tgz#608a8ee8bf3a88857fc83023ffba1ad536ba8c7e"

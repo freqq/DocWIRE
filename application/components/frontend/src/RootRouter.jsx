@@ -15,6 +15,7 @@ export const LOGIN_PATH = getPath('/login');
 export const REGISTER_PATH = getPath('/register');
 export const FORGOT_PASSWORD_PATH = getPath('/forgot-password');
 export const DIAGNOSE_PATH = getPath('/diagnose');
+export const FAQ_PATH = getPath('/faq');
 export const APPOINTMENT_DETAILS_PATH = getPath('/appointments/:appointmentId');
 
 export const LoadableMainPage = makeLoadable(() => import('main-page/containers/MainPage'));
@@ -33,6 +34,7 @@ export const LoadableProfileSettingsPage = makeLoadable(() =>
 export const LoadablePatientDetailsPage = makeLoadable(() =>
   import('patient-details-page/containers/PatientDetailsPage'),
 );
+export const LoadableFAQPage = makeLoadable(() => import('faq-page/containers/FAQPage'));
 export const LoadableAppointmentDetailsPage = makeLoadable(() =>
   import('appointment-details-page/containers/AppointmentDetailsPage'),
 );
@@ -59,6 +61,7 @@ const RootRouter = () => (
       <Route exact path={PATIENT_DETAILS_PATH} component={LoadablePatientDetailsPage} />
       <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
       <Route exact path={APPOINTMENT_DETAILS_PATH} component={LoadableAppointmentDetailsPage} />
+      <Route exact path={FAQ_PATH} component={LoadableFAQPage} />
     </Layout>
     <Route component={NotFoundPage} />
   </Switch>

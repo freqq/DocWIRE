@@ -5,3 +5,16 @@
 .rccs__card--unknown > div {
   background: #2d4564;
 }
+
+.Collapsible {
+  margin: 30px auto 0 auto;
+}
+
+.Collapsible__trigger {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #c0c0c0;
+  padding-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
