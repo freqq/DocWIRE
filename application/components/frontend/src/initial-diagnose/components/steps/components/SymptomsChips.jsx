@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import SearchInput from 'initial-diagnose/components/steps/components/SearchInput';
 import Chip from 'initial-diagnose/components/steps/components/Chip';
