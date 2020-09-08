@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import MessageBoxArea from 'messages-page/components/MessageBoxArea';
 import MessagesListArea from 'messages-page/components/MessagesListArea';
+import MessagePatientDetails from 'messages-page/components/MessagePatientDetails';
 
 const MessagesPageWrapper = styled.div.attrs({ className: 'message-page-wrapper' })`
   width: calc(100% - 50px);
@@ -12,7 +13,7 @@ const MessagesPageWrapper = styled.div.attrs({ className: 'message-page-wrapper'
 
 const MessagesGrid = styled.div.attrs({ className: 'message-grid' })`
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 2fr 8fr 3fr;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
   border: 1px solid #f0f0f0;
   border-radius: 3px;
@@ -25,6 +26,7 @@ const MessagesPage = () => (
     <MessagesGrid>
       <MessagesListArea />
       <MessageBoxArea />
+      <MessagePatientDetails />
     </MessagesGrid>
   </MessagesPageWrapper>
 );

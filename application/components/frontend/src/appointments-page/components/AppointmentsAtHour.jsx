@@ -12,7 +12,7 @@ const AppointmentsAtHourWrapper = styled.div.attrs({ className: 'appointments-at
 `;
 
 const AppointmentsTime = styled.div.attrs({ className: 'appointments-time' })`
-  font-weight: 600;
+  font-weight: 400;
   font-size: 12px;
 `;
 

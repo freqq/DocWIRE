@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import GenericStep from 'initial-diagnose/components/GenericStep';
@@ -50,30 +50,28 @@ const SliderWrapper = styled.div.attrs({ className: 'slider-wrapper' })`
 const MIN_AGE = 18;
 const MAX_AGE = 122;
 
-const ChooseAge = ({ currentStep, totalSteps }) => {
-  const [ageValue, setAgeValue] = useState(70);
-
+const ChooseAge = ({ currentStep, totalSteps, chosenAge, setChosenAge }) => {
   const onAgeAdd = () => {
-    if (ageValue < MAX_AGE) setAgeValue(ageValue + 1);
+    if (chosenAge < MAX_AGE) setChosenAge(chosenAge + 1);
   };
 
   const onAgeRemove = () => {
-    if (ageValue > MIN_AGE) setAgeValue(ageValue - 1);
+    if (chosenAge > MIN_AGE) setChosenAge(chosenAge - 1);
   };
 
   return (
     <GenericStep stepName="Select your age" currentStep={currentStep} totalSteps={totalSteps}>
       <CenterWrapper>
-        <SelectedAge>{`Age: ${ageValue}`}</SelectedAge>
+        <SelectedAge>{`Age: ${chosenAge}`}</SelectedAge>
         <SliderWrapper>
           <ManipulateButton onClick={onAgeRemove}>-</ManipulateButton>
           <Slider
             tooltip={false}
             min={MIN_AGE}
             max={MAX_AGE}
-            value={ageValue}
+            value={chosenAge}
             orientation="horizontal"
-            onChange={setAgeValue}
+            onChange={setChosenAge}
           />
           <ManipulateButton onClick={onAgeAdd}>+</ManipulateButton>
         </SliderWrapper>
@@ -90,6 +88,8 @@ ChooseAge.defaultProps = {
 ChooseAge.propTypes = {
   currentStep: PropTypes.number,
   totalSteps: PropTypes.number,
+  setChosenAge: PropTypes.func.isRequired,
+  chosenAge: PropTypes.number.isRequired,
 };
 
 export default ChooseAge;

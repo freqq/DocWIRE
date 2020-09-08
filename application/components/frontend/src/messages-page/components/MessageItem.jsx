@@ -22,7 +22,7 @@ const MessageItemWrapper = styled.div.attrs({ className: 'message-item-wrapper' 
   }
 
   &:hover {
-    background: #f4f4f4;
+    background: #f9fafc;
   }
 `;
 

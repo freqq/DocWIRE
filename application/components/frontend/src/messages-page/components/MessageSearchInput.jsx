@@ -6,8 +6,8 @@ import searchIcon from 'images/icons/search_left.svg';
 const MessageSearchInputWrapper = styled.div.attrs({ className: 'message-serach-input-wrapper' })`
   position: relative;
   margin-top: 10px;
-  display: inline-block;
-  width: 70%;
+  display: block;
+  width: 100%;
 
   @media only screen and (max-width: 1130px) {
     width: 40%;
@@ -30,8 +30,9 @@ const MessageSearchInputComponent = styled.input.attrs({
   outline: none;
   color: #000000;
   font-size: 9px;
-  width: 70%;
-  margin-left: 10px;
+  width: calc(80% - 45px);
+  margin: 0 auto;
+  display: block;
 `;
 
 const MessagesSearchIcon = styled.img.attrs({
@@ -41,7 +42,7 @@ const MessagesSearchIcon = styled.img.attrs({
   width: 16px;
   height: 16px;
   position: absolute;
-  left: 20px;
+  left: 25px;
   top: 12px;
 `;
 

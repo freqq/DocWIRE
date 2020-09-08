@@ -22,7 +22,7 @@ const NotificationsMenu = styled.div.attrs({ className: 'notifications-menu' })`
   position: absolute;
   top: 55px;
   left: -341px;
-  z-index: 99;
+  z-index: 9999;
   font-family: 'Roboto', sans-serif !important;
   cursor: auto;
 `;

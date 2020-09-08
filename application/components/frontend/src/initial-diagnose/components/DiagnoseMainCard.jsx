@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import StepWizard from 'react-step-wizard';
 import PropTypes from 'prop-types';
@@ -55,30 +57,95 @@ const DiagnoseMainLogo = styled.img.attrs({ className: 'diagnose-main-logo' })`
   }
 `;
 
-const DiagnoseMainCard = ({ setCurrentStepNumber }) => (
-  <DiagnoseMainCardWrapper>
-    <DiagnoseMainLogo src={mainLogo} alt="mainLogo" />
-    <CardWrapper>
-      <RelativeWrapper>
-        <StepWizard
-          className="step-wizard"
-          isHashEnabled
-          nav={<MainCardFooter setCurrentStepNumber={setCurrentStepNumber} />}
-        >
-          <Introduction hashKey="Introduction" />
-          <ChooseSex hashKey="choose-sex" setCurrentStepNumber={setCurrentStepNumber} />
-          <ChooseAge hashKey="choose-age" />
-          <QuickSurvey hashKey="quick-survey" />
-          <Symptoms hashKey="symptoms" />
-          <VisitedRegions hashKey="visited-regions" />
-          <LastSurvey hashKey="last-survey" />
-          <Results hashKey="results" />
-        </StepWizard>
-      </RelativeWrapper>
-    </CardWrapper>
-    <DiagnoseFooter />
-  </DiagnoseMainCardWrapper>
-);
+const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
+  const [chosenSex, setChosenSex] = useState('');
+  const [chosenAge, setChosenAge] = useState(70);
+  const [chosenSymptoms, setChosenSymptoms] = useState([]);
+  const [visitedRegions, setVisitedRegions] = useState([]);
+
+  const [smokeCigarete, setSmokeCigarete] = useState(null);
+  const [recentlyInjured, setRecentlyInjured] = useState(null);
+  const [highCholesterol, setHighCholesterol] = useState(null);
+  const [diabetes, setDiabetes] = useState(null);
+
+  const sendDiagnose = () => {
+    const diagnoseObject = {
+      chosenSex,
+      chosenAge,
+      quickSurvey: {
+        smokeCigarete,
+        recentlyInjured,
+        highCholesterol,
+        diabetes,
+      },
+      chosenSymptoms,
+      visitedRegions,
+    };
+
+    console.log(diagnoseObject);
+  };
+
+  const isQuickSurveyBlocked = () =>
+    smokeCigarete === null ||
+    recentlyInjured === null ||
+    highCholesterol === null ||
+    diabetes === null;
+
+  const isSymptomsBlocked = () => chosenSymptoms.length === 0;
+
+  const isRegionsBlocked = () => visitedRegions.length === 0;
+
+  return (
+    <DiagnoseMainCardWrapper>
+      <DiagnoseMainLogo src={mainLogo} alt="mainLogo" />
+      <CardWrapper>
+        <RelativeWrapper>
+          <StepWizard
+            className="step-wizard"
+            isHashEnabled
+            nav={
+              <MainCardFooter
+                setCurrentStepNumber={setCurrentStepNumber}
+                isQuickSurveyBlocked={isQuickSurveyBlocked}
+                isSymptomsBlocked={isSymptomsBlocked}
+                isRegionsBlocked={isRegionsBlocked}
+              />
+            }
+          >
+            <Introduction hashKey="Introduction" />
+            <ChooseSex
+              hashKey="choose-sex"
+              setCurrentStepNumber={setCurrentStepNumber}
+              chosenSex={chosenSex}
+              setChosenSex={setChosenSex}
+            />
+            <ChooseAge hashKey="choose-age" setChosenAge={setChosenAge} chosenAge={chosenAge} />
+            <QuickSurvey
+              hashKey="quick-survey"
+              smokeCigarete={smokeCigarete}
+              recentlyInjured={recentlyInjured}
+              highCholesterol={highCholesterol}
+              diabetes={diabetes}
+              setSmokeCigarete={setSmokeCigarete}
+              setRecentlyInjured={setRecentlyInjured}
+              setHighCholesterol={setHighCholesterol}
+              setDiabetes={setDiabetes}
+            />
+            <Symptoms
+              hashKey="symptoms"
+              chosenSymptoms={chosenSymptoms}
+              setChosenSymptoms={setChosenSymptoms}
+            />
+            <VisitedRegions hashKey="visited-regions" setVisitedRegions={setVisitedRegions} />
+            <LastSurvey hashKey="last-survey" sendDiagnose={sendDiagnose} />
+            <Results hashKey="results" />
+          </StepWizard>
+        </RelativeWrapper>
+      </CardWrapper>
+      <DiagnoseFooter />
+    </DiagnoseMainCardWrapper>
+  );
+};
 
 DiagnoseMainCard.propTypes = {
   setCurrentStepNumber: PropTypes.func.isRequired,

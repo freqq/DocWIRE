@@ -30,17 +30,19 @@ const OPTIONS = [
   { id: 3, name: `Don't know` },
 ];
 
-const AnswerRow = ({ question }) => (
+const AnswerRow = ({ question, value, setter }) => (
   <AnswerRowWrapper>
     <AnswerContent>{question}</AnswerContent>
     <AnswerOptions>
-      <Select options={OPTIONS} />
+      <Select options={OPTIONS} value={value} onChange={setter} question={question} />
     </AnswerOptions>
   </AnswerRowWrapper>
 );
 
 AnswerRow.propTypes = {
   question: PropTypes.string.isRequired,
+  value: PropTypes.instanceOf(Object).isRequired,
+  setter: PropTypes.func.isRequired,
 };
 
 export default AnswerRow;

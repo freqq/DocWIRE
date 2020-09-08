@@ -10,7 +10,7 @@ import messageIcon from 'images/icons/message.svg';
 const AppointmentCardWrapper = styled.div.attrs({
   className: 'appointments-card-wrapper',
 })`
-  width: calc(100% - 30px);
+  width: calc(100% - 32px);
   font-size: 12px;
   padding: 15px;
   border-radius: 5px;
@@ -18,11 +18,7 @@ const AppointmentCardWrapper = styled.div.attrs({
   border: 1px solid #f2f2f9;
   cursor: pointer;
   transition: 0.2s;
-  background: rgba(46, 70, 99, 0.05);
-
-  &:nth-child(2n) {
-    background: rgba(46, 70, 99, 0.12);
-  }
+  background: #fafbfd;
 
   &:hover {
     transform: scale(1.02);
@@ -42,6 +38,7 @@ const AppointmentTime = styled.div.attrs({
   className: 'appointments-time',
 })`
   font-size: 10px;
+  font-weight: 100;
 `;
 
 const AppointmentMoreIconContainer = styled.div.attrs({
@@ -61,9 +58,9 @@ const CardIconImage = styled.img.attrs({
 const AppointmentCardFooter = styled.div.attrs({
   className: 'appointments-card-footer',
 })`
-  margin-top: 5px;
+  margin-top: 15px;
   padding-top: 15px;
-  border-top: 1px solid rgba(46, 70, 99, 0.2);
+  border-top: 1px solid #f0f0f0;
   text-align: right;
 `;
 

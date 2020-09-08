@@ -7,8 +7,6 @@ import MessageSearchInput from 'messages-page/components/MessageSearchInput';
 import MessageItem from 'messages-page/components/MessageItem';
 import NewMessageModal from 'messages-page/components/NewMessageModal';
 
-import newMessageIcon from 'images/icons/create_room.svg';
-
 const MessagesListAreaWrapper = styled.div.attrs({ className: 'messages-list-area' })`
   grid: messages-list-area;
   background: #fff;
@@ -26,37 +24,6 @@ const MessagesList = styled.div.attrs({ className: 'messages-list' })`
   @media only screen and (max-width: 990px) {
     margin-top: 65px;
   }
-`;
-
-const NewMessageButton = styled.div.attrs({ className: 'new-mesage-button' })`
-  display: inline-block;
-  width: 5%;
-  padding: 10px 13px 5px 10px;
-  transition: 0.2s;
-  cursor: pointer;
-  float: right;
-  margin: 10px 10px 0 0;
-  height: 28px;
-  text-align: center;
-
-  @media only screen and (max-width: 990px) {
-    width: 70%;
-  }
-
-  @media only screen and (max-width: 790px) {
-    width: 45%;
-  }
-
-  &:hover {
-    background: #f0f0f0;
-  }
-`;
-
-const NewMessageIcon = styled.img.attrs({
-  className: 'new-message-icon',
-  alt: 'new-message-icon',
-})`
-  height: 20px;
 `;
 
 const MessageListHeader = styled.div.attrs({ className: 'message-list-header' })`
@@ -114,10 +81,6 @@ const MessagesListArea = () => {
     />
   );
 
-  const clickModal = () => {
-    setShowNewMessageModal(!showNewMessageModal);
-  };
-
   const renderMessages = () => (
     <MessagesList>
       {MESSAGES.map(message => (
@@ -130,9 +93,6 @@ const MessagesListArea = () => {
     <MessagesListAreaWrapper>
       <MessageListHeader>
         <MessageSearchInput />
-        <NewMessageButton onClick={clickModal}>
-          <NewMessageIcon src={newMessageIcon} />
-        </NewMessageButton>
       </MessageListHeader>
       {isChatListLoading ? (
         <ProgressIndicatorCircular size={40} />

@@ -21,6 +21,11 @@ const UserCircle = styled.div.attrs({ className: 'user-circle' })`
   display: inline-block;
   margin-right: 10px;
   cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const UserDetails = styled.div.attrs({ className: 'user-details' })`

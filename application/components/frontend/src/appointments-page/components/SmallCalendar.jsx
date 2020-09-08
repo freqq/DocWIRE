@@ -4,13 +4,11 @@ import styled, { css } from 'styled-components';
 import shortid from 'shortid';
 
 const Frame = styled.div`
-  font-size: 12px;
-  margin-top: 20px;
-  border-radius: 5px;
-  padding: 25px 10px 0 10px;
+  font-size: 11px;
+  padding: 20px 20px 0 20px;
   background: #ffffff;
-  height: calc(100% - 25px);
-  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  width: calc(100% - 40px);
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
   border: 1px solid #f0f0f0;
   border-radius: 3px;
@@ -33,14 +31,19 @@ const Body = styled.div`
   flex-wrap: wrap;
 `;
 
+const DayHeader = styled.span`
+  font-weight: 400;
+`;
+
 const Day = styled.div`
   width: 14%;
-  height: 42px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: 0.2s;
+  font-weight: 100;
 
   &:hover {
     background-color: #2e4663;
@@ -115,7 +118,7 @@ function SmallCalendar() {
       <Body>
         {DAYS_OF_THE_WEEK.map(d => (
           <Day key={d}>
-            <strong>{d}</strong>
+            <DayHeader>{d}</DayHeader>
           </Day>
         ))}
         {Array(days[month] + (startDay - 1))

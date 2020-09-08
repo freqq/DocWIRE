@@ -13,7 +13,7 @@ const AppointmentsCurrentDateWrapper = styled.div.attrs({
 `;
 
 const DateBold = styled.span.attrs({ className: 'date-bold' })`
-  font-weight: 900;
+  font-weight: 400;
 `;
 
 const DateWeekDayName = styled.span.attrs({ className: 'date-week-day-name' })`

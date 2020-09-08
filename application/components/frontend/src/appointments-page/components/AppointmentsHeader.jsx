@@ -14,6 +14,7 @@ import arrowRight from 'images/icons/right-arrow.svg';
 const AppointmentsHeaderWrapper = styled.div.attrs({ className: 'appointments-header-wrapper' })`
   padding-bottom: 10px;
   border-bottom: 1px solid #f0f0f0;
+  font-size: 12px;
 `;
 
 const AppointmentsHeaderDetails = styled.div.attrs({ className: 'appointments-header-details' })`
@@ -35,7 +36,7 @@ const AppointmentsYear = styled.div.attrs({ className: 'appointments-year' })`
 `;
 
 const DayChooseWarpper = styled.div.attrs({ className: 'day-choose-wrapper' })`
-  width: 65%;
+  width: 90%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 5% repeat(7, 1fr) 5%;
@@ -64,11 +65,13 @@ const DayButton = styled.div.attrs({ className: 'day-button' })`
 
 const DayName = styled.div.attrs({ className: 'day-name' })`
   font-weight: 100;
-  font-size: 11px;
+  font-size: 8px;
   margin-bottom: 10px;
 `;
 
-const DayNumber = styled.div.attrs({ className: 'day-number' })``;
+const DayNumber = styled.div.attrs({ className: 'day-number' })`
+  font-size: 12px;
+`;
 
 const ArrowButton = styled.div.attrs({ className: 'arrow-button' })``;
 
@@ -98,8 +101,8 @@ const AppointmentsHeader = () => {
     const startOfTheWeek = moment().startOf('isoweek').toDate().getDate();
     const endOfTheWeek = moment().endOf('isoweek').toDate().getDate();
 
-    for (let i = 0; i < 5; i += 1) {
-      if (startOfTheWeek + i > daysInCurrentMonth())
+    for (let i = 1; i < 6; i += 1) {
+      if (startOfTheWeek + i >= daysInCurrentMonth())
         returnArray.push(startOfTheWeek + i - daysInCurrentMonth());
       else returnArray.push(startOfTheWeek + i);
     }

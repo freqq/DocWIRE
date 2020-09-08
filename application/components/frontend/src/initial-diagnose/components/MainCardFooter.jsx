@@ -36,6 +36,11 @@ const SelectAnswer = styled.span.attrs({ className: 'select-answer' })`
 const NextStepButton = styled(FooterButton).attrs({ className: 'next-step-button' })`
   background: #2e4663;
   color: #ffffff;
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
 `;
 
 const PreviousStepButton = styled(FooterButton).attrs({ className: 'previous-step-button' })`
@@ -43,7 +48,15 @@ const PreviousStepButton = styled(FooterButton).attrs({ className: 'previous-ste
   color: #2e4663;
 `;
 
-const MainCardFooter = ({ currentStep, previousStep, nextStep, setCurrentStepNumber }) => {
+const MainCardFooter = ({
+  currentStep,
+  previousStep,
+  nextStep,
+  setCurrentStepNumber,
+  isQuickSurveyBlocked,
+  isSymptomsBlocked,
+  isRegionsBlocked,
+}) => {
   const goForward = () => {
     setCurrentStepNumber(currentStep + 1);
     nextStep();
@@ -54,12 +67,23 @@ const MainCardFooter = ({ currentStep, previousStep, nextStep, setCurrentStepNum
     previousStep();
   };
 
+  const shouldBlockQuickSurvey = () => currentStep === 4 && isQuickSurveyBlocked();
+
+  const shouldBlockSymptoms = () => currentStep === 5 && isSymptomsBlocked();
+
+  const shouldBlockVisitedRegions = () => currentStep === 6 && isRegionsBlocked();
+
   return (
     <MainCardFooterWrapper>
       {currentStep === 2 ? (
         <SelectAnswer>Select an answer above</SelectAnswer>
       ) : (
-        <NextStepButton onClick={goForward}>
+        <NextStepButton
+          onClick={goForward}
+          disabled={
+            shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
+          }
+        >
           {currentStep === 7 ? 'Submit' : <>Next step &gt;</>}
         </NextStepButton>
       )}
@@ -81,6 +105,9 @@ MainCardFooter.propTypes = {
   previousStep: PropTypes.func,
   nextStep: PropTypes.func,
   setCurrentStepNumber: PropTypes.func.isRequired,
+  isQuickSurveyBlocked: PropTypes.func.isRequired,
+  isSymptomsBlocked: PropTypes.func.isRequired,
+  isRegionsBlocked: PropTypes.func.isRequired,
 };
 
 export default MainCardFooter;

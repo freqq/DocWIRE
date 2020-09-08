@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import DiagnoseLeftSide from 'initial-diagnose/components/DiagnoseLeftSide';
 import DiagnoseRightSide from 'initial-diagnose/components/DiagnoseRightSide';
 

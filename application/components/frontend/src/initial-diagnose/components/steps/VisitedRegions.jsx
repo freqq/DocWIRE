@@ -15,7 +15,7 @@ const RegionsDescription = styled.p.attrs({ className: 'regions-description' })`
   margin: 0;
 `;
 
-const VisitedRegions = ({ currentStep, totalSteps }) => (
+const VisitedRegions = ({ currentStep, totalSteps, setVisitedRegions }) => (
   <GenericStep
     stepName="Regions you visited recently"
     currentStep={currentStep}
@@ -24,7 +24,7 @@ const VisitedRegions = ({ currentStep, totalSteps }) => (
     <RegionsDescription>
       Please select the region you live in and places you&apos;ve traveled to in the last 12 months.
     </RegionsDescription>
-    <CheckboxSVGMap map={World} />
+    <CheckboxSVGMap map={World} onChange={regions => setVisitedRegions(regions)} />
   </GenericStep>
 );
 
@@ -36,6 +36,7 @@ VisitedRegions.defaultProps = {
 VisitedRegions.propTypes = {
   currentStep: PropTypes.number,
   totalSteps: PropTypes.number,
+  setVisitedRegions: PropTypes.func.isRequired,
 };
 
 export default VisitedRegions;

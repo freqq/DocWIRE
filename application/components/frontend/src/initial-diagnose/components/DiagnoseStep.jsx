@@ -23,6 +23,7 @@ const DiagnoseStepNumber = styled.div.attrs({ className: 'diagnose-step-number' 
   background: #ffffff;
   color: rgba(0, 0, 0, 0.5);
   font-size: 12px;
+  margin-right: 10px;
 `;
 
 const DiagnoseStepDetails = styled.div.attrs({ className: 'diagnose-step-details' })``;
@@ -37,7 +38,6 @@ const DiagnoseStepDescription = styled.p.attrs({ className: 'diagnose-step-descr
   margin: 0;
   font-weight: 100;
   font-size: 9px;
-  width: 20%;
 `;
 
 const CompletedIcon = styled.img.attrs({ className: 'completed-icon' })`

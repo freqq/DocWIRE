@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GenericStep from 'initial-diagnose/components/GenericStep';
@@ -59,9 +59,14 @@ const CHOSEN_CARD_STYLE = {
   opacity: '0.6',
 };
 
-const ChooseSex = ({ currentStep, totalSteps, nextStep, setCurrentStepNumber }) => {
-  const [chosenSex, setChosenSex] = useState(null);
-
+const ChooseSex = ({
+  currentStep,
+  totalSteps,
+  nextStep,
+  setCurrentStepNumber,
+  setChosenSex,
+  chosenSex,
+}) => {
   const selectSex = sexName => {
     setChosenSex(sexName);
     setCurrentStepNumber(currentStep + 1);
@@ -97,6 +102,8 @@ ChooseSex.propTypes = {
   totalSteps: PropTypes.number,
   nextStep: PropTypes.func,
   setCurrentStepNumber: PropTypes.func.isRequired,
+  setChosenSex: PropTypes.func.isRequired,
+  chosenSex: PropTypes.string.isRequired,
 };
 
 export default ChooseSex;

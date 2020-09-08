@@ -17,7 +17,7 @@ const UserDropdownMenuWrapper = styled.div.attrs({ className: 'user-dropdown-men
   position: absolute;
   top: 50px;
   left: 60px;
-  z-index: 99;
+  z-index: 9999;
   font-family: 'Roboto', sans-serif !important;
   cursor: auto;
   border-radius: 5px;

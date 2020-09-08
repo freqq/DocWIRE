@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GenericStep from 'initial-diagnose/components/GenericStep';
@@ -21,46 +21,22 @@ const SymptomsGrid = styled.p.attrs({ className: 'symptoms-grid' })`
   margin: 20px auto 0 auto;
 `;
 
-const EXAMPLE_CHIPS = [
-  {
-    id: 1,
-    content: 'Pain in right lower part of your stomach',
-  },
-  {
-    id: 2,
-    content: 'Calf pain',
-  },
-  {
-    id: 3,
-    content: 'Penis pain',
-  },
-  {
-    id: 4,
-    content: 'Hurting your arse',
-  },
-  {
-    id: 5,
-    content: 'Haha lol what is this',
-  },
-];
-
-const Symptoms = ({ currentStep, totalSteps }) => {
-  const [chips, setChips] = useState(EXAMPLE_CHIPS);
-
+const Symptoms = ({ currentStep, totalSteps, setChosenSymptoms, chosenSymptoms }) => {
   const onRemove = chipId => {
-    const filteredArray = chips.filter(chip => chip.id !== chipId);
-    setChips(filteredArray);
+    const filteredArray = chosenSymptoms.filter(chip => chip.id !== chipId);
+    setChosenSymptoms(filteredArray);
   };
 
-  const onAdd = chip => {
-    if (!chips.some(item => item.id === chip.id)) setChips([...chips, chip]);
+  const onAdd = newSymptom => {
+    if (!chosenSymptoms.some(item => item.id === newSymptom.id))
+      setChosenSymptoms([...chosenSymptoms, newSymptom]);
   };
 
   return (
     <GenericStep stepName="Symptoms" currentStep={currentStep} totalSteps={totalSteps}>
       <SymptomsDescription>Please use the search or click on the body model.</SymptomsDescription>
       <SymptomsGrid>
-        <SymptomsChips onRemove={onRemove} chips={chips} />
+        <SymptomsChips onRemove={onRemove} chips={chosenSymptoms} />
         <HumanModel onAdd={onAdd} />
       </SymptomsGrid>
     </GenericStep>
@@ -75,6 +51,8 @@ Symptoms.defaultProps = {
 Symptoms.propTypes = {
   currentStep: PropTypes.number,
   totalSteps: PropTypes.number,
+  chosenSymptoms: PropTypes.instanceOf(Array).isRequired,
+  setChosenSymptoms: PropTypes.func.isRequired,
 };
 
 export default Symptoms;

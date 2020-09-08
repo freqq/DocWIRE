@@ -1,0 +1,5 @@
+export default {
+  MULTI_SELECT_QUESTION: 1,
+  SINGLE_SELECT_QUESTON: 2,
+  SCALE_QUESTION: 1,
+};

@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Doughnut } from 'react-chartjs-2';
-import 'chartjs-plugin-datalabels';
+import { Bar } from 'react-chartjs-2';
 
-const AppointmentsChartWrapper = styled.div.attrs({
-  className: 'appointments-chart-wrapper',
-})`
-  width: calc(100%; - 20px);
-  height: 100%;
+const AppointmentsChartWrapper = styled.div.attrs({ className: 'appointments-chart-wrapper' })`
+  width: calc(100% - 20px);
+  height: calc(100% - 40px);
   background: #ffffff;
   padding: 25px 10px 0 10px;
   border: 1px solid #f0f0f0;
@@ -15,9 +12,7 @@ const AppointmentsChartWrapper = styled.div.attrs({
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
 `;
 
-const CharTitle = styled.div.attrs({
-  className: 'chart-title',
-})`
+const CharTitle = styled.div.attrs({ className: 'chart-title' })`
   text-align: left;
   font-size: 14px;
   font-weight: 100;
@@ -29,7 +24,7 @@ const AppointmentsChart = () => {
   return (
     <AppointmentsChartWrapper>
       <CharTitle>Customers statistics</CharTitle>
-      <Doughnut
+      <Bar
         data={{
           datasets: [
             {
@@ -41,16 +36,10 @@ const AppointmentsChart = () => {
         }}
         options={{
           legend: {
-            display: true,
-            position: 'right',
+            display: false,
           },
           responsive: true,
           maintainAspectRatio: true,
-          plugins: {
-            datalabels: {
-              color: 'white',
-            },
-          },
         }}
       />
     </AppointmentsChartWrapper>

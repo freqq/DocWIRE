@@ -18,3 +18,9 @@
   cursor: pointer;
   font-size: 14px;
 }
+
+.chartjs-render-monitor {
+  width: 180px !important;
+  height: 110px !important;
+  margin: 0 auto;
+}

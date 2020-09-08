@@ -43,11 +43,12 @@ const MenuItem = styled.li.attrs({ className: 'menu-item' })`
   cursor: pointer;
   font-weight: 100;
   border-radius: 3px;
+  border: 1px solid #ffffff;
   transition: 0.2s;
 
   &:hover {
-    background: #e2eff8;
-    border-right: 2px solid #2d4564;
+    background: #f9fafc;
+    border: 1px solid #f0f0f0;
   }
 `;
 
@@ -69,8 +70,8 @@ const MenuItemName = styled.p.attrs({ className: 'menu-item-name' })`
 `;
 
 const ACTIVE_TAB_STYLE = {
-  background: '#e2eff8',
-  borderRight: '2px solid #2d4564',
+  background: '#f9fafc',
+  border: '1px solid #f0f0f0',
 };
 
 const MENU_ITEMS = [

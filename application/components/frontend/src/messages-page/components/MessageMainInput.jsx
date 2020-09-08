@@ -7,7 +7,6 @@ const MessageMainInputWrapper = styled.div.attrs({ className: 'message-main-inpu
   border-top: 1px solid #f0f0f0;
   padding: 20px;
   z-index: 1;
-  border-right: 1px solid #f0f0f0;
   display: grid;
   grid-template-columns: 90% 10%;
 `;

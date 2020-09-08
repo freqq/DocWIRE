@@ -1,15 +1,30 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import SearchInput from 'initial-diagnose/components/steps/components/SearchInput';
 import Chip from 'initial-diagnose/components/steps/components/Chip';
 
+const NoChipsBox = styled.div.attrs({ className: 'no-chips-box' })`
+  padding: 20px;
+  font-weight: 100;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 5px;
+  background: #fafafa;
+  margin-top: 20px;
+  border: 1px solid #f0f0f0;
+`;
+
 const SymptomsChips = ({ chips, onRemove }) => (
   <div>
     <SearchInput id="symptoms-search-input" placeholder="Search, e.g. headache" />
-    {chips !== null &&
+    {chips.length > 0 ? (
       chips.map(chip => (
         <Chip key={chip.content} onRemove={onRemove} id={chip.id} content={chip.content} />
-      ))}
+      ))
+    ) : (
+      <NoChipsBox>Please try to add atleast one symptom.</NoChipsBox>
+    )}
   </div>
 );
 

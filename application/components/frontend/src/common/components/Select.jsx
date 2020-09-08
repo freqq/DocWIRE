@@ -11,12 +11,17 @@ const OptionWrapper = styled.div.attrs({ className: 'option-wrapper' })`
   margin-left: 20px;
 `;
 
-const Select = ({ onChange, value, options }) => (
+const Select = ({ onChange, value, options, question }) => (
   <SelectWrapper>
     {options.map(option => (
-      <OptionWrapper key={value}>
-        <label htmlFor={option.id} onClick={onChange}>
-          <input type="radio" value="option3" id={option.id} checked={value === option.name} />
+      <OptionWrapper key={option}>
+        <label htmlFor={option.question} onClick={evt => onChange(evt.target.id)}>
+          <input
+            type="radio"
+            question={question}
+            id={option.id}
+            checked={parseInt(value, 10) === option.id}
+          />
           {option.name}
         </label>
       </OptionWrapper>
@@ -27,6 +32,7 @@ const Select = ({ onChange, value, options }) => (
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  question: PropTypes.string.isRequired,
   options: PropTypes.instanceOf(Array).isRequired,
 };
 
