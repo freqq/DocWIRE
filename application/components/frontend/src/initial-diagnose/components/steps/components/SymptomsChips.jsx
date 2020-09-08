@@ -19,9 +19,7 @@ const SymptomsChips = ({ chips, onRemove }) => (
   <div>
     <SearchInput id="symptoms-search-input" placeholder="Search, e.g. headache" />
     {chips.length > 0 ? (
-      chips.map(chip => (
-        <Chip key={chip.content} onRemove={onRemove} id={chip.id} content={chip.content} />
-      ))
+      chips.map(chip => <Chip key={chip} onRemove={onRemove} id={chip} content={chip} />)
     ) : (
       <NoChipsBox>Please try to add atleast one symptom.</NoChipsBox>
     )}

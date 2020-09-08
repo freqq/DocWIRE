@@ -12,7 +12,7 @@ const HumanModelWrapper = styled.div.attrs({ className: 'human-model-wrapper' })
   position: relative;
 `;
 
-const HumanModel = ({ onAdd }) => {
+const HumanModel = ({ onAdd, chosenSymptoms }) => {
   const [chosenBodyPart, setChosenBodyPart] = useState(null);
 
   useEffect(() => {
@@ -182,7 +182,12 @@ const HumanModel = ({ onAdd }) => {
         </svg>
       </div>
       {chosenBodyPart && (
-        <HumanModelPopup bodyPart={chosenBodyPart} onClose={onClose} onAdd={onAdd} />
+        <HumanModelPopup
+          bodyPart={chosenBodyPart}
+          onClose={onClose}
+          onAdd={onAdd}
+          chosenSymptoms={chosenSymptoms}
+        />
       )}
     </HumanModelWrapper>
   );
@@ -190,6 +195,7 @@ const HumanModel = ({ onAdd }) => {
 
 HumanModel.propTypes = {
   onAdd: PropTypes.func.isRequired,
+  chosenSymptoms: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default HumanModel;

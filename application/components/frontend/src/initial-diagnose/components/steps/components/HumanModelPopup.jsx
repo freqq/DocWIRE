@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import onClickOutside from 'react-onclickoutside';
 
+import bodyPartSymptoms from 'initial-diagnose/components/steps/utils/body_part_symptoms';
+
 const HumanModelPopupWrapper = styled.div.attrs({ className: 'human-model-wrapper' })`
   position: absolute;
   top: 10%;
@@ -58,26 +60,16 @@ const CloseIcon = styled.span.attrs({ className: 'close-icon' })`
   }
 `;
 
-const BODY_PARTS = [
-  {
-    id: 1,
-    content: '123',
-  },
-  {
-    id: 2,
-    content: '456',
-  },
-  {
-    id: 3,
-    content: '789',
-  },
-];
+const HumanModelPopup = ({ bodyPart, onClose, onAdd, chosenSymptoms }) => {
+  const bodyPartElement = bodyPartSymptoms.filter(part => part.bodyPart === bodyPart)[0];
+  const filteredArray = bodyPartElement.symptoms.filter(
+    element => !chosenSymptoms.includes(element),
+  );
 
-const HumanModelPopup = ({ bodyPart, onClose, onAdd }) => {
   HumanModelPopup.handleClickOutside = () => onClose();
 
-  const addChip = part => {
-    onAdd(part);
+  const addChip = symptom => {
+    onAdd(symptom);
     onClose();
   };
 
@@ -89,9 +81,9 @@ const HumanModelPopup = ({ bodyPart, onClose, onAdd }) => {
           <CloseIcon onClick={onClose}>&#10006;</CloseIcon>
         </PopupHeader>
         <PopupList>
-          {BODY_PARTS.map(part => (
-            <PopupListItem onClick={() => addChip(part)} key={part.id}>
-              {part.content}
+          {filteredArray.map(symptom => (
+            <PopupListItem onClick={() => addChip(symptom)} key={symptom}>
+              {symptom}
             </PopupListItem>
           ))}
         </PopupList>
@@ -108,6 +100,7 @@ HumanModelPopup.propTypes = {
   bodyPart: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
+  chosenSymptoms: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default onClickOutside(HumanModelPopup, clickOutsideConfig);

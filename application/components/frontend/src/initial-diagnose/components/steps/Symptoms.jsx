@@ -22,13 +22,13 @@ const SymptomsGrid = styled.p.attrs({ className: 'symptoms-grid' })`
 `;
 
 const Symptoms = ({ currentStep, totalSteps, setChosenSymptoms, chosenSymptoms }) => {
-  const onRemove = chipId => {
-    const filteredArray = chosenSymptoms.filter(chip => chip.id !== chipId);
+  const onRemove = symptomToRemove => {
+    const filteredArray = chosenSymptoms.filter(symptom => symptom !== symptomToRemove);
     setChosenSymptoms(filteredArray);
   };
 
   const onAdd = newSymptom => {
-    if (!chosenSymptoms.some(item => item.id === newSymptom.id))
+    if (!chosenSymptoms.some(item => item === newSymptom))
       setChosenSymptoms([...chosenSymptoms, newSymptom]);
   };
 
@@ -37,7 +37,7 @@ const Symptoms = ({ currentStep, totalSteps, setChosenSymptoms, chosenSymptoms }
       <SymptomsDescription>Please use the search or click on the body model.</SymptomsDescription>
       <SymptomsGrid>
         <SymptomsChips onRemove={onRemove} chips={chosenSymptoms} />
-        <HumanModel onAdd={onAdd} />
+        <HumanModel onAdd={onAdd} chosenSymptoms={chosenSymptoms} />
       </SymptomsGrid>
     </GenericStep>
   );
