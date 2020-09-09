@@ -110,10 +110,13 @@ const MENU_ITEMS = [
 const LayoutSidebarMenu = ({ setActiveTab, activeTab }) => (
   <LayoutSidebarMenuWrapper>
     {MENU_ITEMS.map(menuItem => (
-      <MenuWrapper>
+      <MenuWrapper key={menuItem.sectionTitle}>
         <SectionTitle>{menuItem.sectionTitle}</SectionTitle>
         {menuItem.options.map(sectionOption => (
-          <MenuItem style={activeTab === sectionOption.to ? ACTIVE_TAB_STYLE : {}}>
+          <MenuItem
+            key={sectionOption.to}
+            style={activeTab === sectionOption.to ? ACTIVE_TAB_STYLE : {}}
+          >
             <StyledLink to={sectionOption.to} onClick={() => setActiveTab(sectionOption.to)}>
               <MenuItemIcon src={sectionOption.icon} alt="sectionOption" />
               <MenuItemName>{sectionOption.name}</MenuItemName>
