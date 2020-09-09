@@ -17,6 +17,7 @@ export const FORGOT_PASSWORD_PATH = getPath('/forgot-password');
 export const DIAGNOSE_PATH = getPath('/diagnose');
 export const FAQ_PATH = getPath('/faq');
 export const APPOINTMENT_DETAILS_PATH = getPath('/appointments/:appointmentId');
+export const VIDEO_CONVERSATION_PAGE = getPath('/call/:callId');
 
 export const LoadableMainPage = makeLoadable(() => import('main-page/containers/MainPage'));
 export const LoadableDashboardPage = makeLoadable(() =>
@@ -46,6 +47,9 @@ export const LoadableForgotPasswordPage = makeLoadable(() =>
 export const LoadableInitialDiagnosePage = makeLoadable(() =>
   import('initial-diagnose/containers/InitialDiagnosePage'),
 );
+export const LoadableVideoConversationPage = makeLoadable(() =>
+  import('video-conversation-page/containers/VideoConversationPage'),
+);
 
 const RootRouter = () => (
   <Switch>
@@ -62,6 +66,7 @@ const RootRouter = () => (
       <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
       <Route exact path={APPOINTMENT_DETAILS_PATH} component={LoadableAppointmentDetailsPage} />
       <Route exact path={FAQ_PATH} component={LoadableFAQPage} />
+      <Route exact path={VIDEO_CONVERSATION_PAGE} component={LoadableVideoConversationPage} />
     </Layout>
     <Route component={NotFoundPage} />
   </Switch>
