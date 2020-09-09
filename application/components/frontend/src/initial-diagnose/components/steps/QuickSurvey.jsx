@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GenericStep from 'initial-diagnose/components/GenericStep';
 import AnswerRow from 'initial-diagnose/components/steps/components/AnswerRow';
+import shortid from 'shortid';
 
 const ChooseDescription = styled.p.attrs({ className: 'choose-description' })`
   text-align: center;
@@ -32,25 +33,25 @@ const QuickSurvey = ({
 }) => {
   const QUESTIONS = [
     {
-      id: 1,
+      id: shortid(),
       question: 'I smoke cigarettes',
       value: smokeCigarete,
       setter: setSmokeCigarete,
     },
     {
-      id: 2,
+      id: shortid(),
       question: 'I’ve been recently injured',
       value: recentlyInjured,
       setter: setRecentlyInjured,
     },
     {
-      id: 3,
+      id: shortid(),
       question: 'I have high cholesterol',
       value: highCholesterol,
       setter: setHighCholesterol,
     },
     {
-      id: 4,
+      id: shortid(),
       question: 'I have diabetes',
       value: diabetes,
       setter: setDiabetes,
@@ -82,10 +83,10 @@ QuickSurvey.defaultProps = {
 QuickSurvey.propTypes = {
   currentStep: PropTypes.number,
   totalSteps: PropTypes.number,
-  smokeCigarete: PropTypes.number.isRequired,
-  recentlyInjured: PropTypes.number.isRequired,
-  highCholesterol: PropTypes.number.isRequired,
-  diabetes: PropTypes.number.isRequired,
+  smokeCigarete: PropTypes.string.isRequired,
+  recentlyInjured: PropTypes.string.isRequired,
+  highCholesterol: PropTypes.string.isRequired,
+  diabetes: PropTypes.string.isRequired,
   setSmokeCigarete: PropTypes.func.isRequired,
   setRecentlyInjured: PropTypes.func.isRequired,
   setHighCholesterol: PropTypes.func.isRequired,

@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import shortid from 'shortid';
 
 const SelectWrapper = styled.div.attrs({ className: 'select-wrapper' })``;
 
@@ -11,17 +12,12 @@ const OptionWrapper = styled.div.attrs({ className: 'option-wrapper' })`
   margin-left: 20px;
 `;
 
-const Select = ({ onChange, value, options, question }) => (
+const Select = ({ onChange, value, options, question, customStyle }) => (
   <SelectWrapper>
     {options.map(option => (
-      <OptionWrapper key={option}>
-        <label htmlFor={option.question} onClick={evt => onChange(evt.target.id)}>
-          <input
-            type="radio"
-            question={question}
-            id={option.id}
-            checked={parseInt(value, 10) === option.id}
-          />
+      <OptionWrapper key={shortid()} style={customStyle}>
+        <label htmlFor={option.question} onClick={() => onChange(option.name)}>
+          <input type="radio" question={question} id={option.id} checked={value === option.name} />
           {option.name}
         </label>
       </OptionWrapper>
@@ -29,11 +25,16 @@ const Select = ({ onChange, value, options, question }) => (
   </SelectWrapper>
 );
 
+Select.defaultProps = {
+  customStyle: {},
+};
+
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
   options: PropTypes.instanceOf(Array).isRequired,
+  customStyle: PropTypes.instanceOf(Object),
 };
 
 export default Select;

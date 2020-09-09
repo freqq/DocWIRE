@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import shortid from 'shortid';
+
 import Select from 'common/components/Select';
 
 const AnswerRowWrapper = styled.li.attrs({ className: 'answer-row-wrapper' })`
@@ -25,9 +27,9 @@ const AnswerOptions = styled.div.attrs({ className: 'answer-options' })`
 `;
 
 const OPTIONS = [
-  { id: 1, name: 'Yes' },
-  { id: 2, name: 'No' },
-  { id: 3, name: `Don't know` },
+  { id: shortid(), name: 'Yes' },
+  { id: shortid(), name: 'No' },
+  { id: shortid(), name: `Don't know` },
 ];
 
 const AnswerRow = ({ question, value, setter }) => (

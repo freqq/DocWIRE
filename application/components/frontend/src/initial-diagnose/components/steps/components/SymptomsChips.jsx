@@ -15,9 +15,14 @@ const NoChipsBox = styled.div.attrs({ className: 'no-chips-box' })`
   border: 1px solid #f0f0f0;
 `;
 
-const SymptomsChips = ({ chips, onRemove }) => (
+const SymptomsChips = ({ chips, onRemove, onAdd }) => (
   <div>
-    <SearchInput id="symptoms-search-input" placeholder="Search, e.g. headache" />
+    <SearchInput
+      onAdd={onAdd}
+      id="symptoms-search-input"
+      placeholder="Search, e.g. headache"
+      chips={chips}
+    />
     {chips.length > 0 ? (
       chips.map(chip => <Chip key={chip} onRemove={onRemove} id={chip} content={chip} />)
     ) : (
@@ -29,6 +34,7 @@ const SymptomsChips = ({ chips, onRemove }) => (
 SymptomsChips.propTypes = {
   chips: PropTypes.instanceOf(Array).isRequired,
   onRemove: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default SymptomsChips;

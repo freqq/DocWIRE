@@ -62,6 +62,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
   const [chosenAge, setChosenAge] = useState(70);
   const [chosenSymptoms, setChosenSymptoms] = useState([]);
   const [visitedRegions, setVisitedRegions] = useState([]);
+  const [surveyObject, setSurveyObject] = useState([]);
 
   const [smokeCigarete, setSmokeCigarete] = useState(null);
   const [recentlyInjured, setRecentlyInjured] = useState(null);
@@ -80,6 +81,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
       },
       chosenSymptoms,
       visitedRegions,
+      surveyObject,
     };
 
     console.log(diagnoseObject);
@@ -94,6 +96,16 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
   const isSymptomsBlocked = () => chosenSymptoms.length === 0;
 
   const isRegionsBlocked = () => visitedRegions.length === 0;
+
+  const setSurveyObjectAndSend = surv => {
+    setSurveyObject(surv);
+    sendDiagnose();
+  };
+
+  const getNamesFromVisitedRegionsAndSave = regions => {
+    const arrayOfRegionsNames = regions.map(a => a.ariaLabel);
+    setVisitedRegions(arrayOfRegionsNames);
+  };
 
   return (
     <DiagnoseMainCardWrapper>
@@ -136,8 +148,15 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
               chosenSymptoms={chosenSymptoms}
               setChosenSymptoms={setChosenSymptoms}
             />
-            <VisitedRegions hashKey="visited-regions" setVisitedRegions={setVisitedRegions} />
-            <LastSurvey hashKey="last-survey" sendDiagnose={sendDiagnose} />
+            <VisitedRegions
+              hashKey="visited-regions"
+              setVisitedRegions={getNamesFromVisitedRegionsAndSave}
+            />
+            <LastSurvey
+              hashKey="last-survey"
+              sendDiagnose={sendDiagnose}
+              setSurveyObject={setSurveyObjectAndSend}
+            />
             <Results hashKey="results" />
           </StepWizard>
         </RelativeWrapper>

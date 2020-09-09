@@ -36,7 +36,7 @@ const Symptoms = ({ currentStep, totalSteps, setChosenSymptoms, chosenSymptoms }
     <GenericStep stepName="Symptoms" currentStep={currentStep} totalSteps={totalSteps}>
       <SymptomsDescription>Please use the search or click on the body model.</SymptomsDescription>
       <SymptomsGrid>
-        <SymptomsChips onRemove={onRemove} chips={chosenSymptoms} />
+        <SymptomsChips onAdd={onAdd} onRemove={onRemove} chips={chosenSymptoms} />
         <HumanModel onAdd={onAdd} chosenSymptoms={chosenSymptoms} />
       </SymptomsGrid>
     </GenericStep>

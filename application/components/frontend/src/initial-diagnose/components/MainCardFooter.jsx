@@ -78,14 +78,18 @@ const MainCardFooter = ({
       {currentStep === 2 ? (
         <SelectAnswer>Select an answer above</SelectAnswer>
       ) : (
-        <NextStepButton
-          onClick={goForward}
-          disabled={
-            shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
-          }
-        >
-          {currentStep === 7 ? 'Submit' : <>Next step &gt;</>}
-        </NextStepButton>
+        <>
+          {currentStep !== 7 && (
+            <NextStepButton
+              onClick={goForward}
+              disabled={
+                shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
+              }
+            >
+              {currentStep === 7 ? 'Submit' : <>Next step &gt;</>}
+            </NextStepButton>
+          )}
+        </>
       )}
       {currentStep !== 1 && (
         <PreviousStepButton onClick={goBack}>&lt; Previous step</PreviousStepButton>

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import SymptomsSearchDropdown from 'initial-diagnose/components/steps/components/SymptomsSearchDropdown';
 
 import searchIcon from 'images/icons/search.svg';
 
@@ -28,19 +30,32 @@ const SearchIcon = styled.img.attrs({ className: 'search-icon' })`
   cursor: pointer;
 `;
 
-const SearchInput = ({ id, onKeyDown, placeholder }) => (
-  <SearchInputWrapper>
-    <InputWrapper>
-      <InputComponent placeholder={placeholder} onKeyDown={onKeyDown} id={id} />
-      <SearchIcon src={searchIcon} alt="searchIcon" />
-    </InputWrapper>
-  </SearchInputWrapper>
-);
+const SearchInput = ({ id, placeholder, onAdd, chips }) => {
+  const [searchValue, setSearchValue] = useState('');
+
+  return (
+    <SearchInputWrapper>
+      <InputWrapper>
+        <InputComponent
+          placeholder={placeholder}
+          value={searchValue}
+          onChange={evt => setSearchValue(evt.target.value)}
+          id={id}
+        />
+        <SearchIcon src={searchIcon} alt="searchIcon" />
+        {searchValue.length > 0 && (
+          <SymptomsSearchDropdown searchValue={searchValue} onAdd={onAdd} chips={chips} />
+        )}
+      </InputWrapper>
+    </SearchInputWrapper>
+  );
+};
 
 SearchInput.propTypes = {
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  onKeyDown: PropTypes.string.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  chips: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default SearchInput;

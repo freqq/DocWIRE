@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import progressImage from 'images/circle_progress.svg';
+import progressImage from 'images/loading_image.svg';
 
 const ImageContainer = styled.img.attrs({
   className: 'image-container-progress',
@@ -20,7 +20,7 @@ const ProgressIndicatorCircular = ({ size }) => (
 );
 
 ProgressIndicatorCircular.defaultProps = {
-  size: 60,
+  size: 100,
 };
 
 ProgressIndicatorCircular.propTypes = {
