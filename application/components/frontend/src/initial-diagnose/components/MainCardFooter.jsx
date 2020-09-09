@@ -73,6 +73,8 @@ const MainCardFooter = ({
 
   const shouldBlockVisitedRegions = () => currentStep === 6 && isRegionsBlocked();
 
+  if (currentStep === 8) return null;
+
   return (
     <MainCardFooterWrapper>
       {currentStep === 2 ? (

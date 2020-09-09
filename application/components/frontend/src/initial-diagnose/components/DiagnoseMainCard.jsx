@@ -156,6 +156,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
               hashKey="last-survey"
               sendDiagnose={sendDiagnose}
               setSurveyObject={setSurveyObjectAndSend}
+              setCurrentStepNumber={setCurrentStepNumber}
             />
             <Results hashKey="results" />
           </StepWizard>

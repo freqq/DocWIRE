@@ -9,7 +9,13 @@ import interviewQuestions from 'initial-diagnose/components/steps/utils/question
 const CHOSEN_QUESTIONS = interviewQuestions;
 const QUESTIONS_NUMBER = 4;
 
-const LastSurvey = ({ currentStep, totalSteps, nextStep, setSurveyObject }) => {
+const LastSurvey = ({
+  currentStep,
+  totalSteps,
+  nextStep,
+  setSurveyObject,
+  setCurrentStepNumber,
+}) => {
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
 
   const [firstAnswer, setFirstAnswer] = useState(null);
@@ -54,6 +60,7 @@ const LastSurvey = ({ currentStep, totalSteps, nextStep, setSurveyObject }) => {
   const answerFourth = answer => {
     setFourthAnswer(answer);
     setSurveyObject(constructSurveyObject());
+    setCurrentStepNumber(currentStep + 1);
     nextStep();
   };
 
@@ -84,6 +91,7 @@ LastSurvey.propTypes = {
   totalSteps: PropTypes.number,
   nextStep: PropTypes.func,
   setSurveyObject: PropTypes.func.isRequired,
+  setCurrentStepNumber: PropTypes.func.isRequired,
 };
 
 export default LastSurvey;
