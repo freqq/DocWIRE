@@ -67,9 +67,11 @@ public class User {
     private Set<Authority> authorities;
 
     @Field("pwd_reset")
+    @Builder.Default
     private PasswordReset passwordReset = null;
 
     @Field("email_change")
+    @Builder.Default
     private EmailChange emailChange = null;
 
 }

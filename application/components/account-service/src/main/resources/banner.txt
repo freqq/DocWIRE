@@ -1,0 +1,6 @@
+${AnsiColor.WHITE}   ,------.                  ${AnsiColor.CYAN},--.   ,--. ,--. ,------.  ,------.
+${AnsiColor.WHITE}   |  .-.  \   ,---.   ,---. ${AnsiColor.CYAN}|  |   |  | |  | |  .--. ' |  .---'
+${AnsiColor.WHITE}   |  |  \  : | .-. | | .--' ${AnsiColor.CYAN}|  |.'.|  | |  | |  '--'.' |  `--,
+${AnsiColor.WHITE}   |  '--'  / ' '-' ' \ `--. ${AnsiColor.CYAN}|   ,'.   | |  | |  |\  \  |  `---.
+${AnsiColor.WHITE}   `-------'   `---'   `---' ${AnsiColor.CYAN}'--'   '--' `--' `--' '--' `------'
+${AnsiColor.BLUE}:: Running Spring Boot ${spring-boot.version} ::

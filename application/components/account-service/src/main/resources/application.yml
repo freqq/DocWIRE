@@ -3,8 +3,8 @@ server:
 
 logging:
   level:
-    org.springframework.data.mongodb.core.MontoTemplate: DRBUG
-    ROOT: Debug
+    org.springframework.data.mongodb.core.MontoTemplate: DEBUG
+    ROOT: DEBUG
     com.pwit: DEBUG
     jdk.eventsecurity: INFO
 
