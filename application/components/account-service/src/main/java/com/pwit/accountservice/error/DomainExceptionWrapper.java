@@ -1,14 +1,12 @@
 package com.pwit.accountservice.error;
 
-import java.util.Map;
-
 import com.pwit.accountservice.error.exception.DomainException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.Map;
 
 @Slf4j
 @Component

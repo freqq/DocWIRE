@@ -1,6 +1,37 @@
 server:
   port: 8083
 
+logging:
+  level:
+    org.springframework.data.mongodb.core.MontoTemplate: DRBUG
+    ROOT: Debug
+    com.pwit: DEBUG
+    jdk.eventsecurity: INFO
+
 spring:
+  profiles:
+    active: dev
+    include:
+      - swagger
   application:
     name: account-service
+  main:
+    allow-bean-definition-overriding: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: docwire.test@gmail.com
+    password: NEsiTiCapeLHanD
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
+      from: docwire.test@gmail.com
+  thymeleaf:
+    mode: HTML
+    cache: false
+
+mailprop:
+  baseUrl: https://localhost:3000

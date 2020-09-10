@@ -2,16 +2,16 @@ package com.pwit.accountservice.mapper;
 
 import com.pwit.accountservice.dto.CreateAccountDTO;
 import com.pwit.accountservice.dto.ReadAccountDTO;
-import com.pwit.accountservice.entity.AccountEntity;
+import com.pwit.accountservice.entity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class AccountMapper {
-    public static AccountEntity mapCreateUserDTOToAccountEntity(CreateAccountDTO dto, PasswordEncoder passwordEncoder) {
+    public static User mapCreateUserDTOToAccountEntity(CreateAccountDTO dto, PasswordEncoder passwordEncoder) {
         dto.setPassword(
                 passwordEncoder.encode(dto.getPassword())
         );
 
-        return AccountEntity.builder()
+        return User.builder()
                 .username(dto.getUsername())
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
@@ -20,7 +20,7 @@ public class AccountMapper {
                 .build();
     }
 
-    public static ReadAccountDTO mapAccountEntityToReadAccountDTO(AccountEntity entity) {
+    public static ReadAccountDTO mapAccountEntityToReadAccountDTO(User entity) {
         return ReadAccountDTO.builder()
                 .username(entity.getUsername())
                 .firstName(entity.getFirstName())

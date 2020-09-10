@@ -15,7 +15,7 @@ task copyArchToDocker(type: Copy, dependsOn: ':components:frontend:yarnBuild') {
 
 task generateDockerFile(type: Dockerfile, dependsOn: copyArchToDocker) {
     destFile = project.file("${buildDir}/Dockerfile")
-    from("node:12.4.0-alpine")
+    from("node:13.12.0-alpine")
     workingDir("/app")
     copyFile("dist", "/app/dist")
     copyFile("server.js", "/app/server.js")
@@ -32,6 +32,7 @@ task generateDockerFile(type: Dockerfile, dependsOn: copyArchToDocker) {
 task dockerBuildFrontend(type: DockerBuildImage, dependsOn: generateDockerFile) {
     inputDir = file("${buildDir}")
     tag = "${dockerHubName}/${project.name}:${imageTag}"
+    tag = "${project.name}:${imageTag}"
 }
 
 task prepareDev(type: Copy) {

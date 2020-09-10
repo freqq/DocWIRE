@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+    frontend:
+        image: frontend:v1
+        restart: always
+        ports:
+          - "9040:9040"
+        networks:
+          - docwire_network
+
+    account-service:
+        image: account-service:v1
+        ports:
+            - "8083:8083"
+        depends_on:
+            - mongodb
+        environment:
+            - SPRING_DATA_MONGODB_HOST=mongodb
+            - SPRING_DATA_MONGODB_PORT=27017
+            - SPRING_DATA_MONGODB_DATABASE=account_service_dev
+            - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
+        networks:
+            - docwire_network
+
+    mongodb:
+        image: mongo:4.2
+        ports:
+            - "27017:27017"
+        networks:
+            - docwire_network
+
+networks:
+    docwire_network:
