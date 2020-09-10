@@ -1,7 +1,10 @@
 package com.pwit.accountservice.controller;
 
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
-import com.pwit.accountservice.dto.request.*;
+import com.pwit.accountservice.dto.request.EmailChangeRequest;
+import com.pwit.accountservice.dto.request.PasswordResetEndRequest;
+import com.pwit.accountservice.dto.request.PasswordResetRequest;
+import com.pwit.accountservice.dto.request.RegisterRequest;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.accountservice.utils.Logger;
 import lombok.AllArgsConstructor;

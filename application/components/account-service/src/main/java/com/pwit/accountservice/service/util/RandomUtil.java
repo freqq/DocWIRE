@@ -1,6 +1,7 @@
 package com.pwit.accountservice.service.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
+
 import java.security.SecureRandom;
 
 public class RandomUtil {
@@ -8,7 +9,7 @@ public class RandomUtil {
     private static final int DEF_KEY_COUNT = 64;
     private static final int BCRYPT_HASH_LENGTH = 64;
 
-    private SecureRandom secureRandom() {
+    private static SecureRandom secureRandom() {
         SecureRandom secureRandom = new SecureRandom();
         secureRandom.nextBytes(new byte[BCRYPT_HASH_LENGTH]);
         return secureRandom;

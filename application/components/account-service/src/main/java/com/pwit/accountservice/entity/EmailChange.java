@@ -1,6 +1,5 @@
 package com.pwit.accountservice.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 

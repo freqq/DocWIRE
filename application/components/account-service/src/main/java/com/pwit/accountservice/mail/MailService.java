@@ -5,10 +5,10 @@ import com.pwit.accountservice.utils.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -85,7 +85,7 @@ public class MailService {
     @Async
     public void sendEmailChangeMail(User user, String email) {
         LOGGER.debug("Sending email changing email to '{}'", email);
-        User toBeUser = user.clone(email = email);
+        User toBeUser = user.toBuilder().email(email).build();
         sendEmailFromTemplate(user, "mail/emailChangeEmail", "email.change.title");
     }
 }

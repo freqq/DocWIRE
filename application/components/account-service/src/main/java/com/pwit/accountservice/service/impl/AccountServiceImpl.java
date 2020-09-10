@@ -43,11 +43,11 @@ public class AccountServiceImpl implements AccountService {
 
         String encryptedPassword = passwordEncoder.encode(registerRequest.getPassword());
 
-        User createdUser = new User().builder()
-                .email(registerRequest.getEmail())
-                .username(registerRequest.getUsername())
-                .password(encryptedPassword)
-                .langKey(registerRequest.getLangKey());
+        User createdUser = new User().toBuilder()
+                                        .email(registerRequest.getEmail())
+                                        .username(registerRequest.getUsername())
+                                        .password(encryptedPassword)
+                                        .langKey(registerRequest.getLangKey()).build();
 
         userRepository.save(createdUser);
 
@@ -74,6 +74,11 @@ public class AccountServiceImpl implements AccountService {
         if(foundUser == null)
             throw new UserNotFoundException();
 
+        // EDIT USER
+        // ....
+        // ....
+        // ....
+        // ....
         // EDIT USER
 
         userRepository.save(foundUser);
@@ -102,7 +107,7 @@ public class AccountServiceImpl implements AccountService {
                 emailChange.setKey(key);
                 emailChange.setNewEmail(emailChangeRequest.getNewEmail());
 
-                User updatedUser = foundUser.copy(emailChange = emailChange);
+                User updatedUser = foundUser.toBuilder().emailChange(emailChange).build();
                 userRepository.save(updatedUser);
                 mailService.sendEmailChangeMail(updatedUser, emailChangeRequest.getNewEmail());
 
@@ -130,12 +135,12 @@ public class AccountServiceImpl implements AccountService {
         EmailChange emailChange = foundUser.getEmailChange();
 
         if(isExpired(emailChange)){
-            User updateUser = foundUser.copy(emailChange = null);
+            User updateUser = foundUser.toBuilder().emailChange(null).build();
             userRepository.save(updateUser);
             throw new WrongOrExpiredEmailChangeKeyException("Given email reset key is expired.");
         }
 
-        User updatedUser = foundUser.copy(email = emailChange.getNewEmail(), emailChange = null);
+        User updatedUser = foundUser.toBuilder().email(emailChange.getNewEmail()).emailChange(null).build();
         userRepository.save(updatedUser);
 
         return ResponseEntity.ok().build();
@@ -155,7 +160,7 @@ public class AccountServiceImpl implements AccountService {
         PasswordReset passwordReset = new PasswordReset();
         passwordReset.setKey(resetKey);
 
-        foundUser = userRepository.save(user.copy(passwordResetRequest = passwordReset));
+        foundUser = userRepository.save(foundUser.toBuilder().passwordReset(passwordReset).build());
         mailService.sendPasswordResetMail(foundUser);
 
         return ResponseEntity.ok().build();
@@ -174,13 +179,14 @@ public class AccountServiceImpl implements AccountService {
         LocalDateTime nowMinusValidity = LocalDateTime.now().minusHours(RESET_KEY_VALID_FOR_HOURS);
 
         if(foundUser.getPasswordReset().getExpireAt().isBefore(nowMinusValidity)) {
-            userRepository.save(foundUser.copy(passwordReset = null));
+            userRepository.save(foundUser.toBuilder().passwordReset(null).build());
             throw new PasswordResetKeyWrongOrExpiredException("Given reset key expired.");
         }
 
-        userRepository.save(foundUser.copy(
-                password = passwordEncoder(passwordResetEndRequest.getNewPassword()),
-                passwordReset = null));
+        userRepository.save(foundUser.toBuilder()
+                        .password(passwordEncoder.encode(passwordResetEndRequest.getNewPassword()))
+                        .passwordReset(null)
+                        .build());
         mailService.sendPasswordChangedInfoMail(foundUser);
 
         return ResponseEntity.ok().build();

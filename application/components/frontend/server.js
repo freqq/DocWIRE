@@ -6,7 +6,7 @@ import noCache from 'nocache';
 
 const app = express();
 
-const PORT = process.env.PORT || 9050;
+const PORT = process.env.PORT || 9040;
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 app.use(morgan('combined'));

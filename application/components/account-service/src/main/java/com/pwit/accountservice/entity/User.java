@@ -1,9 +1,12 @@
 package com.pwit.accountservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pwit.accountservice.entity.enumeration.Gender;
 import com.pwit.accountservice.validator.NameConstraint;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,14 +19,14 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.pwit.accountservice.entity.enumeration.Gender;
-
-import static com.pwit.accountservice.utils.Constants.MIN_EMAIL_LENGTH;
 import static com.pwit.accountservice.utils.Constants.MAX_EMAIL_LENGTH;
+import static com.pwit.accountservice.utils.Constants.MIN_EMAIL_LENGTH;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 @TypeAlias("User")
-@Builder
 @Document(collection = "users")
 public class User {
     @Indexed

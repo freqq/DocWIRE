@@ -29,7 +29,10 @@ task copyJarToDocker(type: Copy, dependsOn: ':components:account-service:assembl
 task generateDockerFile(type: Dockerfile, dependsOn: copyJarToDocker) {
     destFile = project.file("${buildDir}/Dockerfile")
     from "${imageProperties.imageName}:${imageProperties.tag}"
-    environmentVariable("MS_JAR_NAME", "${jarName}-0.1-SNAPSHOT.jar")
+    workingDir("/opt/app")
+    environmentVariable("MS_JAR_NAME", "docker/${jarName}-0.1-SNAPSHOT.jar")
+    copyFile("\${MS_JAR_NAME}", "${jarName}.jar");
+    entryPoint("java", "-jar", "${jarName}.jar");
 }
 
 task dockerBuildAccountService(type: DockerBuildImage, dependsOn: generateDockerFile) {

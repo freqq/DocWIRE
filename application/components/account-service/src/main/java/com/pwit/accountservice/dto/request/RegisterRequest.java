@@ -7,8 +7,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import static com.pwit.accountservice.utils.Constants.PASSWORD_MIN_LENGTH;
 import static com.pwit.accountservice.utils.Constants.PASSWORD_MAX_LENGTH;
+import static com.pwit.accountservice.utils.Constants.PASSWORD_MIN_LENGTH;
 
 @Data
 public class RegisterRequest {

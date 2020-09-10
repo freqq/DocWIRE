@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
     frontend:
-        image: frontend:v1
+        image: freq/frontend:v1
         restart: always
         ports:
           - "9040:9040"
@@ -10,7 +10,7 @@ services:
           - docwire_network
 
     account-service:
-        image: account-service:v1
+        image: freq/account-service:v1
         ports:
             - "8083:8083"
         depends_on:

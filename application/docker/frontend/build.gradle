@@ -32,7 +32,6 @@ task generateDockerFile(type: Dockerfile, dependsOn: copyArchToDocker) {
 task dockerBuildFrontend(type: DockerBuildImage, dependsOn: generateDockerFile) {
     inputDir = file("${buildDir}")
     tag = "${dockerHubName}/${project.name}:${imageTag}"
-    tag = "${project.name}:${imageTag}"
 }
 
 task prepareDev(type: Copy) {
