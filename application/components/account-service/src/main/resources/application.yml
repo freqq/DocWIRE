@@ -3,9 +3,9 @@ server:
 
 logging:
   level:
-    org.springframework.data.mongodb.core.MontoTemplate: DEBUG
-    ROOT: DEBUG
-    com.pwit: DEBUG
+    org.springframework.data.mongodb.core.MontoTemplate: INFO
+    ROOT: INFO
+    com.pwit: INFO
     jdk.eventsecurity: INFO
 
 spring:
@@ -32,6 +32,11 @@ spring:
   thymeleaf:
     mode: HTML
     cache: false
+  data:
+    mongodb:
+      host: localhost
+      port: 27020
+      database: account_service_db
 
 mailprop:
   baseUrl: https://localhost:3000

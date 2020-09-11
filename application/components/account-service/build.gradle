@@ -25,6 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.springframework.security:spring-security-config"
     implementation "org.springframework.security:spring-security-data"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.3.3.RELEASE'
     implementation "org.springframework.security:spring-security-web"
 
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
@@ -33,7 +34,6 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-crypto', version: '3.1.0.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.3.3.RELEASE'
     compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
-    compile group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.0.3.RELEASE'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 
     compileOnly 'org.projectlombok:lombok'

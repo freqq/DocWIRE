@@ -9,6 +9,9 @@ public final class Constants {
     public static final int MIN_NAME_LENGTH = 2;
     public static final int MAX_NAME_LENGTH = 20;
 
+    public static final int MIN_USERNAME_LENGTH = 5;
+    public static final int MAX_USERNAME_LENGTH = 20;
+
     public static final int MIN_EMAIL_LENGTH = 5;
     public static final int MAX_EMAIL_LENGTH = 254;
 

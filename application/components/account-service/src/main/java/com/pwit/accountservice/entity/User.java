@@ -21,6 +21,8 @@ import java.util.Set;
 
 import static com.pwit.accountservice.utils.Constants.MAX_EMAIL_LENGTH;
 import static com.pwit.accountservice.utils.Constants.MIN_EMAIL_LENGTH;
+import static com.pwit.accountservice.utils.Constants.MIN_USERNAME_LENGTH;
+import static com.pwit.accountservice.utils.Constants.MAX_USERNAME_LENGTH;
 
 @Data
 @NoArgsConstructor
@@ -29,15 +31,14 @@ import static com.pwit.accountservice.utils.Constants.MIN_EMAIL_LENGTH;
 @TypeAlias("User")
 @Document(collection = "users")
 public class User {
-    @Indexed
+    @Indexed(unique = true)
+    @Size(min = MIN_USERNAME_LENGTH, max = MAX_USERNAME_LENGTH)
+    private String username;
+
+    @Indexed(unique = true)
     @Email
     @Size(min = MIN_EMAIL_LENGTH, max = MAX_EMAIL_LENGTH)
     private String email;
-
-    @Indexed
-    @Email
-    @Size(min = MIN_EMAIL_LENGTH, max = MAX_EMAIL_LENGTH)
-    private String username;
 
     @JsonIgnore
     @NotNull

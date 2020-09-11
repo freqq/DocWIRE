@@ -48,4 +48,5 @@ task dockerPushAccountService(type: DockerPushImage, dependsOn: dockerBuildAccou
     registryCredentials.password = "${registryPassword}"
 }
 
-dockerPush.dependsOn dockerPushAccountService
+// TODO Return to docker push when needed
+dockerPush.dependsOn dockerBuildAccountService

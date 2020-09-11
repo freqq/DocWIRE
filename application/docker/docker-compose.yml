@@ -17,16 +17,17 @@ services:
             - mongodb
         environment:
             - SPRING_DATA_MONGODB_HOST=mongodb
-            - SPRING_DATA_MONGODB_PORT=27017
-            - SPRING_DATA_MONGODB_DATABASE=account_service_dev
+            - SPRING_DATA_MONGODB_PORT=27020
+            - SPRING_DATA_MONGODB_DATABASE=account_service_db
             - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
         networks:
             - docwire_network
 
     mongodb:
         image: mongo:4.2
+        command: mongod --port 27020
         ports:
-            - "27017:27017"
+            - "27020:27020"
         networks:
             - docwire_network
 
