@@ -42,10 +42,10 @@ public class User {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 60, max = 60) // 60 - Length of hash
+    @Size(min = 60, max = 60) // 60 - Length of hashed password
     private String password;
 
-    @Field("lang_key")
+    @Field("langKey")
     @Size(min = 2, max = 10)
     private String langKey;
 
@@ -67,11 +67,11 @@ public class User {
     @Field("authorities")
     private Set<Authority> authorities;
 
-    @Field("pwd_reset")
+    @Field("passwordReset")
     @Builder.Default
     private PasswordReset passwordReset = null;
 
-    @Field("email_change")
+    @Field("emailChange")
     @Builder.Default
     private EmailChange emailChange = null;
 

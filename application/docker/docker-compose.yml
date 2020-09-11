@@ -3,6 +3,7 @@ version: "3.7"
 services:
     frontend:
         image: freq/frontend:v1
+        container_name: frontend
         restart: always
         ports:
           - "9040:9040"
@@ -11,6 +12,7 @@ services:
 
     account-service:
         image: freq/account-service:v1
+        container_name: account-service
         ports:
             - "8083:8083"
         depends_on:
@@ -25,9 +27,22 @@ services:
 
     mongodb:
         image: mongo:4.2
+        container_name: account-service-db
         command: mongod --port 27020
         ports:
             - "27020:27020"
+        networks:
+            - docwire_network
+    
+    rabbitmq:
+        image: 'rabbitmq:3.6-management-alpine'
+        container_name: rabbitmq
+        environment:
+            - RABBITMQ_DEFAULT_USER=admin
+            - RABBITMQ_DEFAULT_PASS=password
+        ports:
+            - '5672:5672' # The standard AMQP protocol port
+            - '15672:15672' # HTTP management UI
         networks:
             - docwire_network
 
