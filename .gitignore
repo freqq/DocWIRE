@@ -245,3 +245,5 @@ sketch
 
 # Not ignore gradle wrapper jar file
 !application/gradle/wrapper/gradle-wrapper.jar
+
+application/.gradle/

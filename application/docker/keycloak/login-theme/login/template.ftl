@@ -36,7 +36,7 @@
     </#if>
     <title><#nested "title"> - ${realm.displayName!'INPEAK Trainer'}</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="${url.resourcesPath}/images/favicon/favicon-32x32.png">
+    <link rel="icon" sizes="32x32" href="${url.resourcesPath}/images/favicon/favicon.ico">
 
     <meta name="msapplication-TileColor" content="#093436">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,21 +70,7 @@
         <div class="grid-row">
             <div class="column-one-third">
                 <div class="top-header">
-                    <a href="#"><img src="${url.resourcesPath}/images/logos/inpeak-logo.svg" id="main-page-logo" alt="main-page-logo" /></a>
-                    <#if realm.internationalizationEnabled>
-                        <div id="kc-locale" class="${properties.kcLocaleClass!}">
-                            <div id="kc-locale-wrapper" class="${properties.kcLocaleWrapperClass!}">
-                                <div class="kc-dropdown" id="kc-locale-dropdown">
-                                    <a href="#" id="kc-current-locale-link">${locale.current}</a>
-                                    <ul class="locale-list">
-                                        <#list locale.supported as l>
-                                            <li class="kc-dropdown-item"><a href="${l.url}">${l.label}</a></li>
-                                        </#list>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </#if>
+                    <a href="#"><img src="${url.resourcesPath}/images/logos/main_logo.svg" id="main-page-logo" alt="main-page-logo" /></a>
                 </div>
 
                 <div><#nested "back"></div>
@@ -127,60 +113,15 @@
 
 
                 <footer id="footer" role="contentinfo">
-                    &copy; 2020 INPEAK Trainer
+                    &copy; 2020 DocWIRE
                 </footer>
             </div>
 
             <div class="column-two-thirds">
-                <div class="slideshow-container">
-                    <div class="mySlides fade">
-                        <img src="${url.resourcesPath}/images/app/app-1.png" alt="app-1">
-                        <div class="text">
-                            <p class="title">Moduł kalendarza</p>
-                            <p class="subtitle">
-                                Aplikacja zawiera kalendarz, dzieki ktoremu jestes na biezaco ze wszystkimi treningami i nie opuscisz ani jednego i zostaniesz w formie dzięki naszym trenerom!
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="mySlides fade">
-                        <img src="${url.resourcesPath}/images/app/app-2.png" alt="app-2">
-                        <div class="text">
-                            <p class="title">Moduł kalendarza</p>
-                            <p class="subtitle">
-                                Aplikacja zawiera kalendarz, dzieki ktoremu jestes na biezaco ze wszystkimi treningami i nie opuscisz ani jednego i zostaniesz w formie dzięki naszym trenerom!
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="mySlides fade">
-                        <img src="${url.resourcesPath}/images/app/app-3.png" alt="app-3">
-                        <div class="text">
-                            <p class="title">Moduł kalendarza</p>
-                            <p class="subtitle">
-                                Aplikacja zawiera kalendarz, dzieki ktoremu jestes na biezaco ze wszystkimi treningami i nie opuscisz ani jednego i zostaniesz w formie dzięki naszym trenerom!
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- The dots/circles -->
-                    <div style="text-align:center">
-                        <span class="dot" onclick="currentSlide(1)"></span>
-                        <span class="dot" onclick="currentSlide(2)"></span>
-                        <span class="dot" onclick="currentSlide(3)"></span>
-                    </div>
-                </div>
-                <br>
-
-
-
-                <div id="kc-container" class="${properties.kcContainerClass!}">
-                    <div id="kc-container-wrapper" class="${properties.kcContainerWrapperClass!}">
-                        <#-- <div id="kc-header" class="${properties.kcHeaderClass!}">
-                            <div id="kc-header-wrapper" class="${properties.kcHeaderWrapperClass!}"><#nested "header"></div>
-                        </div>-->
-                    </div>
-                </div>
+                <p class="login-page-title">
+                    <span>We care about </span>
+                    <span class="bold-span">you.</span>
+                </p>
             </div>
         </div>
     </main>
@@ -188,7 +129,6 @@
     <div id="global-app-error" class="app-error hidden"></div>
 
     <script src="${url.resourcesPath}/javascript/govuk-template.js?0.22.1"></script>
-    <script src="${url.resourcesPath}/javascript/slider.js"></script>
     <script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script>
 </body>
 </html>

@@ -295,7 +295,15 @@
       },
       {
         "id": "8e98ab11-a911-482b-b793-79245d985364",
-        "name": "role-coach",
+        "name": "role-doctor",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "master",
+        "attributes": {}
+      },
+      {
+        "id": "8e98ab11-a911-482b-b793-79245d955364",
+        "name": "role-patient",
         "composite": false,
         "clientRole": false,
         "containerId": "master",
@@ -305,7 +313,7 @@
   },
   "internationalizationEnabled": true,
   "supportedLocales": ["en", "pl"],
-  "defaultLocale": "pl",
+  "defaultLocale": "en",
   "authenticationFlows": [
     {
       "id": "8e888965-e80f-44f5-b02b-3d882a74eef6",

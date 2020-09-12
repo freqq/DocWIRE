@@ -53,21 +53,31 @@ public class AccountServiceImpl implements AccountService {
         LOGGER.debug("Updating user details of user with username '{}'", getCurrentUsername());
 
         User foundUser = userRepository.findUserByUserId(getCurrentUserId());
-
         if(foundUser == null)
             throw new UserNotFoundException();
 
-        // EDIT USER
-        // ....
-        // ....
-        // ....
-        // ....
-        // EDIT USER
-
+        checkRequestAndUpdateData(foundUser, updateAccountDTO);
         userRepository.save(foundUser);
 
-        LOGGER.debug("Getting user details of user with username '{}'", getCurrentUsername());
+        LOGGER.debug("User with username '{}' updated successfully.", getCurrentUsername());
 
         return ResponseEntity.ok().body(foundUser);
+    }
+
+    private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {
+        if(updateAccountDTO.getDayOfBirth() != null)
+            foundUser.setDayOfBirth(updateAccountDTO.getDayOfBirth());
+
+        if(updateAccountDTO.getFirstName() != null)
+            foundUser.setFirstName(updateAccountDTO.getFirstName());
+
+        if(updateAccountDTO.getLastName() != null)
+            foundUser.setLastName(updateAccountDTO.getLastName());
+
+        if(updateAccountDTO.getGender() != null)
+            foundUser.setGender(updateAccountDTO.getGender());
+
+        if(updateAccountDTO.getLangKey() != null)
+            foundUser.setLangKey(updateAccountDTO.getLangKey());
     }
 }

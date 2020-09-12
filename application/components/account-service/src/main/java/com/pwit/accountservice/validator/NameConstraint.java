@@ -18,6 +18,7 @@ import static com.pwit.accountservice.utils.Constants.MIN_NAME_LENGTH;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NameConstraint {
+    // TODO Replace variables in string
     String message() default "Name/surname must be between " +
             "$MIN_NAME_LENGTH-$MAX_NAME_LENGTH characters long and can" +
             "contain only letters without spaces";
