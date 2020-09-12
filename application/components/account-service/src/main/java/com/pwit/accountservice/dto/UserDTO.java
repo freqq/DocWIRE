@@ -8,9 +8,6 @@ import java.time.LocalDate;
 
 @Data
 public class UserDTO {
-    @JsonProperty("username")
-    private String username;
-
     @JsonProperty("first_name")
     private String firstName;
 
@@ -19,9 +16,6 @@ public class UserDTO {
 
     @JsonProperty("birth_date")
     private LocalDate birthDate;
-
-    @JsonProperty("email")
-    private String email;
 
     @JsonProperty("gender")
     private Gender gender;

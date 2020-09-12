@@ -1,10 +1,8 @@
 package com.pwit.accountservice;
 
-import com.pwit.accountservice.mail.MailProperties;
 import com.pwit.accountservice.utils.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -13,7 +11,6 @@ import java.net.UnknownHostException;
 
 @SpringBootApplication
 @EnableSwagger2
-@EnableConfigurationProperties(MailProperties.class)
 public class AccountServiceApplication {
     private static final Logger LOGGER = new Logger();
 

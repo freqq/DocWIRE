@@ -1,9 +1,6 @@
 package com.pwit.accountservice.controller;
 
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
-import com.pwit.accountservice.dto.request.EmailChangeRequest;
-import com.pwit.accountservice.dto.request.PasswordResetEndRequest;
-import com.pwit.accountservice.dto.request.PasswordResetRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.accountservice.utils.Logger;
@@ -15,9 +12,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 import static com.pwit.accountservice.security.Authorities.ROLE_USER;
+import static com.pwit.accountservice.security.SecurityUtils.getCurrentUserEmail;
+import static com.pwit.accountservice.security.SecurityUtils.getCurrentUsername;
 
 @AllArgsConstructor
 @RestController
@@ -35,87 +33,29 @@ public class AccountController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> createAccount(@Valid @RequestBody RegisterRequest registerRequest) {
-        LOGGER.info("Creating new user with username {}.", registerRequest.getUsername());
+        LOGGER.info("Creating new user with username {}.", getCurrentUsername());
         return accountService.createAccount(registerRequest);
     }
 
     /**
      * Gets info about currently logged in user.
-     *
-     * @param principal             Principal currently logged user
      */
     @Secured(ROLE_USER)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> getCurrentUserData(Principal principal) {
-        LOGGER.info("Getting info of user with username {}.", principal.getName());
-        return accountService.getCurrentUserData(principal);
+    ResponseEntity<?> getCurrentUserData() {
+        LOGGER.info("Getting info of user with email '{}'.", getCurrentUserEmail());
+        return accountService.getCurrentUserData();
     }
 
     /**
      * Update current user data.
      *
-     * @param principal             Principal currently logged user
      * @param userDetailsChangeDTO      Update user request
      */
     @Secured(ROLE_USER)
     @PutMapping()
-    ResponseEntity<?> updateCurrentUserDetails(Principal principal,
-                                                @Valid @RequestBody UserDetailsChangeDTO userDetailsChangeDTO){
-        LOGGER.info("Updating details of user with username {}", principal.getName());
-        return accountService.updateCurrentUserDetails(principal, userDetailsChangeDTO);
-    }
-
-    /**
-     * Start process of change of current email address.
-     *
-     * @param principal             Principal currently logged user
-     * @param emailChangeRequest      Update user request
-     */
-    @Secured(ROLE_USER)
-    @PostMapping("/email/change")
-    ResponseEntity<?> startUpdateCurrentUserEmail(Principal principal,
-                                                    @Valid @RequestBody EmailChangeRequest emailChangeRequest){
-        LOGGER.info("Starting an update of email of user with username {} to new email {}",
-                        principal.getName(), emailChangeRequest.getNewEmail());
-        return accountService.startUpdateCurrentUserEmail(principal, emailChangeRequest);
-    }
-
-    /**
-     * Finalizing process of change of current email address.
-     *
-     * @param principal             Principal currently logged user
-     * @param key                   key sent to new email
-     */
-    @Secured(ROLE_USER)
-    @PostMapping("/email/finalize-change")
-    ResponseEntity<?> finalizeUpdateCurrentUserEmail(Principal principal, @RequestParam("key") String key){
-        LOGGER.info("Finalizing an update of email of user with username {} to new email.", principal.getName());
-        return accountService.finalizeUpdateCurrentUserEmail(principal, key);
-    }
-
-    /**
-     * Starting process of change of current password.
-     *
-     * @param principal                Principal currently logged user
-     * @param passwordResetRequest     required password reset request
-     */
-    @Secured(ROLE_USER)
-    @PostMapping("/password/reset/start")
-    ResponseEntity<?> startResetCurrentPassword(Principal principal, PasswordResetRequest passwordResetRequest){
-        LOGGER.info("Starting a reset of password for user with username {}.", principal.getName());
-        return accountService.startResetCurrentPassword(principal, passwordResetRequest);
-    }
-
-    /**
-     * Finalizing process of change of current password.
-     *
-     * @param principal                   Principal currently logged user
-     * @param passwordResetEndRequest     must contain valid reset key and valid new password
-     */
-    @Secured(ROLE_USER)
-    @PostMapping("/password/reset/end")
-    ResponseEntity<?> finalizeResetCurrentPassword(Principal principal, PasswordResetEndRequest passwordResetEndRequest){
-        LOGGER.info("Finalizing a reset of password for user with username {}.", principal.getName());
-        return accountService.finalizeResetCurrentPassword(principal, passwordResetEndRequest);
+    ResponseEntity<?> updateCurrentUserDetails(@Valid @RequestBody UserDetailsChangeDTO userDetailsChangeDTO){
+        LOGGER.info("Updating details of user with email '{}'", getCurrentUserEmail());
+        return accountService.updateCurrentUserDetails(userDetailsChangeDTO);
     }
 }

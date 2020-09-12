@@ -1,36 +1,32 @@
 package com.pwit.accountservice.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pwit.accountservice.entity.enumeration.Gender;
+import com.pwit.accountservice.validator.NameConstraint;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-
-import static com.pwit.accountservice.utils.Constants.PASSWORD_MAX_LENGTH;
-import static com.pwit.accountservice.utils.Constants.PASSWORD_MIN_LENGTH;
+import java.time.LocalDate;
 
 @Data
 public class RegisterRequest {
-    @JsonProperty("username")
-    @Size(min = 5, max = 32)
-    private String username;
+    @JsonProperty("firstName")
+    @NameConstraint
+    private String firstName;
 
-    @JsonProperty("email")
-    @Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address. Min length: 5, max: 32")
-    @Size(min = 5, max = 32)
-    private String email;
+    @JsonProperty("lastName")
+    @NameConstraint
+    private String lastName;
 
-    @Size(
-            min = PASSWORD_MIN_LENGTH,
-            max = PASSWORD_MAX_LENGTH,
-            message = "Password must be between $PASSWORD_MIN_LENGTH to $PASSWORD_MAX_LENGTH characters long"
-    )
-    @NotBlank
-    @JsonProperty("password")
-    private String password;
+    @JsonProperty("birthday")
+    @Past
+    private LocalDate dayOfBirth;
 
     @Size(min = 2)
-    @JsonProperty("lang_key")
+    @JsonProperty("langKey")
     private String langKey;
+
+    @JsonProperty("gender")
+    private Gender gender;
 }

@@ -10,11 +10,60 @@ services:
         networks:
           - docwire_network
 
+    keycloak:
+        image: jboss/keycloak:11.0.0
+        restart: on-failure
+        command:
+            - "-b"
+            - "0.0.0.0"
+            - "-Djboss.http.port=8081"
+            - "-Dkeycloak.migration.action=import"
+            - "-Dkeycloak.migration.provider=dir"
+            - "-Dkeycloak.migration.dir=/config"
+            - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+            - "-Dkeycloak.profile.feature.account_api=enabled"
+        networks:
+            docwire_network:
+                aliases:
+                    - docwire.test
+        volumes:
+            - ./keycloak/config:/config/
+            - ./keycloak/login-theme/:/opt/jboss/keycloak/themes/login-theme/
+            - ./keycloak/keys/certificate.crt:/etc/x509/https/tls.crt
+            - ./keycloak/keys/privateKey.key:/etc/x509/https/tls.key
+        environment:
+            - KEYCLOAK_USER=admin
+            - KEYCLOAK_PASSWORD=password
+            - DB_VENDOR=postgres
+            - DB_USER=admin
+            - DB_PASSWORD=password
+            - DB_ADDR=keycloak-db
+            - DB_PORT=5432
+            - DB_DATABASE=keycloakdb
+        ports:
+            - "8081:8081"
+        depends_on:
+            - keycloak-db
+        healthcheck:
+            test: "curl -f http://docwire.test:8081/auth || exit 1"
+            start_period: 30s
+
+    keycloak-db:
+        image: postgres:10
+        environment:
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: keycloakdb
+        volumes:
+            - keycloak_db:/var/lib/postgresql/data
+        networks:
+            - docwire_network
+
     account-service:
         image: freq/account-service:v1
         container_name: account-service
         ports:
-            - "8083:8083"
+            - "8080:8080"
         depends_on:
             - mongodb
         environment:
@@ -35,7 +84,7 @@ services:
             - docwire_network
     
     rabbitmq:
-        image: 'rabbitmq:3.6-management-alpine'
+        image: rabbitmq:3.6-management-alpine
         container_name: rabbitmq
         environment:
             - RABBITMQ_DEFAULT_USER=admin
@@ -48,3 +97,6 @@ services:
 
 networks:
     docwire_network:
+
+volumes: 
+    keycloak_db:

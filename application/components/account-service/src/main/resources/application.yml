@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8080
 
 logging:
   level:
@@ -17,26 +17,17 @@ spring:
     name: account-service
   main:
     allow-bean-definition-overriding: true
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: docwire.test@gmail.com
-    password: NEsiTiCapeLHanD
-    protocol: smtp
-    tls: true
-    properties.mail.smtp:
-      auth: true
-      starttls.enable: true
-      ssl.trust: smtp.gmail.com
-      from: docwire.test@gmail.com
-  thymeleaf:
-    mode: HTML
-    cache: false
   data:
     mongodb:
       host: localhost
       port: 27020
       database: account_service_db
 
-mailprop:
-  baseUrl: https://localhost:3000
+keycloak:
+  enabled: true
+  realm: master
+  resource: account-service
+  principal-attribute: preferred_username
+  bearer-only: true
+  ssl-required: external
+  auth-server-url: http://docwire.test:8081/auth

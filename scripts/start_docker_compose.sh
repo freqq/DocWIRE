@@ -2,22 +2,40 @@
 
 set -e
 
+function log() {
+    echo "$(date) ${*}"
+}
+
+function log_info() {
+    log INFO "${*}"
+}
+
+function log_error() {
+    log ERROR "${*}"
+}
+
 SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+function build_images {
+    log_info "Starting building images..."
 
-function app_start() (
-    echo "Starting DocWIRE with help of docker-compose ..."
+    ./gradlew docker:account-service:dockerPush
+    ./gradlew docker:frontend:dockerPush
+
+    log_info "Images built successfully."
+}
+
+function app_start {
+    log_info "Starting DocWIRE with help of docker-compose ..."
 
     cd ${SOURCE_DIR}/../application
 
-    ./gradlew charts:account-service:appLoad
-    ./gradlew charts:frontend:appLoad
+    build_images
 
-    cd docker
-    docker-compose up
+    cd docker && docker-compose up
 
     cd -
-    echo "DocWIRE started."
-)
+    log_info "DocWIRE started."
+}
 
 app_start
