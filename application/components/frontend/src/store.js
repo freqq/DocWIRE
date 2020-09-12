@@ -4,6 +4,8 @@ import { connectRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import thunkMiddleware from 'redux-thunk';
 
+import commonReducer from 'common/reducers';
+
 export const history = createBrowserHistory();
 
 const middleware = [thunkMiddleware, routerMiddleware(history)];
@@ -19,6 +21,7 @@ if (
 
 const rootReducer = combineReducers({
   router: connectRouter(history),
+  common: commonReducer,
 });
 
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));

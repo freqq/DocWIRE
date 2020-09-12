@@ -2297,9 +2297,10 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
-base64-js@^1.0.2:
+base64-js@1.3.1, base64-js@^1.0.2:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.1.tgz#58ece8cb75dd07e71ed08c736abc5fac4dbf8df1"
+  integrity sha512-mLQ4i2QO1ytvGWFWmcngKO//JXAQueZvwEKtjgQFM4jIK0kU+ytMfplL8j+n5mspOfjHwoAg+9yhb7BwAHm36g==
 
 base@^0.11.1:
   version "0.11.2"
@@ -6213,6 +6214,11 @@ jest@^26.2.2:
     import-local "^3.0.2"
     jest-cli "^26.2.2"
 
+js-sha256@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/js-sha256/-/js-sha256-0.9.0.tgz#0b89ac166583e91ef9123644bd3c5334ce9d0966"
+  integrity sha512-sga3MHh9sgQN2+pJ9VYZ+1LPwXOxuBJBA5nrR5/ofPfuiJBE2hnjsaN8se8JznOmGLN2p49Pe5U/ttafcs/apA==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -6339,6 +6345,14 @@ jsx-ast-utils@^2.4.1:
   dependencies:
     array-includes "^3.1.1"
     object.assign "^4.1.0"
+
+keycloak-js@^11.0.0:
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/keycloak-js/-/keycloak-js-11.0.2.tgz#e981c5270e72066e38b2a1bd98f1138d6cd560c1"
+  integrity sha512-dnvzgTetovu3eTjJtvBQQhxRN4jqvd/DaA2wFaE4aWIFXhwRcoPpZT8ZJ7MwlICDPdCgzbCsOsBjpL8CbYOZsg==
+  dependencies:
+    base64-js "1.3.1"
+    js-sha256 "0.9.0"
 
 killable@^1.0.1:
   version "1.0.1"

@@ -50,4 +50,6 @@ task dockerPushFrontend(type: DockerPushImage, dependsOn: [dockerBuildFrontend, 
 
 prepareDev.mustRunAfter copyArchToDocker
 dockerBuildFrontend.mustRunAfter prepareDev
-dockerPush.dependsOn dockerPushFrontend
+
+// TODO Return to docker push when needed
+dockerPush.dependsOn dockerBuildFrontend

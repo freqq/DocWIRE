@@ -4,6 +4,7 @@ import getPath from 'common/utils/path';
 import makeLoadable from 'common/utils/loadable';
 import NotFoundPage from 'common/components/NotFoundPage';
 import Layout from 'common/components/layout/Layout';
+import AuthService from 'AuthService';
 
 export const ROOT_PATH = getPath('/');
 export const DASHBOARD_PATH = getPath('/dashboard');
@@ -58,16 +59,18 @@ const RootRouter = () => (
     <Route exact path={REGISTER_PATH} component={LoadableRegisterPage} />
     <Route exact path={FORGOT_PASSWORD_PATH} component={LoadableForgotPasswordPage} />
     <Route exact path={DIAGNOSE_PATH} component={LoadableInitialDiagnosePage} />
-    <Layout>
-      <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
-      <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />
-      <Route exact path={APPOINTMENTS_PATH} component={LoadableAppointmentsPage} />
-      <Route exact path={PATIENT_DETAILS_PATH} component={LoadablePatientDetailsPage} />
-      <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
-      <Route exact path={APPOINTMENT_DETAILS_PATH} component={LoadableAppointmentDetailsPage} />
-      <Route exact path={FAQ_PATH} component={LoadableFAQPage} />
-      <Route exact path={VIDEO_CONVERSATION_PAGE} component={LoadableVideoConversationPage} />
-    </Layout>
+    <AuthService>
+      <Layout>
+        <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
+        <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />
+        <Route exact path={APPOINTMENTS_PATH} component={LoadableAppointmentsPage} />
+        <Route exact path={PATIENT_DETAILS_PATH} component={LoadablePatientDetailsPage} />
+        <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
+        <Route exact path={APPOINTMENT_DETAILS_PATH} component={LoadableAppointmentDetailsPage} />
+        <Route exact path={FAQ_PATH} component={LoadableFAQPage} />
+        <Route exact path={VIDEO_CONVERSATION_PAGE} component={LoadableVideoConversationPage} />
+      </Layout>
+    </AuthService>
     <Route component={NotFoundPage} />
   </Switch>
 );
