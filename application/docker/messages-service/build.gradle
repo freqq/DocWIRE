@@ -1,0 +1,52 @@
+description 'account-service'
+
+apply from: "$configurationDir/docker.gradle"
+apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'base'
+
+import com.bmuschko.gradle.docker.DockerRegistryCredentials
+import com.bmuschko.gradle.docker.tasks.image.*
+
+def imageProperties = getBaseImageProperties("openjdk")
+def libsDir = getComponentLibsDir("messages-service")
+
+project.buildDir.mkdirs()
+File dockerFolder = file("$dockerDirPath")
+
+task copyJarToDocker(type: Copy, dependsOn: ':components:messages-service:assemble') {
+    from libsDir
+    into dockerFolder
+
+    doFirst {
+      dockerFolder.mkdirs()
+      dockerFolder.setWritable(true)
+      dockerFolder.setExecutable(true)
+    }
+
+    outputs.upToDateWhen { false }
+}
+
+task generateDockerFile(type: Dockerfile, dependsOn: copyJarToDocker) {
+    destFile = project.file("${buildDir}/Dockerfile")
+    from "${imageProperties.imageName}:${imageProperties.tag}"
+    workingDir("/opt/app")
+    environmentVariable("MS_JAR_NAME", "docker/${jarName}-0.1-SNAPSHOT.jar")
+    copyFile("\${MS_JAR_NAME}", "${jarName}.jar");
+    entryPoint("java", "-jar", "${jarName}.jar");
+}
+
+task dockerBuildMessagesService(type: DockerBuildImage, dependsOn: generateDockerFile) {
+    inputDir = file("${buildDir}")
+    tags.add("${dockerHubName}/${project.name}:${imageTag}")
+}
+
+task dockerPushMessagesService(type: DockerPushImage, dependsOn: dockerBuildMessagesService) {
+    imageName = "${dockerHubName}/${project.name}"
+    tag = "${imageTag}"
+    registryCredentials = new DockerRegistryCredentials()
+    registryCredentials.username = "${registryUsername}"
+    registryCredentials.password = "${registryPassword}"
+}
+
+// TODO Return to docker push when needed
+dockerPush.dependsOn dockerBuildMessagesService

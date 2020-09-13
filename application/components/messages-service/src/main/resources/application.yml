@@ -1,0 +1,33 @@
+server:
+  port: 8085
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MontoTemplate: INFO
+    ROOT: INFO
+    com.pwit: INFO
+    jdk.eventsecurity: INFO
+
+spring:
+  profiles:
+    active: dev
+    include:
+      - swagger
+  application:
+    name: messages-service
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27021
+      database: messages_service_db
+
+keycloak:
+  enabled: true
+  realm: master
+  resource: messages-service
+  principal-attribute: preferred_username
+  bearer-only: true
+  ssl-required: external
+  auth-server-url: http://docwire.test:8081/auth

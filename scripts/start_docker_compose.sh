@@ -21,6 +21,7 @@ function build_images {
 
     ./gradlew docker:account-service:dockerPush
     ./gradlew docker:frontend:dockerPush
+    ./gradlew docker:messages-service:dockerPush
 
     log_info "Images built successfully."
 }

@@ -1,0 +1,26 @@
+description 'common'
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'com.google.guava', name: 'guava', version: '19.0'
+	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.2.8.RELEASE'
+	compile group: 'org.springframework', name: 'spring-context', version: '5.2.8.RELEASE'
+	compile group: 'org.keycloak', name: 'keycloak-spring-boot-starter', version: '11.0.0'
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.4.0'
+	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.4.0'
+	implementation "org.zalando:problem-spring-web:0.25.2"
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+}

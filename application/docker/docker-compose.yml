@@ -65,7 +65,7 @@ services:
         ports:
             - "8080:8080"
         depends_on:
-            - mongodb
+            - account-service-db
         environment:
             - SPRING_DATA_MONGODB_HOST=mongodb
             - SPRING_DATA_MONGODB_PORT=27020
@@ -74,12 +74,36 @@ services:
         networks:
             - docwire_network
 
-    mongodb:
+    messages-service:
+        image: freq/messages-service:v1
+        container_name: messages-service
+        ports:
+            - "8085:8085"
+        depends_on:
+            - messages-service-db
+        environment:
+            - SPRING_DATA_MONGODB_HOST=mongodb
+            - SPRING_DATA_MONGODB_PORT=27020
+            - SPRING_DATA_MONGODB_DATABASE=account_service_db
+            - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
+        networks:
+            - docwire_network
+
+    account-service-db:
         image: mongo:4.2
         container_name: account-service-db
         command: mongod --port 27020
         ports:
             - "27020:27020"
+        networks:
+            - docwire_network
+
+    messages-service-db:
+        image: mongo:4.2
+        container_name: messages-service-db
+        command: mongod --port 27021
+        ports:
+            - "27021:27021"
         networks:
             - docwire_network
     

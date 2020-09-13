@@ -1,0 +1,39 @@
+description = 'messages-service'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+apply plugin: 'application'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	compileOnly 'org.projectlombok:lombok'
+
+	compile project(':components:common')
+
+	compile group: 'org.mapstruct', name: 'mapstruct', version: '1.4.0.CR1'
+	compile group: 'org.springframework', name: 'spring-websocket', version: '5.2.8.RELEASE'
+	compile group: 'org.springframework', name: 'spring-messaging', version: '5.2.8.RELEASE'
+	compile group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.0.3.RELEASE'
+	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	annotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+	useJUnitPlatform()
+}

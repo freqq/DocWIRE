@@ -1,0 +1,7 @@
+${AnsiColor.WHITE}   ,------.                  ${AnsiColor.CYAN},--.   ,--. ,--. ,------.  ,------.
+${AnsiColor.WHITE}   |  .-.  \   ,---.   ,---. ${AnsiColor.CYAN}|  |   |  | |  | |  .--. ' |  .---'
+${AnsiColor.WHITE}   |  |  \  : | .-. | | .--' ${AnsiColor.CYAN}|  |.'.|  | |  | |  '--'.' |  `--,
+${AnsiColor.WHITE}   |  '--'  / ' '-' ' \ `--. ${AnsiColor.CYAN}|   ,'.   | |  | |  |\  \  |  `---.
+${AnsiColor.WHITE}   `-------'   `---'   `---' ${AnsiColor.CYAN}'--'   '--' `--' `--' '--' `------'
+
+${AnsiColor.BLUE}  :: messages-service  ::
