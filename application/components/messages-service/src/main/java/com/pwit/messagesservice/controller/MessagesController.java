@@ -4,7 +4,7 @@ import com.pwit.messagesservice.entity.ChatMessage;
 import com.pwit.messagesservice.entity.requests.ChatMessageItem;
 import com.pwit.messagesservice.entity.requests.ChatMessageRequest;
 import com.pwit.messagesservice.service.MessagesService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -21,7 +21,7 @@ import java.util.List;
 import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 import static com.pwit.common.security.Authorities.ROLE_USER;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/chat")
 public class MessagesController {

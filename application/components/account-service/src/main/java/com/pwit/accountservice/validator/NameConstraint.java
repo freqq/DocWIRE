@@ -9,8 +9,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.pwit.accountservice.utils.Constants.MAX_NAME_LENGTH;
-import static com.pwit.accountservice.utils.Constants.MIN_NAME_LENGTH;
+import static com.pwit.common.Constants.MAX_NAME_LENGTH;
+import static com.pwit.common.Constants.MIN_NAME_LENGTH;
 
 @NotNull
 @Size(min = MIN_NAME_LENGTH, max = MAX_NAME_LENGTH)

@@ -13,13 +13,18 @@ repositories {
 }
 
 dependencies {
+	implementation "org.zalando:problem-spring-web:0.25.2"
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	compile group: 'com.google.guava', name: 'guava', version: '19.0'
 	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.2.8.RELEASE'
 	compile group: 'org.springframework', name: 'spring-context', version: '5.2.8.RELEASE'
 	compile group: 'org.keycloak', name: 'keycloak-spring-boot-starter', version: '11.0.0'
 	compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.4.0'
 	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.4.0'
-	implementation "org.zalando:problem-spring-web:0.25.2"
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.3.3.RELEASE'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

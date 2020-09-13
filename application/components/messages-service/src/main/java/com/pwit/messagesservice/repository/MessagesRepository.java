@@ -1,4 +1,4 @@
-package repository;
+package com.pwit.messagesservice.repository;
 
 import com.pwit.messagesservice.entity.ChatMessage;
 import org.springframework.data.mongodb.repository.MongoRepository;

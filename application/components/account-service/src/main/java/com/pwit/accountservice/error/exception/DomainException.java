@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @ToString(callSuper = true)
 public abstract class DomainException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
 
     @Getter
     private final HttpStatus status;

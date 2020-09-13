@@ -9,7 +9,7 @@ import com.pwit.messagesservice.service.MessagesService;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import repository.MessagesRepository;
+import com.pwit.messagesservice.repository.MessagesRepository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

@@ -3,6 +3,7 @@ description = 'components'
 buildscript {
     repositories {
         mavenLocal()
+        jcenter()
     }
 
     ext {
@@ -11,6 +12,10 @@ buildscript {
 }
 
 allprojects {
+    // TODO Apply Gradle linter
+    // apply plugin: 'nebula.lint'
+    // gradleLint.rules = ['all-dependency'] // add as many rules here as you'd like
+
     group = 'com.pwit'
     version = "$versionNumber-SNAPSHOT"
 
@@ -21,6 +26,7 @@ allprojects {
 
     repositories {
         mavenLocal()
+        jcenter()
     }
 }
 

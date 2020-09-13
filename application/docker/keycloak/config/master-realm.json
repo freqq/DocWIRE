@@ -149,6 +149,46 @@
   ],
   "adminEventsEnabled": true,
   "adminEventsDetailsEnabled": true,
+  "identityProviders": [
+    {
+      "alias": "facebook",
+      "internalId": "3088057a-e121-4c38-9ee1-d45082f7a7b5",
+      "providerId": "facebook",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": false,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "syncMode": "IMPORT",
+        "clientSecret": "**********",
+        "clientId": "123",
+        "useJwksUrl": "true"
+      }
+    },
+    {
+      "alias": "google",
+      "internalId": "e6bb1ad9-0a32-4a8b-b889-715ce217cbe4",
+      "providerId": "google",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": false,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "syncMode": "IMPORT",
+        "clientSecret": "**********",
+        "clientId": "123",
+        "useJwksUrl": "true"
+      }
+    }
+  ],
   "components": {
     "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy": [
       {
@@ -796,7 +836,7 @@
       ]
     },
     {
-      "id": "490a6558-8109-426b-a30f-e515fba30cfd",
+      "id": "490a6558-8109-436b-a30f-e515fba30cfd",
       "clientId": "messages-service",
       "surrogateAuthRequired": false,
       "enabled": true,

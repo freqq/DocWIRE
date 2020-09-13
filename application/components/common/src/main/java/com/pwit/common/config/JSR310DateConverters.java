@@ -1,4 +1,4 @@
-package com.pwit.accountservice.config;
+package com.pwit.common.config;
 
 import org.springframework.core.convert.converter.Converter;
 

@@ -1,4 +1,4 @@
-package com.pwit.accountservice.config;
+package com.pwit.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -12,6 +12,7 @@ services:
 
     keycloak:
         image: jboss/keycloak:11.0.0
+        container_name: keycloak
         restart: on-failure
         command:
             - "-b"
@@ -50,6 +51,7 @@ services:
 
     keycloak-db:
         image: postgres:10
+        container_name: keycloak-db
         environment:
             POSTGRES_USER: admin
             POSTGRES_PASSWORD: password
@@ -67,9 +69,7 @@ services:
         depends_on:
             - account-service-db
         environment:
-            - SPRING_DATA_MONGODB_HOST=mongodb
-            - SPRING_DATA_MONGODB_PORT=27020
-            - SPRING_DATA_MONGODB_DATABASE=account_service_db
+            - SPRING_DATA_MONGODB_HOST=docwire.test
             - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
         networks:
             - docwire_network
@@ -82,9 +82,7 @@ services:
         depends_on:
             - messages-service-db
         environment:
-            - SPRING_DATA_MONGODB_HOST=mongodb
-            - SPRING_DATA_MONGODB_PORT=27020
-            - SPRING_DATA_MONGODB_DATABASE=account_service_db
+            - SPRING_DATA_MONGODB_HOST=docwire.test
             - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
         networks:
             - docwire_network

@@ -676,14 +676,14 @@ input {
   background: #fff !important;
   text-align: center;
   text-decoration: none;
-  border: 1px solid #0b5256;
+  border: 1px solid #2d4564;
   border-radius: 5px;
-  color: #0b5256 !important;
+  color: #2d4564 !important;
   font-weight: bold !important;
 }
 
 #kc-social-providers ul li a:hover {
-  background: #0b52562c !important;
+  background: #d6e2f0 !important;
 }
 
 .or-line {

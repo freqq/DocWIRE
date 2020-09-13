@@ -3,7 +3,7 @@ package com.pwit.accountservice.controller;
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
 import com.pwit.accountservice.dto.request.RegisterRequest;
 import com.pwit.accountservice.service.AccountService;
-import com.pwit.accountservice.utils.Logger;
+import com.pwit.common.utils.Logger;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.pwit.accountservice.security.Authorities.ROLE_USER;
-import static com.pwit.accountservice.security.SecurityUtils.getCurrentUserEmail;
-import static com.pwit.accountservice.security.SecurityUtils.getCurrentUsername;
+import static com.pwit.common.security.Authorities.ROLE_USER;
+import static com.pwit.common.security.SecurityUtils.getCurrentUserEmail;
+import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 
 @AllArgsConstructor
 @RestController
