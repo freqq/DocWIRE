@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 const SettingsContentLeftWrapper = styled.div.attrs({ className: 'settings-content-left-wrapper' })`
   padding: 20px 10px;
@@ -80,42 +82,58 @@ const UserDetail = styled.div.attrs({ className: 'user-detail' })`
   margin-top: 20px;
 `;
 
-const SettingsContentLeft = () => (
-  <SettingsContentLeftWrapper>
-    <UserCircle>AB</UserCircle>
-    <UserCard>
-      <UserName>Abba Barbarian</UserName>
-      <UserTitle>anna.barbarian@email.com</UserTitle>
-      <TwoSideGrid>
-        <GridComponent>
-          <Title>Role</Title>
-          <SubTitle>Patient</SubTitle>
-        </GridComponent>
-        <GridComponent>
-          <Title>Role</Title>
-          <SubTitle>Patient</SubTitle>
-        </GridComponent>
-      </TwoSideGrid>
-    </UserCard>
-    <UserDetailsWrapper>
-      <UserDetail>
-        <Title>Address</Title>
-        <SubTitle>99 Meadow City</SubTitle>
-      </UserDetail>
-      <UserDetail>
-        <Title>Zip code</Title>
-        <SubTitle>606584-3274</SubTitle>
-      </UserDetail>
-      <UserDetail>
-        <Title>City</Title>
-        <SubTitle>San Francisco</SubTitle>
-      </UserDetail>
-      <UserDetail>
-        <Title>Country</Title>
-        <SubTitle>United States of America</SubTitle>
-      </UserDetail>
-    </UserDetailsWrapper>
-  </SettingsContentLeftWrapper>
-);
+const SettingsContentLeft = ({ firstName, lastName, email }) => {
+  const getCircleText = () => firstName.charAt(0) + lastName.charAt(0);
 
-export default SettingsContentLeft;
+  return (
+    <SettingsContentLeftWrapper>
+      <UserCircle>{getCircleText()}</UserCircle>
+      <UserCard>
+        <UserName>{`${firstName} ${lastName}`}</UserName>
+        <UserTitle>{email}</UserTitle>
+        <TwoSideGrid>
+          <GridComponent>
+            <Title>Role</Title>
+            <SubTitle>Patient</SubTitle>
+          </GridComponent>
+          <GridComponent>
+            <Title>Role</Title>
+            <SubTitle>Patient</SubTitle>
+          </GridComponent>
+        </TwoSideGrid>
+      </UserCard>
+      <UserDetailsWrapper>
+        <UserDetail>
+          <Title>Address</Title>
+          <SubTitle>99 Meadow City</SubTitle>
+        </UserDetail>
+        <UserDetail>
+          <Title>Zip code</Title>
+          <SubTitle>606584-3274</SubTitle>
+        </UserDetail>
+        <UserDetail>
+          <Title>City</Title>
+          <SubTitle>San Francisco</SubTitle>
+        </UserDetail>
+        <UserDetail>
+          <Title>Country</Title>
+          <SubTitle>United States of America</SubTitle>
+        </UserDetail>
+      </UserDetailsWrapper>
+    </SettingsContentLeftWrapper>
+  );
+};
+
+const mapStateToProps = state => ({
+  firstName: state.common.accountData.userData.firstName,
+  lastName: state.common.accountData.userData.lastName,
+  email: state.common.authUser.keycloakInfo.userInfo.email,
+});
+
+SettingsContentLeft.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps, null)(SettingsContentLeft);

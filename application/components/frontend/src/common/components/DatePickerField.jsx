@@ -35,13 +35,13 @@ const DatePickerField = ({ value, onChange, label }) => (
       showMonthDropdown
       showYearDropdown
       dropdownMode="select"
-      locale="pl"
+      locale="en"
     />
   </DatePickerFieldWrapper>
 );
 
 DatePickerField.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.instanceOf(Date).isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

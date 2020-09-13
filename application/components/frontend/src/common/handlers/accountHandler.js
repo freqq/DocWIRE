@@ -1,7 +1,7 @@
 import RequestService from 'common/services/RequestService';
 
-export const fetchUserdata = userData => RequestService.get(`/users`, userData);
+export const fetchUserdata = () => RequestService.get(`/users`);
 
-export const createUser = () => RequestService.post(`/users`);
+export const createUser = userData => RequestService.post(`/users`, userData);
 
 export const editUser = userData => RequestService.put(`/users`, userData);

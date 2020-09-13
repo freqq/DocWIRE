@@ -10,6 +10,7 @@ const ProfileSettingsPageWrapper = styled.div.attrs({ className: 'profile-settin
   margin: 20px 25px;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
   border: 1px solid #f0f0f0;
+  background: #fdfdfd;
   border-radius: 5px;
 `;
 

@@ -1,7 +1,8 @@
 import axios from 'axios';
-import httpStatuses from 'common/httpStatuses';
 import get from 'lodash/get';
 import { store } from 'store';
+
+import httpStatuses from 'common/httpStatuses';
 import { logoutUser } from 'common/actions/authUserActions';
 
 const JSON_CONTENT_TYPE = 'application/json';
@@ -9,10 +10,7 @@ const JSON_CONTENT_TYPE = 'application/json';
 class RequestService {
   constructor() {
     this.axiosInstance = axios.create({
-      headers: {
-        'Content-Type': JSON_CONTENT_TYPE,
-        'X-Requested-With': 'XMLHttpRequest',
-      },
+      headers: { 'Content-Type': JSON_CONTENT_TYPE },
     });
 
     this.axiosInstance.defaults.baseURL = `http://docwire.test:8080/api`;

@@ -24,7 +24,7 @@ const RightSide = styled.div.attrs({ className: 'right-side' })`
   position: relative;
 `;
 
-const LayoutNavbar = ({ logoutUserFunc }) => {
+const LayoutNavbar = ({ logoutUserFunc, firstName, lastName }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const switchShowDropdown = () => setShowDropdown(!showDropdown);
@@ -35,8 +35,8 @@ const LayoutNavbar = ({ logoutUserFunc }) => {
       <RightSide>
         <NotificationsBell />
         <UserSection
-          firstName="Steven"
-          lastName="Holland"
+          firstName={firstName}
+          lastName={lastName}
           bottomText="Patient"
           circleSize={35}
           switchShowDropdown={switchShowDropdown}
@@ -49,12 +49,19 @@ const LayoutNavbar = ({ logoutUserFunc }) => {
   );
 };
 
+const mapStateToProps = state => ({
+  firstName: state.common.accountData.userData.firstName,
+  lastName: state.common.accountData.userData.lastName,
+});
+
 const mapDispatchToProps = dispatch => ({
   logoutUserFunc: () => dispatch(logoutUser()),
 });
 
 LayoutNavbar.propTypes = {
   logoutUserFunc: PropTypes.func.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(LayoutNavbar);
+export default connect(mapStateToProps, mapDispatchToProps)(LayoutNavbar);

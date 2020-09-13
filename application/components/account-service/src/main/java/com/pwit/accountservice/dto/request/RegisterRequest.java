@@ -3,36 +3,38 @@ package com.pwit.accountservice.dto.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pwit.accountservice.entity.enumeration.Gender;
 import com.pwit.accountservice.validator.NameConstraint;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
 public class RegisterRequest {
     @JsonProperty("firstName")
     @NameConstraint
-    @NotBlank
+    @NotNull
     private String firstName;
 
     @JsonProperty("lastName")
     @NameConstraint
-    @NotBlank
+    @NotNull
     private String lastName;
 
     @JsonProperty("birthday")
     @Past
-    @NotBlank
+    @NotNull
     private LocalDate dayOfBirth;
 
     @Size(min = 2)
     @JsonProperty("langKey")
-    @NotBlank
+    @NotNull
     private String langKey;
 
     @JsonProperty("gender")
-    @NotBlank
+    @NotNull
     private Gender gender;
 }

@@ -26,6 +26,11 @@ const FooterButton = styled.button`
   }
 `;
 
+const FillInValuesBlock = styled(FooterButton).attrs({ className: 'fill-in-values-block' })`
+  background: none;
+  cursor: default;
+`;
+
 const NextStepButton = styled(FooterButton).attrs({ className: 'next-step-button' })`
   background: #2e4663;
   color: #ffffff;
@@ -49,8 +54,6 @@ const MainCardFooter = ({
   isQuickSurveyBlocked,
   isSymptomsBlocked,
   isRegionsBlocked,
-  isAccountCreationBlocked,
-  registerAccount,
 }) => {
   const goForward = () => {
     setCurrentStepNumber(currentStep + 1);
@@ -68,33 +71,27 @@ const MainCardFooter = ({
 
   const shouldBlockVisitedRegions = () => currentStep === 5 && isRegionsBlocked();
 
-  const shouldBlockUserData = () => currentStep === 2 && isAccountCreationBlocked();
-
   if (currentStep === 8) return null;
-
-  const setUserData = () => {
-    registerAccount();
-    nextStep();
-  };
 
   return (
     <MainCardFooterWrapper>
-      <>
-        {currentStep !== 7 && (
-          <NextStepButton
-            onClick={currentStep === 2 ? setUserData : goForward}
-            disabled={
-              shouldBlockQuickSurvey() ||
-              shouldBlockSymptoms() ||
-              shouldBlockVisitedRegions() ||
-              shouldBlockUserData()
-            }
-          >
-            {currentStep === 6 ? 'Submit' : <>Next step &gt;</>}
-          </NextStepButton>
-        )}
-      </>
-      {currentStep !== 1 && (
+      {currentStep === 2 ? (
+        <FillInValuesBlock>Fill in values above</FillInValuesBlock>
+      ) : (
+        <>
+          {currentStep !== 7 && (
+            <NextStepButton
+              onClick={goForward}
+              disabled={
+                shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
+              }
+            >
+              {currentStep === 6 ? 'Submit' : <>Next step &gt;</>}
+            </NextStepButton>
+          )}
+        </>
+      )}
+      {currentStep !== 1 && currentStep !== 7 && (
         <PreviousStepButton onClick={goBack}>&lt; Previous step</PreviousStepButton>
       )}
     </MainCardFooterWrapper>
@@ -111,12 +108,10 @@ MainCardFooter.propTypes = {
   currentStep: PropTypes.number,
   previousStep: PropTypes.func,
   nextStep: PropTypes.func,
-  registerAccount: PropTypes.func.isRequired,
   setCurrentStepNumber: PropTypes.func.isRequired,
   isQuickSurveyBlocked: PropTypes.func.isRequired,
   isSymptomsBlocked: PropTypes.func.isRequired,
   isRegionsBlocked: PropTypes.func.isRequired,
-  isAccountCreationBlocked: PropTypes.func.isRequired,
 };
 
 export default MainCardFooter;

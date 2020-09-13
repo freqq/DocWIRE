@@ -34,6 +34,8 @@ public class AccountServiceImpl implements AccountService {
                 .gender(registerRequest.getGender())
                 .langKey(registerRequest.getLangKey()).build();
 
+        userRepository.save(createdUser);
+
         LOGGER.info("Successfully created new user with username '{}'", getCurrentUsername());
 
         return ResponseEntity.ok(createdUser);

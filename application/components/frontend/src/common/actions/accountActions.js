@@ -50,13 +50,13 @@ export const fetchAccountInfo = () => dispatch => {
     });
 };
 
-export const createAccount = accountData => dispatch => {
+export const createAccount = (accountData, nextStep) => dispatch => {
   dispatch(makeCreateAccountFetching());
 
   return createUser(accountData)
     .then(() => {
       dispatch(makeCreateAccountOk());
-      dispatch(replace(DASHBOARD_PATH));
+      nextStep();
     })
     .catch(() => {
       dispatch(makeCreateAccountFail());

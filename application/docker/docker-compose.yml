@@ -1,14 +1,14 @@
 version: "3.7"
 
 services:
-    frontend:
-        image: freq/frontend:v1
-        container_name: frontend
-        restart: always
-        ports:
-          - "9040:9040"
-        networks:
-          - docwire_network
+    #frontend:
+    #    image: freq/frontend:v1
+    #    container_name: frontend
+    #    restart: always
+    #    ports:
+    #      - "9040:9040"
+    #    networks:
+    #      - docwire_network
 
     keycloak:
         image: jboss/keycloak:11.0.0

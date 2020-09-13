@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { createAccount } from 'common/actions/accountActions';
+import availableGenders from 'initial-diagnose/utils/genders';
 
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
 import DiagnoseFooter from 'initial-diagnose/components/DiagnoseFooter';
@@ -72,20 +73,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthday, setBirthday] = useState('');
-  const [gender, setGender] = useState('');
-
-  const registerAccount = () => {
-    const registerObject = {
-      firstName,
-      lastName,
-      birthday,
-      gender,
-      langKey: 'en',
-    };
-
-    accountCreation(registerObject);
-    console.log(registerObject);
-  };
+  const [gender, setGender] = useState(availableGenders[0].value);
 
   const sendDiagnose = () => {
     const diagnoseObject = {
@@ -140,8 +128,6 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
                 isQuickSurveyBlocked={isQuickSurveyBlocked}
                 isSymptomsBlocked={isSymptomsBlocked}
                 isRegionsBlocked={isRegionsBlocked}
-                isAccountCreationBlocked={isAccountCreationBlocked}
-                registerAccount={registerAccount}
               />
             }
           >
@@ -156,6 +142,9 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
               setGender={setGender}
               birthday={birthday}
               setBirthday={setBirthday}
+              availableGenders={availableGenders}
+              accountCreation={accountCreation}
+              isAccountCreationBlocked={isAccountCreationBlocked}
             />
             <QuickSurvey
               hashKey="quick-survey"
@@ -193,7 +182,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  accountCreation: accountData => dispatch(createAccount(accountData)),
+  accountCreation: (accountData, nextStep) => dispatch(createAccount(accountData, nextStep)),
 });
 
 DiagnoseMainCard.propTypes = {
