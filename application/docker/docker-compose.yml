@@ -69,7 +69,9 @@ services:
         depends_on:
             - account-service-db
         environment:
-            - SPRING_DATA_MONGODB_HOST=docwire.test
+            - SPRING_DATA_MONGODB_HOST=account-service-db
+            - SPRING_DATA_MONGODB_PORT=27020
+            - SPRING_DATA_MONGODB_DATABASE=account_service_db
             - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
         networks:
             - docwire_network
@@ -82,7 +84,9 @@ services:
         depends_on:
             - messages-service-db
         environment:
-            - SPRING_DATA_MONGODB_HOST=docwire.test
+            - SPRING_DATA_MONGODB_HOST=messages-service-db
+            - SPRING_DATA_MONGODB_PORT=27021
+            - SPRING_DATA_MONGODB_DATABASE=messages_service_db
             - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
         networks:
             - docwire_network
