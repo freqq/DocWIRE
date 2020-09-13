@@ -9,14 +9,24 @@ import { fetchAuthUserInfo } from 'common/actions/authUserActions';
 
 import { INTERNAL_SERVER_ERROR_PATH } from 'common/paths';
 
-const AuthService = ({ location, children, isLoading, isError, fetchAuth }) => {
+const AuthService = ({
+  location,
+  children,
+  isLoading,
+  isError,
+  fetchAuth,
+  isAccountLoading,
+  isAccountError,
+}) => {
   useEffect(() => {
     fetchAuth(location);
   }, []);
 
-  const shouldDisplayAuthErrorPage = () => !isLoading && isError;
+  const shouldDisplayAuthErrorPage = () =>
+    !isLoading && isError && isAccountError && !isAccountLoading;
 
-  const shouldRenderPage = () => (isLoading ? <AuthLoaderPlaceholder /> : children);
+  const shouldRenderPage = () =>
+    isLoading || isAccountLoading ? <AuthLoaderPlaceholder /> : children;
 
   return (
     <>
@@ -32,6 +42,8 @@ const AuthService = ({ location, children, isLoading, isError, fetchAuth }) => {
 const mapStateToProps = state => ({
   isLoading: state.common.authUser.isFetching,
   isError: state.common.authUser.isError,
+  isAccountLoading: state.common.accountData.isFetching,
+  isAccountError: state.common.accountData.isError,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -40,9 +52,11 @@ const mapDispatchToProps = dispatch => ({
 
 AuthService.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  children: PropTypes.instanceOf(Object).isRequired,
-  fetchAuth: PropTypes.func.isRequired,
   isError: PropTypes.bool.isRequired,
+  isAccountLoading: PropTypes.bool.isRequired,
+  isAccountError: PropTypes.bool.isRequired,
+  fetchAuth: PropTypes.func.isRequired,
+  children: PropTypes.instanceOf(Object).isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
 };
 

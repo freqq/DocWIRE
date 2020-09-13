@@ -1,14 +1,14 @@
 import { push, replace } from 'react-router-redux';
-import { BASE_PATH, INTERNAL_SERVER_ERROR_PATH } from 'common/paths';
 import Keycloak from 'keycloak-js';
+
+import { BASE_PATH, INTERNAL_SERVER_ERROR_PATH } from 'common/paths';
 import initKeycloakOptions from 'common/keycloak_params';
+import { fetchAccountInfo } from 'common/actions/accountActions';
 
 export const AUTH_USER_INFO_OK = 'AUTH_USER_INFO_OK';
 export const KEYCLOAK_OBJECT_OK = 'KEYCLOAK_OBJECT_OK';
 export const AUTH_USER_INFO_FAIL = 'AUTH_USER_INFO_FAIL';
 export const AUTH_USER_INFO_FETCHING = 'AUTH_USER_INFO_FETCHING';
-export const ERROR_FETCHING_AUTHENTICATED_USER_INFO =
-  'There was an error fetching authenticated user info';
 
 const getRedirectionPath = currentPath =>
   currentPath !== INTERNAL_SERVER_ERROR_PATH ? currentPath : BASE_PATH;
@@ -41,6 +41,7 @@ export const fetchAuthUserInfo = currentPath => dispatch => {
       keycloak.loadUserInfo().success(() => {
         dispatch(makeAuthUserInfoOk(keycloak));
         dispatch(replace(getRedirectionPath(currentPath)));
+        dispatch(fetchAccountInfo());
       });
     })
     .error(() => {

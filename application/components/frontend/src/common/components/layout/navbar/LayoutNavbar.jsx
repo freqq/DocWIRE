@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import { logoutUser } from 'common/actions/authUserActions';
+import { connect } from 'react-redux';
 
 import SearchBar from 'common/components/layout/navbar/SearchBar';
 import UserSection from 'common/components/layout/navbar/UserSection';
@@ -20,7 +24,7 @@ const RightSide = styled.div.attrs({ className: 'right-side' })`
   position: relative;
 `;
 
-const LayoutNavbar = () => {
+const LayoutNavbar = ({ logoutUserFunc }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const switchShowDropdown = () => setShowDropdown(!showDropdown);
@@ -37,10 +41,20 @@ const LayoutNavbar = () => {
           circleSize={35}
           switchShowDropdown={switchShowDropdown}
         />
-        {showDropdown && <UserDropdownMenu onOutsideClick={switchShowDropdown} />}
+        {showDropdown && (
+          <UserDropdownMenu logoutUserFunc={logoutUserFunc} onOutsideClick={switchShowDropdown} />
+        )}
       </RightSide>
     </LayoutNavbarWrapper>
   );
 };
 
-export default LayoutNavbar;
+const mapDispatchToProps = dispatch => ({
+  logoutUserFunc: () => dispatch(logoutUser()),
+});
+
+LayoutNavbar.propTypes = {
+  logoutUserFunc: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(LayoutNavbar);

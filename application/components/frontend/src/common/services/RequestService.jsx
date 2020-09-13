@@ -15,6 +15,8 @@ class RequestService {
       },
     });
 
+    this.axiosInstance.defaults.baseURL = `http://docwire.test:8080/api`;
+
     this.axiosInstance.interceptors.response.use(
       response => response,
       error => {

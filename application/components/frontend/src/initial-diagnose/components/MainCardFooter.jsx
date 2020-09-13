@@ -26,13 +26,6 @@ const FooterButton = styled.button`
   }
 `;
 
-const SelectAnswer = styled.span.attrs({ className: 'select-answer' })`
-  padding: 15px 25px;
-  display: inline-block;
-  font-size: 10px;
-  float: right;
-`;
-
 const NextStepButton = styled(FooterButton).attrs({ className: 'next-step-button' })`
   background: #2e4663;
   color: #ffffff;
@@ -56,6 +49,8 @@ const MainCardFooter = ({
   isQuickSurveyBlocked,
   isSymptomsBlocked,
   isRegionsBlocked,
+  isAccountCreationBlocked,
+  registerAccount,
 }) => {
   const goForward = () => {
     setCurrentStepNumber(currentStep + 1);
@@ -67,32 +62,38 @@ const MainCardFooter = ({
     previousStep();
   };
 
-  const shouldBlockQuickSurvey = () => currentStep === 4 && isQuickSurveyBlocked();
+  const shouldBlockQuickSurvey = () => currentStep === 3 && isQuickSurveyBlocked();
 
-  const shouldBlockSymptoms = () => currentStep === 5 && isSymptomsBlocked();
+  const shouldBlockSymptoms = () => currentStep === 4 && isSymptomsBlocked();
 
-  const shouldBlockVisitedRegions = () => currentStep === 6 && isRegionsBlocked();
+  const shouldBlockVisitedRegions = () => currentStep === 5 && isRegionsBlocked();
+
+  const shouldBlockUserData = () => currentStep === 2 && isAccountCreationBlocked();
 
   if (currentStep === 8) return null;
 
+  const setUserData = () => {
+    registerAccount();
+    nextStep();
+  };
+
   return (
     <MainCardFooterWrapper>
-      {currentStep === 2 ? (
-        <SelectAnswer>Select an answer above</SelectAnswer>
-      ) : (
-        <>
-          {currentStep !== 7 && (
-            <NextStepButton
-              onClick={goForward}
-              disabled={
-                shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
-              }
-            >
-              {currentStep === 7 ? 'Submit' : <>Next step &gt;</>}
-            </NextStepButton>
-          )}
-        </>
-      )}
+      <>
+        {currentStep !== 7 && (
+          <NextStepButton
+            onClick={currentStep === 2 ? setUserData : goForward}
+            disabled={
+              shouldBlockQuickSurvey() ||
+              shouldBlockSymptoms() ||
+              shouldBlockVisitedRegions() ||
+              shouldBlockUserData()
+            }
+          >
+            {currentStep === 6 ? 'Submit' : <>Next step &gt;</>}
+          </NextStepButton>
+        )}
+      </>
       {currentStep !== 1 && (
         <PreviousStepButton onClick={goBack}>&lt; Previous step</PreviousStepButton>
       )}
@@ -110,10 +111,12 @@ MainCardFooter.propTypes = {
   currentStep: PropTypes.number,
   previousStep: PropTypes.func,
   nextStep: PropTypes.func,
+  registerAccount: PropTypes.func.isRequired,
   setCurrentStepNumber: PropTypes.func.isRequired,
   isQuickSurveyBlocked: PropTypes.func.isRequired,
   isSymptomsBlocked: PropTypes.func.isRequired,
   isRegionsBlocked: PropTypes.func.isRequired,
+  isAccountCreationBlocked: PropTypes.func.isRequired,
 };
 
 export default MainCardFooter;

@@ -24,3 +24,12 @@
   height: 110px !important;
   margin: 0 auto;
 }
+
+.react-datepicker-wrapper {
+  width: 100% !important;
+}
+
+.date-picker-component {
+  width: calc(100% - 23px) !important;
+  padding: 9px !important;
+}
