@@ -8,6 +8,7 @@ import com.pwit.messagesservice.mapper.MessagesMapper;
 import com.pwit.messagesservice.repository.MessagesRepository;
 import com.pwit.messagesservice.service.MessagesService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
 import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MessagesServiceImpl implements MessagesService {
     private final MessagesRepository messagesRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;

@@ -9,7 +9,6 @@ import com.pwit.common.security.WebMvcConfig;
 import com.pwit.common.utils.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -18,7 +17,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
-@ComponentScan({"com.pwit.common"})
 @Import({
 		AuthorityMapper.class,
 		KeycloakResolverConfig.class,
