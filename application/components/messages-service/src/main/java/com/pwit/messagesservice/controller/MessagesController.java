@@ -1,5 +1,6 @@
 package com.pwit.messagesservice.controller;
 
+import com.pwit.common.utils.Logger;
 import com.pwit.messagesservice.entity.ChatMessage;
 import com.pwit.messagesservice.entity.requests.ChatMessageItem;
 import com.pwit.messagesservice.entity.requests.ChatMessageRequest;
@@ -14,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pwit.common.utils.Logger;
-
 import java.util.List;
 
-import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 import static com.pwit.common.security.Authorities.ROLE_USER;
+import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 
 @AllArgsConstructor
 @RestController

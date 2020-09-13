@@ -1,5 +1,11 @@
 package com.pwit.accountservice;
 
+import com.pwit.common.config.DatabaseConfiguration;
+import com.pwit.common.config.SwaggerConfiguration;
+import com.pwit.common.security.AuthorityMapper;
+import com.pwit.common.security.KeycloakResolverConfig;
+import com.pwit.common.security.SecurityConfiguration;
+import com.pwit.common.security.WebMvcConfig;
 import com.pwit.common.utils.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,12 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import com.pwit.common.security.AuthorityMapper;
-import com.pwit.common.security.KeycloakResolverConfig;
-import com.pwit.common.security.SecurityConfiguration;
-import com.pwit.common.security.WebMvcConfig;
-import com.pwit.common.config.DatabaseConfiguration;
-import com.pwit.common.config.SwaggerConfiguration;
 
 @SpringBootApplication
 @Import({

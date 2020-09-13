@@ -5,11 +5,11 @@ import com.pwit.messagesservice.entity.ChatType;
 import com.pwit.messagesservice.entity.requests.ChatMessageItem;
 import com.pwit.messagesservice.entity.requests.ChatMessageRequest;
 import com.pwit.messagesservice.mapper.MessagesMapper;
+import com.pwit.messagesservice.repository.MessagesRepository;
 import com.pwit.messagesservice.service.MessagesService;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import com.pwit.messagesservice.repository.MessagesRepository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
