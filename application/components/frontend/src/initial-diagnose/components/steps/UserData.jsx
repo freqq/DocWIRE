@@ -21,6 +21,7 @@ const CreateAccountButton = styled.button.attrs({ className: 'create-account-but
   display: block;
   cursor: pointer;
   outline: none;
+  border: none;
   background: #2d4564;
   padding: 10px;
   color: #fff;

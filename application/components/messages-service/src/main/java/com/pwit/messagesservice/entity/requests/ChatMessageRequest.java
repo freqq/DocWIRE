@@ -3,6 +3,7 @@ package com.pwit.messagesservice.entity.requests;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.lang.Nullable;
 import com.pwit.messagesservice.entity.ChatType;
+import com.pwit.messagesservice.entity.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,11 +20,11 @@ public class ChatMessageRequest {
 
     @Nullable
     @JsonProperty("sender")
-    private String sender;
+    private User sender;
 
     @Nullable
     @JsonProperty("receiver")
-    private String receiver;
+    private User receiver;
 
     @Nullable
     @JsonProperty("read")

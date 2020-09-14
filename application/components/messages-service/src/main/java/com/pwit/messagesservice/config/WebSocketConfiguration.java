@@ -22,7 +22,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
         registry.enableSimpleBroker("/queue/", "/topic/", "/user/", "/notify");
         registry.setUserDestinationPrefix("/user");
 
-        /*  TODO: Use this for enabling a Full featured broker like RabbitMQ or ActiveMQ
+        /*  TODO: Use this for enabling a full featured broker like RabbitMQ or ActiveMQ
         registry.enableStompBrokerRelay("/topic")
                 .setRelayHost("localhost")
                 .setRelayPort(5672)

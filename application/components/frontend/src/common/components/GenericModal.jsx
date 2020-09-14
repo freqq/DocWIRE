@@ -9,7 +9,7 @@ const ModalWrapper = styled.div.attrs({ className: 'modal-wrapper' })`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 5;
+  z-index: 9999;
   width: 100%;
   height: 100%;
   background-color: black;

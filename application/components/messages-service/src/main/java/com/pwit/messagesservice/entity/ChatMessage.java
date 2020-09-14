@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+
 @Document("messages")
 @TypeAlias("ChatMessage")
 @Data
@@ -26,11 +27,11 @@ public class ChatMessage {
 
     @NotNull
     @Field("sender")
-    private String sender;
+    private User sender;
 
     @NotNull
     @Field("receiver")
-    private String receiver;
+    private User receiver;
 
     @NotNull
     @Field("read")

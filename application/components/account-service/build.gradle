@@ -29,6 +29,7 @@ dependencies {
     compile project(':components:common')
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.3.3.RELEASE'
+    compile group: 'org.keycloak', name: 'keycloak-admin-client', version: '9.0.2'
     compile group: 'org.keycloak', name: 'keycloak-spring-boot-starter', version: '11.0.0'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'

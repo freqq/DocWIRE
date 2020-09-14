@@ -7,7 +7,6 @@ import com.pwit.messagesservice.entity.requests.ChatMessageRequest;
 import com.pwit.messagesservice.service.MessagesService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.security.access.annotation.Secured;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static com.pwit.common.security.Authorities.ROLE_USER;
-import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
+import static com.pwit.common.security.SecurityUtils.getCurrentUserId;
 
 @AllArgsConstructor
 @RestController
@@ -30,42 +29,36 @@ public class MessagesController {
     private final MessagesService messagesService;
 
     @MessageMapping("/sendPrivateMessage")
-    @Secured(ROLE_USER)
     public ChatMessage sendPrivateMessage(@Payload ChatMessageRequest chatMessageRequest) {
         LOGGER.info("Sending private message with content: {}.", chatMessageRequest.getContent());
-
         return messagesService.sendPrivateMessage(chatMessageRequest);
     }
 
     @GetMapping(value="/messages", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
     public List<ChatMessageItem> getMessagesList() {
-        LOGGER.info("Getting messages list for user {}.", getCurrentUsername());
-
-        return messagesService.getMessagesList();
+        LOGGER.info("Getting messages list for user {}.", getCurrentUserId());
+        return messagesService.getMessagesList( getCurrentUserId());
     }
 
     @GetMapping(value="/history", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
-    public List<ChatMessage> getChatHistoryWithUser(@RequestParam(value = "username") String username) {
-        LOGGER.info("Getting chat history for users {} and {}.", username, getCurrentUsername());
-
-        return messagesService.getChatHistoryWithUser(username);
+    public List<ChatMessage> getChatHistoryWithUser(@RequestParam(value = "userId") String userId) {
+        LOGGER.info("Getting chat history for users {} and {}.", userId, getCurrentUserId());
+        return messagesService.getChatHistoryWithUser(getCurrentUserId(), userId);
     }
 
     @GetMapping(value="/count", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
     public Integer countUnreadMessages() {
-        LOGGER.info("Counting unread messages by user {}.", getCurrentUsername());
-
-        return messagesService.countUnreadMessages();
+        LOGGER.info("Counting unread messages by user {}.", getCurrentUserId());
+        return messagesService.countUnreadMessages(getCurrentUserId());
     }
 
     @GetMapping(value="/read", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
-    public List<ChatMessage> markMessagesWithUserAsRead(@RequestParam(value = "username") String username) {
-        LOGGER.info("Marking messages as read by user {} with user {}.", getCurrentUsername(), username);
-
-        return messagesService.markMessagesWithUserAsRead(username);
+    public List<ChatMessage> markMessagesWithUserAsRead(@RequestParam(value = "userId") String userId) {
+        LOGGER.info("Marking messages as read by user {} with user {}.", getCurrentUserId(), userId);
+        return messagesService.markMessagesWithUserAsRead(getCurrentUserId(), userId);
     }
 }

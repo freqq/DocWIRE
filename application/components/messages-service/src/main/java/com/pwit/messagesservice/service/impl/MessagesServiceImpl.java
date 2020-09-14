@@ -7,7 +7,6 @@ import com.pwit.messagesservice.entity.requests.ChatMessageRequest;
 import com.pwit.messagesservice.mapper.MessagesMapper;
 import com.pwit.messagesservice.repository.MessagesRepository;
 import com.pwit.messagesservice.service.MessagesService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +31,7 @@ public class MessagesServiceImpl implements MessagesService {
         ChatMessage chatMessage = messagesMapper.createRequestToChatMessage(chatMessageRequest);
 
         simpMessagingTemplate.convertAndSendToUser(
-                chatMessage.getReceiver().trim(), "/reply", chatMessage);
+                chatMessage.getReceiver().getUserId().trim(), "/reply", chatMessage);
 
         if(chatMessage.getType() == ChatType.TYPING || chatMessage.getType() == ChatType.STOP_TYPING) {
             return null;
@@ -43,24 +41,24 @@ public class MessagesServiceImpl implements MessagesService {
     }
 
     @Override
-    public List<ChatMessage> getChatHistoryWithUser(String username) {
+    public List<ChatMessage> getChatHistoryWithUser(String currentUserId, String userId) {
         return Stream.of(
-                messagesRepository.findAllBySenderEqualsAndReceiverEquals(getCurrentUsername(), username),
-                messagesRepository.findAllBySenderEqualsAndReceiverEquals(username, getCurrentUsername()))
+                messagesRepository.findAllBySenderUserIdEqualsAndReceiverUserIdEquals(currentUserId, userId),
+                messagesRepository.findAllBySenderUserIdEqualsAndReceiverUserIdEquals(userId, currentUserId))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(ChatMessage::getDateTime)).collect(Collectors.toList());
     }
 
     @Override
-    public Integer countUnreadMessages() {
-        return messagesRepository.countAllByIdNotNullAndReceiverEqualsAndReadEquals(getCurrentUsername(), false);
+    public Integer countUnreadMessages(String currentUserId) {
+        return messagesRepository.countAllByIdNotNullAndReceiverUserIdEqualsAndReadEquals(currentUserId, false);
     }
 
     @Override
-    public List<ChatMessage> markMessagesWithUserAsRead(String username) {
+    public List<ChatMessage> markMessagesWithUserAsRead(String currentUserId, String userId) {
         List<ChatMessage> foundMessages = messagesRepository
-                .findAllByIdNotNullAndReceiverEqualsAndSenderEqualsAndReadEquals(
-                        getCurrentUsername(), username, false);
+                .findAllByIdNotNullAndReceiverUserIdEqualsAndSenderUserIdEqualsAndReadEquals(
+                        currentUserId, userId, false);
 
         foundMessages.forEach(chatMessage -> {
             chatMessage.setRead(true);
@@ -71,10 +69,10 @@ public class MessagesServiceImpl implements MessagesService {
     }
 
     @Override
-    public List<ChatMessageItem> getMessagesList() {
+    public List<ChatMessageItem> getMessagesList(String currentUserId) {
         List<ChatMessage> messagesList =
-                messagesRepository.findAllByReceiverEqualsOrSenderEqualsOrderByDateTimeDesc(
-                        getCurrentUsername(), getCurrentUsername());
+                messagesRepository.findAllByReceiverUserIdEqualsOrSenderUserIdEqualsOrderByDateTimeDesc(
+                        currentUserId, currentUserId);
 
         List<ChatMessage> filteredList = messagesList.stream()
                 .filter(distinctByKeys(ChatMessage::getReceiver, ChatMessage::getSender))
@@ -98,7 +96,7 @@ public class MessagesServiceImpl implements MessagesService {
         filteredList.removeAll(toDelete);
 
         for (ChatMessage message : filteredList) {
-            if(message.getSender().equals(getCurrentUsername())) {
+            if(message.getSender().equals(currentUserId)) {
                 message.setSender(message.getReceiver());
             }
         }
@@ -106,12 +104,13 @@ public class MessagesServiceImpl implements MessagesService {
         List<ChatMessageItem> returnList = new ArrayList<>();
 
         boolean anyMessageUnRead = messagesRepository.
-                existsByIdNotNullAndReadEqualsAndReceiverEquals(false, getCurrentUsername());
+                existsByIdNotNullAndReadEqualsAndReceiverUserIdEquals(false, currentUserId);
 
         for(ChatMessage message : filteredList){
             returnList.add(new ChatMessageItem(
                     message.getId(),
                     message.getSender(),
+                    message.getReceiver(),
                     message.getDateTime(),
                     message.getContent(),
                     anyMessageUnRead,

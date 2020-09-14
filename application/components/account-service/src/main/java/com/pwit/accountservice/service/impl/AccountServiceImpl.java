@@ -8,9 +8,11 @@ import com.pwit.accountservice.repository.UserRepository;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.common.utils.Logger;
 import lombok.AllArgsConstructor;
+import org.keycloak.admin.client.resource.UsersResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.pwit.common.security.SecurityUtils.getCurrentUserId;
@@ -22,6 +24,7 @@ public class AccountServiceImpl implements AccountService {
     private static final Logger LOGGER = new Logger();
 
     private final UserRepository userRepository;
+    private final UsersResource usersResource;
 
     @Override
     public ResponseEntity<?> createAccount(RegisterRequest registerRequest) {
@@ -64,6 +67,14 @@ public class AccountServiceImpl implements AccountService {
         LOGGER.debug("User with username '{}' updated successfully.", getCurrentUsername());
 
         return ResponseEntity.ok().body(foundUser);
+    }
+
+    // TODO Better query to match firstName + lastName and add pagination
+    @Override
+    public List<User> getAllUsersFilteredByFirstNameOrLastName(String search,
+                                                               Integer firstResult,
+                                                               Integer maxResults) {
+        return userRepository.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(search, search);
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

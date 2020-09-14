@@ -71,7 +71,6 @@ const MessageMainInput = ({ sender, receiver, onSend }) => {
 
     if (messageObject.message !== '') {
       onSend(messageObject);
-      onSend(messageObject);
       setTextInput('');
     }
   };
@@ -85,18 +84,18 @@ const MessageMainInput = ({ sender, receiver, onSend }) => {
       target: { value },
     } = event;
 
-    setTextInput(value).then(() => {
-      const typingMessageObject = {
-        sender,
-        receiver,
-        content: textInput,
-        read: false,
-        type: value.length === 0 ? 'STOP_TYPING' : 'TYPING',
-        dateTime: new Date(),
-      };
+    setTextInput(value);
 
-      onSend(typingMessageObject);
-    });
+    const typingMessageObject = {
+      sender,
+      receiver,
+      content: value,
+      read: false,
+      type: value.length === 0 ? 'STOP_TYPING' : 'TYPING',
+      dateTime: new Date(),
+    };
+
+    onSend(typingMessageObject);
   };
 
   return (
@@ -112,10 +111,14 @@ const MessageMainInput = ({ sender, receiver, onSend }) => {
   );
 };
 
+MessageMainInput.defaultProps = {
+  receiver: null,
+};
+
 MessageMainInput.propTypes = {
   onSend: PropTypes.func.isRequired,
-  sender: PropTypes.string.isRequired,
-  receiver: PropTypes.string.isRequired,
+  sender: PropTypes.instanceOf(Object).isRequired,
+  receiver: PropTypes.instanceOf(Object),
 };
 
 export default MessageMainInput;

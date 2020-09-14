@@ -31,3 +31,8 @@ keycloak:
   bearer-only: true
   ssl-required: external
   auth-server-url: http://docwire.test:8081/auth
+
+keycloak-admin:
+  username: admin
+  password: password
+  client-secret: super-secret-client-secret

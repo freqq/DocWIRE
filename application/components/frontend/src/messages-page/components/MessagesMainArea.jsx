@@ -1,8 +1,12 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-template */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import shortid from 'shortid';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import SockJsClient from 'react-stomp';
 
+import { addNewMessage } from 'messages-page/actions/messagesListActions';
 import MessageMainInput from 'messages-page/components/MessageMainInput';
 import MessagesMainComponent from 'messages-page/components/MessagesMainComponent';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
@@ -23,96 +27,40 @@ const ErrorBlock = styled.div.attrs({ className: 'error-block' })`
   color: #552526;
 `;
 
-const isChatHistoryLoading = false;
-const isChatHistoryLoadingError = false;
-const chosenChatUser = 'admin';
-const currentUsername = 'admin';
-const chatHistory = [
-  {
-    id: 1,
-    sender: 'wojtek',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 2,
-    sender: 'admin',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 1,
-    sender: 'wojtek',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 2,
-    sender: 'admin',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 1,
-    sender: 'wojtek',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 2,
-    sender: 'admin',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 1,
-    sender: 'wojtek',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 2,
-    sender: 'admin',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 1,
-    sender: 'wojtek',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-  {
-    id: 2,
-    sender: 'admin',
-    dateTime: new Date(),
-    content: 'contennnt',
-  },
-];
-
-const MessagesMainArea = () => {
+const MessagesMainArea = ({
+  currentPerson,
+  addNewUser,
+  addNewMessageFunc,
+  isChatHistoryLoading,
+  isChatHistoryLoadingError,
+  chatHistory,
+  userData,
+  loggedInUserId,
+}) => {
   const [isTyping, setIsTyping] = useState(false);
+  const [clientRef, setClientRef] = useState(null);
 
   const onMessageReceive = msg => {
-    if (msg.type === 'TYPING' && chosenChatUser === msg.sender) {
+    if (msg.type === 'TYPING' && currentPerson.userId === msg.sender.userId) {
       setIsTyping(true);
-    } else if (msg.type === 'STOP_TYPING' && chosenChatUser === msg.sender) {
+    } else if (msg.type === 'STOP_TYPING' && currentPerson.userId === msg.sender.userId) {
       setIsTyping(false);
     } else {
       setIsTyping(false);
 
+      addNewUser(msg.sender);
       const messageObj = msg.id === undefined ? { ...msg, id: shortid.generate() } : msg;
-      // this.props.addNewMessageFunc(messageObj);
+      addNewMessageFunc(messageObj);
     }
   };
 
   const sendMessage = msg => {
     try {
-      // this.clientRef.sendMessage('/app/sendPrivateMessage', JSON.stringify(msg));
+      clientRef.sendMessage('/app/sendPrivateMessage', JSON.stringify(msg));
 
       if (msg.type === 'CHAT') {
         const messageObj = msg.id === undefined ? { ...msg, id: shortid.generate() } : msg;
-        // this.props.addNewMessageFunc(messageObj);
+        addNewMessageFunc(messageObj);
       }
 
       return true;
@@ -122,24 +70,63 @@ const MessagesMainArea = () => {
   };
 
   if (isChatHistoryLoadingError)
-    return <ErrorBlock>There was an error during chat boxes fetching.</ErrorBlock>;
+    return <ErrorBlock>There was an error during chat history fetching.</ErrorBlock>;
+
+  const wsSourceUrl = 'http://docwire.test:8085/api/chat/ws';
+
+  const getPersonId = () => (userData !== null ? userData.userId : null);
 
   return (
-    <MessagesMainAreaWrapper style={chosenChatUser ? {} : { visibility: 'hidden' }}>
+    <MessagesMainAreaWrapper style={currentPerson ? {} : { visibility: 'hidden' }}>
       {isChatHistoryLoading ? (
         <ProgressIndicatorCircular size={40} />
       ) : (
         <MessagesMainComponent
-          currentUser={currentUsername}
+          currentUser={currentPerson}
           messagesArray={chatHistory}
+          loggedInUserId={loggedInUserId}
           isTyping={isTyping}
-          chosenChatUser={chosenChatUser}
         />
       )}
 
-      <MessageMainInput sender={currentUsername} receiver={chosenChatUser} onSend={sendMessage} />
+      <SockJsClient
+        url={wsSourceUrl}
+        topics={[`/user/${getPersonId()}/reply`]}
+        onMessage={onMessageReceive}
+        ref={client => {
+          setClientRef(client);
+        }}
+        debug
+      />
+
+      <MessageMainInput sender={userData} receiver={currentPerson} onSend={sendMessage} />
     </MessagesMainAreaWrapper>
   );
 };
 
-export default MessagesMainArea;
+MessagesMainArea.propTypes = {
+  userData: PropTypes.instanceOf(Object).isRequired,
+  currentPerson: PropTypes.instanceOf(Object).isRequired,
+  addNewUser: PropTypes.func.isRequired,
+  addNewMessageFunc: PropTypes.func.isRequired,
+  isChatHistoryLoading: PropTypes.bool.isRequired,
+  isChatHistoryLoadingError: PropTypes.bool.isRequired,
+  chatHistory: PropTypes.instanceOf(Array).isRequired,
+  loggedInUserId: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = state => ({
+  currentPerson: state.messages.usersList.currentPerson,
+  userData: state.common.accountData.userData,
+  currentUsername: state.common.authUser.keycloakInfo.userInfo.preferred_username,
+  loggedInUserId: state.common.authUser.keycloakInfo.subject,
+  isChatHistoryLoading: state.messages.messagesList.isChatHistoryLoading,
+  isChatHistoryLoadingError: state.messages.messagesList.isChatHistoryLoadingError,
+  chatHistory: state.messages.messagesList.chatHistory,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addNewMessageFunc: message => dispatch(addNewMessage(message)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesMainArea);

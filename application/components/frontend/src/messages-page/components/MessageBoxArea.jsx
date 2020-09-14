@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import UserSection from 'common/components/layout/navbar/UserSection';
 import MessagesMainArea from 'messages-page/components/MessagesMainArea';
@@ -27,6 +29,7 @@ const MessageTopBar = styled.div.attrs({ className: 'message-top-bar' })`
   border-bottom: 1px solid #f0f0f0;
   background: #ffffff;
   position: relative;
+  min-height: 40px;
 `;
 
 const TopBarLeftSide = styled.div.attrs({ className: 'top-bar-left-side' })`
@@ -45,22 +48,37 @@ const UserActiveDot = styled.div.attrs({ className: 'user-active-dot' })`
   display: inline-block;
 `;
 
-const chosenChatUser = 'admin';
-
-const MessageBoxArea = () => (
+const MessageBoxArea = ({ currentPerson, addNewUser }) => (
   <MessageBoxAreaWrapper>
     <MessageTopBar>
-      {chosenChatUser ? (
-        <TopBarLeftSide>
-          <UserSection firstName="Przemek" lastName="Wit" bottomText="Patient" showIcon={false} />
-          <UserActiveDot />
-        </TopBarLeftSide>
-      ) : null}
-      <ProfileMoreIcon src={moreIcon} />
+      <TopBarLeftSide>
+        {currentPerson && (
+          <>
+            <UserSection
+              firstName={currentPerson.firstName}
+              lastName={currentPerson.lastName}
+              bottomText="Patient"
+              showIcon={false}
+            />
+            <UserActiveDot />
+          </>
+        )}
+      </TopBarLeftSide>
+
+      {currentPerson && <ProfileMoreIcon src={moreIcon} />}
     </MessageTopBar>
 
-    <MessagesMainArea />
+    <MessagesMainArea addNewUser={addNewUser} />
   </MessageBoxAreaWrapper>
 );
 
-export default MessageBoxArea;
+MessageBoxArea.propTypes = {
+  currentPerson: PropTypes.instanceOf(Object).isRequired,
+  addNewUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  currentPerson: state.messages.usersList.currentPerson,
+});
+
+export default connect(mapStateToProps, null)(MessageBoxArea);

@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface MessagesService {
     ChatMessage sendPrivateMessage(ChatMessageRequest chatMessageRequest);
-    List<ChatMessage> getChatHistoryWithUser(String username);
-    List<ChatMessageItem> getMessagesList();
-    Integer countUnreadMessages();
-    List<ChatMessage> markMessagesWithUserAsRead(String username);
+    List<ChatMessage> getChatHistoryWithUser(String currentUserId, String userId);
+    List<ChatMessageItem> getMessagesList(String currentUserId);
+    Integer countUnreadMessages(String currentUserId);
+    List<ChatMessage> markMessagesWithUserAsRead(String currentUserId, String userId);
 }

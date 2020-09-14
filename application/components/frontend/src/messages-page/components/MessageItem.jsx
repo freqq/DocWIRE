@@ -30,17 +30,13 @@ const MessageTopInfo = styled.div.attrs({ className: 'message-top-info' })`
   margin: 3px 0 0 10px;
   display: grid;
   grid-template-columns: 5fr 1fr;
-  grid-template-areas: 'message-user-name-area message-user-time-area';
 `;
 
 const MessageUserImageArea = styled.div.attrs({ className: 'message-user-image-area' })`
-  grid: message-user-image-area;
   position: relative;
 `;
 
 const MessageDetailsArea = styled.div.attrs({ className: 'message-details-area' })`
-  grid: message-details-area;
-
   @media only screen and (max-width: 990px) {
     display: none;
   }
@@ -135,37 +131,62 @@ const UNREAD_MESSAGE_STYLE = {
   background: '#f3f7fd',
 };
 
-const CHOSEN_CHAT_USER = 'admin';
+const MessageItem = ({ messageObject, onClick, person, loggedInUserData }) => {
+  const getCircleContent = () => {
+    if (messageObject.sender.userId === loggedInUserData.userId)
+      return messageObject.receiver.firstName.charAt(0) + messageObject.receiver.lastName.charAt(0);
 
-const MessageItem = ({ messageObject }) => (
-  <MessageItemWrapper
-    style={
-      messageObject.unread || CHOSEN_CHAT_USER === messageObject.sender ? UNREAD_MESSAGE_STYLE : {}
-    }
-  >
-    <MessageUserImageArea className="tooltip">
-      <MessageUserImg>{messageObject.sender.charAt(0).toUpperCase()}</MessageUserImg>
-      <StyledSpan className="tooltiptext">{messageObject.sender}</StyledSpan>
-      {messageObject.active ? <MessageUserImageActive /> : null}
-    </MessageUserImageArea>
-    <MessageDetailsArea>
-      <MessageTopInfo>
-        <MessageUserName>{messageObject.sender}</MessageUserName>
-        <MessageTime>
-          {`${new Date(messageObject.dateTime).getHours()}:${new Date(
-            messageObject.dateTime,
-          ).getMinutes()}`}
-        </MessageTime>
-      </MessageTopInfo>
-      <MessageComponent>
-        <MessageContentArea>{messageObject.content}</MessageContentArea>
-      </MessageComponent>
-    </MessageDetailsArea>
-  </MessageItemWrapper>
-);
+    return messageObject.sender.firstName.charAt(0) + messageObject.sender.lastName.charAt(0);
+  };
+
+  const getNameContent = () => {
+    if (messageObject.sender.userId === loggedInUserData.userId)
+      return messageObject.receiver.firstName;
+
+    return messageObject.sender.firstName;
+  };
+
+  const decideIfUnreadStyle = () => {
+    if (messageObject.receiver.userId === loggedInUserData.userId)
+      return person !== null && person.userId === messageObject.sender.userId;
+
+    return person !== null && person.userId === messageObject.receiver.userId;
+  };
+
+  const minutesWithLeadingZero = date => (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+
+  return (
+    <MessageItemWrapper
+      onClick={onClick}
+      style={messageObject.unread || decideIfUnreadStyle() ? UNREAD_MESSAGE_STYLE : {}}
+    >
+      <MessageUserImageArea className="tooltip">
+        <MessageUserImg>{getCircleContent()}</MessageUserImg>
+        <StyledSpan className="tooltiptext">{getNameContent()}</StyledSpan>
+        {messageObject.active ? <MessageUserImageActive /> : null}
+      </MessageUserImageArea>
+      <MessageDetailsArea>
+        <MessageTopInfo>
+          <MessageUserName>{getNameContent()}</MessageUserName>
+          <MessageTime>
+            {`${new Date(messageObject.dateTime).getHours()}:${minutesWithLeadingZero(
+              new Date(messageObject.dateTime),
+            )}`}
+          </MessageTime>
+        </MessageTopInfo>
+        <MessageComponent>
+          <MessageContentArea>{messageObject.content}</MessageContentArea>
+        </MessageComponent>
+      </MessageDetailsArea>
+    </MessageItemWrapper>
+  );
+};
 
 MessageItem.propTypes = {
   messageObject: PropTypes.objectOf(Object).isRequired,
+  onClick: PropTypes.func.isRequired,
+  person: PropTypes.instanceOf(Object).isRequired,
+  loggedInUserData: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default MessageItem;

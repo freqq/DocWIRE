@@ -1,11 +1,15 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
+import { fetchUsersList, setCurrentChat } from 'messages-page/actions/newMessageActions';
 import TextInput from 'common/components/text-input/TextInput';
 import GenericModal from 'common/components/GenericModal';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
+import UserSection from 'common/components/layout/navbar/UserSection';
 
 const NewMessageErrorBlock = styled.div.attrs({ className: 'new-message-error-block' })`
   padding: 10px;
@@ -24,19 +28,14 @@ const ListOfPeople = styled.ul.attrs({ className: 'list-of-people' })`
 
 const ListOfPeopleItem = styled.li.attrs({ className: 'list-of-people-item' })`
   margin: 0;
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-gap: 10px;
-  grid-template-areas: 'person-avatar person-username';
   border: 1px solid #f0f0f0;
   padding: 10px;
-  line-height: 20px;
   border-radius: 4px;
   cursor: pointer;
   transition: 0.2s;
 
   &:hover {
-    background: #f0f0f0;
+    background: #fafafa;
   }
 `;
 
@@ -58,24 +57,44 @@ const PersonUsername = styled.div.attrs({ className: 'person-username' })`
   font-size: 12px;
 `;
 
-const NewMessageModal = ({ onClose }) => {
+const NewMessageModal = ({
+  onClose,
+  setCurrentChatFunc,
+  onChoice,
+  usersData,
+  isLoading,
+  isError,
+  fetchUsersListFunc,
+  userId,
+}) => {
   const [personText, setPersonText] = useState('');
-  const [filteredListOfPeople, setFilteredListOfPeople] = useState([]);
-  const isLoading = false;
-  const isError = false;
+
+  const onTextChange = value => {
+    setPersonText(value);
+    fetchUsersListFunc(value, userId);
+  };
+
+  const usernameOnClick = person => {
+    setCurrentChatFunc(person);
+    onChoice(person);
+  };
 
   const renderListOfPeople = () => (
     <ListOfPeople>
-      {filteredListOfPeople.map(person => (
-        <ListOfPeopleItem key={person.id}>
-          <PersonAvatar>{person.username.charAt(0).toUpperCase()}</PersonAvatar>
-          <PersonUsername>{person.username}</PersonUsername>
+      {usersData.map(person => (
+        <ListOfPeopleItem key={person.userId} onClick={() => usernameOnClick(person)}>
+          <UserSection
+            firstName={person.firstName}
+            lastName={person.lastName}
+            bottomText="Patient"
+            showIcon={false}
+            circleSize={30}
+            circleFontSize={9}
+          />
         </ListOfPeopleItem>
       ))}
     </ListOfPeople>
   );
-
-  if (isLoading) return <ProgressIndicatorCircular size={40} />;
 
   if (isError) {
     return (
@@ -89,18 +108,41 @@ const NewMessageModal = ({ onClose }) => {
     <GenericModal onClose={onClose}>
       <TextInput
         value={personText}
-        onChange={evt => setPersonText(evt.target.value)}
+        onChange={evt => onTextChange(evt.target.value)}
         id="person-text"
         type="text"
         label="Person name"
       />
-      {filteredListOfPeople.length > 0 && personText.length > 0 && renderListOfPeople()}
+      {usersData.length > 0 && personText.length > 0 ? (
+        renderListOfPeople()
+      ) : isLoading ? (
+        <ProgressIndicatorCircular size={40} />
+      ) : null}
     </GenericModal>
   );
 };
 
 NewMessageModal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onChoice: PropTypes.func.isRequired,
+  setCurrentChatFunc: PropTypes.func.isRequired,
+  fetchUsersListFunc: PropTypes.func.isRequired,
+  usersData: PropTypes.instanceOf(Array).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
-export default NewMessageModal;
+const mapStateToProps = state => ({
+  isLoading: state.messages.usersList.isLoading,
+  isError: state.messages.usersList.isError,
+  usersData: state.messages.usersList.usersData,
+  userId: state.common.accountData.userData.userId,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchUsersListFunc: (searchQuery, userId) => dispatch(fetchUsersList(searchQuery, userId)),
+  setCurrentChatFunc: person => dispatch(setCurrentChat(person)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewMessageModal);
