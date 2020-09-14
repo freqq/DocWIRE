@@ -20,6 +20,7 @@ function build_images {
     log_info "Starting building images..."
 
     ./gradlew docker:account-service:dockerPush
+    ./gradlew docker:appointments-service:dockerPush
     ./gradlew docker:frontend:dockerPush
     ./gradlew docker:messages-service:dockerPush
     ./gradlew docker:rabbit-mq:dockerPush

@@ -92,6 +92,21 @@ services:
         networks:
             - docwire_network
 
+    appointments-service:
+        image: freq/appointments-service:v1
+        container_name: appointments-service
+        ports:
+            - "8083:8083"
+        depends_on:
+            - appointments-service-db
+        environment:
+            - SPRING_DATA_MONGODB_HOST=appointments-service-db
+            - SPRING_DATA_MONGODB_PORT=27022
+            - SPRING_DATA_MONGODB_DATABASE=appointments_service_db
+            - "SPRING_PROFILES_ACTIVE=dev,swagger,dev-cal"
+        networks:
+            - docwire_network
+
     account-service-db:
         image: mongo:4.2
         container_name: account-service-db
@@ -117,6 +132,21 @@ services:
             - docwire_network
         healthcheck:
             test: echo 'db.runCommand("ping").ok' | mongo mongo:27021/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+            start_period: 40s
+
+    appointments-service-db:
+        image: mongo:4.2
+        container_name: appointments-service-db
+        command: mongod --port 27022
+        ports:
+            - "27022:27022"
+        networks:
+            - docwire_network
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongo mongo:27022/test --quiet
             interval: 10s
             timeout: 10s
             retries: 5
