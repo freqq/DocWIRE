@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { filterMessagesChatBox } from 'messages-page/actions/messagesListActions';
 
 import searchIcon from 'images/icons/search_left.svg';
 
@@ -48,7 +51,7 @@ const MessagesSearchIcon = styled.img.attrs({
 
 const PLACEHOLDER = 'Search for messages...';
 
-const MessageSearchInput = () => {
+const MessageSearchInput = ({ filterMessagesChatBoxFunc }) => {
   const [searchInput, setSearchInput] = useState('');
 
   const onChange = event => {
@@ -57,6 +60,7 @@ const MessageSearchInput = () => {
     } = event;
 
     setSearchInput(value);
+    filterMessagesChatBoxFunc(value);
   };
 
   return (
@@ -71,4 +75,12 @@ const MessageSearchInput = () => {
   );
 };
 
-export default MessageSearchInput;
+MessageSearchInput.propTypes = {
+  filterMessagesChatBoxFunc: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  filterMessagesChatBoxFunc: keyword => dispatch(filterMessagesChatBox(keyword)),
+});
+
+export default connect(null, mapDispatchToProps)(MessageSearchInput);

@@ -55,6 +55,7 @@ const MessagesPage = ({
         active: false,
       };
 
+      fetchChatHistoryFunc(person.userId);
       addNewUserToChatBoxFunc(newMessage);
     }
   };

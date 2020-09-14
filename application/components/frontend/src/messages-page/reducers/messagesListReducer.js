@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 /* eslint-disable no-case-declarations */
 import {
   FETCH_CHAT_BOX_LIST_PENDING,
@@ -102,8 +103,18 @@ export default (state, { type, payload }) => {
       return {
         ...stateDefinition,
         searchValue: payload.keyword,
-        filteredChatList: stateDefinition.chatList.filter(item =>
-          item.sender.toLowerCase().includes(payload.keyword.toLowerCase()),
+        filteredChatList: stateDefinition.chatList.filter(
+          item =>
+            item.sender.firstName.toLowerCase().includes(payload.keyword.toLowerCase()) ||
+            item.sender.lastName.toLowerCase().includes(payload.keyword.toLowerCase()) ||
+            item.receiver.firstName.toLowerCase().includes(payload.keyword.toLowerCase()) ||
+            item.receiver.lastName.toLowerCase().includes(payload.keyword.toLowerCase()) ||
+            (item.receiver.firstName + ' ' + item.receiver.lastName)
+              .toLowerCase()
+              .includes(payload.keyword.toLowerCase()) ||
+            (item.sender.firstName + ' ' + item.sender.lastName)
+              .toLowerCase()
+              .includes(payload.keyword.toLowerCase()),
         ),
       };
     default:
