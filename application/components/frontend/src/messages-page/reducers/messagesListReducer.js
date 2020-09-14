@@ -70,14 +70,19 @@ export default (state, { type, payload }) => {
         chatList: [],
       };
     case ADD_NEW_MESSAGE:
-      console.log(payload.message);
       return {
         ...stateDefinition,
         chatHistory: [...stateDefinition.chatHistory, payload.message],
         chatList: stateDefinition.chatList
           .map(item =>
-            item.sender.userId === payload.message.sender.userId ||
-            item.sender.userId === payload.message.receiver.userId
+            (item.sender.userId !== payload.currentUserId &&
+              item.sender.userId === payload.message.sender.userId) ||
+            (item.sender.userId !== payload.currentUserId &&
+              item.sender.userId === payload.message.receiver.userId) ||
+            (item.receiver.userId !== payload.currentUserId &&
+              item.receiver.userId === payload.message.receiver.userId) ||
+            (item.receiver.userId !== payload.currentUserId &&
+              item.receiver.userId === payload.message.sender.userId)
               ? { ...item, content: payload.message.content, dateTime: payload.message.dateTime }
               : item,
           )

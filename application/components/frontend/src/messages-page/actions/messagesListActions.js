@@ -54,9 +54,9 @@ export const makeFetchChatHistoryFail = () => ({
   type: FETCH_CHAT_HISTORY_FAIL,
 });
 
-export const makeAddNewMessage = message => ({
+export const makeAddNewMessage = (message, currentUserId) => ({
   type: ADD_NEW_MESSAGE,
-  payload: { message },
+  payload: { message, currentUserId },
 });
 
 export const makeAddNewUserToChatBox = chatBoxItem => ({
@@ -88,8 +88,8 @@ export const fetchChatHistory = userId => dispatch => {
     });
 };
 
-export const addNewMessage = message => dispatch => {
-  dispatch(makeAddNewMessage(message));
+export const addNewMessage = (message, currentUserId) => dispatch => {
+  dispatch(makeAddNewMessage(message, currentUserId));
 };
 
 export const addNewUserToChatBox = chatBoxItem => dispatch => {

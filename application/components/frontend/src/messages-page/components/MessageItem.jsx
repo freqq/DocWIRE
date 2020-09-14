@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const MessageItemWrapper = styled.div.attrs({ className: 'message-item-wrapper' })`
   display: grid;
@@ -153,7 +154,7 @@ const MessageItem = ({ messageObject, onClick, person, loggedInUserData }) => {
     return person !== null && person.userId === messageObject.receiver.userId;
   };
 
-  const minutesWithLeadingZero = date => (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+  const getTimeOfMessage = dateTime => moment(new Date(dateTime)).toDate().toLocaleTimeString();
 
   return (
     <MessageItemWrapper
@@ -168,11 +169,7 @@ const MessageItem = ({ messageObject, onClick, person, loggedInUserData }) => {
       <MessageDetailsArea>
         <MessageTopInfo>
           <MessageUserName>{getNameContent()}</MessageUserName>
-          <MessageTime>
-            {`${new Date(messageObject.dateTime).getHours()}:${minutesWithLeadingZero(
-              new Date(messageObject.dateTime),
-            )}`}
-          </MessageTime>
+          <MessageTime>{getTimeOfMessage(messageObject.dateTime)}</MessageTime>
         </MessageTopInfo>
         <MessageComponent>
           <MessageContentArea>{messageObject.content}</MessageContentArea>

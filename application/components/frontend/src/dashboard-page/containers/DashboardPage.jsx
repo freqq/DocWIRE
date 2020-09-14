@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
+import { APP_TITLE } from 'common/constants';
 import CovidInformation from 'dashboard-page/components/CovidInformation';
 import Appointments from 'dashboard-page/components/Appointments';
 import RecentActivity from 'dashboard-page/components/RecentActivity';
@@ -37,23 +38,29 @@ const BottomRightGrid = styled.div.attrs({ className: 'bottom-right-grid' })`
   gap: 20px;
 `;
 
-const DashboardPage = () => (
-  <AppDashboardWrapper>
-    <DashboardGrid>
-      <CovidInformation />
-      <TwoSideGrid>
-        <Appointments />
-        <RecentActivity />
-      </TwoSideGrid>
-      <TwoSideGrid>
-        <Medications />
-        <BottomRightGrid>
-          <CurrentConditions />
-          <RecentBills />
-        </BottomRightGrid>
-      </TwoSideGrid>
-    </DashboardGrid>
-  </AppDashboardWrapper>
-);
+const DashboardPage = () => {
+  useEffect(() => {
+    document.title = `Dashboard - ${APP_TITLE}`;
+  }, []);
+
+  return (
+    <AppDashboardWrapper>
+      <DashboardGrid>
+        <CovidInformation />
+        <TwoSideGrid>
+          <Appointments />
+          <RecentActivity />
+        </TwoSideGrid>
+        <TwoSideGrid>
+          <Medications />
+          <BottomRightGrid>
+            <CurrentConditions />
+            <RecentBills />
+          </BottomRightGrid>
+        </TwoSideGrid>
+      </DashboardGrid>
+    </AppDashboardWrapper>
+  );
+};
 
 export default DashboardPage;

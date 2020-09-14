@@ -110,7 +110,7 @@ public class MessagesServiceImpl implements MessagesService {
                     message.getId(),
                     message.getSender(),
                     message.getReceiver(),
-                    message.getDateTime(),
+                    message.getDateTime().plusHours(2),
                     message.getContent(),
                     anyMessageUnRead,
                     true

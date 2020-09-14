@@ -1,5 +1,5 @@
 /* eslint-disable prefer-template */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { setCurrentChat } from 'messages-page/actions/newMessageActions';
 import { fetchChatHistory, addNewUserToChatBox } from 'messages-page/actions/messagesListActions';
 
+import { APP_TITLE } from 'common/constants';
 import MessageBoxArea from 'messages-page/components/MessageBoxArea';
 import MessagesListArea from 'messages-page/components/MessagesListArea';
 import MessagePatientDetails from 'messages-page/components/MessagePatientDetails';
@@ -35,6 +36,10 @@ const MessagesPage = ({
   addNewUserToChatBoxFunc,
   userData,
 }) => {
+  useEffect(() => {
+    document.title = `Messages - ${APP_TITLE}`;
+  }, []);
+
   const addNewUser = person => {
     if (
       chatList.some(

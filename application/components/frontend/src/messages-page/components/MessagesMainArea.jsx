@@ -66,7 +66,7 @@ const MessagesMainArea = ({
 
       addNewUser(msg.sender);
       const messageObj = msg.id === undefined ? { ...msg, id: shortid.generate() } : msg;
-      addNewMessageFunc(messageObj);
+      addNewMessageFunc(messageObj, userData.userId);
     }
   };
 
@@ -76,7 +76,7 @@ const MessagesMainArea = ({
 
       if (msg.type === 'CHAT') {
         const messageObj = msg.id === undefined ? { ...msg, id: shortid.generate() } : msg;
-        addNewMessageFunc(messageObj);
+        addNewMessageFunc(messageObj, userData.userId);
       }
 
       return true;
@@ -148,7 +148,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addNewMessageFunc: message => dispatch(addNewMessage(message)),
+  addNewMessageFunc: (message, currentUserId) => dispatch(addNewMessage(message, currentUserId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesMainArea);
