@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable prefer-template */
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -25,6 +26,21 @@ const ErrorBlock = styled.div.attrs({ className: 'error-block' })`
   background: #fce7e6;
   font-size: 12px;
   color: #552526;
+`;
+
+const NotChosen = styled.div.attrs({ className: 'not-chosen' })`
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 100;
+  position: relative;
+`;
+
+const NotChosenText = styled.div.attrs({ className: 'not-chosen-text' })`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const MessagesMainArea = ({
@@ -77,16 +93,23 @@ const MessagesMainArea = ({
   const getPersonId = () => (userData !== null ? userData.userId : null);
 
   return (
-    <MessagesMainAreaWrapper style={currentPerson ? {} : { visibility: 'hidden' }}>
+    <MessagesMainAreaWrapper>
       {isChatHistoryLoading ? (
         <ProgressIndicatorCircular size={40} />
-      ) : (
+      ) : currentPerson ? (
         <MessagesMainComponent
           currentUser={currentPerson}
           messagesArray={chatHistory}
           loggedInUserId={loggedInUserId}
           isTyping={isTyping}
         />
+      ) : (
+        <NotChosen>
+          <NotChosenText>
+            Click on the list on the left to choose a user to send a message to or add new message
+            box.
+          </NotChosenText>
+        </NotChosen>
       )}
 
       <SockJsClient
@@ -98,7 +121,6 @@ const MessagesMainArea = ({
         }}
         debug
       />
-
       <MessageMainInput sender={userData} receiver={currentPerson} onSend={sendMessage} />
     </MessagesMainAreaWrapper>
   );

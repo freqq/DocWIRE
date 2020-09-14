@@ -62,7 +62,7 @@ public class AccountController {
     }
 
     /**
-     * Returns list of Keycloak users filtered with search query
+     * Returns list of accounts filtered with search query
      *
      * @param search         Search query
      * @param firstResult      Update user request

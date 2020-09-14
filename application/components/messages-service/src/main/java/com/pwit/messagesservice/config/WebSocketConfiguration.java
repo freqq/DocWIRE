@@ -16,18 +16,21 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
+        // TODO Remove next line when RabbitMQ enabled
+        registry.enableSimpleBroker("/queue/", "/topic/", "/user/", "/notify");
+
         registry.setApplicationDestinationPrefixes("/app");
 
-        // Enables a simple in-memory broker
-        registry.enableSimpleBroker("/queue/", "/topic/", "/user/", "/notify");
-        registry.setUserDestinationPrefix("/user");
-
-        /*  TODO: Use this for enabling a full featured broker like RabbitMQ or ActiveMQ
-        registry.enableStompBrokerRelay("/topic")
-                .setRelayHost("localhost")
-                .setRelayPort(5672)
+        //  TODO: Uncomment next block of code after enabling RabbitMQ
+        /*registry.enableStompBrokerRelay("/topic")
+                .setRelayHost("rabbitmq")
+                .setRelayPort(61613)
                 .setClientLogin("admin")
-                .setClientPasscode("password");
-        */
+                .setClientPasscode("password")
+                .setSystemLogin("admin")
+                .setSystemPasscode("password");
+         */
+
+        registry.setUserDestinationPrefix("/user");
     }
 }

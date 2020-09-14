@@ -22,6 +22,11 @@ spring:
       host: localhost
       port: 27021
       database: messages_service_db
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: admin
+    password: password
 
 keycloak:
   enabled: true

@@ -83,6 +83,7 @@ services:
             - "8085:8085"
         depends_on:
             - messages-service-db
+            - rabbitmq
         environment:
             - SPRING_DATA_MONGODB_HOST=messages-service-db
             - SPRING_DATA_MONGODB_PORT=27021
@@ -99,6 +100,12 @@ services:
             - "27020:27020"
         networks:
             - docwire_network
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongo mongo:27020/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+            start_period: 40s
 
     messages-service-db:
         image: mongo:4.2
@@ -108,16 +115,25 @@ services:
             - "27021:27021"
         networks:
             - docwire_network
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongo mongo:27021/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+            start_period: 40s
     
     rabbitmq:
-        image: rabbitmq:3.6-management-alpine
+        image: freq/rabbit-mq:v1
         container_name: rabbitmq
-        environment:
-            - RABBITMQ_DEFAULT_USER=admin
-            - RABBITMQ_DEFAULT_PASS=password
         ports:
             - '5672:5672' # The standard AMQP protocol port
             - '15672:15672' # HTTP management UI
+            - '61613:61613' # STOMP port
+        healthcheck:
+            test: rabbitmq-diagnostics -q ping
+            interval: 30s
+            timeout: 30s
+            retries: 3
         networks:
             - docwire_network
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const MessagePatientDetailsWrapper = styled.div.attrs({
   className: 'message-patient-details-wrapper',
@@ -30,12 +32,6 @@ const UserName = styled.div.attrs({ className: 'user-name' })`
   margin-bottom: 5px;
 `;
 
-const UserTitle = styled.div.attrs({ className: 'user-title' })`
-  text-align: center;
-  font-size: 10px;
-  font-weight: 100;
-`;
-
 const UserCard = styled.div.attrs({ className: 'user-card' })`
   border: 1px solid #f0f0f0;
   width: calc(90% - 40px);
@@ -51,7 +47,7 @@ const UserCard = styled.div.attrs({ className: 'user-card' })`
 const TwoSideGrid = styled.div.attrs({ className: 'two-side-grid' })`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 const GridComponent = styled.div.attrs({ className: 'grid-component' })`
@@ -78,42 +74,60 @@ const UserDetail = styled.div.attrs({ className: 'user-detail' })`
   margin-top: 20px;
 `;
 
-const MessagePatientDetails = () => (
-  <MessagePatientDetailsWrapper>
-    <UserCircle>AC</UserCircle>
-    <UserCard>
-      <UserName>Abba Barbarian</UserName>
-      <UserTitle>anna.barbarian@email.com</UserTitle>
-      <TwoSideGrid>
-        <GridComponent>
-          <Title>Role</Title>
-          <SubTitle>Patient</SubTitle>
-        </GridComponent>
-        <GridComponent>
-          <Title>Role</Title>
-          <SubTitle>Patient</SubTitle>
-        </GridComponent>
-      </TwoSideGrid>
-    </UserCard>
-    <UserDetailsWrapper>
-      <UserDetail>
-        <Title>Address</Title>
-        <SubTitle>99 Meadow City</SubTitle>
-      </UserDetail>
-      <UserDetail>
-        <Title>Zip code</Title>
-        <SubTitle>606584-3274</SubTitle>
-      </UserDetail>
-      <UserDetail>
-        <Title>City</Title>
-        <SubTitle>San Francisco</SubTitle>
-      </UserDetail>
-      <UserDetail>
-        <Title>Country</Title>
-        <SubTitle>United States of America</SubTitle>
-      </UserDetail>
-    </UserDetailsWrapper>
-  </MessagePatientDetailsWrapper>
-);
+const MessagePatientDetails = ({ currentPerson }) => {
+  const getCircleText = person =>
+    person.firstName.charAt(0).toUpperCase() + person.lastName.charAt(0).toUpperCase();
 
-export default MessagePatientDetails;
+  const getFullName = person => `${person.firstName} ${person.lastName}`;
+
+  return (
+    <MessagePatientDetailsWrapper>
+      {currentPerson !== null && (
+        <>
+          <UserCircle>{getCircleText(currentPerson)}</UserCircle>
+          <UserCard>
+            <UserName>{getFullName(currentPerson)}</UserName>
+            <TwoSideGrid>
+              <GridComponent>
+                <Title>Role</Title>
+                <SubTitle>Patient</SubTitle>
+              </GridComponent>
+              <GridComponent>
+                <Title>Role</Title>
+                <SubTitle>Patient</SubTitle>
+              </GridComponent>
+            </TwoSideGrid>
+          </UserCard>
+          <UserDetailsWrapper>
+            <UserDetail>
+              <Title>Address</Title>
+              <SubTitle>99 Meadow City</SubTitle>
+            </UserDetail>
+            <UserDetail>
+              <Title>Zip code</Title>
+              <SubTitle>606584-3274</SubTitle>
+            </UserDetail>
+            <UserDetail>
+              <Title>City</Title>
+              <SubTitle>San Francisco</SubTitle>
+            </UserDetail>
+            <UserDetail>
+              <Title>Country</Title>
+              <SubTitle>United States of America</SubTitle>
+            </UserDetail>
+          </UserDetailsWrapper>
+        </>
+      )}
+    </MessagePatientDetailsWrapper>
+  );
+};
+
+MessagePatientDetails.propTypes = {
+  currentPerson: PropTypes.instanceOf(Object).isRequired,
+};
+
+const mapStateToProps = state => ({
+  currentPerson: state.messages.usersList.currentPerson,
+});
+
+export default connect(mapStateToProps, null)(MessagePatientDetails);

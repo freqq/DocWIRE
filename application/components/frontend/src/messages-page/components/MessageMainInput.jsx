@@ -100,13 +100,17 @@ const MessageMainInput = ({ sender, receiver, onSend }) => {
 
   return (
     <MessageMainInputWrapper>
-      <MessageInputComponent
-        placeholder={PLACEHOLDER}
-        value={textInput}
-        onKeyDown={onEnter}
-        onChange={onChange}
-      />
-      <SendMessageButton onClick={() => sendMessage()}>Send</SendMessageButton>
+      {receiver !== null && (
+        <>
+          <MessageInputComponent
+            placeholder={PLACEHOLDER}
+            value={textInput}
+            onKeyDown={onEnter}
+            onChange={onChange}
+          />
+          <SendMessageButton onClick={() => sendMessage()}>Send</SendMessageButton>
+        </>
+      )}
     </MessageMainInputWrapper>
   );
 };
