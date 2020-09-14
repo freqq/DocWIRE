@@ -113,7 +113,7 @@ const MessageContent = styled.p.attrs({ className: 'messages-content' })`
   margin: 0;
   border-top-left-radius: 0;
   display: inline-block;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   font-size: 11px;
 `;
 
