@@ -19,6 +19,7 @@ export const DIAGNOSE_PATH = getPath('/diagnose');
 export const FAQ_PATH = getPath('/faq');
 export const APPOINTMENT_DETAILS_PATH = getPath('/appointments/:appointmentId');
 export const VIDEO_CONVERSATION_PAGE = getPath('/call/:callId');
+export const CREATE_ACCOUNT_PATH = getPath('/create-account');
 
 export const LoadableMainPage = makeLoadable(() => import('main-page/containers/MainPage'));
 
@@ -56,23 +57,35 @@ export const LoadableVideoConversationPage = makeLoadable(() =>
   import('video-conversation-page/containers/VideoConversationPage'),
 );
 
-const RootRouter = ({ isAccountError }) => (
+export const LoadableCreateAccountPage = makeLoadable(() =>
+  import('create-account-page/containers/CreateAccountPage'),
+);
+
+const RootRouter = ({ isAccountError, userInfo }) => (
   <Switch>
     <Route exact path={ROOT_PATH} component={LoadableMainPage} />
     <AuthService>
       <Route exact path={DIAGNOSE_PATH} component={LoadableInitialDiagnosePage} />
-      {!isAccountError && (
-        <Layout>
-          <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
-          <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />
-          <Route exact path={APPOINTMENTS_PATH} component={LoadableAppointmentsPage} />
-          <Route exact path={PATIENT_DETAILS_PATH} component={LoadablePatientDetailsPage} />
-          <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
-          <Route exact path={APPOINTMENT_DETAILS_PATH} component={LoadableAppointmentDetailsPage} />
-          <Route exact path={FAQ_PATH} component={LoadableFAQPage} />
-          <Route exact path={VIDEO_CONVERSATION_PAGE} component={LoadableVideoConversationPage} />
-        </Layout>
-      )}
+      <Route exact path={CREATE_ACCOUNT_PATH} component={LoadableCreateAccountPage} />
+      {!isAccountError &&
+        userInfo &&
+        userInfo.patientInfo &&
+        userInfo.patientInfo.initialDiagnoseDone && (
+          <Layout>
+            <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
+            <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />
+            <Route exact path={APPOINTMENTS_PATH} component={LoadableAppointmentsPage} />
+            <Route exact path={PATIENT_DETAILS_PATH} component={LoadablePatientDetailsPage} />
+            <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
+            <Route
+              exact
+              path={APPOINTMENT_DETAILS_PATH}
+              component={LoadableAppointmentDetailsPage}
+            />
+            <Route exact path={FAQ_PATH} component={LoadableFAQPage} />
+            <Route exact path={VIDEO_CONVERSATION_PAGE} component={LoadableVideoConversationPage} />
+          </Layout>
+        )}
     </AuthService>
     <Route component={NotFoundPage} />
   </Switch>
@@ -80,10 +93,12 @@ const RootRouter = ({ isAccountError }) => (
 
 const mapStateToProps = state => ({
   isAccountError: state.common.accountData.isError,
+  userInfo: state.common.accountData.userData,
 });
 
 RootRouter.propTypes = {
   isAccountError: PropTypes.bool.isRequired,
+  userInfo: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(RootRouter);

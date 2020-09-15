@@ -1,5 +1,6 @@
 package com.pwit.accountservice.entity;
 
+import com.pwit.accountservice.entity.enumeration.AccountType;
 import com.pwit.accountservice.entity.enumeration.Gender;
 import com.pwit.accountservice.validator.NameConstraint;
 import lombok.AllArgsConstructor;
@@ -43,4 +44,13 @@ public class User {
 
     @Field("gender")
     private Gender gender;
+
+    @Field("accountType")
+    private AccountType accountType;
+
+    @Field("patientInfo")
+    private PatientInfo patientInfo = null;
+
+    @Field("doctorInfo")
+    private DoctorInfo doctorInfo = null;
 }

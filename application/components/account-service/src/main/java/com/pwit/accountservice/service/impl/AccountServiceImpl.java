@@ -3,12 +3,12 @@ package com.pwit.accountservice.service.impl;
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
 import com.pwit.accountservice.dto.request.RegisterRequest;
 import com.pwit.accountservice.entity.User;
+import com.pwit.accountservice.entity.enumeration.AccountType;
 import com.pwit.accountservice.error.exception.UserNotFoundException;
 import com.pwit.accountservice.repository.UserRepository;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.common.utils.Logger;
 import lombok.AllArgsConstructor;
-import org.keycloak.admin.client.resource.UsersResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,6 @@ public class AccountServiceImpl implements AccountService {
     private static final Logger LOGGER = new Logger();
 
     private final UserRepository userRepository;
-    private final UsersResource usersResource;
 
     @Override
     public ResponseEntity<?> createAccount(RegisterRequest registerRequest) {
@@ -35,7 +34,13 @@ public class AccountServiceImpl implements AccountService {
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())
                 .gender(registerRequest.getGender())
+                .accountType(registerRequest.getAccountType())
                 .langKey(registerRequest.getLangKey()).build();
+
+        if(registerRequest.getAccountType() == AccountType.DOCTOR)
+            createdUser.setDoctorInfo(registerRequest.getDoctorInfo());
+        else
+            createdUser.setPatientInfo(registerRequest.getPatientInfo());
 
         userRepository.save(createdUser);
 

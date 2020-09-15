@@ -26,11 +26,6 @@ const FooterButton = styled.button`
   }
 `;
 
-const FillInValuesBlock = styled(FooterButton).attrs({ className: 'fill-in-values-block' })`
-  background: none;
-  cursor: default;
-`;
-
 const NextStepButton = styled(FooterButton).attrs({ className: 'next-step-button' })`
   background: #2e4663;
   color: #ffffff;
@@ -75,23 +70,17 @@ const MainCardFooter = ({
 
   return (
     <MainCardFooterWrapper>
-      {currentStep === 2 ? (
-        <FillInValuesBlock>Fill in values above</FillInValuesBlock>
-      ) : (
-        <>
-          {currentStep !== 7 && (
-            <NextStepButton
-              onClick={goForward}
-              disabled={
-                shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
-              }
-            >
-              {currentStep === 6 ? 'Submit' : <>Next step &gt;</>}
-            </NextStepButton>
-          )}
-        </>
+      {currentStep !== 6 && (
+        <NextStepButton
+          onClick={goForward}
+          disabled={
+            shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
+          }
+        >
+          {currentStep === 5 ? 'Submit' : <>Next step &gt;</>}
+        </NextStepButton>
       )}
-      {currentStep !== 1 && currentStep !== 7 && (
+      {currentStep !== 1 && currentStep !== 6 && (
         <PreviousStepButton onClick={goBack}>&lt; Previous step</PreviousStepButton>
       )}
     </MainCardFooterWrapper>

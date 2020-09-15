@@ -11,7 +11,7 @@ export const ACCOUNT_DATA_INITIAL_STATE = {
   userData: null,
   isError: false,
   isFetching: true,
-  createLoading: false,
+  createLoading: true,
   createError: false,
 };
 

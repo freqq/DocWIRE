@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { replace } from 'react-router-redux';
-import { INITIAL_DIAGNOSIS_PATH, DASHBOARD_PATH } from 'common/paths';
+import { INITIAL_DIAGNOSIS_PATH, DASHBOARD_PATH, CREATE_ACCOUNT_PATH } from 'common/paths';
 
 import { fetchUserdata, createUser, editUser } from 'common/handlers/accountHandler';
 
@@ -43,20 +43,22 @@ export const fetchAccountInfo = () => dispatch => {
   return fetchUserdata()
     .then(res => {
       dispatch(makeAccountInfoOk(res.data));
+
+      if (res.data.accountType === 'PATIENT' && !res.data.patientInfo.initialDiagnoseDone)
+        dispatch(replace(INITIAL_DIAGNOSIS_PATH));
     })
     .catch(() => {
       dispatch(makeAccountInfoFail());
-      dispatch(replace(INITIAL_DIAGNOSIS_PATH));
+      dispatch(replace(CREATE_ACCOUNT_PATH));
     });
 };
 
-export const createAccount = (accountData, nextStep) => dispatch => {
+export const createAccount = accountData => dispatch => {
   dispatch(makeCreateAccountFetching());
 
   return createUser(accountData)
     .then(() => {
       dispatch(makeCreateAccountOk());
-      nextStep();
     })
     .catch(() => {
       dispatch(makeCreateAccountFail());

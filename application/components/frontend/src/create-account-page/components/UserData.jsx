@@ -1,16 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import TextInput from 'common/components/text-input/TextInput';
 import SelectComponent from 'common/components/SelectComponent';
 import DatePickerField from 'common/components/DatePickerField';
 
-import GenericStep from 'initial-diagnose/components/GenericStep';
-
 const UserDataWrapper = styled.div.attrs({ className: 'user-data-wrapper' })`
   width: 70%;
   margin: 0 auto;
+  font-size: 12px;
+  margin-top: 180px;
+`;
+
+const Title = styled.div.attrs({ className: 'title' })`
+  width: 100%;
+  text-align: center;
+  font-weight: 100;
+  font-size: 20px;
+  margin-bottom: 20px;
 `;
 
 const CreateAccountButton = styled.button.attrs({ className: 'create-account-button' })`
@@ -23,7 +31,7 @@ const CreateAccountButton = styled.button.attrs({ className: 'create-account-but
   outline: none;
   border: none;
   background: #2d4564;
-  padding: 10px;
+  padding: 15px;
   color: #fff;
   text-align: center;
   font-weight: 100;
@@ -40,8 +48,6 @@ const CreateAccountButton = styled.button.attrs({ className: 'create-account-but
 `;
 
 const UserData = ({
-  currentStep,
-  totalSteps,
   firstName,
   setFirstName,
   lastName,
@@ -51,63 +57,52 @@ const UserData = ({
   gender,
   setGender,
   availableGenders,
-  accountCreation,
   nextStep,
   isAccountCreationBlocked,
+  currentStep,
+  setCurrentStep,
 }) => {
   const registerAccount = () => {
-    const registerObject = {
-      firstName,
-      lastName,
-      birthday,
-      gender,
-      langKey: 'en',
-    };
-
-    accountCreation(registerObject, nextStep);
+    setCurrentStep(currentStep + 1);
+    nextStep();
   };
 
   return (
-    <GenericStep stepName="User data" currentStep={currentStep} totalSteps={totalSteps}>
-      <UserDataWrapper>
-        <TextInput
-          value={firstName}
-          onChange={evt => setFirstName(evt.target.value)}
-          id="firstName"
-          type="text"
-          label="First name"
-        />
-        <TextInput
-          value={lastName}
-          onChange={evt => setLastName(evt.target.value)}
-          id="lastName"
-          type="text"
-          label="Last name"
-        />
-        <SelectComponent
-          value={gender}
-          onChange={evt => setGender(evt.target.value)}
-          label="Gender"
-          options={availableGenders}
-        />
-        <DatePickerField value={birthday} onChange={setBirthday} label="Birthday" />
-        <CreateAccountButton onClick={registerAccount} disabled={isAccountCreationBlocked()}>
-          Save user data
-        </CreateAccountButton>
-      </UserDataWrapper>
-    </GenericStep>
+    <UserDataWrapper>
+      <Title>Provide us with a basic info about you</Title>
+      <TextInput
+        value={firstName}
+        onChange={evt => setFirstName(evt.target.value)}
+        id="firstName"
+        type="text"
+        label="First name"
+      />
+      <TextInput
+        value={lastName}
+        onChange={evt => setLastName(evt.target.value)}
+        id="lastName"
+        type="text"
+        label="Last name"
+      />
+      <SelectComponent
+        value={gender}
+        onChange={evt => setGender(evt.target.value)}
+        label="Gender"
+        options={availableGenders}
+      />
+      <DatePickerField value={birthday} onChange={setBirthday} label="Birthday" />
+      <CreateAccountButton onClick={registerAccount} disabled={isAccountCreationBlocked()}>
+        Continue
+      </CreateAccountButton>
+    </UserDataWrapper>
   );
 };
 
 UserData.defaultProps = {
-  currentStep: null,
-  totalSteps: null,
   nextStep: null,
 };
 
 UserData.propTypes = {
-  currentStep: PropTypes.number,
-  totalSteps: PropTypes.number,
   nextStep: PropTypes.func,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
@@ -115,10 +110,11 @@ UserData.propTypes = {
   birthday: PropTypes.instanceOf(Date).isRequired,
   setFirstName: PropTypes.func.isRequired,
   setLastName: PropTypes.func.isRequired,
-  accountCreation: PropTypes.func.isRequired,
   isAccountCreationBlocked: PropTypes.func.isRequired,
   setGender: PropTypes.func.isRequired,
   setBirthday: PropTypes.func.isRequired,
+  setCurrentStep: PropTypes.func.isRequired,
+  currentStep: PropTypes.number.isRequired,
   availableGenders: PropTypes.instanceOf(Array).isRequired,
 };
 

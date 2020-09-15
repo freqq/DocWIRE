@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router';
 
+import { DIAGNOSE_PATH } from 'RootRouter';
 import MainPageNavbar from 'main-page/components/MainPageNavbar';
 import MainPageCard from 'main-page/components/MainPageCard';
 import CommonIssues from 'main-page/components/CommonIssues';
 import MainPageFooter from 'main-page/components/MainPageFooter';
 import OverNavBar from 'main-page/components/OverNavBar';
-import MainPageLoader from 'main-page/components/MainPageLoader';
 
 import mainPageBackground from 'images/main_page_bg.svg';
 
@@ -41,7 +42,7 @@ const MainPage = () => {
         <CommonIssues />
         <MainPageFooter />
       </MainPageContainer>
-      {startDiagnose && <MainPageLoader startDiagnose={startDiagnose} />}
+      {startDiagnose && <Redirect to={DIAGNOSE_PATH} />}
     </MainPageWrapper>
   );
 };

@@ -4,16 +4,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import StepWizard from 'react-step-wizard';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { createAccount } from 'common/actions/accountActions';
-import availableGenders from 'initial-diagnose/utils/genders';
 
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
 import DiagnoseFooter from 'initial-diagnose/components/DiagnoseFooter';
 
 import Introduction from 'initial-diagnose/components/steps/Introduction';
-import UserData from 'initial-diagnose/components/steps/UserData';
 import QuickSurvey from 'initial-diagnose/components/steps/QuickSurvey';
 import Symptoms from 'initial-diagnose/components/steps/Symptoms';
 import VisitedRegions from 'initial-diagnose/components/steps/VisitedRegions';
@@ -60,7 +55,7 @@ const DiagnoseMainLogo = styled.img.attrs({ className: 'diagnose-main-logo' })`
   }
 `;
 
-const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
+const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
   const [chosenSymptoms, setChosenSymptoms] = useState([]);
   const [visitedRegions, setVisitedRegions] = useState([]);
   const [surveyObject, setSurveyObject] = useState([]);
@@ -69,11 +64,6 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
   const [recentlyInjured, setRecentlyInjured] = useState(null);
   const [highCholesterol, setHighCholesterol] = useState(null);
   const [diabetes, setDiabetes] = useState(null);
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [gender, setGender] = useState(availableGenders[0].value);
 
   const sendDiagnose = () => {
     const diagnoseObject = {
@@ -106,9 +96,6 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
     sendDiagnose();
   };
 
-  const isAccountCreationBlocked = () =>
-    gender.length === 0 || firstName.length === 0 || lastName.length === 0 || birthday.length === 0;
-
   const getNamesFromVisitedRegionsAndSave = regions => {
     const arrayOfRegionsNames = regions.map(a => a.ariaLabel);
     setVisitedRegions(arrayOfRegionsNames);
@@ -132,20 +119,6 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
             }
           >
             <Introduction hashKey="Introduction" />
-            <UserData
-              hashKey="user-data"
-              firstName={firstName}
-              setFirstName={setFirstName}
-              lastName={lastName}
-              setLastName={setLastName}
-              gender={gender}
-              setGender={setGender}
-              birthday={birthday}
-              setBirthday={setBirthday}
-              availableGenders={availableGenders}
-              accountCreation={accountCreation}
-              isAccountCreationBlocked={isAccountCreationBlocked}
-            />
             <QuickSurvey
               hashKey="quick-survey"
               smokeCigarete={smokeCigarete}
@@ -181,13 +154,8 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, accountCreation }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  accountCreation: (accountData, nextStep) => dispatch(createAccount(accountData, nextStep)),
-});
-
 DiagnoseMainCard.propTypes = {
   setCurrentStepNumber: PropTypes.func.isRequired,
-  accountCreation: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(DiagnoseMainCard);
+export default DiagnoseMainCard;

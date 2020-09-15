@@ -14,8 +14,6 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.Objects;
 
-import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
-
 @Component
 @AllArgsConstructor
 public class WebSocketEventListener {
