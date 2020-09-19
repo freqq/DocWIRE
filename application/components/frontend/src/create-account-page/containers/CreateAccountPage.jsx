@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import mainLogo from 'images/main_only_logo.svg';
 
 import { createAccount } from 'common/actions/accountActions';
+import doctorSpecializations from 'create-account-page/utils/doctor_specializations';
 import { APP_TITLE } from 'common/constants';
 
 import availableGenders from 'initial-diagnose/utils/genders';
@@ -109,7 +110,7 @@ const CreateAccountPage = ({ accountCreation }) => {
   const [country, setCountry] = useState('');
 
   const [title, setTitle] = useState('');
-  const [specialization, setSpecialization] = useState('');
+  const [specialization, setSpecialization] = useState(doctorSpecializations[0].value);
   const [price, setPrice] = useState('');
   const [aboutMe, setAboutMe] = useState('');
 

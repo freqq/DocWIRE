@@ -82,6 +82,15 @@ public class AccountServiceImpl implements AccountService {
         return userRepository.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(search, search);
     }
 
+    @Override
+    public List<User> getListOfDoctorsFilteredBySearchFilter(String search,
+                                                             Integer firstResult,
+                                                             Integer maxResults) {
+        return userRepository.
+                findAllByAccountTypeAndDoctorInfoSpecializationContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
+                        AccountType.DOCTOR,search, search, search);
+    }
+
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {
         if(updateAccountDTO.getDayOfBirth() != null)
             foundUser.setDayOfBirth(updateAccountDTO.getDayOfBirth());

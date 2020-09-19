@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import TextInput from 'common/components/text-input/TextInput';
+import SelectComponent from 'common/components/SelectComponent';
 import TextArea from 'common/components/TextArea';
+import doctorSpecializations from 'create-account-page/utils/doctor_specializations';
 
 const DoctorDetailsWrapper = styled.div.attrs({ className: 'doctor-details-wrapper' })`
   margin-top: 200px;
@@ -77,12 +79,11 @@ const DoctorDetails = ({
           type="text"
           label="Title"
         />
-        <TextInput
+        <SelectComponent
           value={specialization}
           onChange={evt => setSpecialization(evt.target.value)}
-          id="specialization"
-          type="text"
           label="Medical specialization"
+          options={doctorSpecializations}
         />
         <TextInput
           value={price}

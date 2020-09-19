@@ -6,6 +6,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import commonReducer from 'common/reducers';
 import messagesReducer from 'messages-page/reducers';
+import diagnoseReducer from 'initial-diagnose/reducers';
 
 export const history = createBrowserHistory();
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
   common: commonReducer,
   messages: messagesReducer,
+  diagnose: diagnoseReducer,
 });
 
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));

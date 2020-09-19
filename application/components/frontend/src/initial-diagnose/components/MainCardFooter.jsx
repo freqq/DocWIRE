@@ -60,24 +60,24 @@ const MainCardFooter = ({
     previousStep();
   };
 
-  const shouldBlockQuickSurvey = () => currentStep === 3 && isQuickSurveyBlocked();
+  const shouldBlockQuickSurvey = () => currentStep === 2 && isQuickSurveyBlocked();
 
-  const shouldBlockSymptoms = () => currentStep === 4 && isSymptomsBlocked();
+  const shouldBlockSymptoms = () => currentStep === 3 && isSymptomsBlocked();
 
-  const shouldBlockVisitedRegions = () => currentStep === 5 && isRegionsBlocked();
+  const shouldBlockVisitedRegions = () => currentStep === 4 && isRegionsBlocked();
 
-  if (currentStep === 8) return null;
+  if (currentStep === 6) return null;
 
   return (
     <MainCardFooterWrapper>
-      {currentStep !== 6 && (
+      {currentStep !== 5 && (
         <NextStepButton
           onClick={goForward}
           disabled={
             shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
           }
         >
-          {currentStep === 5 ? 'Submit' : <>Next step &gt;</>}
+          Next step &gt;
         </NextStepButton>
       )}
       {currentStep !== 1 && currentStep !== 6 && (

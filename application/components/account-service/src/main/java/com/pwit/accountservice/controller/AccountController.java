@@ -80,4 +80,24 @@ public class AccountController {
                 getCurrentUserEmail());
         return accountService.getAllUsersFilteredByFirstNameOrLastName(search, firstResult, maxResults);
     }
+
+    /**
+     * Returns list of dpctors filtered with search query
+     *
+     * @param search         Search query
+     * @param firstResult      Update user request
+     * @param maxResults      Update user request
+     */
+    @GetMapping("/doctors")
+    @Secured(ROLE_USER)
+    List<User> getListOfDoctorsFilteredBySearchFilter(
+            @RequestParam(value="search", required = false) String search,
+            @RequestParam(value = "first", defaultValue = "0") Integer firstResult,
+            @RequestParam(value = "max", defaultValue = "15") Integer maxResults
+    ) {
+        LOGGER.info("Getting list of doctors filtered by serch query '{}' for user with email '{}'",
+                search,
+                getCurrentUserEmail());
+        return accountService.getListOfDoctorsFilteredBySearchFilter(search, firstResult, maxResults);
+    }
 }

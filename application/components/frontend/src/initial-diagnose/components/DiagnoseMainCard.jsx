@@ -13,7 +13,7 @@ import QuickSurvey from 'initial-diagnose/components/steps/QuickSurvey';
 import Symptoms from 'initial-diagnose/components/steps/Symptoms';
 import VisitedRegions from 'initial-diagnose/components/steps/VisitedRegions';
 import LastSurvey from 'initial-diagnose/components/steps/LastSurvey';
-import Results from 'initial-diagnose/components/steps/Results';
+import ChooseDoctor from 'initial-diagnose/components/steps/ChooseDoctor';
 import mainLogo from 'images/main_logo.svg';
 
 import 'initial-diagnose/components/styles/DiagnoseMainCard.css';
@@ -64,6 +64,8 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
   const [recentlyInjured, setRecentlyInjured] = useState(null);
   const [highCholesterol, setHighCholesterol] = useState(null);
   const [diabetes, setDiabetes] = useState(null);
+
+  const [doctor, setDoctor] = useState(null);
 
   const sendDiagnose = () => {
     const diagnoseObject = {
@@ -145,7 +147,11 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
               setSurveyObject={setSurveyObjectAndSend}
               setCurrentStepNumber={setCurrentStepNumber}
             />
-            <Results hashKey="results" />
+            <ChooseDoctor
+              hashKey="choose-doctor"
+              setDoctor={setDoctor}
+              setCurrentStepNumber={setCurrentStepNumber}
+            />
           </StepWizard>
         </RelativeWrapper>
       </CardWrapper>

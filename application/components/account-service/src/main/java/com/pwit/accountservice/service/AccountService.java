@@ -12,4 +12,5 @@ public interface AccountService {
     ResponseEntity<?> getCurrentUserData();
     ResponseEntity<?> updateCurrentUserDetails(UserDetailsChangeDTO userDetailsChangeDTO);
     List<User> getAllUsersFilteredByFirstNameOrLastName(String search, Integer firstResult, Integer maxResults);
+    List<User> getListOfDoctorsFilteredBySearchFilter(String search, Integer firstResult, Integer maxResults);
 }

@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -45,6 +47,7 @@ public class User {
     @Field("gender")
     private Gender gender;
 
+    @Enumerated(EnumType.STRING)
     @Field("accountType")
     private AccountType accountType;
 

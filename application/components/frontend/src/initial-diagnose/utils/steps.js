@@ -31,8 +31,14 @@ export default [
   },
   {
     number: 6,
-    name: 'Results',
-    description: 'See your results!',
-    url: 'results',
+    name: 'Choose your doctor',
+    description: 'Your preffered doctor is waiting!',
+    url: 'choose-doctor',
+  },
+  {
+    number: 7,
+    name: 'Pick an appointment date',
+    description: 'Choose about the time you meet.',
+    url: 'choose-day',
   },
 ];

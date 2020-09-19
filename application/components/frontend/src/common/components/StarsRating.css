@@ -1,0 +1,30 @@
+.rating-group {
+  display: inline-flex;
+}
+.rating__icon {
+  pointer-events: none;
+}
+.rating__input {
+  position: absolute !important;
+  left: -9999px !important;
+}
+.rating__input--none {
+  display: none;
+}
+.rating__label {
+  cursor: pointer;
+  padding: 0 0.1em;
+  font-size: 1rem;
+}
+.rating__icon--star {
+  color: orange;
+}
+.rating__input:checked ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+.rating-group:hover .rating__label .rating__icon--star {
+  color: orange;
+}
+.rating__input:hover ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
