@@ -199,7 +199,6 @@ const ChooseDoctor = ({
   const getFullName = (firstName, lastName) => `${firstName} ${lastName}`;
 
   const onSearchChange = value => {
-    setCurrentStepNumber(currentStep + 1);
     fetchDoctorsListFunc(value);
     setSearchValue(value);
   };
@@ -209,6 +208,7 @@ const ChooseDoctor = ({
   const getEntriesCount = () => doctorsList.length;
 
   const onDoctorClick = doctor => {
+    setCurrentStepNumber(currentStep + 1);
     setDoctor(doctor);
     nextStep();
   };
@@ -234,7 +234,7 @@ const ChooseDoctor = ({
             <DoctorsList>
               {doctorsList !== undefined &&
                 doctorsList.map(doctor => (
-                  <DoctorsListItem key={doctor.id}>
+                  <DoctorsListItem key={doctor.id} onClick={onDoctorClick}>
                     <UserCircle>{getCircleText(doctor.firstName, doctor.lastName)}</UserCircle>
                     <DoctorData>
                       <Name>{getFullName(doctor.firstName, doctor.lastName)}</Name>
@@ -254,7 +254,7 @@ const ChooseDoctor = ({
                     </DoctorData>
                     <BookAppointment>
                       <Price>{`${doctor.doctorInfo.price}$`}</Price>
-                      <ScheduleButton>Schedule video call</ScheduleButton>
+                      <ScheduleButton onClick={onDoctorClick}>Schedule video call</ScheduleButton>
                     </BookAppointment>
                   </DoctorsListItem>
                 ))}

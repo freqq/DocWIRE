@@ -14,6 +14,7 @@ import Symptoms from 'initial-diagnose/components/steps/Symptoms';
 import VisitedRegions from 'initial-diagnose/components/steps/VisitedRegions';
 import LastSurvey from 'initial-diagnose/components/steps/LastSurvey';
 import ChooseDoctor from 'initial-diagnose/components/steps/ChooseDoctor';
+import PickAppointmentDate from 'initial-diagnose/components/steps/PickAppointmentDate';
 import mainLogo from 'images/main_logo.svg';
 
 import 'initial-diagnose/components/styles/DiagnoseMainCard.css';
@@ -66,6 +67,8 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
   const [diabetes, setDiabetes] = useState(null);
 
   const [doctor, setDoctor] = useState(null);
+  const [pickedDate, setPickedDate] = useState(null);
+  const [pickedTime, setPickedTime] = useState(null);
 
   const sendDiagnose = () => {
     const diagnoseObject = {
@@ -151,6 +154,13 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
               hashKey="choose-doctor"
               setDoctor={setDoctor}
               setCurrentStepNumber={setCurrentStepNumber}
+            />
+            <PickAppointmentDate
+              hashKey="pick-date"
+              pickedDate={pickedDate}
+              setPickedDate={setPickedDate}
+              pickedTime={pickedTime}
+              setPickedTime={setPickedTime}
             />
           </StepWizard>
         </RelativeWrapper>

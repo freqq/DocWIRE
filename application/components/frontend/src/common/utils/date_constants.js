@@ -37,3 +37,5 @@ export const WEEK_DAYS_NAMES = [
   'Saturday',
   'Sunday',
 ];
+
+export const SHORT_WEEK_DAYS_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
