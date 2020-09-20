@@ -9,19 +9,24 @@ function enable_ingres_on_minikube() (
 )
 
 function app_start() (
-    echo "Starting application..."
+    echo "Starting DocWIRE..."
 
     cd ${SOURCE_DIR}/../application
 
     ./gradlew charts:namespace:appInstall
+
+    ./gradlew charts:auth-db:appInstall
+    ./gradlew charts:auth-service:appInstall
+
     ./gradlew charts:account-db:appInstall
     ./gradlew charts:account-service:appLoad
     ./gradlew charts:account-service:appInstall
+
     ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall
 
     cd -
-    echo "Online doctor app started."
+    echo "DocWIRE started."
 )
 
 enable_ingres_on_minikube

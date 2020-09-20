@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Auth Service Db
+name: auth-db
+version: 1.0.0

@@ -1,0 +1,37 @@
+description 'account-db'
+
+apply from: "$configurationDir/k8s.gradle"
+
+task removeApp(type: Exec) {
+    commandLine 'bash', '-c', "helm del ${project.name} -n ${project.ext.appNamespace}"
+    ignoreExitValue = true
+}
+
+task removePv(type: Exec, dependsOn: removeApp) {
+    commandLine 'bash', '-c', "kubectl delete pv ${project.name}-pv"
+    ignoreExitValue = true
+}
+
+task waitForAppRemove(type: Exec, dependsOn: removePv) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.appNamespace} && " +
+            "waitForPodDelete ${project.name}"
+}
+
+task helmInstall(type: Exec, dependsOn: waitForAppRemove) {
+    commandLine 'helm', 'install',
+            "${project.name}",
+            "${projectDir}/app/",
+            '--values', "${globalValues}",
+            '--values', "${project.ext.componentValues}",
+            '--values', "${configurationProfile}",
+            '--values', "${resourcesProfile}",
+            '--namespace', "${project.ext.appNamespace}",
+            '--set', "image.pullPolicy=Always"
+}
+
+task waitForInstall(type: Exec, dependsOn: helmInstall) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.appNamespace} && " +
+            "waitForReadyPod ${project.name}"
+}
+
+appInstall.dependsOn waitForInstall

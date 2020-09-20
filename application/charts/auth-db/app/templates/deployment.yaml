@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  selector: 
+    matchLabels:
+      app: {{ .Chart.Name }}
+  replicas: {{ .Values.profile.authDb.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - name: http-port
+              containerPort: {{ .Values.config.authDb.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Chart.Name }}-cm
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: {{ .Chart.Name }}-db
+      volumes:
+        - name: {{ .Chart.Name }}-db
+          persistentVolumeClaim:
+            claimName: {{ .Chart.Name }}-pvc

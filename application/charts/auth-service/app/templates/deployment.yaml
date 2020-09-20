@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.profile.authService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: keycloak
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        command:
+        - "-b"
+        - "0.0.0.0"
+        - "-Djboss.http.port=8081"
+        - "-Dkeycloak.migration.action=import"
+        - "-Dkeycloak.migration.provider=dir"
+        - "-Dkeycloak.migration.dir=/config"
+        - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+        - "-Dkeycloak.profile.feature.account_api=enabled"
+        env:
+        - name: KEYCLOAK_USER
+          value: "admin"
+        - name: KEYCLOAK_PASSWORD
+          value: "password"
+        - name: DB_VENDOR
+          value: "postgres"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASSWORD
+          value: "password"
+        - name: DB_ADDR
+          value: "auth-db"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_DATABASE
+          value: "keycloakdb"
+        ports:
+        - name: http-port
+          containerPort: {{ .Values.config.authService.port }}
+        readinessProbe:
+          httpGet:
+            path: /auth
+            port: {{ .Values.config.authService.port }}
+          timeoutSeconds: {{ .Values.healthCheck.authService.readinessProbe.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.healthCheck.authService.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.healthCheck.authService.readinessProbe.periodSeconds }}
+          failureThreshold: {{ .Values.healthCheck.authService.readinessProbe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: /auth
+            port: {{ .Values.config.authService.port }}
+          timeoutSeconds: {{ .Values.healthCheck.authService.readinessProbe.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.healthCheck.authService.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.healthCheck.authService.readinessProbe.periodSeconds }}
+          failureThreshold: {{ .Values.healthCheck.authService.readinessProbe.failureThreshold }}

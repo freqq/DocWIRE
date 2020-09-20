@@ -7,6 +7,12 @@ config:
   frontend:
     hostname: frontend
     port: 9040
+  authDb:
+    hostname: auth-db
+    port: 5432
+  authService:
+    hostname: auth-service
+    port: 8081
   accountService:
     hostname: account-service
     port: 8080

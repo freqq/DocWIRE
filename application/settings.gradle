@@ -1,8 +1,10 @@
 rootProject.name = 'docwire'
 
 include ':charts'
-include ':charts:account-service'
 include ':charts:account-db'
+include ':charts:account-service'
+include ':charts:auth-db'
+include ':charts:auth-service'
 include ':charts:frontend'
 include ':charts:namespace'
 include ':components'

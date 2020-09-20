@@ -1,0 +1,17 @@
+image:
+    registry: jboss
+    name: keycloak
+    tag: 11.0.0
+
+healthCheck:
+  authService:
+    readinessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 0
+      failureThreshold: 5
+      periodSeconds: 5
+    livenessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 180
+      failureThreshold: 5
+      periodSeconds: 5

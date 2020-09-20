@@ -26,6 +26,30 @@ profile:
           cpu: 500m
       memory:
         xmx: 1536M
+
+    authDb:
+      replicas: 1
+      resources:
+        requests:
+          memory: 768Mi
+          cpu: 150m
+        limits:
+          memory: 2Gi
+          cpu: 500m
+      memory:
+        xmx: 1536M
+
+    authService:
+      replicas: 1
+      resources:
+        requests:
+          memory: 768Mi
+          cpu: 150m
+        limits:
+          memory: 2Gi
+          cpu: 500m
+      memory:
+        xmx: 1536M
   
     frontend:
       replicas: 1
