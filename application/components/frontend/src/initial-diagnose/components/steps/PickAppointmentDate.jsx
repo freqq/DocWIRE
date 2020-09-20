@@ -162,8 +162,6 @@ const getNextWeekDays = isFollowingDayNextWeek => {
 
   const finalArray = [startOfTheWeek, ...middleWeekDays, endOfTheWeek];
 
-  console.log(finalArray);
-
   const returnArray = [];
   for (let item = 0; item < finalArray.length; item += 1) {
     const dayItem = {
@@ -212,7 +210,7 @@ const getCurrentWeekDays = () => {
 };
 
 const PICKED_BUTTON_STYLE = {
-  background: 'red',
+  background: '#f0f0f0',
 };
 
 const PickAppointmentDate = ({
@@ -288,8 +286,6 @@ const PickAppointmentDate = ({
             ))}
           </TimeList>
         </TimeWrapper>
-        {JSON.stringify(pickedDate)}
-        {JSON.stringify(getCurrentWeekDays()[0])}
       </PickerWrapper>
     </GenericStep>
   );

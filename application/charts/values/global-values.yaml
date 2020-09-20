@@ -1,4 +1,5 @@
 image:
+  registry: freq
   pullPolicy: IfNotPresent
   tag: v1
 
@@ -6,6 +7,9 @@ config:
   frontend:
     hostname: frontend
     port: 9040
+  accountService:
+    hostname: account-service
+    port: 8080
 
 securityContext:
   user:

@@ -1,5 +1,5 @@
 image:
-    name: sm-frontend
+    name: frontend
 
 maxHttpHeaderSize: 48000
   

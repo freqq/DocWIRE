@@ -1,8 +1,7 @@
 project.ext {
     functionsScript = "${rootProject.rootDir}/../deployment/functions.sh"
     componentValues = "${project.rootDir}/charts/${project.name}/app/values.yaml"
-    appNamespace = 'medic-app'
-    ingressRepoUrl = 'https://helm.nginx.com/stable'
+    appNamespace = 'docwire'
 }
 
 task appLoad()

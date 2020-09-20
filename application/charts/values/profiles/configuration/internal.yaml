@@ -1,5 +1,6 @@
 profile:
     accountService:
+      replicas: 1
       logging:
         level: DEBUG
   

@@ -49,4 +49,5 @@ task dockerPushAccountService(type: DockerPushImage, dependsOn: dockerBuildAccou
 }
 
 // TODO Return to docker push when needed
-dockerPush.dependsOn dockerBuildAccountService
+//dockerPush.dependsOn dockerBuildAccountService
+dockerPush.dependsOn dockerPushAccountService

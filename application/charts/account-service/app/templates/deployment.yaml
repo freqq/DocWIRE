@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.profile.accountService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.securityContext.user.runAsUser | default 985 }}
+        fsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsNonRoot: {{ .Values.securityContext.user.runAsNonRoot | default true }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http-port
+              containerPort: {{ .Values.config.accountService.port }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.config.accountService.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.accountService.readinessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.accountService.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.accountService.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.accountService.readinessProbe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.config.accountService.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.accountService.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.accountService.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.healthCheck.accountService.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.healthCheck.accountService.livenessProbe.periodSeconds }}
+          env:
+            - name: SPRING_DATA_MONGODB_HOST
+              value: account-service-db
+            - name: SPRING_DATA_MONGODB_PORT
+              value: "27020"
+            - name: SPRING_DATA_MONGODB_DATABASE
+              value: account_service_db
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev,swagger,dev-cal"

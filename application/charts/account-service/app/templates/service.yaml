@@ -6,7 +6,7 @@ metadata:
     label: {{ .Chart.Name }}
 spec:
   ports:
-  - name: https-port
+  - name: http-port
     port: {{ .Values.config.accountService.port }}
     targetPort: {{ .Values.config.accountService.port }}
   type: ClusterIP

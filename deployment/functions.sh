@@ -1,6 +1,5 @@
 #!/bin/bash
-MINIKUBE_CONTEXT="minikube"
-APPS_NS=${1:-'medic-app'}
+APPS_NS=${1:-'docwire'}
 
 function waitForReadyPod () {
     POD=$1

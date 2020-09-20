@@ -14,7 +14,6 @@ function app_start() (
     cd ${SOURCE_DIR}/../application
 
     ./gradlew charts:namespace:appInstall
-    ./gradlew charts:ingress-controller:appInstall
     ./gradlew charts:account-service:appLoad
     ./gradlew charts:account-service:appInstall
     ./gradlew charts:frontend:appLoad
