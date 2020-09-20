@@ -4,4 +4,4 @@ ${AnsiColor.WHITE}   |  |  \  : | .-. | | .--' ${AnsiColor.CYAN}|  |.'.|  | |  |
 ${AnsiColor.WHITE}   |  '--'  / ' '-' ' \ `--. ${AnsiColor.CYAN}|   ,'.   | |  | |  |\  \  |  `---.
 ${AnsiColor.WHITE}   `-------'   `---'   `---' ${AnsiColor.CYAN}'--'   '--' `--' `--' '--' `------'
 
-${AnsiColor.BLUE}  :: account-service  ::
+${AnsiColor.BLUE}                             :: account-service ::

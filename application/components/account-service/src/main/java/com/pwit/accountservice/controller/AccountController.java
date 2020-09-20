@@ -95,7 +95,7 @@ public class AccountController {
             @RequestParam(value = "first", defaultValue = "0") Integer firstResult,
             @RequestParam(value = "max", defaultValue = "15") Integer maxResults
     ) {
-        LOGGER.info("Getting list of doctors filtered by serch query '{}' for user with email '{}'",
+        LOGGER.info("Getting list of doctors filtered by search query '{}' for user with email '{}'",
                 search,
                 getCurrentUserEmail());
         return accountService.getListOfDoctorsFilteredBySearchFilter(search, firstResult, maxResults);

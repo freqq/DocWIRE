@@ -6,7 +6,6 @@ import com.pwit.common.security.AuthorityMapper;
 import com.pwit.common.security.KeycloakResolverConfig;
 import com.pwit.common.security.SecurityConfiguration;
 import com.pwit.common.security.WebMvcConfig;
-import com.pwit.common.utils.Health;
 import com.pwit.common.utils.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +24,6 @@ import java.net.UnknownHostException;
         WebMvcConfig.class,
         DatabaseConfiguration.class,
         SwaggerConfiguration.class,
-        Health.class
 })
 @EnableSwagger2
 public class AccountServiceApplication {

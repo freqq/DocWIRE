@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  selector: 
+    matchLabels:
+      app: {{ .Chart.Name }}
+  replicas: {{ .Values.profile.accountDb.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }} 
+      name: {{ .Chart.Name }}
+    spec:
+      containers:
+      - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        name: {{ .Chart.Name }}    
+        command: ["mongod", "--port", "27020"] 
+        ports:
+        - name: http-port
+          containerPort: {{ .Values.config.accountDb.port }}
+        readinessProbe:
+          exec:
+            command:
+            - echo 
+            - 'db.runCommand("ping").ok'
+            - mongo mongo:27020/test --quiet
+          timeoutSeconds: {{ .Values.healthCheck.accountDb.readinessProbe.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.healthCheck.accountDb.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.healthCheck.accountDb.readinessProbe.periodSeconds }}
+          failureThreshold: {{ .Values.healthCheck.accountDb.readinessProbe.failureThreshold }}
+        livenessProbe:
+          exec:
+            command:
+            - echo 
+            - 'db.runCommand("ping").ok'
+            - mongo mongo:27020/test --quiet
+          timeoutSeconds: {{ .Values.healthCheck.accountDb.livenessProbe.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.healthCheck.accountDb.livenessProbe.initialDelaySeconds }}
+          failureThreshold: {{ .Values.healthCheck.accountDb.livenessProbe.failureThreshold }}
+          periodSeconds: {{ .Values.healthCheck.accountDb.livenessProbe.periodSeconds }}
+        volumeMounts:
+        - name: {{ .Chart.Name }}-pvc
+          mountPath: /data/db
+      volumes:
+      - name: {{ .Chart.Name }}-pvc
+        persistentVolumeClaim:
+          claimName: {{ .Chart.Name }}-pvc
+          
+                
