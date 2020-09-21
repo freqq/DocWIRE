@@ -37,7 +37,7 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
   ssl-required: external
-  auth-server-url: http://docwire.test:8081/auth
+  auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
 
 keycloak-admin:
   username: admin

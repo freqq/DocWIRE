@@ -13,14 +13,14 @@ function app_start() (
 
     cd ${SOURCE_DIR}/../application
 
-    #./gradlew charts:namespace:appInstall
+    ./gradlew charts:namespace:appInstall
 
-    #./gradlew charts:auth-db:appInstall
+    ./gradlew charts:auth-db:appInstall
     ./gradlew charts:auth-service:appInstall
 
-    #./gradlew charts:account-db:appInstall
-    #./gradlew charts:account-service:appLoad
-    #./gradlew charts:account-service:appInstall
+    ./gradlew charts:account-db:appInstall
+    ./gradlew charts:account-service:appLoad
+    ./gradlew charts:account-service:appInstall
 
     #./gradlew charts:frontend:appLoad
     #./gradlew charts:frontend:appInstall
