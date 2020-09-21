@@ -10,6 +10,6 @@ spec:
   - http:
       paths:
       - backend:
-          serviceName: {{ .Values.config.accountService.hostname }}
+          serviceName: {{ .Values.config.accountService.hostname }}-svc
           servicePort: {{ .Values.config.accountService.port }}
         path: /api/users(/|$)(.*)

@@ -43,13 +43,11 @@ profile:
       replicas: 1
       resources:
         requests:
-          memory: 768Mi
+          memory: 2Gi
           cpu: 150m
         limits:
           memory: 2Gi
-          cpu: 500m
-      memory:
-        xmx: 1536M
+          cpu: 2
   
     frontend:
       replicas: 1
