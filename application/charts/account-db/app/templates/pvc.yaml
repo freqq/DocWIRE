@@ -2,12 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Chart.Name }}-pvc
-  labels:
-    app: mongopv
-spec:  
+spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: manual
   resources:
     requests:
-      storage: 1Gi
+      storage: 256Mi

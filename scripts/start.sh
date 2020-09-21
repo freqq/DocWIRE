@@ -19,7 +19,7 @@ function app_start() (
     #./gradlew charts:auth-service:appInstall
 
     ./gradlew charts:account-db:appInstall
-    ./gradlew charts:account-service:appLoad
+    #./gradlew charts:account-service:appLoad
     ./gradlew charts:account-service:appInstall
 
     ./gradlew charts:frontend:appLoad

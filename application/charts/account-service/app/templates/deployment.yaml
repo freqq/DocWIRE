@@ -45,30 +45,7 @@ spec:
             failureThreshold: {{ .Values.healthCheck.accountService.livenessProbe.failureThreshold }}
             periodSeconds: {{ .Values.healthCheck.accountService.livenessProbe.periodSeconds }}
           env:
-            - name: MONGO_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: account-db-cm
-                  key: database-host
-            - name: MONGO_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: account-db-cm
-                  key: database-port
-            - name: MONGO_DATABASE
-              valueFrom:
-                configMapKeyRef:
-                  name: account-db-cm
-                  key: database-name
-            - name: MONGO_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: account-db-secrets
-                  key: database-user
-            - name: MONGO_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: account-db-secrets
-                  key: database-password
+            - name: MONGO_URL
+              value: mongodb://account-db-svc:27017/dev
             - name: SPRING_PROFILES_ACTIVE
               value: "dev,swagger,dev-cal"

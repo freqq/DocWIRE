@@ -1,12 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Chart.Name }}
-  labels:
-    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}-svc
 spec:
-  ports:
-  - port: {{ .Values.config.accountDb.port }}
-    targetPort: {{ .Values.config.accountDb.port }}
   selector:
     app: {{ .Chart.Name }}
+  ports:
+    - port: {{ .Values.config.accountDb.port }}
+      targetPort: {{ .Values.config.accountDb.port }}
