@@ -30,6 +30,7 @@ dependencies {
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.3.3.RELEASE'
     compile group: 'org.keycloak', name: 'keycloak-admin-client', version: '11.0.0'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-kubernetes', version: '1.1.6.RELEASE'
     compile group: 'org.keycloak', name: 'keycloak-spring-boot-starter', version: '11.0.0'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
@@ -40,6 +41,8 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 
     compileOnly 'org.projectlombok:lombok'
+
+    runtime group: 'org.springframework.cloud', name: 'spring-cloud-dependencies', version: 'Hoxton.SR8', ext: 'pom'
 
     runtimeOnly 'com.h2database:h2'
 

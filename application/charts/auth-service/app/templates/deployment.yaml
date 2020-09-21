@@ -17,7 +17,7 @@ spec:
       containers:
       - name: keycloak
         image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
-        command:
+        args:
         - "-b"
         - "0.0.0.0"
         - "-Djboss.http.port=8081"
@@ -44,8 +44,7 @@ spec:
         - name: DB_DATABASE
           value: "keycloakdb"
         ports:
-        - name: http-port
-          containerPort: {{ .Values.config.authService.port }}
+        - containerPort: {{ .Values.config.authService.port }}
         readinessProbe:
           httpGet:
             path: /auth

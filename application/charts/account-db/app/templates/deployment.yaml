@@ -20,8 +20,23 @@ spec:
         name: {{ .Chart.Name }}    
         command: ["mongod", "--port", "27020"] 
         ports:
-        - name: http-port
-          containerPort: {{ .Values.config.accountDb.port }}
+        - containerPort: {{ .Values.config.accountDb.port }}
+        env:
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Chart.Name }}-cm
+              key: database-name
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Chart.Name }}-secrets
+              key: database-user
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Chart.Name }}-secrets
+              key: database-password
         readinessProbe:
           exec:
             command:

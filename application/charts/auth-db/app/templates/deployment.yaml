@@ -19,8 +19,7 @@ spec:
           image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: "IfNotPresent"
           ports:
-            - name: http-port
-              containerPort: {{ .Values.config.authDb.port }}
+            - containerPort: {{ .Values.config.authDb.port }}
           envFrom:
             - configMapRef:
                 name: {{ .Chart.Name }}-cm

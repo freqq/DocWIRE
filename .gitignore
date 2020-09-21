@@ -26,6 +26,31 @@
 .idea/**/gradle.xml
 .idea/**/libraries
 
+# User-specific stuff
+application/idea/**/workspace.xml
+application/idea/**/tasks.xml
+application/idea/**/usage.statistics.xml
+application/idea/**/dictionaries
+application/idea/**/shelf
+
+# Generated files
+application/idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+application/idea/**/dataSources/
+application/idea/**/dataSources.ids
+application/idea/**/dataSources.local.xml
+application/idea/**/sqlDataSources.xml
+application/idea/**/dynamic.xml
+application/idea/**/uiDesigner.xml
+application/idea/**/dbnavigator.xml
+
+# Gradle
+application/idea/**/gradle.xml
+application/idea/**/libraries
+
+
+
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using

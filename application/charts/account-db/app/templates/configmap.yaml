@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-cm
+data:
+  database-host: account-db
+  database-port: "27020"
+  database-name: account_db

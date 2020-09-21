@@ -6,9 +6,7 @@ metadata:
     app: {{ .Chart.Name }}
 spec:
   ports:
-  - name: http-port
-    port: {{ .Values.config.authService.port }}
+  - port: {{ .Values.config.authService.port }}
     targetPort: {{ .Values.config.authService.port }}
-  type: ClusterIP
   selector:
     app: {{ .Chart.Name }}

@@ -19,9 +19,16 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      host: localhost
-      port: 27020
-      database: account_service_db
+      uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 keycloak:
   enabled: true

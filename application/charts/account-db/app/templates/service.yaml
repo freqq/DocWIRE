@@ -3,13 +3,10 @@ kind: Service
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    label: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
 spec:
   ports:
-  - name: http-port
-    port: {{ .Values.config.accountDb.port }}
+  - port: {{ .Values.config.accountDb.port }}
     targetPort: {{ .Values.config.accountDb.port }}
-    protocol: TCP
-  type: ClusterIP
   selector:
-    name: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
