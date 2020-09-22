@@ -51,5 +51,9 @@ spec:
               value: {{ .Values.config.authService.hostname }}-svc
             - name: KEYCLOAK_PORT
               value: "8081"
+            - name: RABBIT_HOST
+              value: {{ .Values.config.rabbitMq.hostname }}-svc
+            - name: RABBIT_PORT
+              value: "{{ .Values.config.rabbitMq.port }}"
             - name: SPRING_PROFILES_ACTIVE
               value: "dev,swagger,dev-cal"

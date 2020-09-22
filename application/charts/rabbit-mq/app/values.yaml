@@ -1,0 +1,15 @@
+image:
+  name: rabbit-mq
+
+healthCheck:
+  rabbitMq:
+    readinessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 0
+      failureThreshold: 5
+      periodSeconds: 5
+    livenessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 180
+      failureThreshold: 5
+      periodSeconds: 5

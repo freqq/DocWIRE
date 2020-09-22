@@ -20,5 +20,4 @@ task dockerPushCustomRabbitMQ(type: DockerPushImage, dependsOn: dockerBuildCusto
     registryCredentials.password = "${registryPassword}"
 }
 
-// TODO Return to docker push when needed
-dockerPush.dependsOn dockerBuildCustomRabbitMQ
+dockerPush.dependsOn dockerPushCustomRabbitMQ

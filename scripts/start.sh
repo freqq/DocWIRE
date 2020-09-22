@@ -33,6 +33,9 @@ function app_start() (
     ./gradlew charts:account-service:appLoad
     ./gradlew charts:account-service:appInstall
 
+    ./gradlew charts:rabbit-mq:appLoad
+    ./gradlew charts:rabbit-mq:appInstall
+
     ./gradlew charts:messages-db:appInstall
     ./gradlew charts:messages-service:appLoad
     ./gradlew charts:messages-service:appInstall
@@ -49,5 +52,5 @@ function app_start() (
 )
 
 enable_ingres_on_minikube
-#create_role_binding
+create_role_binding
 app_start

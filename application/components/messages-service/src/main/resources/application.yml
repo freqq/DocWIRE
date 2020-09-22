@@ -21,8 +21,8 @@ spring:
     mongodb:
       uri: ${MONGO_URL}
   rabbitmq:
-    host: rabbitmq
-    port: 5672
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
     username: admin
     password: password
 

@@ -48,5 +48,4 @@ task dockerPushAppointmentsService(type: DockerPushImage, dependsOn: dockerBuild
     registryCredentials.password = "${registryPassword}"
 }
 
-// TODO Return to docker push when needed
-dockerPush.dependsOn dockerBuildAppointmentsService
+dockerPush.dependsOn dockerPushAppointmentsService
