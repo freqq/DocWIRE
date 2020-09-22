@@ -33,7 +33,7 @@ public class AccountController {
      * @param registerRequest      Model of a new user request
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> createAccount(@Valid @RequestBody RegisterRequest registerRequest) {
         LOGGER.info("Creating new user with username {}.", getCurrentUsername());
         return accountService.createAccount(registerRequest);
@@ -43,7 +43,7 @@ public class AccountController {
      * Gets info about currently logged in user.
      */
     @Secured(ROLE_USER)
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> getCurrentUserData() {
         LOGGER.info("Getting info of user with email '{}'.", getCurrentUserEmail());
         return accountService.getCurrentUserData();
@@ -55,7 +55,7 @@ public class AccountController {
      * @param userDetailsChangeDTO      Update user request
      */
     @Secured(ROLE_USER)
-    @PutMapping()
+    @PutMapping(value = "/")
     ResponseEntity<?> updateCurrentUserDetails(@Valid @RequestBody UserDetailsChangeDTO userDetailsChangeDTO){
         LOGGER.info("Updating details of user with email '{}'", getCurrentUserEmail());
         return accountService.updateCurrentUserDetails(userDetailsChangeDTO);
@@ -68,7 +68,7 @@ public class AccountController {
      * @param firstResult      Update user request
      * @param maxResults      Update user request
      */
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     @Secured(ROLE_USER)
     List<User> getAllUsersFilteredByFirstNameOrLastName(
             @RequestParam(value = "search", required = false) String search,
@@ -88,7 +88,7 @@ public class AccountController {
      * @param firstResult      Update user request
      * @param maxResults      Update user request
      */
-    @GetMapping("/doctors")
+    @GetMapping(value = "/doctors")
     @Secured(ROLE_USER)
     List<User> getListOfDoctorsFilteredBySearchFilter(
             @RequestParam(value="search", required = false) String search,

@@ -8,11 +8,6 @@ function enable_ingres_on_minikube() (
     minikube addons enable ingress
 )
 
-function create_role_binding() {
-    kubectl create clusterrolebinding add-on-cluster-admin \
-        --clusterrole=cluster-admin --serviceaccount=kube-system:default
-}
-
 function build_custom_keycloak_image() {
     ./gradlew charts:auth-service:appLoad
 }
@@ -44,6 +39,8 @@ function app_start() (
     ./gradlew charts:appointments-service:appLoad
     ./gradlew charts:appointments-service:appInstall
 
+    # minikube mount application/components/frontend:/frontend/src
+
     ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall
 
@@ -52,5 +49,4 @@ function app_start() (
 )
 
 enable_ingres_on_minikube
-create_role_binding
 app_start

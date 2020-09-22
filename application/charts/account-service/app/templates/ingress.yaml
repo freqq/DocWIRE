@@ -7,7 +7,8 @@ metadata:
   name: {{ .Chart.Name }}-ingress
 spec:
   rules:
-  - http:
+  - host: docwire.test
+    http:
       paths:
       - backend:
           serviceName: {{ .Values.config.accountService.hostname }}-svc

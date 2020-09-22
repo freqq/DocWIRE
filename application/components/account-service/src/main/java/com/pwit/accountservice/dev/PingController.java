@@ -7,7 +7,7 @@ import static com.pwit.common.Constants.PROFILE_DEV;
 
 @Profile(PROFILE_DEV)
 @RestController
-@RequestMapping("/api/ping")
+@RequestMapping("/api/users/ping")
 public class PingController {
     @GetMapping
     public String getPong() {
