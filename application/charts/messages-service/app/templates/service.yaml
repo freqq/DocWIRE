@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-svc
+spec:
+  selector:
+    app: {{ .Chart.Name }}
+  ports:
+    - port: {{ .Values.config.messagesService.port }}
+      targetPort: {{ .Values.config.messagesService.port }}
+

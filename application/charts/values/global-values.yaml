@@ -19,6 +19,12 @@ config:
   accountDb:
     hostname: account-db
     port: 27017
+  messagesService:
+    hostname: messages-service
+    port: 8085
+  messagesDb:
+    hostname: messages-db
+    port: 27017
 
 securityContext:
   user:

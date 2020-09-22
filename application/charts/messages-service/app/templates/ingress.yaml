@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /api/chat/$2
+  name: {{ .Chart.Name }}-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: {{ .Values.config.messagesService.hostname }}-svc
+          servicePort: {{ .Values.config.messagesService.port }}
+        path: /api/chat(/|$)(.*)

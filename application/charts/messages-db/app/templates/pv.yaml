@@ -11,6 +11,6 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: /data/mongo-account
+    path: /data/mongo-messages
     type: DirectoryOrCreate
   persistentVolumeReclaimPolicy: Delete

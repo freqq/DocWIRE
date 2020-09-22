@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.profile.messagesService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.securityContext.user.runAsUser | default 985 }}
+        fsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsNonRoot: {{ .Values.securityContext.user.runAsNonRoot | default true }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http-port
+              containerPort: {{ .Values.config.messagesService.port }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.messagesService.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.messagesService.readinessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.messagesService.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.messagesService.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.messagesService.readinessProbe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.messagesService.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.messagesService.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.messagesService.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.healthCheck.messagesService.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.healthCheck.messagesService.livenessProbe.periodSeconds }}
+          env:
+            - name: MONGO_URL
+              value: mongodb://messages-db-svc:27017/dev
+            - name: KEYCLOAK_HOST
+              value: {{ .Values.config.authService.hostname }}-svc
+            - name: KEYCLOAK_PORT
+              value: "8081"
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev,swagger,dev-cal"

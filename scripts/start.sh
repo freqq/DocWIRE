@@ -13,22 +13,31 @@ function create_role_binding() {
         --clusterrole=cluster-admin --serviceaccount=kube-system:default
 }
 
+function build_custom_keycloak_image() {
+    ./gradlew charts:auth-service:appLoad
+}
+
 function app_start() (
     echo "Starting DocWIRE..."
 
     cd ${SOURCE_DIR}/../application
 
-    #./gradlew charts:namespace:appInstall
+    #build_custom_keycloak_image
 
-    #./gradlew charts:auth-db:appInstall
-    #./gradlew charts:auth-service:appLoad
-    #./gradlew charts:auth-service:appInstall
+    ./gradlew charts:namespace:appInstall
 
-    #./gradlew charts:account-db:appInstall
-    #./gradlew charts:account-service:appLoad
-    #./gradlew charts:account-service:appInstall
+    ./gradlew charts:auth-db:appInstall
+    ./gradlew charts:auth-service:appInstall
 
-    #./gradlew charts:frontend:appLoad
+    ./gradlew charts:account-db:appInstall
+    ./gradlew charts:account-service:appLoad
+    ./gradlew charts:account-service:appInstall
+
+    ./gradlew charts:messages-db:appInstall
+    ./gradlew charts:messages-service:appLoad
+    ./gradlew charts:messages-service:appInstall
+
+    ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall
 
     cd -
