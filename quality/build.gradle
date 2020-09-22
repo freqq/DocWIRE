@@ -1,0 +1,25 @@
+apply plugin:'base'
+
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+}
+
+allprojects {
+    project.version = "0.1-SNAPSHOT"
+    repositories {
+        mavenLocal()
+    }
+}
+
+def egg_package = "${project.name}".replaceAll('-', '_').concat(".egg-info")
+
+clean.doFirst {
+    delete "${projectDir}/src/${egg_package}"
+    delete "${projectDir}/__pycache__"
+}
+
+task checkstyle(type: Exec, dependsOn: clean) {
+    commandLine 'tox', '-e', 'flake8,py36'
+}
