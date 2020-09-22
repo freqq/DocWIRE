@@ -45,12 +45,7 @@ spec:
                   mountPath: {{ .Values.profile.frontend.devDirectory }}
                 {{- end }}
               resources:
-                requests:
-                      cpu: 20m
-                      memory: 100Mi
-                limits:
-                      memory: 256Mi
-                      cpu: 150m
+{{ toYaml .Values.profile.frontend.resources | indent 16 }}
               env:
                 - name: PORT
                   value: "{{ .Values.config.frontend.port }}"

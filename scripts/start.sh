@@ -22,19 +22,19 @@ function app_start() (
 
     #./gradlew charts:auth-db:appInstall
     #./gradlew charts:auth-service:appLoad
-    ./gradlew charts:auth-service:appInstall
+    #./gradlew charts:auth-service:appInstall
 
     #./gradlew charts:account-db:appInstall
     #./gradlew charts:account-service:appLoad
     #./gradlew charts:account-service:appInstall
 
     #./gradlew charts:frontend:appLoad
-    #./gradlew charts:frontend:appInstall
+    ./gradlew charts:frontend:appInstall
 
     cd -
     echo "DocWIRE started."
 )
 
 enable_ingres_on_minikube
-create_role_binding
+#create_role_binding
 app_start

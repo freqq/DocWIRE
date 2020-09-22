@@ -21,7 +21,7 @@ task helmInstall(type: Exec, dependsOn: waitForAppRemove) {
             '--values', "${project.ext.componentValues}",
             '--values', "${configurationProfile}",
             '--values', "${resourcesProfile}",
-            '--set', "frontPath=/frontend/src",
+            '--set', "frontPath=/frontend-2/src",
             '--set', "profile.frontend.devProfile=true",
             '--set', "profile.frontend.devDirectory=/app/dev/src",
             '--set', "image.pullPolicy=Always"
