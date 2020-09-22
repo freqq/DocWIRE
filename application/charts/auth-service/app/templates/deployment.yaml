@@ -21,10 +21,10 @@ spec:
         - "-b"
         - "0.0.0.0"
         - "-Djboss.http.port=8081"
-        #- "-Dkeycloak.migration.action=import"
-        #- "-Dkeycloak.migration.provider=dir"
-        #- "-Dkeycloak.migration.dir=/config"
-        #- "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+        - "-Dkeycloak.migration.action=import"
+        - "-Dkeycloak.migration.provider=dir"
+        - "-Dkeycloak.migration.dir=/config"
+        - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
         - "-Dkeycloak.profile.feature.account_api=enabled"
         env:
         - name: KEYCLOAK_USER

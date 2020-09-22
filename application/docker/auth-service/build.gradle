@@ -7,12 +7,12 @@ apply plugin: 'base'
 import com.bmuschko.gradle.docker.DockerRegistryCredentials
 import com.bmuschko.gradle.docker.tasks.image.*
 
-task dockerBuildCustomRabbitMQ(type: DockerBuildImage) {
+task dockerBuildCustomKeycloak(type: DockerBuildImage) {
     inputDir = file("${project.buildDir}/../")
     tags.add("${dockerHubName}/${project.name}:${imageTag}")
 }
 
-task dockerPushCustomRabbitMQ(type: DockerPushImage, dependsOn: dockerBuildCustomRabbitMQ) {
+task dockerPushCustomKeycloak(type: DockerPushImage, dependsOn: dockerBuildCustomKeycloak) {
     imageName = "${dockerHubName}/${project.name}"
     tag = "${imageTag}"
     registryCredentials = new DockerRegistryCredentials()
@@ -20,5 +20,4 @@ task dockerPushCustomRabbitMQ(type: DockerPushImage, dependsOn: dockerBuildCusto
     registryCredentials.password = "${registryPassword}"
 }
 
-// TODO Return to docker push when needed
-dockerPush.dependsOn dockerBuildCustomRabbitMQ
+dockerPush.dependsOn dockerPushCustomKeycloak

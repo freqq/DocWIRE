@@ -1,7 +1,5 @@
 image:
-    registry: jboss
-    name: keycloak
-    tag: 11.0.0
+  name: auth-service
 
 healthCheck:
   authService:
