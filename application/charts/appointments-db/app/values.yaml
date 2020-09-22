@@ -1,13 +1,9 @@
 image:
-  name: messages-service
-
-profile:
-  messagesService:
-    logging:
-      level: INFO
+  name: mongo
+  tag: 4.2
 
 healthCheck:
-  messagesService:
+  appointmentsDb:
     readinessProbe:
       timeoutSeconds: 5
       initialDelaySeconds: 0

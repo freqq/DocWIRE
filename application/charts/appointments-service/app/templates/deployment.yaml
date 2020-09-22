@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.profile.appointmentsService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.securityContext.user.runAsUser | default 985 }}
+        fsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsNonRoot: {{ .Values.securityContext.user.runAsNonRoot | default true }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http-port
+              containerPort: {{ .Values.config.appointmentsService.port }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.appointmentsService.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.appointmentsService.readinessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.appointmentsService.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.appointmentsService.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.appointmentsService.readinessProbe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.appointmentsService.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.appointmentsService.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.appointmentsService.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.healthCheck.appointmentsService.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.healthCheck.appointmentsService.livenessProbe.periodSeconds }}
+          env:
+            - name: MONGO_URL
+              value: mongodb://appointments-db-svc:27017/dev
+            - name: KEYCLOAK_HOST
+              value: {{ .Values.config.authService.hostname }}-svc
+            - name: KEYCLOAK_PORT
+              value: "8081"
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev,swagger,dev-cal"

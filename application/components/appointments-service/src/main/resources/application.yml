@@ -19,9 +19,16 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      host: localhost
-      port: 27022
-      database: appointments_service_db
+      uri: ${MONGO_URL}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 keycloak:
   enabled: true
@@ -30,4 +37,4 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
   ssl-required: external
-  auth-server-url: http://docwire.test:8081/auth
+  auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth

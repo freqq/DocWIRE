@@ -37,6 +37,10 @@ function app_start() (
     ./gradlew charts:messages-service:appLoad
     ./gradlew charts:messages-service:appInstall
 
+    ./gradlew charts:appointments-db:appInstall
+    ./gradlew charts:appointments-service:appLoad
+    ./gradlew charts:appointments-service:appInstall
+
     ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall
 

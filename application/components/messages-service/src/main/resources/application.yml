@@ -19,9 +19,7 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      host: localhost
-      port: 27021
-      database: messages_service_db
+      uri: ${MONGO_URL}
   rabbitmq:
     host: rabbitmq
     port: 5672
@@ -35,4 +33,4 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
   ssl-required: external
-  auth-server-url: http://docwire.test:8081/auth
+  auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth

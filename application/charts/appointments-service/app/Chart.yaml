@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Appointments Service
+name: appointments-service
+version: 1.0.0

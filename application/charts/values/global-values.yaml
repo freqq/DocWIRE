@@ -25,6 +25,12 @@ config:
   messagesDb:
     hostname: messages-db
     port: 27017
+  appointmentsService:
+    hostname: appointments-service
+    port: 8083
+  appointmentsDb:
+    hostname: appointments-db
+    port: 27017
 
 securityContext:
   user:

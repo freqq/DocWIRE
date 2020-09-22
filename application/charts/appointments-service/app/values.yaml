@@ -1,13 +1,13 @@
 image:
-  name: messages-service
+  name: appointments-service
 
 profile:
-  messagesService:
+  appointmentsService:
     logging:
       level: INFO
 
 healthCheck:
-  messagesService:
+  appointmentsService:
     readinessProbe:
       timeoutSeconds: 5
       initialDelaySeconds: 0
