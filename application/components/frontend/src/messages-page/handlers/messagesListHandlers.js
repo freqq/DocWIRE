@@ -1,8 +1,7 @@
-import MessagesRequestService from 'common/services/MessagesRequestService';
+import RequestService from 'common/services/RequestService';
 
-export const getChatBoxList = () => MessagesRequestService.get(`/chat/messages`);
+export const getChatBoxList = () => RequestService.get(`/api/chat/messages`);
 
-export const getChatHistory = userId =>
-  MessagesRequestService.get(`/chat/history?userId=${userId}`);
+export const getChatHistory = userId => RequestService.get(`/api/chat/history?userId=${userId}`);
 
-export const markChatAsRead = userId => MessagesRequestService.get(`/chat/read?userId=${userId}`);
+export const markChatAsRead = userId => RequestService.get(`/api/chat/read?userId=${userId}`);

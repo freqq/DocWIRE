@@ -1,3 +1,3 @@
-import MessagesRequestService from 'common/services/MessagesRequestService';
+import RequestService from 'common/services/RequestService';
 
-export default () => MessagesRequestService.get(`/chat/count/`);
+export default () => RequestService.get(`/api/chat/count/`);

@@ -51,6 +51,10 @@ spec:
                   value: "{{ .Values.config.frontend.port }}"
                 - name: PUBLIC_PATH
                   value: '/'
+                - name: KEYCLOAK_HOST
+                  value: {{ .Values.config.authService.hostname }}-svc
+                - name: KEYCLOAK_PORT
+                  value: "{{ .Values.config.authService.port }}"
             volumes:
               {{- if .Values.profile.frontend.devProfile }}
               - name: dev-directory

@@ -1,5 +1,5 @@
 export default {
-  url: 'http://docwire.test:8081/auth/',
+  url: `http://${window.location.host}/auth/`,
   realm: 'master',
   clientId: 'frontend',
   onLoad: 'login-required',
