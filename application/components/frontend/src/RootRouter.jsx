@@ -69,8 +69,8 @@ const RootRouter = ({ isAccountError, userInfo }) => (
       <Route exact path={CREATE_ACCOUNT_PATH} component={LoadableCreateAccountPage} />
       {!isAccountError &&
         userInfo &&
-        userInfo.patientInfo &&
-        userInfo.patientInfo.initialDiagnoseDone && (
+        ((userInfo.patientInfo && userInfo.patientInfo.initialDiagnoseDone) ||
+          userInfo.doctorInfo) && (
           <Layout>
             <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
             <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />

@@ -88,7 +88,7 @@ const MessagesMainArea = ({
   if (isChatHistoryLoadingError)
     return <ErrorBlock>There was an error during chat history fetching.</ErrorBlock>;
 
-  const wsSourceUrl = 'http://docwire.test:8085/api/chat/ws';
+  const wsSourceUrl = `http://${window.location.host}/api/chat/ws`;
 
   const getPersonId = () => (userData !== null ? userData.userId : null);
 
