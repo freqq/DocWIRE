@@ -13,6 +13,8 @@ function build_custom_keycloak_image() {
 }
 
 function app_start() (
+    MINIKUBE_IP=$(minikube ip)
+
     echo "Starting DocWIRE..."
 
     cd ${SOURCE_DIR}/../application
@@ -26,18 +28,18 @@ function app_start() (
 
     ./gradlew charts:account-db:appInstall
     ./gradlew charts:account-service:appLoad
-    ./gradlew charts:account-service:appInstall
+    ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     ./gradlew charts:rabbit-mq:appLoad
     ./gradlew charts:rabbit-mq:appInstall
 
     ./gradlew charts:messages-db:appInstall
     ./gradlew charts:messages-service:appLoad
-    ./gradlew charts:messages-service:appInstall
+    ./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     ./gradlew charts:appointments-db:appInstall
     ./gradlew charts:appointments-service:appLoad
-    ./gradlew charts:appointments-service:appInstall
+    ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # minikube mount application/components/frontend:/frontend/src
 

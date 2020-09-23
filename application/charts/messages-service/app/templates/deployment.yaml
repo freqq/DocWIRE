@@ -44,16 +44,6 @@ spec:
             initialDelaySeconds: {{ .Values.healthCheck.messagesService.livenessProbe.initialDelaySeconds }}
             failureThreshold: {{ .Values.healthCheck.messagesService.livenessProbe.failureThreshold }}
             periodSeconds: {{ .Values.healthCheck.messagesService.livenessProbe.periodSeconds }}
-          env:
-            - name: MONGO_URL
-              value: mongodb://messages-db-svc:27017/dev
-            - name: KEYCLOAK_HOST
-              value: {{ .Values.config.authService.hostname }}-svc
-            - name: KEYCLOAK_PORT
-              value: "8081"
-            - name: RABBIT_HOST
-              value: {{ .Values.config.rabbitMq.hostname }}-svc
-            - name: RABBIT_PORT
-              value: "{{ .Values.config.rabbitMq.port }}"
-            - name: SPRING_PROFILES_ACTIVE
-              value: "dev,swagger,dev-cal"
+          envFrom:
+          - configMapRef:
+              name: {{ .Chart.Name }}-cm

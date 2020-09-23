@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: {{ .Chart.Name }}-cm
+data:
+ MONGO_URL: mongodb://messages-db-svc:27017/dev
+ MINIKUBE_IP: {{ .Values.minikubeIp }}
+ SPRING_PROFILES_ACTIVE: "dev,swagger,dev-cal"
+ RABBIT_HOST: {{ .Values.config.rabbitMq.hostname }}-svc
+ RABBIT_PORT: "{{ .Values.config.rabbitMq.port }}"

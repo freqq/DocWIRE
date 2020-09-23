@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: {{ .Chart.Name }}-cm
+data:
+ MONGO_URL: mongodb://account-db-svc:27017/dev
+ MINIKUBE_IP: {{ .Values.minikubeIp }}
+ SPRING_PROFILES_ACTIVE: "dev,swagger,dev-cal"

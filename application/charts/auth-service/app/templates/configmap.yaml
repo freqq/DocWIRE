@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: {{ .Chart.Name }}-cm
+data:
+   KEYCLOAK_USER: admin
+   KEYCLOAK_PASSWORD: password
+   DB_VENDOR: postgres
+   DB_USER: admin
+   DB_PASSWORD: password
+   DB_ADDR: {{ .Values.config.authDb.hostname }}-svc
+   DB_PORT: "5432"
+   DB_DATABASE: keycloakdb

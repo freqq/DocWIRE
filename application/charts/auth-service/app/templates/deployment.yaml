@@ -26,25 +26,12 @@ spec:
         - "-Dkeycloak.migration.dir=/config"
         - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
         - "-Dkeycloak.profile.feature.account_api=enabled"
-        env:
-        - name: KEYCLOAK_USER
-          value: "admin"
-        - name: KEYCLOAK_PASSWORD
-          value: "password"
-        - name: DB_VENDOR
-          value: "postgres"
-        - name: DB_USER
-          value: "admin"
-        - name: DB_PASSWORD
-          value: "password"
-        - name: DB_ADDR
-          value: "auth-db-svc"
-        - name: DB_PORT
-          value: "5432"
-        - name: DB_DATABASE
-          value: "keycloakdb"
+        envFrom:
+        - configMapRef:
+            name: {{ .Chart.Name }}-cm
         ports:
         - containerPort: {{ .Values.config.authService.port }}
+        # TODO - Fix readiness probe
         #readinessProbe:
         #  httpGet:
         #    path: /auth

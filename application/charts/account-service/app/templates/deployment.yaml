@@ -44,12 +44,6 @@ spec:
             initialDelaySeconds: {{ .Values.healthCheck.accountService.livenessProbe.initialDelaySeconds }}
             failureThreshold: {{ .Values.healthCheck.accountService.livenessProbe.failureThreshold }}
             periodSeconds: {{ .Values.healthCheck.accountService.livenessProbe.periodSeconds }}
-          env:
-            - name: MONGO_URL
-              value: mongodb://account-db-svc:27017/dev
-            - name: KEYCLOAK_HOST
-              value: {{ .Values.config.authService.hostname }}-svc
-            - name: KEYCLOAK_PORT
-              value: "8081"
-            - name: SPRING_PROFILES_ACTIVE
-              value: "dev,swagger,dev-cal"
+          envFrom:
+          - configMapRef:
+              name: {{ .Chart.Name }}-cm

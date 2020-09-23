@@ -37,4 +37,4 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
   ssl-required: external
-  auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
+  auth-server-url: http://${MINIKUBE_IP}/auth

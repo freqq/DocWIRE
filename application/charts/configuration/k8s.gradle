@@ -2,6 +2,7 @@ project.ext {
     functionsScript = "${rootProject.rootDir}/../deployment/functions.sh"
     componentValues = "${project.rootDir}/charts/${project.name}/app/values.yaml"
     appNamespace = 'docwire'
+    minikubeIp = (project.hasProperty('minikubeIp')) ? project.getProperty('minikubeIp') : ""
 }
 
 task appLoad()
