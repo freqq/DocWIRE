@@ -10,6 +10,7 @@ REQUIREMENTS = [
     'requests',
     'nose',
     'nose-testconfig',
+    'pyyaml',
 ]
 
 setup(

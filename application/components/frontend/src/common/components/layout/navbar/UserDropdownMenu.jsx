@@ -91,6 +91,7 @@ const MENU_ITEMS = [
   },
   {
     id: 5,
+    elemendId: 'logout-button',
     icon: signOutIcon,
     title: 'Sign out',
     style: {
@@ -110,7 +111,11 @@ const UserDropdownMenu = ({ onOutsideClick, logoutUserFunc }) => {
     <UserDropdownMenuWrapper>
       <UserDropdownMenuList>
         {MENU_ITEMS.map(menuItem => (
-          <UserDropdownMenuListItem key={menuItem.id} style={menuItem.style ? menuItem.style : {}}>
+          <UserDropdownMenuListItem
+            id={menuItem.elemendId ? menuItem.elemendId : null}
+            key={menuItem.id}
+            style={menuItem.style ? menuItem.style : {}}
+          >
             <StyledLink to={menuItem.to} onClick={menuItem.id === 5 ? logoutUserFunc : null}>
               {menuItem.icon && <ItemIcon src={menuItem.icon} alt="menu-icon" />}
               <ItemTitle style={menuItem.paragraphStyle ? menuItem.paragraphStyle : {}}>

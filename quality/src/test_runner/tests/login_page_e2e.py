@@ -7,7 +7,6 @@ from tests.pages.login import Login
 from tests.pages.register import Register
 from tests.pages.main_page import MainPage
 
-
 class LoginPage(TestCase):
 
     @classmethod
@@ -19,14 +18,6 @@ class LoginPage(TestCase):
     def test_should_login_wait_for_visible_page_and_logout(self):
         self.login.is_page_visible()
         self.login.login_to_app()
-        self.main_page.is_page_visible()
-        self.main_page.dropdown_button().click()
-        self.main_page.logout_button().click()
-        self.login.is_page_visible()
-
-    def test_should_register_new_user_and_logout(self):
-        self.login.register_button().click()
-        self.register.register_new_user()
         self.main_page.is_page_visible()
         self.main_page.dropdown_button().click()
         self.main_page.logout_button().click()

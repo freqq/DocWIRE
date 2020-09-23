@@ -16,7 +16,7 @@ function install_dependencies {
     pip3 install wheel
     pip3 install tox
 
-    cd ../quality/test-runner/
+    cd ../quality/
     pip3 install .
 }
 

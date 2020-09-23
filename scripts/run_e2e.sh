@@ -4,4 +4,4 @@ set -eE
 
 cd ../quality/src/test_runner/
 
-python3 run.py --tests-dir=tests --config-file=config/config.yaml --host=www.docwire.test $@
+python3 run.py --tests-dir=tests --config-file=config/config.yaml $@
