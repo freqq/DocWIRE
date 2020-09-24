@@ -4,15 +4,29 @@ Web application used to consult a family doctor using online videoconferences in
 
 ### Tech stack:
 
-- Kubernetes
-- Spring Boot
-- React + Redux
-- RabbitMQ
-- Java
+Technologies:
+- Java 11
 - JavaScript
-- Docker
+- Python 3
+
+Frameworks:
+- Spring Boot 2.3 
+- React + Redux
+- Selenium
+
+3rd party:
 - OpenVidu
 - Keycloak
+- RabbitMQ
+
+Databases:
+- PostgreSQL
+- MongoDB
+
+DevOps:
+- Kubernetes
+- Docker
+- Ansible
 
 ### Functional services
 - *account-service* (**8080**) - handle user details

@@ -2,9 +2,9 @@ package com.pwit.accountservice.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.lang.Nullable;
+import com.pwit.accountservice.entity.DoctorInfo;
 import com.pwit.accountservice.entity.PatientInfo;
 import com.pwit.accountservice.entity.enumeration.AccountType;
-import com.pwit.accountservice.entity.DoctorInfo;
 import com.pwit.accountservice.entity.enumeration.Gender;
 import com.pwit.accountservice.validator.NameConstraint;
 import lombok.AllArgsConstructor;

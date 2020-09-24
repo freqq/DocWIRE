@@ -8,7 +8,6 @@ import com.pwit.messagesservice.mapper.MessagesMapper;
 import com.pwit.messagesservice.repository.MessagesRepository;
 import com.pwit.messagesservice.service.MessagesService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,19 +21,14 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class MessagesServiceImpl implements MessagesService {
     private final MessagesRepository messagesRepository;
-    private final SimpMessagingTemplate simpMessagingTemplate;
     private final MessagesMapper messagesMapper;
 
     @Override
     public ChatMessage sendPrivateMessage(ChatMessageRequest chatMessageRequest) {
         ChatMessage chatMessage = messagesMapper.createRequestToChatMessage(chatMessageRequest);
 
-        //simpMessagingTemplate.convertAndSendToUser(
-        //        chatMessage.getReceiver().getUserId().trim(), "/reply", chatMessage);
-
-        if(chatMessage.getType() == ChatType.TYPING || chatMessage.getType() == ChatType.STOP_TYPING) {
+        if(chatMessage.getType() == ChatType.TYPING || chatMessage.getType() == ChatType.STOP_TYPING)
             return null;
-        }
 
         return messagesRepository.save(chatMessage);
     }
