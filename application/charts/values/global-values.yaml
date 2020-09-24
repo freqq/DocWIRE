@@ -34,6 +34,8 @@ config:
   rabbitMq:
     hostname: rabbit-mq
     port: 5672
+    stompPort: 61613
+    guiPort: 15672
 
 securityContext:
   user:

@@ -7,8 +7,10 @@ import com.pwit.messagesservice.entity.requests.ChatMessageRequest;
 import com.pwit.messagesservice.service.MessagesService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +30,10 @@ public class MessagesController {
 
     private final MessagesService messagesService;
 
-    @MessageMapping("/sendPrivateMessage")
-    public ChatMessage sendPrivateMessage(@Payload ChatMessageRequest chatMessageRequest) {
+    @MessageMapping("/private.chat.{channelId}")
+    @SendTo("/topic/private.chat.{channelId}")
+    public ChatMessage sendPrivateMessage(@Payload ChatMessageRequest chatMessageRequest,
+                                          @DestinationVariable String channelId) {
         LOGGER.info("Sending private message with content: {}.", chatMessageRequest.getContent());
         return messagesService.sendPrivateMessage(chatMessageRequest);
     }

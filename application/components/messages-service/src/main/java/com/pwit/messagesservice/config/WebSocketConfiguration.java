@@ -17,20 +17,17 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // TODO Remove next line when RabbitMQ enabled
-        registry.enableSimpleBroker("/queue/", "/topic/", "/user/", "/notify");
+        // registry.enableSimpleBroker("/queue/", "/topic/", "/user/", "/notify");
 
         registry.setApplicationDestinationPrefixes("/app");
 
         //  TODO: Uncomment next block of code after enabling RabbitMQ
-        /*registry.enableStompBrokerRelay("/topic")
-                .setRelayHost("rabbitmq")
+        registry.enableStompBrokerRelay("/topic")
+                .setRelayHost("rabbit-mq-stomp-svc")
                 .setRelayPort(61613)
                 .setClientLogin("admin")
                 .setClientPasscode("password")
                 .setSystemLogin("admin")
                 .setSystemPasscode("password");
-         */
-
-        registry.setUserDestinationPrefix("/user");
     }
 }

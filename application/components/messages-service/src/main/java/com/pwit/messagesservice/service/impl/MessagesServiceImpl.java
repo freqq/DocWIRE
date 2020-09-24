@@ -29,8 +29,8 @@ public class MessagesServiceImpl implements MessagesService {
     public ChatMessage sendPrivateMessage(ChatMessageRequest chatMessageRequest) {
         ChatMessage chatMessage = messagesMapper.createRequestToChatMessage(chatMessageRequest);
 
-        simpMessagingTemplate.convertAndSendToUser(
-                chatMessage.getReceiver().getUserId().trim(), "/reply", chatMessage);
+        //simpMessagingTemplate.convertAndSendToUser(
+        //        chatMessage.getReceiver().getUserId().trim(), "/reply", chatMessage);
 
         if(chatMessage.getType() == ChatType.TYPING || chatMessage.getType() == ChatType.STOP_TYPING) {
             return null;

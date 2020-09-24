@@ -70,9 +70,11 @@ const MessagesMainArea = ({
     }
   };
 
+  const getCurrentPersonId = () => currentPerson && currentPerson.userId;
+
   const sendMessage = msg => {
     try {
-      clientRef.sendMessage('/app/sendPrivateMessage', JSON.stringify(msg));
+      clientRef.sendMessage(`/app/private.chat.${getCurrentPersonId()}`, JSON.stringify(msg));
 
       if (msg.type === 'CHAT') {
         const messageObj = msg.id === undefined ? { ...msg, id: shortid.generate() } : msg;
@@ -89,8 +91,6 @@ const MessagesMainArea = ({
     return <ErrorBlock>There was an error during chat history fetching.</ErrorBlock>;
 
   const wsSourceUrl = `http://${window.location.host}/api/chat/ws`;
-
-  const getPersonId = () => (userData !== null ? userData.userId : null);
 
   return (
     <MessagesMainAreaWrapper>
@@ -114,7 +114,7 @@ const MessagesMainArea = ({
 
       <SockJsClient
         url={wsSourceUrl}
-        topics={[`/user/${getPersonId()}/reply`]}
+        topics={[`/topic/private.chat.${loggedInUserId}`]}
         onMessage={onMessageReceive}
         ref={client => {
           setClientRef(client);
