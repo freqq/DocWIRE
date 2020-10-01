@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: {{ .Chart.Name }}-cm
+data:
+   REDIS_IP: {{ .Values.config.openviduRedis.hostname }}-svc
+   TURN_LISTEN_PORT: 3478
+   DB_NAME: 0
+   DB_PASSWORD: YOUR_SECRET
+   MIN_PORT: 57001
+   MAX_PORT: 65535

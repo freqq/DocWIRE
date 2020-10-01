@@ -36,6 +36,15 @@ config:
     port: 5672
     stompPort: 61613
     guiPort: 15672
+  openviduServer:
+    hostname: openvidu-server
+    port: 4443
+  openviduCoturn:
+    hostname: openvidu-coturn
+    port: 3478
+  openviduRedis:
+    hostname: openvidu-redis
+    port: 6379
 
 securityContext:
   user:

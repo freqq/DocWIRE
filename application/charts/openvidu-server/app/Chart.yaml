@@ -1,0 +1,4 @@
+apiVersion: v1
+description: OpenVidu Server
+name: openvidu-server
+version: 1.0.0

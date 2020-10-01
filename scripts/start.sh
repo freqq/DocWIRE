@@ -43,6 +43,10 @@ function app_start() (
 
     # minikube mount application/components/frontend:/frontend/src
 
+    ./gradlew charts:openvidu-redis:appInstall
+    ./gradlew charts:openvidu-coturn:appInstall
+    ./gradlew charts:openvidu-server:appInstall
+
     #./gradlew charts:frontend:appLoad
     #./gradlew charts:frontend:appInstall
 

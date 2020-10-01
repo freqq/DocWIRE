@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: {{ .Chart.Name }}-cm
+data:
+   REDIS_PASSWORD: YOUR_SECRET
+   REDIS_BINDING: redis

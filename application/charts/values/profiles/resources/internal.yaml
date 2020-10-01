@@ -79,3 +79,13 @@ profile:
           memory: 2Gi
           cpu: 300m
   
+    openviduServer:
+      replicas: 1
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 300m
+        limits:
+          memory: 2Gi
+          cpu: 300m
+  

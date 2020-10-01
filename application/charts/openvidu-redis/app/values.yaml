@@ -1,0 +1,17 @@
+image:
+  registry: openvidu
+  name: openvidu-redis
+  tag: 1.0.0
+
+healthCheck:
+  openviduRedis:
+    readinessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 0
+      failureThreshold: 5
+      periodSeconds: 5
+    livenessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 180
+      failureThreshold: 5
+      periodSeconds: 5
