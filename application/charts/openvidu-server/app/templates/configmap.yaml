@@ -4,7 +4,7 @@ metadata:
    name: {{ .Chart.Name }}-cm
 data:
    OPENVIDU_SECRET: YOUR_SECRET
-   OPENVIDU_DOMAIN_OR_PUBLIC_IP: {{ .Values.minikubeIp }}/openvidu-api/
+   DOMAIN_OR_PUBLIC_IP: {{ .Values.minikubeIp }}
    COTURN_IP: {{ .Values.config.openviduCoturn.hostname }}-svc
    COTURN_REDIS_IP: {{ .Values.config.openviduRedis.hostname }}-svc
    COTURN_REDIS_PASSWORD: YOUR_SECRET

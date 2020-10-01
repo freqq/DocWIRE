@@ -34,8 +34,8 @@ function app_start() (
     #./gradlew charts:rabbit-mq:appInstall
 
     #./gradlew charts:messages-db:appInstall
-    ./gradlew charts:messages-service:appLoad
-    ./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    #./gradlew charts:messages-service:appLoad
+    #./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     #./gradlew charts:appointments-db:appInstall
     #./gradlew charts:appointments-service:appLoad
@@ -43,9 +43,9 @@ function app_start() (
 
     # minikube mount application/components/frontend:/frontend/src
 
-    ./gradlew charts:openvidu-redis:appInstall
-    ./gradlew charts:openvidu-coturn:appInstall
-    ./gradlew charts:openvidu-server:appInstall
+    #/gradlew charts:openvidu-redis:appInstall
+    #./gradlew charts:openvidu-coturn:appInstall
+    ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     #./gradlew charts:frontend:appLoad
     #./gradlew charts:frontend:appInstall

@@ -13,7 +13,3 @@ spec:
           serviceName: {{ .Values.config.openviduServer.hostname }}-svc
           servicePort: {{ .Values.config.openviduServer.port }}
         path: /(/|$)(.*)
-      - backend:
-          serviceName: {{ .Values.config.openviduServer.hostname }}-svc
-          servicePort: {{ .Values.config.openviduServer.port }}
-        path: /openvidu-api/(/|$)(.*)
