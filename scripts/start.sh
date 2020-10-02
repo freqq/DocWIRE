@@ -41,14 +41,14 @@ function app_start() (
     #./gradlew charts:appointments-service:appLoad
     #./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
+    #./gradlew charts:openvidu-redis:appInstall
+    #./gradlew charts:openvidu-coturn:appInstall
+    #./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
+
     # minikube mount application/components/frontend:/frontend/src
 
-    #/gradlew charts:openvidu-redis:appInstall
-    #./gradlew charts:openvidu-coturn:appInstall
-    ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
-
-    #./gradlew charts:frontend:appLoad
-    #./gradlew charts:frontend:appInstall
+    ./gradlew charts:frontend:appLoad
+    ./gradlew charts:frontend:appInstall
 
     cd -
     echo "DocWIRE started."

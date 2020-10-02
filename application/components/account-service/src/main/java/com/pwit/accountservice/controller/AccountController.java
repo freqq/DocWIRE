@@ -34,7 +34,7 @@ public class AccountController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> createAccount(@Valid @RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<?> createAccount(@Valid @RequestBody RegisterRequest registerRequest) {
         LOGGER.info("Creating new user with username {}.", getCurrentUsername());
         return accountService.createAccount(registerRequest);
     }
@@ -44,8 +44,8 @@ public class AccountController {
      */
     @Secured(ROLE_USER)
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> getCurrentUserData() {
-        LOGGER.info("Getting info of user with email '{}'.", getCurrentUserEmail());
+    public ResponseEntity<?> getCurrentUserData() {
+        LOGGER.info("Getting info of user with username '{}'.", getCurrentUsername());
         return accountService.getCurrentUserData();
     }
 
@@ -56,8 +56,8 @@ public class AccountController {
      */
     @Secured(ROLE_USER)
     @PutMapping(value = "/")
-    ResponseEntity<?> updateCurrentUserDetails(@Valid @RequestBody UserDetailsChangeDTO userDetailsChangeDTO){
-        LOGGER.info("Updating details of user with email '{}'", getCurrentUserEmail());
+    public ResponseEntity<?> updateCurrentUserDetails(@Valid @RequestBody UserDetailsChangeDTO userDetailsChangeDTO){
+        LOGGER.info("Updating details of user with username '{}'", getCurrentUsername());
         return accountService.updateCurrentUserDetails(userDetailsChangeDTO);
     }
 
@@ -70,19 +70,19 @@ public class AccountController {
      */
     @GetMapping(value = "/all")
     @Secured(ROLE_USER)
-    List<User> getAllUsersFilteredByFirstNameOrLastName(
+    public List<User> getAllUsersFilteredByFirstNameOrLastName(
             @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "first", defaultValue = "0") Integer firstResult,
             @RequestParam(value = "max", defaultValue = "15") Integer maxResults
     ) {
-        LOGGER.info("Getting list of users filtered by serch query '{}' for user with email '{}'",
+        LOGGER.info("Getting list of users filtered by search query '{}' for user with username '{}'",
                 search,
-                getCurrentUserEmail());
+                getCurrentUsername());
         return accountService.getAllUsersFilteredByFirstNameOrLastName(search, firstResult, maxResults);
     }
 
     /**
-     * Returns list of dpctors filtered with search query
+     * Returns list of doctors filtered with search query
      *
      * @param search         Search query
      * @param firstResult      Update user request
@@ -90,14 +90,14 @@ public class AccountController {
      */
     @GetMapping(value = "/doctors")
     @Secured(ROLE_USER)
-    List<User> getListOfDoctorsFilteredBySearchFilter(
+    public List<User> getListOfDoctorsFilteredBySearchFilter(
             @RequestParam(value="search", required = false) String search,
             @RequestParam(value = "first", defaultValue = "0") Integer firstResult,
             @RequestParam(value = "max", defaultValue = "15") Integer maxResults
     ) {
-        LOGGER.info("Getting list of doctors filtered by search query '{}' for user with email '{}'",
+        LOGGER.info("Getting list of doctors filtered by search query '{}' for user with username '{}'",
                 search,
-                getCurrentUserEmail());
+                getCurrentUsername());
         return accountService.getListOfDoctorsFilteredBySearchFilter(search, firstResult, maxResults);
     }
 }

@@ -30,6 +30,10 @@ management:
     health:
       show-details: ALWAYS
 
+openvidu:
+  url: http://MINIKUBE_IP/openvidu-api/
+  secret: YOUR_SECRET
+
 keycloak:
   enabled: true
   realm: master

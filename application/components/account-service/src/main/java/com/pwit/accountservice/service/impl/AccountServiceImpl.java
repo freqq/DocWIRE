@@ -27,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<?> createAccount(RegisterRequest registerRequest) {
-        LOGGER.info ("Creating new user with username with username '{}'", getCurrentUsername());
+        LOGGER.info ("Creating new user with username '{}'", getCurrentUsername());
 
         User createdUser = new User().toBuilder()
                 .userId(getCurrentUserId())
@@ -87,7 +87,7 @@ public class AccountServiceImpl implements AccountService {
                                                              Integer firstResult,
                                                              Integer maxResults) {
         return userRepository.
-                findAllByAccountTypeAndDoctorInfoSpecializationContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
+                findAllByAccountTypeEqualsAndDoctorInfoSpecializationContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
                         AccountType.DOCTOR,search, search, search);
     }
 
