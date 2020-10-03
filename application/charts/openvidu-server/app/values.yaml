@@ -1,7 +1,7 @@
 image:
   registry: openvidu
   name: openvidu-server-kms
-  tag: 2.15.0
+  tag: 2.13.0
 
 healthCheck:
   openviduServer:

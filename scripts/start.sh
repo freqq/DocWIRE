@@ -8,8 +8,9 @@ function enable_ingres_on_minikube() (
     minikube addons enable ingress
 )
 
-function build_custom_keycloak_image() {
+function build_custom_images() {
     ./gradlew charts:auth-service:appLoad
+    ./gradlew charts:rabbit-mq:appLoad
 }
 
 function app_start() (
@@ -19,7 +20,7 @@ function app_start() (
 
     cd ${SOURCE_DIR}/../application
 
-    #build_custom_keycloak_image
+    # build_custom_images
 
     #./gradlew charts:namespace:appInstall
 
@@ -30,20 +31,19 @@ function app_start() (
     #./gradlew charts:account-service:appLoad
     #./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    #./gradlew charts:rabbit-mq:appLoad
     #./gradlew charts:rabbit-mq:appInstall
 
     #./gradlew charts:messages-db:appInstall
     #./gradlew charts:messages-service:appLoad
     #./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    #./gradlew charts:appointments-db:appInstall
-    #./gradlew charts:appointments-service:appLoad
-    #./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
-
     #./gradlew charts:openvidu-redis:appInstall
     #./gradlew charts:openvidu-coturn:appInstall
     #./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
+
+    #./gradlew charts:appointments-db:appInstall
+    #./gradlew charts:appointments-service:appLoad
+    #./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # minikube mount application/components/frontend:/frontend/src
 

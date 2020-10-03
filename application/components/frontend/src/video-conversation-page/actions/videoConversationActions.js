@@ -1,4 +1,4 @@
-import { appointmentDetails } from 'video-conversation-page/handlers/appointmentDetailsHandler';
+import { appointmentDetails } from 'video-conversation-page/handlers/videoConversationHandler';
 
 export const CONNECT_TO_APPOINTMENT_PENDING = 'CONNECT_TO_APPOINTMENT_PENDING';
 export const CONNECT_TO_APPOINTMENT_OK = 'CONNECT_TO_APPOINTMENT_OK';

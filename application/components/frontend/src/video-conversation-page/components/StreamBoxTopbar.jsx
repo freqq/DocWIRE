@@ -71,7 +71,7 @@ StreamBoxTopbar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  appointmentId: state.session.appointmentDetails.appointmentId,
+  appointmentId: state.call.appointmentDetails.appointmentId,
 });
 
 export default connect(mapStateToProps, null)(StreamBoxTopbar);

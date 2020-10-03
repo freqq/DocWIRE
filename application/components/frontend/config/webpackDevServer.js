@@ -2,7 +2,9 @@
 
 require('dotenv').config();
 
-const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 const morgan = require('morgan');
 const express = require('express');
 const webpack = require('webpack');
@@ -13,6 +15,11 @@ const webpackConfig = require('./webpack.config.dev');
 
 const PORT = process.env.PORT || 9040;
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+
+const HTTPS_OPTIONS = {
+  key: fs.readFileSync(path.resolve(__dirname, 'keys/key.pem'), 'utf8'),
+  cert: fs.readFileSync(path.resolve(__dirname, 'keys/cert.pem'), 'utf8'),
+};
 
 const app = express();
 
@@ -38,4 +45,6 @@ router.use(webpackHotMiddleware(compiler));
 
 app.use(PUBLIC_PATH, router);
 
-http.createServer(app).listen(PORT, () => console.log(`Application listening on port ${PORT}`));
+https
+  .createServer(HTTPS_OPTIONS, app)
+  .listen(PORT, () => console.log(`Application listening on port ${PORT}`));

@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 import commonReducer from 'common/reducers';
 import messagesReducer from 'messages-page/reducers';
 import diagnoseReducer from 'initial-diagnose/reducers';
+import videoConversationReducer from 'video-conversation-page/reducers';
 
 export const history = createBrowserHistory();
 
@@ -24,6 +25,7 @@ if (
 const rootReducer = combineReducers({
   router: connectRouter(history),
   common: commonReducer,
+  call: videoConversationReducer,
   messages: messagesReducer,
   diagnose: diagnoseReducer,
 });

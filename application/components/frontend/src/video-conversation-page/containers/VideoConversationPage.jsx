@@ -13,7 +13,7 @@ import ChatBox from 'video-conversation-page/components/ChatBox';
 import Colors from 'common/colors';
 import useStateCallback from 'common/hooks/useStateCallback';
 import withLoading, { ProgIndSize } from 'common/utils/withLoading';
-import { getAppointmentDetails } from 'video-conversation-page/actions/appointmentDetailsActions';
+import { getAppointmentDetails } from 'video-conversation-page/actions/videoConversationActions';
 
 const VideoConversationPageWrapper = styled.div.attrs({
   className: 'video-conversation-page-wrapper',
@@ -111,11 +111,11 @@ const VideoConversationPage = ({
 
   useEffect(() => {
     const {
-      params: { appointmentIdString },
+      params: { callId },
     } = match;
 
-    setAppointmentId(appointmentIdString);
-    getAppointmentDetailsFunc(appointmentIdString);
+    setAppointmentId(callId);
+    // getAppointmentDetailsFunc(callId);
     addFullscreenEventListeners();
 
     return () => {
@@ -382,7 +382,7 @@ const VideoConversationPage = ({
 VideoConversationPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      appointmentIdString: PropTypes.string.isRequired,
+      callId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -393,8 +393,8 @@ VideoConversationPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isLoading: state.session.appointmentDetails.isLoading,
-  isError: state.session.appointmentDetails.isError,
+  isLoading: state.call.appointmentDetails.isLoading,
+  isError: state.call.appointmentDetails.isError,
   token: state.common.authUser.keycloakInfo.token,
   username: state.common.authUser.keycloakInfo.userInfo.preferred_username,
 });
