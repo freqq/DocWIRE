@@ -1,5 +1,11 @@
 server:
-  port: 8083
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: password
+    key-store-type: pkcs12
+    key-alias: tomcat
+    key-password: password
+  port: 8444
 
 logging:
   level:
@@ -31,7 +37,7 @@ management:
       show-details: ALWAYS
 
 openvidu:
-  url: http://www.${MINIKUBE_IP}/openvidu-api/
+  url: https://www.${MINIKUBE_IP}/openvidu-api/
   secret: YOUR_SECRET
 
 keycloak:
@@ -41,4 +47,4 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
   ssl-required: external
-  auth-server-url: http://${MINIKUBE_IP}/auth
+  auth-server-url: https://${MINIKUBE_IP}/auth

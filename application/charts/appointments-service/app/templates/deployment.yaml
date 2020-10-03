@@ -24,13 +24,13 @@ spec:
           image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http-port
+            - name: https-port
               containerPort: {{ .Values.config.appointmentsService.port }}
           readinessProbe:
             httpGet:
               path: /actuator/health
               port: {{ .Values.config.appointmentsService.port }}
-              scheme: HTTP
+              scheme: HTTPS
             timeoutSeconds: {{ .Values.healthCheck.appointmentsService.readinessProbe.timeoutSeconds }}
             initialDelaySeconds: {{ .Values.healthCheck.appointmentsService.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.appointmentsService.readinessProbe.periodSeconds }}
@@ -39,7 +39,7 @@ spec:
             httpGet:
               path: /actuator/health
               port: {{ .Values.config.appointmentsService.port }}
-              scheme: HTTP
+              scheme: HTTPS
             timeoutSeconds: {{ .Values.healthCheck.appointmentsService.livenessProbe.timeoutSeconds }}
             initialDelaySeconds: {{ .Values.healthCheck.appointmentsService.livenessProbe.initialDelaySeconds }}
             failureThreshold: {{ .Values.healthCheck.appointmentsService.livenessProbe.failureThreshold }}

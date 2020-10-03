@@ -15,19 +15,19 @@ config:
     port: 8081
   accountService:
     hostname: account-service
-    port: 8080
+    port: 8445
   accountDb:
     hostname: account-db
     port: 27017
   messagesService:
     hostname: messages-service
-    port: 8085
+    port: 8446
   messagesDb:
     hostname: messages-db
     port: 27017
   appointmentsService:
     hostname: appointments-service
-    port: 8083
+    port: 8444
   appointmentsDb:
     hostname: appointments-db
     port: 27017
