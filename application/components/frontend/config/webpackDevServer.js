@@ -47,4 +47,4 @@ app.use(PUBLIC_PATH, router);
 
 https
   .createServer(HTTPS_OPTIONS, app)
-  .listen(PORT, () => console.log(`Application listening on port ${PORT}`));
+  .listen(PORT, () => console.log(`Application listening on HTTPS port ${PORT}`));

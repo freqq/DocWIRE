@@ -29,6 +29,17 @@ spec:
                 initialDelaySeconds: {{ .Values.healthCheck.frontend.readinessProbe.initialDelaySeconds }}
                 periodSeconds: {{ .Values.healthCheck.frontend.readinessProbe.periodSeconds }}
                 failureThreshold: {{ .Values.healthCheck.frontend.readinessProbe.failureThreshold }}
+              {{- if not .Values.profile.frontend.devProfile }}
+              livenessProbe:
+                httpGet:
+                  path: /
+                  port: {{ .Values.config.frontend.port }}
+                  scheme: HTTPS
+                timeoutSeconds: {{ .Values.healthCheck.frontend.livenessProbe.timeoutSeconds }}
+                initialDelaySeconds: {{ .Values.healthCheck.frontend.livenessProbe.initialDelaySeconds }}
+                periodSeconds: {{ .Values.healthCheck.frontend.livenessProbe.periodSeconds }}
+                failureThreshold: {{ .Values.healthCheck.frontend.livenessProbe.failureThreshold }}
+              {{- end }}
               ports:
               - name: https-port
                 containerPort: {{ .Values.config.frontend.port }}
