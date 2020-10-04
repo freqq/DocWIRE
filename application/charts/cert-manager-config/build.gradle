@@ -1,0 +1,21 @@
+description 'cert-manager-config'
+
+apply from: "$configurationDir/k8s.gradle"
+
+task removeApp(type: Exec) {
+    commandLine 'bash', '-c', "helm del ${project.name}"
+    ignoreExitValue = true
+}
+
+task waitForAppRemove(type: Exec, dependsOn: removeApp) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.certManagerNamespace} && " +
+            "waitForPodDelete ${project.name}"
+}
+
+task helmInstall(type: Exec, dependsOn: waitForAppRemove) {
+    commandLine 'helm', 'install',
+            "${project.name}",
+            "${projectDir}/app/"
+}
+
+appInstall.dependsOn helmInstall

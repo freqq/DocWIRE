@@ -1,0 +1,44 @@
+description 'cert-manager'
+
+apply from: "$configurationDir/k8s.gradle"
+
+task removeApp(type: Exec) {
+    commandLine 'bash', '-c', "helm del ${project.name} -n ${project.ext.certManagerNamespace}"
+    ignoreExitValue = true
+}
+
+task waitForAppRemove(type: Exec, dependsOn: removeApp) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.certManagerNamespace} && " +
+            "waitForPodDelete ${project.name}"
+}
+
+task removeAppCainjector(type: Exec, dependsOn: waitForAppRemove) {
+    commandLine 'bash', '-c', "helm del ${project.name}-cainjector -n ${project.ext.certManagerNamespace}"
+    ignoreExitValue = true
+}
+
+task waitForAppCainjectorRemove(type: Exec, dependsOn: removeAppCainjector) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.certManagerNamespace} && " +
+            "waitForPodDelete ${project.name}-cainjector"
+}
+
+task helmInstall(type: Exec, dependsOn: waitForAppCainjectorRemove) {
+    commandLine 'helm', 'install',
+            "${project.name}",
+            "jetstack/cert-manager",
+            '--version', 'v1.0.2',
+            '--namespace', "${project.ext.certManagerNamespace}",
+            '--set', "image.pullPolicy=Always"
+}
+
+task waitForInstall(type: Exec, dependsOn: helmInstall) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.certManagerNamespace} && " +
+            "waitForReadyPod ${project.name}"
+}
+
+task waitForInstallWehbook(type: Exec, dependsOn: waitForInstall) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.certManagerNamespace} && " +
+            "waitForReadyPod ${project.name}-webhook"
+}
+
+appInstall.dependsOn waitForInstallWehbook

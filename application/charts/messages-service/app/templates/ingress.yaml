@@ -4,11 +4,17 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "tls-ca-issuer"
     nginx.ingress.kubernetes.io/rewrite-target: /api/chat/$2
   name: {{ .Chart.Name }}-ingress
 spec:
+  tls:
+  - secretName: {{ .Chart.Name }}-tls
+    hosts:
+    - docwire.test
   rules:
-  - http:
+  - host: docwire.test
+    http:
       paths:
       - backend:
           serviceName: {{ .Values.config.messagesService.hostname }}-svc

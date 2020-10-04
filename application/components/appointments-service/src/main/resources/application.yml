@@ -37,7 +37,7 @@ management:
       show-details: ALWAYS
 
 openvidu:
-  url: https://www.${MINIKUBE_IP}/openvidu-api/
+  url: https://www.docwire.test/openvidu-api/
   secret: YOUR_SECRET
 
 keycloak:
@@ -47,4 +47,4 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
   ssl-required: external
-  auth-server-url: https://${MINIKUBE_IP}/auth
+  auth-server-url: https://docwire.test/auth

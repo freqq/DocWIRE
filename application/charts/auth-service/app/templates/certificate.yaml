@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ .Chart.Name }}-crt
+spec:
+  secretName: {{ .Chart.Name }}-tls
+  dnsNames:
+    - docwire.test
+  issuerRef:
+    name: tsl-ca-issuer
+    kind: ClusterIssuer
+  duration: 8760h # 365d
+  renewBefore: 360h # 15d

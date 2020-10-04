@@ -51,3 +51,11 @@ securityContext:
     runAsUser: 985
     fsGroup: 985
     runAsNonRoot: true
+
+dns:
+  domain: .svc.cluster.local
+  policy: ClusterFirst
+
+certManager:
+  issuer:
+    name: docwire-issuer

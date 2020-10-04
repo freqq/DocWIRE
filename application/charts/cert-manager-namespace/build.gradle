@@ -1,0 +1,22 @@
+description 'cert-manager-namespace'
+
+apply from: "$configurationDir/k8s.gradle"
+
+task removeApp(type: Exec) {
+    commandLine 'bash', '-c', "helm del ${project.name}"
+    ignoreExitValue = true
+}
+
+task waitForNamespaceDelete(type: Exec, dependsOn: removeApp) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.certManagerNamespace} && " +
+        "waitForNamespaceDelete"
+}
+
+task helmInstall(type: Exec, dependsOn: waitForNamespaceDelete) {
+    commandLine 'helm', 'install', "${project.name}",
+            "${projectDir}/app",
+            '--wait',
+            '--set', "namespace=${project.ext.certManagerNamespace}"
+}
+
+appInstall.dependsOn helmInstall
