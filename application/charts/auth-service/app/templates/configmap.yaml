@@ -4,6 +4,7 @@ metadata:
    name: {{ .Chart.Name }}-cm
 data:
    KEYCLOAK_USER: admin
+   PROXY_ADDRESS_FORWARDING: "true"
    KEYCLOAK_PASSWORD: password
    DB_VENDOR: postgres
    DB_USER: admin

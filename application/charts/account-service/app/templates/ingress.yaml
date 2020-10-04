@@ -4,6 +4,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: https
     cert-manager.io/cluster-issuer: "tls-ca-issuer"
     nginx.ingress.kubernetes.io/rewrite-target: /api/users/$2
   name: {{ .Chart.Name }}-ingress

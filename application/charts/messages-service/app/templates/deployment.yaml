@@ -26,6 +26,7 @@ spec:
           ports:
             - name: https-port
               containerPort: {{ .Values.config.messagesService.port }}
+              protocol: TCP
           readinessProbe:
             httpGet:
               path: /actuator/health
