@@ -105,7 +105,7 @@ function app_start() (
 )
 
 function main() {
-    build_custom_images
+    # build_custom_images
 
     enable_ingres_on_minikube
     add_domain_to_hosts

@@ -15,7 +15,8 @@ task waitForAppRemove(type: Exec, dependsOn: removeApp) {
 task helmInstall(type: Exec, dependsOn: waitForAppRemove) {
     commandLine 'helm', 'install',
             "${project.name}",
-            "${projectDir}/app/"
+            "${projectDir}/app/",
+            '--values', "${globalValues}"
 }
 
 appInstall.dependsOn helmInstall
