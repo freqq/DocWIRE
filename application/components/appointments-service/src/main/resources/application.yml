@@ -37,7 +37,7 @@ management:
       show-details: ALWAYS
 
 openvidu:
-  url: https://www.${MINIKUBE_IP}/openvidu-api/
+  url: https://${MINIKUBE_IP}/openvidu-api/
   secret: YOUR_SECRET
 
 keycloak:

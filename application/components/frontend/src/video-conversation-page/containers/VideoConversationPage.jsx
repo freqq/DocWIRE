@@ -217,7 +217,7 @@ const VideoConversationPage = ({
       mySession
         .connect(tokenString, { clientData: username })
         .then(() => {
-          const publisherObject = openVidu.initPublisher(undefined, {
+          const publisherObject = openViduObject.initPublisher(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
             videoSource: undefined, // The source of video. If undefined default webcam
             publishAudio: initialAudio,

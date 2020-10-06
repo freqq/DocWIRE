@@ -18,7 +18,7 @@
     "moment": "^2.27.0",
     "morgan": "^1.10.0",
     "nocache": "^2.1.0",
-    "openvidu-browser": "2.15.0",
+    "openvidu-browser": "2.13.0",
     "promise": "8.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
