@@ -40,4 +40,5 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
   ssl-required: external
-  auth-server-url: https://docwire.test/auth
+  auth-server-url: https://${MINIKUBE_IP}/auth
+  disable-trust-manager: true

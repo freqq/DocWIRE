@@ -7,5 +7,6 @@ buildscript {
         globalValues = "${project.rootDir}/charts/values/global-values.yaml"
         configurationProfile = "${profilesDir}/configuration/internal.yaml"
         resourcesProfile = "${profilesDir}/resources/internal.yaml"
+        minikubeIp = (project.hasProperty('minikubeIp')) ? project.getProperty('minikubeIp') : ""
     }
 }

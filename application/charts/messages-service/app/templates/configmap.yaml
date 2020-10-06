@@ -7,3 +7,4 @@ data:
  SPRING_PROFILES_ACTIVE: "dev,swagger,dev-cal"
  RABBIT_HOST: {{ .Values.config.rabbitMq.hostname }}-svc
  RABBIT_PORT: "{{ .Values.config.rabbitMq.port }}"
+ MINIKUBE_IP: {{ .Values.minikubeIp}}

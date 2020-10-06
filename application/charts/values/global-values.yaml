@@ -52,6 +52,10 @@ securityContext:
     fsGroup: 985
     runAsNonRoot: true
 
+dns:
+  domain: .svc.cluster.local
+  policy: ClusterFirst
+
 globalIssuer:
   name: tsl-ca-issuer
   kind: ClusterIssuer

@@ -10,11 +10,8 @@ metadata:
 spec:
   tls:
   - secretName: {{ .Chart.Name }}-tls
-    hosts:
-    - docwire.test
   rules:
-  - host: docwire.test
-    http:
+  - http:
       paths:
       - backend:
           serviceName: {{ .Values.config.authService.hostname }}-svc

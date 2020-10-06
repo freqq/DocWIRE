@@ -4,10 +4,9 @@ metadata:
   name: {{ .Chart.Name }}-crt
 spec:
   secretName: {{ .Chart.Name }}-tls
-  dnsNames:
-    - docwire.test
   issuerRef:
     name: {{ .Values.globalIssuer.name }}
     kind: {{ .Values.globalIssuer.kind }}
   duration: 8760h # 365d
   renewBefore: 360h # 15d
+  commonName:  {{ .Values.config.openviduServer.hostname }}.{{ .Release.Namespace }}{{ .Values.dns.domain }}

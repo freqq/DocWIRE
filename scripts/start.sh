@@ -45,15 +45,6 @@ function setup_cert_manager() {
     log_info "Cert-manager up and running."
 }
 
-function add_domain_to_hosts() {
-    log_info "Adding domain to hosts file ..."
-
-    sudo sed -i '' '/docwire\.test/d' /etc/hosts
-    echo "${MINIKUBE_IP} docwire.test" | sudo tee -a /etc/hosts
-
-    log_info "Domain added."
-}
-
 function build_custom_images() {
     log_info "Staring to build custom images ..."
 
@@ -72,28 +63,28 @@ function app_start() (
 
     cd ${SOURCE_DIR}/../application
 
-    ./gradlew charts:namespace:appInstall
+    # ./gradlew charts:namespace:appInstall
 
     ./gradlew charts:auth-db:appInstall
     ./gradlew charts:auth-service:appInstall
 
     ./gradlew charts:account-db:appInstall
     ./gradlew charts:account-service:appLoad
-    ./gradlew charts:account-service:appInstall
+    ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     ./gradlew charts:rabbit-mq:appInstall
 
     ./gradlew charts:messages-db:appInstall
     ./gradlew charts:messages-service:appLoad
-    ./gradlew charts:messages-service:appInstall
+    ./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     ./gradlew charts:openvidu-redis:appInstall
     ./gradlew charts:openvidu-coturn:appInstall
-    ./gradlew charts:openvidu-server:appInstall
+    ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     ./gradlew charts:appointments-db:appInstall
     ./gradlew charts:appointments-service:appLoad
-    ./gradlew charts:appointments-service:appInstall
+    ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # minikube mount application/components/frontend:/frontend/src
 
@@ -107,9 +98,8 @@ function app_start() (
 function main() {
     # build_custom_images
 
-    enable_ingres_on_minikube
-    add_domain_to_hosts
-    setup_cert_manager
+    # enable_ingres_on_minikube
+    # setup_cert_manager
     app_start
 }
 

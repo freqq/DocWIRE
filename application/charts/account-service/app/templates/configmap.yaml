@@ -5,3 +5,4 @@ metadata:
 data:
  MONGO_URL: mongodb://account-db-svc:27017/dev
  SPRING_PROFILES_ACTIVE: "dev,swagger,dev-cal"
+ MINIKUBE_IP: {{ .Values.minikubeIp}}

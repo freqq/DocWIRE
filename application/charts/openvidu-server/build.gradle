@@ -21,6 +21,7 @@ task helmInstall(type: Exec, dependsOn: waitForAppRemove) {
             '--values', "${configurationProfile}",
             '--values', "${resourcesProfile}",
             '--namespace', "${project.ext.appNamespace}",
+            '--set', "minikubeIp=${project.minikubeIp}",
             '--set', "image.pullPolicy=Always"
 }
 
