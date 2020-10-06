@@ -90,7 +90,7 @@ const MessagesMainArea = ({
   if (isChatHistoryLoadingError)
     return <ErrorBlock>There was an error during chat history fetching.</ErrorBlock>;
 
-  const wsSourceUrl = `http://${window.location.host}/api/chat/ws`;
+  const wsSourceUrl = `https://${window.location.host}/api/chat/ws`;
 
   return (
     <MessagesMainAreaWrapper>
