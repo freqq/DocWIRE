@@ -52,10 +52,15 @@ securityContext:
     fsGroup: 985
     runAsNonRoot: true
 
-dns:
-  domain: .svc.cluster.local
-  policy: ClusterFirst
+globalIssuer:
+  name: tsl-ca-issuer
+  kind: ClusterIssuer
+  secretName: my-ca-tls-secret
 
-certManager:
-  issuer:
-    name: docwire-issuer
+services:
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: https
+      cert-manager.io/cluster-issuer: "tls-ca-issuer"
+

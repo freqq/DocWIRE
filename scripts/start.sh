@@ -57,8 +57,12 @@ function add_domain_to_hosts() {
 function build_custom_images() {
     log_info "Staring to build custom images ..."
 
+    cd ${SOURCE_DIR}/../application
+
     ./gradlew charts:auth-service:appLoad
-    ./gradlew charts:rabbit-mq:appLoad
+    # ./gradlew charts:rabbit-mq:appLoad
+
+    cd ../scripts
 
     log_info "Custom images built."
 }

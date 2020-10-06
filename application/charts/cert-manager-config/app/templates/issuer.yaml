@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1alpha2
-kind: ClusterIssuer
+kind: {{ .Values.globalIssuer.kind }}
 metadata:
-  name: tls-ca-issuer
+  name: {{ .Values.globalIssuer.name }}
 spec:
   ca:
-    secretName: my-ca-tls-secret
+    secretName: {{ .Values.globalIssuer.secretName }}
