@@ -25,7 +25,7 @@ const VideoConversationPageWrapper = styled.div.attrs({
 
 const VideoGrid = styled.div.attrs({ className: 'video-grid' })`
   display: grid;
-  grid-template-columns: 2fr 8fr 3fr;
+  grid-template-columns: 8fr 2fr;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
   border: 1px solid #f0f0f0;
   border-radius: 3px;
@@ -79,6 +79,10 @@ const VideoConversationPage = ({
     document.addEventListener('mozfullscreenchange', exitHandler);
     document.addEventListener('MSFullscreenChange', exitHandler);
   };
+
+  const switchInitialAudio = () => setInitialAudio(!initialAudio);
+
+  const switchInitialVideo = () => setInitialVideo(!initialVideo);
 
   const leaveSession = () => {
     const mySession = session;
@@ -157,17 +161,19 @@ const VideoConversationPage = ({
 
   const joinSession = () => {
     const openViduObject = new OpenVidu();
+    /*
     openViduObject.setAdvancedConfiguration({
       iceServers: [
         { urls: `stun:${window.location.host}:3478` },
         {
           urls: [
-            `turn:www.${window.location.host}:3478`,
-            `turn:www.${window.location.host}:3478?transport=tcp`,
+            `turn:${window.location.host}:3478`,
+            `turn:${window.location.host}:3478?transport=tcp`,
           ],
         },
       ],
     });
+    */
 
     setOpenVidu(openViduObject);
 
@@ -252,7 +258,7 @@ const VideoConversationPage = ({
     const myPublisher = publisher;
 
     setPublishVideo(!publishVideo, () => {
-      myPublisher.publishVideo(publishVideo);
+      myPublisher.publishVideo(!publishVideo);
       setPublisher(myPublisher);
     });
   };
@@ -261,7 +267,7 @@ const VideoConversationPage = ({
     const myPublisher = publisher;
 
     setPublishAudio(!publishAudio, () => {
-      myPublisher.publishAudio(publishAudio);
+      myPublisher.publishAudio(!publishAudio);
       setPublisher(myPublisher);
     });
   };
@@ -348,8 +354,8 @@ const VideoConversationPage = ({
     <VideoConversationPageWithLoading isLoading={isLoading}>
       <VideoGrid>
         <StreamBox
-          setInitialAudio={setInitialAudio}
-          setInitialVideo={setInitialVideo}
+          setInitialAudio={switchInitialAudio}
+          setInitialVideo={switchInitialVideo}
           joinSession={joinSession}
           stopSharingScreen={stopSharingScreen}
           goFullScreen={goFullScreen}

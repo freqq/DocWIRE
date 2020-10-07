@@ -15,7 +15,7 @@ const VideoComponentWrapper = styled.div.attrs({ className: 'video-component-wra
 
 const StreamComponentWrapper = styled.div.attrs({ className: 'stream-component-wrapper' })`
   overflow: hidden;
-  max-height: 83vh;
+  max-height: 80vh;
   width: 100%;
   max-width: 100%;
   display: grid;
@@ -81,7 +81,7 @@ const StreamComponent = ({
       />
     ) : null}
     <StreamBox id="main-video" className={fullScreenMode ? 'full-sc-video' : 'not-full-sc-video'}>
-      {!publisher && sessionStarted ? (
+      {publisher === undefined && sessionStarted ? (
         <ProgressIndicatorCircular />
       ) : (
         <VideoGrid>

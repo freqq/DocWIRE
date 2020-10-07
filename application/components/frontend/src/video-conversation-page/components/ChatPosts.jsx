@@ -11,7 +11,6 @@ const ChatPostsWrapper = styled.div.attrs({
 })`
   padding: 20px;
   overflow-y: scroll;
-  height: 80vh;
 `;
 
 const MessagesBox = styled.div.attrs({ className: 'messages-box' })`

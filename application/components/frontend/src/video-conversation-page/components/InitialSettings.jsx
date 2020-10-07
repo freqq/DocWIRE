@@ -88,36 +88,41 @@ const InitialSettings = ({
   initialVideo,
   initialAudio,
   joinSession,
-  username,
-}) => (
-  <InitialSettingsWrapper>
-    <InitialSettingsTitle>Choose your audio and video settings</InitialSettingsTitle>
-    <Items>
-      <UserImage>{username.charAt(0).toUpperCase()}</UserImage>
-      <InitialSettingsItems>
-        <InitialSettingsItemsName>
-          <ImgIcon src={cameraIcon} />
-          <ToggleSwitch
-            name="initialVideo"
-            onCheck={setInitialVideo}
-            isChecked={initialVideo}
-            style={{ display: 'inline-block' }}
-          />
-        </InitialSettingsItemsName>
-        <InitialSettingsItemsChoice>
-          <ImgIcon src={micIcon} />
-          <ToggleSwitch
-            name="initialAudio"
-            onCheck={setInitialAudio}
-            isChecked={initialAudio}
-            style={{ display: 'inline-block' }}
-          />
-        </InitialSettingsItemsChoice>
-      </InitialSettingsItems>
-      <JoinSessionButton onClick={joinSession}>Join now</JoinSessionButton>
-    </Items>
-  </InitialSettingsWrapper>
-);
+  firstName,
+  lastName,
+}) => {
+  const getCircleData = () => firstName.charAt(0) + lastName.charAt(0);
+
+  return (
+    <InitialSettingsWrapper>
+      <InitialSettingsTitle>Choose your audio and video settings</InitialSettingsTitle>
+      <Items>
+        <UserImage>{getCircleData()}</UserImage>
+        <InitialSettingsItems>
+          <InitialSettingsItemsName>
+            <ImgIcon src={cameraIcon} />
+            <ToggleSwitch
+              name="initialVideo"
+              onCheck={setInitialVideo}
+              isChecked={initialVideo}
+              style={{ display: 'inline-block' }}
+            />
+          </InitialSettingsItemsName>
+          <InitialSettingsItemsChoice>
+            <ImgIcon src={micIcon} />
+            <ToggleSwitch
+              name="initialAudio"
+              onCheck={setInitialAudio}
+              isChecked={initialAudio}
+              style={{ display: 'inline-block' }}
+            />
+          </InitialSettingsItemsChoice>
+        </InitialSettingsItems>
+        <JoinSessionButton onClick={joinSession}>Join now</JoinSessionButton>
+      </Items>
+    </InitialSettingsWrapper>
+  );
+};
 
 InitialSettings.propTypes = {
   setInitialAudio: PropTypes.func.isRequired,
@@ -125,11 +130,13 @@ InitialSettings.propTypes = {
   joinSession: PropTypes.func.isRequired,
   initialVideo: PropTypes.bool.isRequired,
   initialAudio: PropTypes.bool.isRequired,
-  username: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
-  username: state.common.authUser.keycloakInfo.userInfo.preferred_username,
+  firstName: state.common.accountData.userData.firstName,
+  lastName: state.common.accountData.userData.lastName,
 });
 
 export default connect(mapStateToProps, null)(InitialSettings);

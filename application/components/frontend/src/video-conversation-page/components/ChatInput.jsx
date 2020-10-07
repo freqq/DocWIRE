@@ -5,28 +5,31 @@ import PropTypes from 'prop-types';
 import commentIcon from 'images/icons/comment.svg';
 
 const ChatInputWrapper = styled.div.attrs({ className: 'chat-input-wrapper' })`
-  width: 74%;
-  position: absolute;
+  width: 100%;
   bottom: 0;
   margin: 0;
+  position: relative;
 `;
 
 const ChatInputElement = styled.input.attrs({ className: 'chat-input-wrapper' })`
-  width: 100%;
-  padding: 20px 60px 21px 20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  padding: 20px;
   outline: none;
   border: 1px solid #f0f0f0;
   border-left: none;
 `;
 
-const InputWrapper = styled.div.attrs({ className: 'input-wrapper' })``;
+const InputWrapper = styled.div.attrs({ className: 'input-wrapper' })`
+  height: 100%;
+`;
 
 const ChatInputIcon = styled.img.attrs({ className: 'chat-input-icon', alt: 'chat-input-icon' })`
   position: absolute;
-  right: -60px;
-  top: 20px;
-  width: 24px;
-  height: 24px;
+  right: 20px;
+  top: 26px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 `;
 

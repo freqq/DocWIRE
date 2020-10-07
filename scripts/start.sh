@@ -51,7 +51,7 @@ function build_custom_images() {
     cd ${SOURCE_DIR}/../application
 
     ./gradlew charts:auth-service:appLoad
-    # ./gradlew charts:rabbit-mq:appLoad
+    ./gradlew charts:rabbit-mq:appLoad
 
     cd ../scripts
 
@@ -63,28 +63,28 @@ function app_start() (
 
     cd ${SOURCE_DIR}/../application
 
-    # ./gradlew charts:namespace:appInstall
+    ./gradlew charts:namespace:appInstall
 
-    # ./gradlew charts:auth-db:appInstall
-    # ./gradlew charts:auth-service:appInstall
+    ./gradlew charts:auth-db:appInstall
+    ./gradlew charts:auth-service:appInstall
 
-    # ./gradlew charts:account-db:appInstall
-    # ./gradlew charts:account-service:appLoad
-    # ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:account-db:appInstall
+    ./gradlew charts:account-service:appLoad
+    ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:rabbit-mq:appInstall
+    ./gradlew charts:rabbit-mq:appInstall
 
-    # ./gradlew charts:messages-db:appInstall
-    # ./gradlew charts:messages-service:appLoad
-    # ./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:messages-db:appInstall
+    ./gradlew charts:messages-service:appLoad
+    ./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:openvidu-redis:appInstall
-    # ./gradlew charts:openvidu-coturn:appInstall
-    # ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:openvidu-redis:appInstall
+    ./gradlew charts:openvidu-coturn:appInstall
+    ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:appointments-db:appInstall
-    # ./gradlew charts:appointments-service:appLoad
-    # ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:appointments-db:appInstall
+    ./gradlew charts:appointments-service:appLoad
+    ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # minikube mount application/components/frontend:/frontend/src
 
@@ -98,8 +98,8 @@ function app_start() (
 function main() {
     # build_custom_images
 
-    # enable_ingres_on_minikube
-    # setup_cert_manager
+    enable_ingres_on_minikube
+    setup_cert_manager
     app_start
 }
 

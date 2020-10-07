@@ -10,6 +10,8 @@ const ChatBoxWrapper = styled.div.attrs({ className: 'chat-box-wrapper' })`
   background: ${Colors.BACKGROUND_COLOR};
   border-left: 3px solid ${Colors.GALLERY};
   position: relative;
+  display: grid;
+  grid-template-rows: 1fr 10%;
 `;
 
 const ChatBox = ({ messages, sendChatMessage, isSession }) => (

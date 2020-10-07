@@ -11,31 +11,14 @@ import exitIcon from 'images/icons/exit.svg';
 import shareScreenIcon from 'images/icons/share.svg';
 
 const DetailsBoxWrapper = styled.div.attrs({ className: 'details-box-wrapper' })`
-  grid: details-box-area;
   background: ${Colors.WHITE};
   border-top: 1px solid ${Colors.GALLERY};
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-areas: 'actions-area users-area';
   z-index: 3;
   min-height: 55px;
   max-height: 55px;
 `;
 
-const DetailsActions = styled.div.attrs({ className: 'details-actions' })`
-  grid: actions-area;
-`;
-
-const UsersArea = styled.div.attrs({ className: 'users-area' })`
-  grid: users-area;
-  font-size: 12px;
-  text-align: right;
-  line-height: 55px;
-
-  @media only screen and (max-width: 900px) {
-    display: none;
-  }
-`;
+const DetailsActions = styled.div.attrs({ className: 'details-actions' })``;
 
 const MenuList = styled.ul.attrs({ className: 'details-box-menu-list' })`
   list-style-type: none;
@@ -44,36 +27,7 @@ const MenuList = styled.ul.attrs({ className: 'details-box-menu-list' })`
   text-align: center;
 `;
 
-const ParticipantsWrapper = styled.div.attrs({ className: 'participants-wrapper' })`
-  display: inline-block;
-  margin: 0 30px 0 15px;
-
-  @media only screen and (max-width: 1180px) {
-    display: none;
-  }
-`;
-
-const ParticipantsSmaller = styled.div.attrs({ className: 'participants-smaller' })`
-  display: inline-block;
-  margin: 0 30px 0 15px;
-
-  @media only screen and (min-width: 1180px) {
-    display: none;
-  }
-`;
-
-const ParticipantItem = styled.div.attrs({ className: 'participant-item' })`
-  display: inline-block;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  color: ${Colors.WHITE};
-  margin-left: -8px;
-`;
-
-const MenuListItem = styled.ul.attrs({ className: 'details-box-menu-list-item' })`
+const MenuListItem = styled.li.attrs({ className: 'details-box-menu-list-item' })`
   display: inline-block;
   margin: 0;
   padding: 13px;
@@ -99,36 +53,8 @@ const MenuListIcon = styled.img.attrs({ className: 'menu-list-icon', alt: 'menu-
 `;
 
 const unActiveButton = {
-  background: '#f0f0f0',
-  border: '1px solid #d0d0d0',
+  background: '#d0d0d0',
 };
-
-const PARTICIPANTS_LIST = [
-  {
-    nick: 'OP',
-    bgColor: Colors.MATISSE,
-  },
-  {
-    nick: 'PW',
-    bgColor: Colors.SHIP_COVE,
-  },
-  {
-    nick: 'TD',
-    bgColor: Colors.BUTTERCUP,
-  },
-  {
-    nick: 'JF',
-    bgColor: Colors.BURGUNDY,
-  },
-  {
-    nick: 'AK',
-    bgColor: Colors.SCIENCE_BLUE,
-  },
-  {
-    nick: '+24',
-    bgColor: Colors.GUARDSMAN_RED,
-  },
-];
 
 const DetailsBox = ({
   showVideo,
@@ -158,19 +84,9 @@ const DetailsBox = ({
     else shareScreen();
   };
 
-  const renderParticipants = () => (
-    <ParticipantsWrapper>
-      {PARTICIPANTS_LIST.map(user => (
-        <ParticipantItem key={user.nick} style={{ background: user.bgColor }}>
-          {user.nick}
-        </ParticipantItem>
-      ))}
-    </ParticipantsWrapper>
-  );
-
   return (
-    <DetailsBoxWrapper>
-      <DetailsActions style={style}>
+    <DetailsBoxWrapper style={style}>
+      <DetailsActions>
         <MenuList>
           <MenuListItem
             onClick={onMuteClick}
@@ -204,14 +120,6 @@ const DetailsBox = ({
           </MenuListItem>
         </MenuList>
       </DetailsActions>
-
-      <UsersArea>
-        Participants
-        <>{renderParticipants()}</>
-        <ParticipantsSmaller>
-          <ParticipantItem style={{ background: Colors.GUARDSMAN_RED }}>24+</ParticipantItem>
-        </ParticipantsSmaller>
-      </UsersArea>
     </DetailsBoxWrapper>
   );
 };
