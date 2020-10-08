@@ -89,7 +89,7 @@ You can reach Grafana and Prometheus at URLs logged at the end of start script.
 In order to be able to run E2E tests, first you need to configure your environment with command below:
 
 ```sh
-$ cd scripts && ./configure_e2e_requirements.sh
+$ cd scripts/e2e && ./configure_e2e_requirements.sh
 ```
 
 Then you can run script with given parameters:
@@ -106,5 +106,5 @@ Then you can run script with given parameters:
 To run script run command below with chosen parameters:
 
 ```sh
-$ cd scripts && ./run_e2e_tests.sh
+$ cd scripts/e2e && ./run_e2e_tests.sh
 ```

@@ -3,11 +3,10 @@
 source common/logger.sh
 source common/constants.sh
 
-set -e
+set -eE
 
 SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-CA_CERTS_FOLDER=$(pwd)/.certs
-MINIKUBE_IP=$(minikube ip)
+CA_CERTS_DIR=$(pwd)/.certs
 
 function enable_ingres_on_minikube() (
     minikube addons enable ingress
@@ -17,16 +16,31 @@ function mount_frontend() {
     minikube mount application/components/frontend:/frontend/src
 }
 
-function generate_secrets() {
+function create_secrets_files() {
     log_info "Creating self-signed CA certificates for TLS and installing them in the local trust stores"
 
-    rm -rf ${CA_CERTS_FOLDER}
-    mkdir -p ${CA_CERTS_FOLDER}
-    mkdir -p ${CA_CERTS_FOLDER}/${ENVIRONMENT_DEV}
-    CAROOT=${CA_CERTS_FOLDER}/${ENVIRONMENT_DEV} mkcert -install
+    rm -rf ${CA_CERTS_DIR}
+    mkdir -p ${CA_CERTS_DIR}
+    CAROOT=${CA_CERTS_DIR} mkcert -install
 
+    log_info "Local certificates created."
+}
+
+function create_k8s_secret() {
     log_info "Creating K8S secrets with the CA private keys (will be used by the cert-manager CA Issuer)"
-    kubectl -n cert-manager create secret tls my-ca-tls-secret --key=${CA_CERTS_FOLDER}/${ENVIRONMENT_DEV}/rootCA-key.pem --cert=${CA_CERTS_FOLDER}/${ENVIRONMENT_DEV}/rootCA.pem
+
+    kubectl -n cert-manager create secret tls my-ca-tls-secret \
+                --key=${CA_CERTS_DIR}/rootCA-key.pem \
+                --cert=${CA_CERTS_DIR}/rootCA.pem
+
+    log_info "K8S secret created."
+}
+
+function generate_secrets() {
+    log_info "Starting to generate secrets..."
+
+    create_secrets_files
+    create_k8s_secret
 
     log_info "Secrets generated."
 }
@@ -64,8 +78,8 @@ function build_custom_images() {
 }
 
 function upload_initial_users() {
-    sh ./keycloak_partial_import.sh
-    sh ./upload_initial_data.sh
+    sh ./initial_import/keycloak_partial_import.sh
+    sh ./initial_import/upload_initial_data.sh
 }
 
 function app_start() (
