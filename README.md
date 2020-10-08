@@ -57,6 +57,7 @@ In order to run this application you need to install:
 - yarn >1.22.4
 - Gradle >6.5.1
 - Helm >3.1.1
+- mkcert >1.4.1
 
 ### Starting local *minikube* Kuberentes cluster
 In order to run application in development profile, first you need to mount *frontend* component files to **Kubernetes cluster** with command below:
