@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,9 +87,18 @@ public class AccountServiceImpl implements AccountService {
     public List<User> getListOfDoctorsFilteredBySearchFilter(String search,
                                                              Integer firstResult,
                                                              Integer maxResults) {
-        return userRepository.
-                findByAccountTypeEqualsAndDoctorInfoNotNullAndDoctorInfoSpecializationContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
-                        AccountType.DOCTOR, search, search, search);
+        List<User> users =  userRepository.
+                findByAccountTypeEqualsAndDoctorInfoSpecializationContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
+                    AccountType.DOCTOR, search, search, search);
+
+        List<User> doctors = new ArrayList<>();
+
+        for(User user : users) {
+            if(user.getAccountType() == AccountType.DOCTOR)
+                doctors.add(user);
+        }
+
+        return doctors;
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

@@ -51,13 +51,15 @@ DevOps:
 ### Prerequisites
 In order to run this application you need to install:
 
-- minikube >1.6.2
-- kubectl >1.17.0
-- Node >12.18.2
-- yarn >1.22.4
-- Gradle >6.5.1
-- Helm >3.1.1
-- mkcert >1.4.1
+- minikube > v1.6.2
+- kubectl > v1.17.0
+- Node > v12.18.2
+- Docker > v19.03.5
+- python > v3.6
+- yarn > v1.22.4
+- Gradle > v6.5.1
+- Helm > v3.1.1
+- mkcert > v1.4.1
 
 ### Starting local *minikube* Kuberentes cluster
 In order to run application in development profile, first you need to mount *frontend* component files to **Kubernetes cluster** with command below:
