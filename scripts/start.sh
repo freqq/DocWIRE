@@ -12,6 +12,10 @@ function enable_ingres_on_minikube() (
     minikube addons enable ingress
 )
 
+function mount_frontend() {
+    minikube mount application/components/frontend:/frontend/src
+}
+
 function generate_secrets() {
     log_info "Creating self-signed CA certificates for TLS and installing them in the local trust stores"
 
@@ -35,7 +39,7 @@ function setup_cert_manager() {
     generate_secrets
 
     kubectl apply --validate=false -f \
-        https://github.com/jetstack/cert-manager/releases/download/v1.0.2/cert-manager.crds.yaml
+        https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.crds.yaml
 
     ./gradlew charts:cert-manager:appInstall
     ./gradlew charts:cert-manager-config:appInstall
@@ -56,6 +60,10 @@ function build_custom_images() {
     cd ../scripts
 
     log_info "Custom images built."
+}
+
+function upload_initial_users() {
+    sh ./upload_initial_data.sh
 }
 
 function app_start() (
@@ -86,8 +94,6 @@ function app_start() (
     ./gradlew charts:appointments-service:appLoad
     ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # minikube mount application/components/frontend:/frontend/src
-
     ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall
 
@@ -96,11 +102,13 @@ function app_start() (
 )
 
 function main() {
+    # mount_frontend
     # build_custom_images
 
-    enable_ingres_on_minikube
-    setup_cert_manager
-    app_start
+    # enable_ingres_on_minikube
+    # setup_cert_manager
+    # app_start
+    upload_initial_users
 }
 
 main

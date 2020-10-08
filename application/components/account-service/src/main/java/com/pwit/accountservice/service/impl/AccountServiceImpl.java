@@ -87,8 +87,8 @@ public class AccountServiceImpl implements AccountService {
                                                              Integer firstResult,
                                                              Integer maxResults) {
         return userRepository.
-                findAllByAccountTypeEqualsAndDoctorInfoSpecializationContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
-                        AccountType.DOCTOR,search, search, search);
+                findByAccountTypeEqualsAndDoctorInfoNotNullAndDoctorInfoSpecializationContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
+                        AccountType.DOCTOR, search, search, search);
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {
