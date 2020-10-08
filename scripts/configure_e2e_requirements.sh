@@ -20,5 +20,9 @@ function install_dependencies {
     pip3 install .
 }
 
-assert_python3_command_exists
-install_dependencies
+function main {
+    assert_python3_command_exists
+    install_dependencies
+}
+
+main

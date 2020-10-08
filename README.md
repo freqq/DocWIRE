@@ -59,7 +59,13 @@ In order to run this application you need to install:
 - Helm >3.1.1
 
 ### Starting local *minikube* Kuberentes cluster
-In order to run application in development profile execute:
+In order to run application in development profile, first you need to mount *frontend* component files to **Kubernetes cluster** with command below:
+
+```sh
+$ minikube mount application/components/frontend:/frontend/src
+```
+
+Then in another terminal window execute:
 
 ```sh
 $ cd scripts && ./start.sh
@@ -76,3 +82,28 @@ $ cd scripts && ./run_monitoring_tools.sh
 ```
 
 You can reach Grafana and Prometheus at URLs logged at the end of start script.
+
+## Starting selenium E2E tests
+
+In order to be able to run E2E tests, first you need to configure your environment with command below:
+
+```sh
+$ cd scripts && ./configure_e2e_requirements.sh
+```
+
+Then you can run script with given parameters:
+
+| Parameter      | Description |
+| -------------- | ------------- |
+| --due-to       | Sets period of tests execution. [s, m, h, d]  |
+| --test-filter  | Filter tests to run |
+| --test-exclude | Tests to skip |
+| --stop-on-fail | Stop tests execution after first failed test |
+| --browser      | Browser to tests |
+| --seed         | Seed used to shuffle tests |
+
+To run script run command below with chosen parameters:
+
+```sh
+$ cd scripts && ./run_e2e_tests.sh
+```
