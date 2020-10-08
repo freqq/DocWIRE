@@ -36,12 +36,12 @@ DevOps:
 
 ### Functional services
 - *account-service* - handle user details
-- *auth-service* - authentication service (**Keycloak** wrapper)
-- *notifications-service* - user notifications
 - *appointments-service* - appointments CRUD and vide call service (**OpenVidu** wrapper)
-- *messages-service* - user messages connected with RabbitMQ
-- *payment-service* - service to handle payments
+- *auth-service* - authentication service (**Keycloak** wrapper)
 - *frontend* - user interface
+- *messages-service* - user messages connected with RabbitMQ
+- *notifications-service* - user notifications
+- *payment-service* - service to handle payments
 
 ### Utils services
 - *Grafana* - multi-platform open source analytics and interactive visualization web application
