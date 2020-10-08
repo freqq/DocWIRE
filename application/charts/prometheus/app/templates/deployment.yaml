@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+  namespace: monitoring
+spec:
+  replicas: {{ .Values.profile.prometheus.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus/"
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: {{ .Values.config.prometheus.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.prometheus.readinessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.prometheus.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.prometheus.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.prometheus.readinessProbe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: {{ .Values.config.prometheus.port }}
+              scheme: HTTP
+            timeoutSeconds: {{ .Values.healthCheck.prometheus.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.prometheus.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.prometheus.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.prometheus.livenessProbe.failureThreshold }}
+          ports:
+            - containerPort: {{ .Values.config.prometheus.port }}
+          volumeMounts:
+            - name: {{ .Chart.Name }}-cm-volume
+              mountPath: /etc/prometheus/
+            - name: {{ .Chart.Name }}-pvc-volume
+              mountPath: /prometheus/
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+      volumes:
+        - name: {{ .Chart.Name }}-cm-volume
+          configMap:
+            defaultMode: 420
+            name: {{ .Chart.Name }}-cm
+        - name: {{ .Chart.Name }}-pvc-volume
+          persistentVolumeClaim:
+              claimName: {{ .Chart.Name }}-pvc

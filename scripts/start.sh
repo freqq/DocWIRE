@@ -107,9 +107,9 @@ function main() {
     # mount_frontend
     # build_custom_images
 
-    # enable_ingres_on_minikube
-    # setup_cert_manager
-    # app_start
+    enable_ingres_on_minikube
+    setup_cert_manager
+    app_start
     upload_initial_users
 }
 

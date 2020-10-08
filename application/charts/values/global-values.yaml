@@ -45,6 +45,14 @@ config:
   openviduRedis:
     hostname: openvidu-redis
     port: 6379
+  prometheus:
+    hostname: prometheus
+    port: 9090
+    nodePort: 32000
+  grafana:
+    hostname: grafana
+    port: 3000
+    nodePort: 31000
 
 securityContext:
   user:

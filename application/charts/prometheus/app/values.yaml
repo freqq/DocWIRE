@@ -1,0 +1,17 @@
+image:
+  registry: prom
+  name: prometheus
+  tag: v2.21.0
+
+healthCheck:
+  prometheus:
+    readinessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 1
+      failureThreshold: 10
+      periodSeconds: 5
+    livenessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 1
+      failureThreshold: 10
+      periodSeconds: 5

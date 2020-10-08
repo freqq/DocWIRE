@@ -1,0 +1,17 @@
+image:
+  registry: grafana
+  name: grafana
+  tag: 7.2.1
+
+healthCheck:
+  grafana:
+    readinessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 1
+      failureThreshold: 10
+      periodSeconds: 5
+    livenessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 1
+      failureThreshold: 10
+      periodSeconds: 5

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.profile.grafana.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        ports:
+          - containerPort: {{ .Values.config.grafana.port }}
+        livenessProbe:
+            httpGet:
+                path: /api/health
+                port: {{ .Values.config.grafana.port }}
+            timeoutSeconds: {{ .Values.healthCheck.grafana.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.grafana.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.grafana.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.grafana.livenessProbe.failureThreshold }}
+        readinessProbe:
+            httpGet:
+                path: /api/health
+                port: {{ .Values.config.grafana.port }}
+            timeoutSeconds: {{ .Values.healthCheck.grafana.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.grafana.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.grafana.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.grafana.livenessProbe.failureThreshold }}
+        env:
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: pass
+        volumeMounts:
+          - name: {{ .Chart.Name }}-pvc-volume
+            mountPath: /var/lib/grafana
+        resources:
+          limits:
+            cpu: 300m
+            memory: 200Mi
+          requests:
+            cpu: 300m
+            memory: 200Mi
+      volumes:
+        - name: {{ .Chart.Name }}-pvc-volume
+          persistentVolumeClaim:
+            claimName: {{ .Chart.Name }}-pvc
