@@ -23,38 +23,46 @@ Databases:
 - PostgreSQL
 - MongoDB
 
+Building:
+- Yarn
+- Node
+- Gradle
+
 DevOps:
-- Kubernetes
 - Docker
+- Helm
+- Kubernetes
 - Ansible
 
 ### Functional services
-- *account-service* (**8080**) - handle user details
-- *auth-service* (**8081**) - authentication service
-- *notifications-service* (**8082**)- user notifications
-- *appointments-service* (**8083**) - appointments CRUD
-- *video-conversation-service* (**8084**) - **OpenVidu** wrapper
-- *messages-service* (**8085**) - user messages
-- *payment-service* (**8086**)- service to handle payments
-- *frontend* (**9040**)- user interface
+- *account-service* - handle user details
+- *auth-service* - authentication service (**Keycloak** wrapper)
+- *notifications-service* - user notifications
+- *appointments-service* - appointments CRUD and vide call service (**OpenVidu** wrapper)
+- *messages-service* - user messages connected with RabbitMQ
+- *payment-service* - service to handle payments
+- *frontend* - user interface
 
 ### Utils services
-- *Grafana* (**9080**) - multi-platform open source analytics and interactive visualization web application
-- *Prometheus* (**9081**) - software application used for event monitoring and alerting
-- *rabbit-mq* (**5672**) - queue for *messages-service* and *messages-service*
+- *Grafana* - multi-platform open source analytics and interactive visualization web application
+- *Prometheus* - software application used for event monitoring and alerting
+- *rabbit-mq* - queue for *messages-service* and *messages-service*
 
 ### Prerequisites
-In order to install needed packages you need to execute script to add an entry in /etc/hosts file.
+In order to run this application you need to install:
 
-```sh
-$ cd scripts && ./configure_linux.sh
-```
+- minikube >1.6.2
+- kubectl >1.17.0
+- Node >12.18.2
+- yarn >1.22.4
+- Gradle >6.5.1
+- Helm >3.1.1
 
-### Starting local docker compose
+### Starting local *minikube* Kuberentes cluster
 In order to run application in development profile execute:
 
 ```sh
-$ cd scripts && ./start_docker_compose.sh
+$ cd scripts && ./start.sh
 ```
 
-You can reach a website on http://docwire.test:9040
+You can reach a website at URL logged at the end of start script.

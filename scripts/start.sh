@@ -100,6 +100,7 @@ function app_start() (
 
     cd -
     log_info "DocWIRE started."
+    log_info "GUI reachable at: https://${MINIKUBE_IP}"
 )
 
 function main() {
