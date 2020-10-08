@@ -100,7 +100,6 @@ function app_start() (
     ./gradlew charts:frontend:appInstall
 
     cd -
-
 )
 
 function main() {
