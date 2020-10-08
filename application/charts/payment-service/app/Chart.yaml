@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Payment Service
+name: payment-service
+version: 1.0.0

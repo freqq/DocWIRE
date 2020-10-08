@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.profile.notificationsService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.securityContext.user.runAsUser | default 985 }}
+        fsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsNonRoot: {{ .Values.securityContext.user.runAsNonRoot | default true }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: https-port
+              containerPort: {{ .Values.config.notificationsService.port }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.notificationsService.port }}
+              scheme: HTTPS
+            timeoutSeconds: {{ .Values.healthCheck.notificationsService.readinessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.notificationsService.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.notificationsService.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.notificationsService.readinessProbe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.notificationsService.port }}
+              scheme: HTTPS
+            timeoutSeconds: {{ .Values.healthCheck.notificationsService.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.notificationsService.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.healthCheck.notificationsService.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.healthCheck.notificationsService.livenessProbe.periodSeconds }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Chart.Name }}-cm

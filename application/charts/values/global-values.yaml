@@ -31,6 +31,18 @@ config:
   appointmentsDb:
     hostname: appointments-db
     port: 27017
+  paymentService:
+    hostname: payment-service
+    port: 8447
+  paymentDb:
+    hostname: payment-db
+    port: 27017
+  notificationsService:
+    hostname: notifications-service
+    port: 8448
+  notificationsDb:
+    hostname: notifications-db
+    port: 27017
   rabbitMq:
     hostname: rabbit-mq
     port: 5672

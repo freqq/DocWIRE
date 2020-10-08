@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Notifications Service Database
+name: notifications-db
+version: 1.0.0

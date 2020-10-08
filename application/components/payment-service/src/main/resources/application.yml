@@ -1,0 +1,39 @@
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: password
+    key-store-type: pkcs12
+    key-alias: tomcat
+    key-password: password
+  port: 8447
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MontoTemplate: INFO
+    ROOT: INFO
+    com.pwit: INFO
+    jdk.eventsecurity: INFO
+
+spring:
+  profiles:
+    active: dev
+    include:
+      - swagger
+  application:
+    name: payment-service
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      uri: ${MONGO_URL}
+
+keycloak:
+  enabled: true
+  realm: master
+  resource: payment-service
+  principal-attribute: preferred_username
+  bearer-only: true
+  ssl-required: external
+  auth-server-url: https://${MINIKUBE_IP}/auth
+  disable-trust-manager: true

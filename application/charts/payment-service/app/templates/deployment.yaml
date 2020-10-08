@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.profile.paymentService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.securityContext.user.runAsUser | default 985 }}
+        fsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsGroup: {{ .Values.securityContext.user.group | default 985 }}
+        runAsNonRoot: {{ .Values.securityContext.user.runAsNonRoot | default true }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: https-port
+              containerPort: {{ .Values.config.paymentService.port }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.paymentService.port }}
+              scheme: HTTPS
+            timeoutSeconds: {{ .Values.healthCheck.paymentService.readinessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.paymentService.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.paymentService.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.healthCheck.paymentService.readinessProbe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.config.paymentService.port }}
+              scheme: HTTPS
+            timeoutSeconds: {{ .Values.healthCheck.paymentService.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.healthCheck.paymentService.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.healthCheck.paymentService.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.healthCheck.paymentService.livenessProbe.periodSeconds }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Chart.Name }}-cm
