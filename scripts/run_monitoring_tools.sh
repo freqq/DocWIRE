@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source common/logger.sh
+source common/constants.sh
 
 set -e
 
@@ -18,6 +19,8 @@ function app_start() {
     ./gradlew charts:grafana:appInstall
 
     log_info "Monitoring tools started."
+    log_info "Grafana available at: http://${MINIKUBE_IP}:31000"
+    log_info "Prometheus available at: http://${MINIKUBE_IP}:32000"
 }
 
 function main() {

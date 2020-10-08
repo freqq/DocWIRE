@@ -7,7 +7,17 @@ task removeApp(type: Exec) {
     ignoreExitValue = true
 }
 
-task waitForAppRemove(type: Exec, dependsOn: removeApp) {
+task removeClusterRole(type: Exec, dependsOn: removeApp) {
+    commandLine 'bash', '-c', "kubectl delete clusterrole ${project.name}"
+    ignoreExitValue = true
+}
+
+task removeClusterRoleBinding(type: Exec, dependsOn: removeClusterRole) {
+    commandLine 'bash', '-c', "kubectl delete clusterrolebinding ${project.name}-crb"
+    ignoreExitValue = true
+}
+
+task waitForAppRemove(type: Exec, dependsOn: removeClusterRoleBinding) {
     commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.monitoringNamespace} && " +
             "waitForPodDelete ${project.name}"
 }

@@ -36,12 +36,12 @@ spec:
             initialDelaySeconds: {{ .Values.healthCheck.grafana.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.grafana.livenessProbe.periodSeconds }}
             failureThreshold: {{ .Values.healthCheck.grafana.livenessProbe.failureThreshold }}
-        env:
-          - name: GF_SECURITY_ADMIN_PASSWORD
-            value: pass
         volumeMounts:
           - name: {{ .Chart.Name }}-pvc-volume
             mountPath: /var/lib/grafana
+          - name: {{ .Chart.Name }}-datasources
+            mountPath: /etc/grafana/provisioning/datasources
+            readOnly: false
         resources:
           limits:
             cpu: 300m
@@ -53,3 +53,7 @@ spec:
         - name: {{ .Chart.Name }}-pvc-volume
           persistentVolumeClaim:
             claimName: {{ .Chart.Name }}-pvc
+        - name: {{ .Chart.Name }}-datasources
+          configMap:
+              defaultMode: 420
+              name: {{ .Chart.Name }}-datasources

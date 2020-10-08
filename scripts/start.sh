@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source common/logger.sh
+source common/constants.sh
 
 set -e
 
@@ -99,8 +100,7 @@ function app_start() (
     ./gradlew charts:frontend:appInstall
 
     cd -
-    log_info "DocWIRE started."
-    log_info "GUI reachable at: https://${MINIKUBE_IP}"
+
 )
 
 function main() {
@@ -111,6 +111,9 @@ function main() {
     setup_cert_manager
     app_start
     upload_initial_users
+
+    log_info "DocWIRE started."
+    log_info "GUI reachable at: https://${MINIKUBE_IP}"
 }
 
 main

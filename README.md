@@ -66,3 +66,14 @@ $ cd scripts && ./start.sh
 ```
 
 You can reach a website at URL logged at the end of start script.
+
+## Starting monitoring services
+
+In order to run application in development profile execute:
+
+```sh
+$ cd scripts && ./run_monitoring_tools.sh
+```
+
+You can reach Grafana and Prometheus at URLs logged at the end of start script.
+
