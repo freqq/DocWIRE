@@ -7,7 +7,7 @@ source common/logger.sh
 
 function create_users() {
     log_info "Starting to create users..."
-    
+
     for (( i=0; i  < ${#EMAILS[@]}; ++i )); do
         log_info "Creating user with username ${USERNAMES[i]}"
 

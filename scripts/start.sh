@@ -63,6 +63,7 @@ function build_custom_images() {
 }
 
 function upload_initial_users() {
+    sh ./keycloak_partial_import.sh
     sh ./upload_initial_data.sh
 }
 
