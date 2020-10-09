@@ -1,0 +1,16 @@
+image:
+  name: sonarqube
+  tag: 7.9.1-community
+
+healthCheck:
+  sonarqube:
+    readinessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 0
+      failureThreshold: 5
+      periodSeconds: 5
+    livenessProbe:
+      timeoutSeconds: 5
+      initialDelaySeconds: 180
+      failureThreshold: 5
+      periodSeconds: 5

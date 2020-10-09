@@ -129,3 +129,24 @@ profile:
           memory: 2Gi
           cpu: 300m
   
+    sonarqube:
+      replicas: 1
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 300m
+        limits:
+          memory: 2Gi
+          cpu: 300m
+  
+  
+    sonarqubeDb:
+      replicas: 1
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 300m
+        limits:
+          memory: 2Gi
+          cpu: 300m
+  

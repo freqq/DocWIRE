@@ -65,6 +65,13 @@ config:
     hostname: grafana
     port: 3000
     nodePort: 31000
+  sonarqube:
+    hostname: sonarqube
+    port: 9000
+    nodePort: 31500
+  sonarqubeDb:
+    hostname: sonarqube-db
+    port: 5432
 
 securityContext:
   user:

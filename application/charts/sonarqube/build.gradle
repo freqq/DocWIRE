@@ -1,0 +1,33 @@
+description 'sonarqube'
+
+apply from: "$configurationDir/k8s.gradle"
+
+task removeApp(type: Exec) {
+    commandLine 'bash', '-c', "helm del ${project.name} -n ${project.ext.sonarqubeNamespace}"
+    ignoreExitValue = true
+}
+
+task waitForAppRemove(type: Exec, dependsOn: removeApp) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.sonarqubeNamespace} && " +
+            "waitForPodDelete ${project.name}"
+}
+
+task helmInstall(type: Exec, dependsOn: removeApp) {
+    commandLine 'helm', 'install',
+            "${project.name}",
+            "${projectDir}/app/",
+            '--values', "${globalValues}",
+            '--values', "${project.ext.componentValues}",
+            '--values', "${configurationProfile}",
+            '--values', "${resourcesProfile}",
+            '--namespace', "${project.ext.sonarqubeNamespace}",
+            '--set', "minikubeIp=${project.minikubeIp}",
+            '--set', "image.pullPolicy=Always"
+}
+
+task waitForInstall(type: Exec, dependsOn: helmInstall) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.sonarqubeNamespace} && " +
+            "waitForReadyPod ${project.name}"
+}
+
+appInstall.dependsOn waitForInstall

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Chart.Name }}
+  template:
+    metadata:
+      name: {{ .Chart.Name }}
+      labels:
+        name: {{ .Chart.Name }}
+    spec:
+      containers:
+        - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          name: {{ .Chart.Name }}
+          env:
+            - name: SONARQUBE_JDBC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sonarqube-secret
+                  key: password
+            - name: SONARQUBE_JDBC_URL
+              value: jdbc:postgresql://{{ .Values.config.sonarqubeDb.hostname }}-svc:{{ .Values.config.sonarqubeDb.port }}/sonar
+          ports:
+            - containerPort: {{ .Values.config.sonarqube.port }}
+          resources:
+            requests:
+              memory: 2000Mi
+            limits:
+              memory: 2000Mi
+      initContainers:
+        - name: sysctl
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ['sysctl', '-w', 'vm.max_map_count=262144']
+          securityContext:
+            privileged: true

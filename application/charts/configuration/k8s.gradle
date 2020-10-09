@@ -1,8 +1,10 @@
 project.ext {
     functionsScript = "${rootProject.rootDir}/../deployment/functions.sh"
     componentValues = "${project.rootDir}/charts/${project.name}/app/values.yaml"
+
     appNamespace = 'docwire'
     monitoringNamespace = 'monitoring'
+    sonarqubeNamespace = 'sonarqube'
     certManagerNamespace = 'cert-manager'
 }
 

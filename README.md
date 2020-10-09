@@ -47,6 +47,7 @@ DevOps:
 - *Grafana* - multi-platform open source analytics and interactive visualization web application
 - *Prometheus* - software application used for event monitoring and alerting
 - *rabbit-mq* - queue for *messages-service* and *messages-service*
+- *sonarqube* - static code analysis
 
 ### Prerequisites
 In order to run this application you need to install:
@@ -60,6 +61,8 @@ In order to run this application you need to install:
 - Gradle > v6.5.1
 - Helm > v3.1.1
 - mkcert > v1.4.1
+- openssl > v2.8.3
+- sonar-scanner > v4.5.0
 
 ### Starting local *minikube* Kuberentes cluster
 In order to run application in development profile, first you need to mount *frontend* component files to **Kubernetes cluster** with command below:
@@ -110,3 +113,19 @@ To run script run command below with chosen parameters:
 ```sh
 $ cd scripts/e2e && ./run_e2e_tests.sh
 ```
+
+## Analyzing sonarqube analysis
+
+In order to deploy *sonarqube* on run command below:
+
+```sh
+$ cd scripts/sonar && ./start_sonar.sh
+```
+
+It creates two pods with sonarqube and its database - PostreSQL. To analyze the code run command: 
+
+```sh
+$ cd scripts/sonar && ./run_sonnar_scanner.sh
+```
+
+This command analyze **application/components** directory and sends data to *sonarqube* available at URL printed on the end of start script.
