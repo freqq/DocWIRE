@@ -107,6 +107,8 @@ const DateList = styled.div.attrs({ className: 'date-list' })`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  margin: 0 auto;
+  width: 70%;
 `;
 
 const Week = styled.ul.attrs({ className: 'week' })`
@@ -179,11 +181,13 @@ const getCurrentWeekDays = () => {
   const currentDayPlusOne = moment().add(1, 'd');
   const lastDayOfWeek = moment().endOf('week').isoWeekday(1);
 
-  if (currentDayPlusOne.day() === 1) {
-    return getNextWeekDays();
-  }
+  if (currentDayPlusOne.day() === 1) return getNextWeekDays();
 
-  if (currentDayPlusOne.day() === lastDayOfWeek.day()) return currentDayPlusOne;
+  if (currentDayPlusOne.day() === lastDayOfWeek.day())
+    return {
+      name: SHORT_WEEK_DAYS_NAMES[currentDayPlusOne.day() - 1],
+      number: currentDayPlusOne.day(),
+    };
 
   const daysDiff = currentDayPlusOne.diff(lastDayOfWeek, 'd');
   const restDaysArray = [];
@@ -223,9 +227,12 @@ const PickAppointmentDate = ({
 }) => {
   useEffect(() => {
     getNextWeekDays();
+
+    console.log('DUPA');
+    console.log(moment().add(1, 'd').day());
   }, []);
 
-  const isFollowingDayNextWeek = moment().add(1, 'd').day() === 1;
+  const isFollowingDayNextWeek = moment().add(1, 'd').day() === 0;
 
   return (
     <GenericStep
@@ -241,7 +248,9 @@ const PickAppointmentDate = ({
               {getCurrentWeekDays().map(day => (
                 <Day
                   onClick={() => setPickedDate(day)}
-                  style={day === pickedDate ? PICKED_BUTTON_STYLE : null}
+                  style={
+                    pickedDate && day.number === pickedDate.number ? PICKED_BUTTON_STYLE : null
+                  }
                 >
                   <TimeBottom>{day.name}</TimeBottom>
                   <TimeTop>{day.number}</TimeTop>
@@ -252,7 +261,9 @@ const PickAppointmentDate = ({
               {getNextWeekDays(isFollowingDayNextWeek).map(day => (
                 <Day
                   onClick={() => setPickedDate(day)}
-                  style={day === pickedDate ? PICKED_BUTTON_STYLE : null}
+                  style={
+                    pickedDate && day.number === pickedDate.number ? PICKED_BUTTON_STYLE : null
+                  }
                 >
                   <TimeBottom>{day.name}</TimeBottom>
                   <TimeTop>{day.number}</TimeTop>
@@ -274,7 +285,7 @@ const PickAppointmentDate = ({
                 <TimeButtonsWrapper>
                   {time.array.map(button => (
                     <TimeButton
-                      onClick={() => setPickedTime(time)}
+                      onClick={() => setPickedTime(button)}
                       style={button === pickedTime ? PICKED_BUTTON_STYLE : null}
                     >
                       <TimeTop>{button}</TimeTop>

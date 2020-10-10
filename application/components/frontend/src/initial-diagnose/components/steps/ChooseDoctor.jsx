@@ -231,34 +231,36 @@ const ChooseDoctor = ({
             {shouldShowEntriesCount() && (
               <FoundEntries>{`${getEntriesCount()} entries found`}</FoundEntries>
             )}
-            <DoctorsList>
-              {doctorsList !== undefined &&
-                doctorsList.map(doctor => (
-                  <DoctorsListItem key={doctor.id} onClick={onDoctorClick}>
-                    <UserCircle>{getCircleText(doctor.firstName, doctor.lastName)}</UserCircle>
-                    <DoctorData>
-                      <Name>{getFullName(doctor.firstName, doctor.lastName)}</Name>
-                      <Title>{doctor.doctorInfo.specialization}</Title>
-                      <Rating>
-                        <StarsRating rating={doctor.rating} id={doctor.id} />
-                        <RatingCount>{`${doctor.ratingCount} reviews`}</RatingCount>
-                      </Rating>
-                      <ListOfItems>
-                        {LIST_OF_ITEMS.map(item => (
-                          <ItemElement id={item.id}>
-                            <Icon src={item.icon} alt="item-icon" />
-                            <Text>{item.text}</Text>
-                          </ItemElement>
-                        ))}
-                      </ListOfItems>
-                    </DoctorData>
-                    <BookAppointment>
-                      <Price>{`${doctor.doctorInfo.price}$`}</Price>
-                      <ScheduleButton onClick={onDoctorClick}>Schedule video call</ScheduleButton>
-                    </BookAppointment>
-                  </DoctorsListItem>
-                ))}
-            </DoctorsList>
+            {searchValue.length > 0 && (
+              <DoctorsList>
+                {doctorsList !== undefined &&
+                  doctorsList.map(doctor => (
+                    <DoctorsListItem key={doctor.id} onClick={onDoctorClick}>
+                      <UserCircle>{getCircleText(doctor.firstName, doctor.lastName)}</UserCircle>
+                      <DoctorData>
+                        <Name>{getFullName(doctor.firstName, doctor.lastName)}</Name>
+                        <Title>{doctor.doctorInfo.specialization}</Title>
+                        <Rating>
+                          <StarsRating rating={doctor.rating} id={doctor.id} />
+                          <RatingCount>{`${doctor.ratingCount} reviews`}</RatingCount>
+                        </Rating>
+                        <ListOfItems>
+                          {LIST_OF_ITEMS.map(item => (
+                            <ItemElement id={item.id}>
+                              <Icon src={item.icon} alt="item-icon" />
+                              <Text>{item.text}</Text>
+                            </ItemElement>
+                          ))}
+                        </ListOfItems>
+                      </DoctorData>
+                      <BookAppointment>
+                        <Price>{`${doctor.doctorInfo.price}$`}</Price>
+                        <ScheduleButton onClick={onDoctorClick}>Schedule video call</ScheduleButton>
+                      </BookAppointment>
+                    </DoctorsListItem>
+                  ))}
+              </DoctorsList>
+            )}
           </>
         )}
       </DoctorSearch>

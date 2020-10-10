@@ -7,7 +7,7 @@ Web application used to consult a family doctor using online videoconferences in
 Technologies:
 - Java 11
 - JavaScript
-- Python 3
+- Python 3.6
 
 Frameworks:
 - Spring Boot 2.3 
@@ -32,7 +32,7 @@ DevOps:
 - Docker
 - Helm
 - Kubernetes
-- Ansible
+- Ansible (?)
 
 ### Functional services
 - *account-service* - handle user details

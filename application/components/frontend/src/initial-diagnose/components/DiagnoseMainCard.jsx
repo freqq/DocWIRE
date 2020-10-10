@@ -96,6 +96,8 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
 
   const isRegionsBlocked = () => visitedRegions.length === 0;
 
+  const isPickAppointmentsDateBlocked = () => pickedDate === null || pickedTime === null;
+
   const setSurveyObjectAndSend = surv => {
     setSurveyObject(surv);
     sendDiagnose();
@@ -120,6 +122,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
                 isQuickSurveyBlocked={isQuickSurveyBlocked}
                 isSymptomsBlocked={isSymptomsBlocked}
                 isRegionsBlocked={isRegionsBlocked}
+                isPickAppointmentsDateBlocked={isPickAppointmentsDateBlocked}
               />
             }
           >

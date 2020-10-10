@@ -53,11 +53,11 @@ profile:
       replicas: 1
       resources:
         requests:
-          memory: 2Gi
-          cpu: 300m
+          memory: 3Gi
+          cpu: 1.2m
         limits:
-          memory: 2Gi
-          cpu: 300m
+          memory: 3Gi
+          cpu: 1.2m
   
     messagesDb:
       replicas: 1

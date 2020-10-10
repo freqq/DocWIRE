@@ -49,6 +49,7 @@ const MainCardFooter = ({
   isQuickSurveyBlocked,
   isSymptomsBlocked,
   isRegionsBlocked,
+  isPickAppointmentsDateBlocked,
 }) => {
   const goForward = () => {
     setCurrentStepNumber(currentStep + 1);
@@ -66,21 +67,25 @@ const MainCardFooter = ({
 
   const shouldBlockVisitedRegions = () => currentStep === 4 && isRegionsBlocked();
 
-  if (currentStep === 6) return null;
+  const shouldBlocckPickAppointmentDate = () =>
+    currentStep === 7 && isPickAppointmentsDateBlocked();
 
   return (
     <MainCardFooterWrapper>
-      {currentStep !== 5 && (
+      {currentStep !== 5 && currentStep !== 6 && (
         <NextStepButton
           onClick={goForward}
           disabled={
-            shouldBlockQuickSurvey() || shouldBlockSymptoms() || shouldBlockVisitedRegions()
+            shouldBlockQuickSurvey() ||
+            shouldBlockSymptoms() ||
+            shouldBlockVisitedRegions() ||
+            shouldBlocckPickAppointmentDate()
           }
         >
           Next step &gt;
         </NextStepButton>
       )}
-      {currentStep !== 1 && currentStep !== 6 && (
+      {currentStep !== 1 && (
         <PreviousStepButton onClick={goBack}>&lt; Previous step</PreviousStepButton>
       )}
     </MainCardFooterWrapper>
@@ -101,6 +106,7 @@ MainCardFooter.propTypes = {
   isQuickSurveyBlocked: PropTypes.func.isRequired,
   isSymptomsBlocked: PropTypes.func.isRequired,
   isRegionsBlocked: PropTypes.func.isRequired,
+  isPickAppointmentsDateBlocked: PropTypes.func.isRequired,
 };
 
 export default MainCardFooter;
