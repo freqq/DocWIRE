@@ -23,7 +23,7 @@ const LastSurvey = ({
   const [thirdAnswer, setThirdAnswer] = useState(null);
   const [fourthAnswer, setFourthAnswer] = useState(null);
 
-  const constructSurveyObject = () => [
+  const constructSurveyObject = forthAnsw => [
     {
       question: CHOSEN_QUESTIONS[0].question,
       answer: firstAnswer,
@@ -38,7 +38,7 @@ const LastSurvey = ({
     },
     {
       question: CHOSEN_QUESTIONS[3].question,
-      answer: fourthAnswer,
+      answer: forthAnsw,
     },
   ];
 
@@ -59,7 +59,7 @@ const LastSurvey = ({
 
   const answerFourth = answer => {
     setFourthAnswer(answer);
-    setSurveyObject(constructSurveyObject());
+    setSurveyObject(constructSurveyObject(answer));
     setCurrentStepNumber(currentStep + 1);
     nextStep();
   };

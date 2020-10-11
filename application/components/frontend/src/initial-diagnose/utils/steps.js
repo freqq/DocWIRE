@@ -38,7 +38,13 @@ export default [
   {
     number: 7,
     name: 'Pick an appointment date',
-    description: 'Choose about the time you meet.',
+    description: 'Choose the time you meet.',
     url: 'choose-day',
+  },
+  {
+    number: 8,
+    name: 'Appointment sum up',
+    description: 'Sum up of your diagnose process.',
+    url: 'sum-up',
   },
 ];

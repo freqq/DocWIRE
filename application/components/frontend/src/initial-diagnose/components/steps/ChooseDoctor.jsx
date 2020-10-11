@@ -235,7 +235,7 @@ const ChooseDoctor = ({
               <DoctorsList>
                 {doctorsList !== undefined &&
                   doctorsList.map(doctor => (
-                    <DoctorsListItem key={doctor.id} onClick={onDoctorClick}>
+                    <DoctorsListItem key={doctor.userId} onClick={() => onDoctorClick(doctor)}>
                       <UserCircle>{getCircleText(doctor.firstName, doctor.lastName)}</UserCircle>
                       <DoctorData>
                         <Name>{getFullName(doctor.firstName, doctor.lastName)}</Name>

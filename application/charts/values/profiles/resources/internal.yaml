@@ -54,10 +54,10 @@ profile:
       resources:
         requests:
           memory: 3Gi
-          cpu: 1.2m
+          cpu: 1200m
         limits:
           memory: 3Gi
-          cpu: 1.2m
+          cpu: 1200m
   
     messagesDb:
       replicas: 1

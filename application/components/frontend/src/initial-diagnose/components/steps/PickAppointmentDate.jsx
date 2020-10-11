@@ -120,7 +120,7 @@ const Week = styled.ul.attrs({ className: 'week' })`
 
 const Day = styled.li.attrs({ className: 'day' })`
   margin: 0 10px 0 0;
-  padding: 10px;
+  padding: 10px 5px;
   border: 1px solid #f0f0f0;
   text-align: center;
   border-radius: 4px;
@@ -225,14 +225,7 @@ const PickAppointmentDate = ({
   pickedTime,
   setPickedTime,
 }) => {
-  useEffect(() => {
-    getNextWeekDays();
-
-    console.log('DUPA');
-    console.log(moment().add(1, 'd').day());
-  }, []);
-
-  const isFollowingDayNextWeek = moment().add(1, 'd').day() === 0;
+  const isFollowingDayNextWeek = moment().add(1, 'd').day() === 1;
 
   return (
     <GenericStep
@@ -247,7 +240,7 @@ const PickAppointmentDate = ({
             <Week>
               {getCurrentWeekDays().map(day => (
                 <Day
-                  onClick={() => setPickedDate(day)}
+                  onClick={() => setPickedDate(day.number)}
                   style={
                     pickedDate && day.number === pickedDate.number ? PICKED_BUTTON_STYLE : null
                   }
@@ -260,7 +253,7 @@ const PickAppointmentDate = ({
             <Week>
               {getNextWeekDays(isFollowingDayNextWeek).map(day => (
                 <Day
-                  onClick={() => setPickedDate(day)}
+                  onClick={() => setPickedDate(day.number)}
                   style={
                     pickedDate && day.number === pickedDate.number ? PICKED_BUTTON_STYLE : null
                   }

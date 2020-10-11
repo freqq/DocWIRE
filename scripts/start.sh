@@ -87,7 +87,7 @@ function app_start() (
 
     cd ${SOURCE_DIR}/../application
 
-    ./gradlew charts:namespace:appInstall
+    # ./gradlew charts:namespace:appInstall
 
     ./gradlew charts:auth-db:appInstall
     ./gradlew charts:auth-service:appInstall
@@ -128,8 +128,8 @@ function main() {
     # mount_frontend
     # build_custom_images
 
-    enable_ingres_on_minikube
-    setup_cert_manager
+    # enable_ingres_on_minikube
+    # setup_cert_manager
     app_start
     upload_initial_users
 

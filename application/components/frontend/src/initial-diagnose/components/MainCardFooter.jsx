@@ -50,10 +50,16 @@ const MainCardFooter = ({
   isSymptomsBlocked,
   isRegionsBlocked,
   isPickAppointmentsDateBlocked,
+  sendDiagnose,
 }) => {
   const goForward = () => {
     setCurrentStepNumber(currentStep + 1);
     nextStep();
+  };
+
+  const sendDiagnoseAndForward = () => {
+    sendDiagnose();
+    goForward();
   };
 
   const goBack = () => {
@@ -74,7 +80,7 @@ const MainCardFooter = ({
     <MainCardFooterWrapper>
       {currentStep !== 5 && currentStep !== 6 && (
         <NextStepButton
-          onClick={goForward}
+          onClick={currentStep === 7 ? sendDiagnoseAndForward : goForward}
           disabled={
             shouldBlockQuickSurvey() ||
             shouldBlockSymptoms() ||
@@ -106,6 +112,7 @@ MainCardFooter.propTypes = {
   isQuickSurveyBlocked: PropTypes.func.isRequired,
   isSymptomsBlocked: PropTypes.func.isRequired,
   isRegionsBlocked: PropTypes.func.isRequired,
+  sendDiagnose: PropTypes.func.isRequired,
   isPickAppointmentsDateBlocked: PropTypes.func.isRequired,
 };
 

@@ -1,4 +1,4 @@
-package com.pwit.appointmentsservice.dto;
+package com.pwit.appointmentsservice.dto.request;
 
 import io.openvidu.java.client.OpenViduRole;
 import lombok.Data;

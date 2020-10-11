@@ -1,12 +1,16 @@
+/* eslint-disable prefer-template */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import StepWizard from 'react-step-wizard';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
 import DiagnoseFooter from 'initial-diagnose/components/DiagnoseFooter';
+
+import { getCurrentYear, getCurrentMonth } from 'common/utils/date_utils';
 
 import Introduction from 'initial-diagnose/components/steps/Introduction';
 import QuickSurvey from 'initial-diagnose/components/steps/QuickSurvey';
@@ -15,6 +19,7 @@ import VisitedRegions from 'initial-diagnose/components/steps/VisitedRegions';
 import LastSurvey from 'initial-diagnose/components/steps/LastSurvey';
 import ChooseDoctor from 'initial-diagnose/components/steps/ChooseDoctor';
 import PickAppointmentDate from 'initial-diagnose/components/steps/PickAppointmentDate';
+import Sumup from 'initial-diagnose/components/steps/Sumup';
 import mainLogo from 'images/main_logo.svg';
 
 import 'initial-diagnose/components/styles/DiagnoseMainCard.css';
@@ -71,6 +76,10 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
   const [pickedTime, setPickedTime] = useState(null);
 
   const sendDiagnose = () => {
+    const chosenDate = getCurrentYear() + '-' + getCurrentMonth() + '-' + pickedDate;
+    const dateFormat = chosenDate + ' ' + pickedTime;
+    const appointmentDate = moment(dateFormat);
+
     const diagnoseObject = {
       quickSurvey: {
         smokeCigarete,
@@ -81,6 +90,8 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
       chosenSymptoms,
       visitedRegions,
       surveyObject,
+      doctorId: doctor.userId,
+      appointmentDate,
     };
 
     console.log(diagnoseObject);
@@ -100,7 +111,6 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
 
   const setSurveyObjectAndSend = surv => {
     setSurveyObject(surv);
-    sendDiagnose();
   };
 
   const getNamesFromVisitedRegionsAndSave = regions => {
@@ -123,6 +133,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
                 isSymptomsBlocked={isSymptomsBlocked}
                 isRegionsBlocked={isRegionsBlocked}
                 isPickAppointmentsDateBlocked={isPickAppointmentsDateBlocked}
+                sendDiagnose={sendDiagnose}
               />
             }
           >
@@ -165,6 +176,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
               pickedTime={pickedTime}
               setPickedTime={setPickedTime}
             />
+            <Sumup hashKey="sum-up" />
           </StepWizard>
         </RelativeWrapper>
       </CardWrapper>

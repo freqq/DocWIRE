@@ -1,7 +1,7 @@
 package com.pwit.appointmentsservice.controller;
 
-import com.pwit.appointmentsservice.dto.LeaveSessionRequest;
-import com.pwit.appointmentsservice.dto.SessionRequest;
+import com.pwit.appointmentsservice.dto.request.LeaveSessionRequest;
+import com.pwit.appointmentsservice.dto.request.SessionRequest;
 import com.pwit.appointmentsservice.service.OpenViduService;
 import com.pwit.common.utils.Logger;
 import lombok.RequiredArgsConstructor;
