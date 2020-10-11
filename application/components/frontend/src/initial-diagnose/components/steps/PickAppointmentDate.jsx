@@ -303,9 +303,9 @@ PickAppointmentDate.defaultProps = {
 PickAppointmentDate.propTypes = {
   currentStep: PropTypes.number,
   totalSteps: PropTypes.number,
-  pickedDate: PropTypes.instanceOf(Object).isRequired,
+  pickedDate: PropTypes.number.isRequired,
   setPickedDate: PropTypes.func.isRequired,
-  pickedTime: PropTypes.instanceOf(Object).isRequired,
+  pickedTime: PropTypes.string.isRequired,
   setPickedTime: PropTypes.func.isRequired,
 };
 

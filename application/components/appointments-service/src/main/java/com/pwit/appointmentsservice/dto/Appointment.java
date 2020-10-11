@@ -41,5 +41,5 @@ public class Appointment {
 
     @NotNull
     @Field("lastSurvey")
-    private LastSurvey lastSurvey;
+    private List<SurveyItem> lastSurvey;
 }

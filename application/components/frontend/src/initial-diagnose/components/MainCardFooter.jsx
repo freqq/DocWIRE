@@ -76,6 +76,8 @@ const MainCardFooter = ({
   const shouldBlocckPickAppointmentDate = () =>
     currentStep === 7 && isPickAppointmentsDateBlocked();
 
+  if (currentStep === 8) return null;
+
   return (
     <MainCardFooterWrapper>
       {currentStep !== 5 && currentStep !== 6 && (

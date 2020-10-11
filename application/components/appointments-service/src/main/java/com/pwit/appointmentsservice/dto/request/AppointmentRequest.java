@@ -1,9 +1,8 @@
 package com.pwit.appointmentsservice.dto.request;
 
-import com.pwit.appointmentsservice.dto.LastSurvey;
 import com.pwit.appointmentsservice.dto.QuickSurvey;
+import com.pwit.appointmentsservice.dto.SurveyItem;
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -27,5 +26,5 @@ public class AppointmentRequest {
     QuickSurvey quickSurvey;
 
     @NotNull
-    LastSurvey lastSurvey;
+    List<SurveyItem> lastSurvey;
 }

@@ -6,11 +6,13 @@ import styled from 'styled-components';
 import StepWizard from 'react-step-wizard';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
 import MainCardFooter from 'initial-diagnose/components/MainCardFooter';
 import DiagnoseFooter from 'initial-diagnose/components/DiagnoseFooter';
 
 import { getCurrentYear, getCurrentMonth } from 'common/utils/date_utils';
+import { createAppointment } from 'initial-diagnose/actions/diagnoseActions';
 
 import Introduction from 'initial-diagnose/components/steps/Introduction';
 import QuickSurvey from 'initial-diagnose/components/steps/QuickSurvey';
@@ -61,12 +63,12 @@ const DiagnoseMainLogo = styled.img.attrs({ className: 'diagnose-main-logo' })`
   }
 `;
 
-const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
+const DiagnoseMainCard = ({ setCurrentStepNumber, createAppointmentFunc }) => {
   const [chosenSymptoms, setChosenSymptoms] = useState([]);
   const [visitedRegions, setVisitedRegions] = useState([]);
   const [surveyObject, setSurveyObject] = useState([]);
 
-  const [smokeCigarete, setSmokeCigarete] = useState(null);
+  const [smokeCigarette, setSmokeCigarete] = useState(null);
   const [recentlyInjured, setRecentlyInjured] = useState(null);
   const [highCholesterol, setHighCholesterol] = useState(null);
   const [diabetes, setDiabetes] = useState(null);
@@ -82,23 +84,23 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
 
     const diagnoseObject = {
       quickSurvey: {
-        smokeCigarete,
+        smokeCigarette,
         recentlyInjured,
         highCholesterol,
         diabetes,
       },
       chosenSymptoms,
       visitedRegions,
-      surveyObject,
+      lastSurvey: surveyObject,
       doctorId: doctor.userId,
       appointmentDate,
     };
 
-    console.log(diagnoseObject);
+    createAppointmentFunc(diagnoseObject);
   };
 
   const isQuickSurveyBlocked = () =>
-    smokeCigarete === null ||
+    smokeCigarette === null ||
     recentlyInjured === null ||
     highCholesterol === null ||
     diabetes === null;
@@ -140,7 +142,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
             <Introduction hashKey="Introduction" />
             <QuickSurvey
               hashKey="quick-survey"
-              smokeCigarete={smokeCigarete}
+              smokeCigarete={smokeCigarette}
               recentlyInjured={recentlyInjured}
               highCholesterol={highCholesterol}
               diabetes={diabetes}
@@ -187,6 +189,11 @@ const DiagnoseMainCard = ({ setCurrentStepNumber }) => {
 
 DiagnoseMainCard.propTypes = {
   setCurrentStepNumber: PropTypes.func.isRequired,
+  createAppointmentFunc: PropTypes.func.isRequired,
 };
 
-export default DiagnoseMainCard;
+const mapDispatchToProps = dispatch => ({
+  createAppointmentFunc: appointmentData => dispatch(createAppointment(appointmentData)),
+});
+
+export default connect(null, mapDispatchToProps)(DiagnoseMainCard);

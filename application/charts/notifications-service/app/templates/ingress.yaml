@@ -17,4 +17,4 @@ spec:
       - backend:
           serviceName: {{ .Values.config.notificationsService.hostname }}-svc
           servicePort: {{ .Values.config.notificationsService.port }}
-        path: /api/appointments(/|$)(.*)
+        path: /api/notifications(/|$)(.*)
