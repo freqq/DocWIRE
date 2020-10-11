@@ -2,6 +2,7 @@ package com.pwit.accountservice.service.impl;
 
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
 import com.pwit.accountservice.dto.request.RegisterRequest;
+import com.pwit.accountservice.entity.PatientInfo;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.entity.enumeration.AccountType;
 import com.pwit.accountservice.error.exception.UserNotFoundException;
@@ -99,6 +100,18 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return doctors;
+    }
+
+    @Override
+    public ResponseEntity<?> setInitialDiagnoseDone(String currentUserId) {
+        User user = userRepository.findUserByUserId(currentUserId);
+        PatientInfo patientInfo = user.getPatientInfo();
+        patientInfo.setInitialDiagnoseDone(true);
+        user.setPatientInfo(patientInfo);
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok().build();
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

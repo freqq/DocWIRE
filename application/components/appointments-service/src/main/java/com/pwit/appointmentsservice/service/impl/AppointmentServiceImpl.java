@@ -2,6 +2,7 @@ package com.pwit.appointmentsservice.service.impl;
 
 import com.pwit.appointmentsservice.dto.Appointment;
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
+import com.pwit.appointmentsservice.feign.AccountService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
 import com.pwit.appointmentsservice.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
     public final AppointmentRepository appointmentRepository;
+    private final AccountService accountService;
 
     @Override
     public ResponseEntity<?> createAppointment(AppointmentRequest appointmentRequest, String currentUserId) {
@@ -28,8 +30,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .build();
 
         appointmentRepository.save(appointment);
-
-        // TODO set initialDiagnoseDone for user with currentUserId (Feign clients??)
+        accountService.setInitialDiagnoseDone();
 
         return ResponseEntity.ok(appointment);
     }

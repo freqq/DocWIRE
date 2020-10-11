@@ -26,6 +26,13 @@ spring:
   data:
     mongodb:
       uri: ${MONGO_URL}
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    kubernetes:
+      discovery:
+        all-namespaces: true
 
 management:
   endpoints:

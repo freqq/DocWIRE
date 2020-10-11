@@ -16,6 +16,13 @@ function mount_frontend() {
     minikube mount application/components/frontend:/frontend/src
 }
 
+function create_role_binding() {
+    kubectl create clusterrolebinding \
+        add-on-cluster-admin-docwire \
+        --clusterrole=cluster-admin \
+        --serviceaccount=docwire:default
+}
+
 function create_secrets_files() {
     log_info "Creating self-signed CA certificates for TLS and installing them in the local trust stores"
 
@@ -107,8 +114,8 @@ function app_start() (
     # ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # ./gradlew charts:appointments-db:appInstall
-    ./gradlew charts:appointments-service:appLoad
-    ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    # ./gradlew charts:appointments-service:appLoad
+    # ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # ./gradlew charts:payment-db:appInstall
     # ./gradlew charts:payment-service:appLoad
@@ -129,9 +136,10 @@ function main() {
     # build_custom_images
 
     # enable_ingres_on_minikube
+    # create_role_binding
     # setup_cert_manager
-    app_start
-    # upload_initial_users
+    # app_start
+    upload_initial_users
 
     log_info "DocWIRE started."
     log_info "GUI reachable at: https://${MINIKUBE_IP}"

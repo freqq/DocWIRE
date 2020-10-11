@@ -16,8 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.pwit.common.security.Authorities.ROLE_USER;
-import static com.pwit.common.security.SecurityUtils.getCurrentUserEmail;
-import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
+import static com.pwit.common.security.SecurityUtils.*;
 
 @AllArgsConstructor
 @RestController
@@ -99,5 +98,12 @@ public class AccountController {
                 search,
                 getCurrentUsername());
         return accountService.getListOfDoctorsFilteredBySearchFilter(search, firstResult, maxResults);
+    }
+
+    @PutMapping("/diagnose")
+    @Secured(ROLE_USER)
+    public ResponseEntity<?> setInitialDiagnoseDone() {
+        LOGGER.info("Setting initial diagnose done for user {}.", getCurrentUsername());
+        return accountService.setInitialDiagnoseDone(getCurrentUserId());
     }
 }

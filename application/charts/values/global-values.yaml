@@ -19,6 +19,7 @@ config:
   accountDb:
     hostname: account-db
     port: 27017
+    nodePort: 32001
   messagesService:
     hostname: messages-service
     port: 8446
@@ -31,6 +32,7 @@ config:
   appointmentsDb:
     hostname: appointments-db
     port: 27017
+    nodePort: 32002
   paymentService:
     hostname: payment-service
     port: 8447

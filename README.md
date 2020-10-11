@@ -65,7 +65,13 @@ In order to run this application you need to install:
 - sonar-scanner > v4.5.0
 
 ### Starting local *minikube* Kuberentes cluster
-In order to run application in development profile, first you need to mount *frontend* component files to **Kubernetes cluster** with command below:
+In order to run application in development profile, first you need to create *minikube* cluster:
+
+```sh
+$ minikube start --cpus=4 --memory=8192
+```
+
+Then you need to mount *frontend* component files to **Kubernetes cluster** with command below:
 
 ```sh
 $ minikube mount application/components/frontend:/frontend/src

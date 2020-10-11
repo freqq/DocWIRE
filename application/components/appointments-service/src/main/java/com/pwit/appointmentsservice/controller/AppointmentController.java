@@ -28,8 +28,8 @@ public class AppointmentController {
      * @param appointmentId  Id of appointment to get
      */
     @Secured(ROLE_USER)
-    @GetMapping("/")
-    public ResponseEntity<?> getAppointmentDetails(String appointmentId) {
+    @GetMapping("/{appointmentId}")
+    public ResponseEntity<?> getAppointmentDetails(@PathVariable("appointmentId") String appointmentId) {
         LOGGER.info("Getting details of an appointment for user {}.", getCurrentUsername());
         return appointmentService.getAppointmentDetails(appointmentId);
     }
