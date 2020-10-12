@@ -117,7 +117,11 @@ const NewNoteAddButton = styled.button.attrs({ className: 'new-note-add-buton' }
 
 const NEW_NOTE_PLACEHOLDER = 'Add some new note...';
 
-const Notes = ({ savedNotes, isLoading, isError, notesData, addNoteFunc, patientData }) => {
+const BLOCKED_INPUT = {
+  opacity: '0.5',
+};
+
+const Notes = ({ isLoading, isError, notesData, addNoteFunc, patientData }) => {
   const [noteContent, setNoteContent] = useState('');
 
   const sendNote = () => {
@@ -142,19 +146,20 @@ const Notes = ({ savedNotes, isLoading, isError, notesData, addNoteFunc, patient
   };
 
   const onEnter = event => {
-    if (event.key === 'Enter') sendNote();
+    if (event.key === 'Enter' && !isLoading) sendNote();
   };
 
   return (
     <NotesWrapper>
       <CardTitle>Notes</CardTitle>
       <NewNoteWrapper>
-        {isLoading && <ProgressIndicatorCircular />}
+        {isLoading && <ProgressIndicatorCircular size={60} />}
         <NewNoteInput
           placeholder={NEW_NOTE_PLACEHOLDER}
           value={noteContent}
           onChange={evt => setNoteContent(evt.target.value)}
           onKeyDown={onEnter}
+          style={isLoading ? BLOCKED_INPUT : {}}
         />
         <NewNoteAddButton disabled={isLoading} onClick={sendNote}>
           save note
@@ -190,7 +195,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Notes.propTypes = {
-  savedNotes: PropTypes.instanceOf(Object).isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
   notesData: PropTypes.instanceOf(Object).isRequired,

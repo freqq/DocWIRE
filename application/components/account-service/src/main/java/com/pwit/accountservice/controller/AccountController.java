@@ -56,7 +56,7 @@ public class AccountController {
      * @param userId  Id of user to get data from
      */
     @Secured(ROLE_USER)
-    @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/details/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PatientDetailsResponse> getDetailsOfUserWithGivenId(@PathVariable("userId") String userId) {
         LOGGER.info("Getting info of user with given id '{}'.", userId);
         return accountService.getDetailsOfUserWithGivenId(userId);
@@ -114,6 +114,9 @@ public class AccountController {
         return accountService.getListOfDoctorsFilteredBySearchFilter(search, firstResult, maxResults);
     }
 
+    /**
+     * Sets initial diagnose as done for current user.
+     */
     @PutMapping("/diagnose")
     @Secured(ROLE_USER)
     public ResponseEntity<?> setInitialDiagnoseDone() {
@@ -129,5 +132,17 @@ public class AccountController {
     public ResponseEntity<?> createNewNote(@RequestBody @Valid NoteRequest noteRequest) {
         LOGGER.info("Creating a new note for chosen patient by user {}.", getCurrentUsername());
         return accountService.createNewNote(noteRequest, getCurrentUserId());
+    }
+
+    /**
+     * Search for users with given first name or last name
+     *
+     * @param query   Search query value
+     */
+    @Secured(ROLE_USER)
+    @GetMapping("/search")
+    public ResponseEntity<?> searchUsers(@RequestParam(value = "query") String query) {
+        LOGGER.info("Searching for users with given first name or last name by user {}.", getCurrentUsername());
+        return accountService.searchUsers(query, getCurrentUserId());
     }
 }

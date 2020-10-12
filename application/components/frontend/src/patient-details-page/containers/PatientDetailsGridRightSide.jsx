@@ -15,21 +15,6 @@ const PatientDetailsGridRightSideWrapper = styled.div.attrs({
   height: calc(100% - 14px);
 `;
 
-const SAVED_NOTES = [
-  {
-    id: 1,
-    author: 'Drg. Mega nanade',
-    shortcut: 'Lorem ipsum dolor sit amet',
-    date: "20 Nov'19",
-  },
-  {
-    id: 2,
-    author: 'Mgr. Piotr Wasik',
-    shortcut: 'Brala Croft is such an honor to meet you',
-    date: "07 Dec'18",
-  },
-];
-
 const UPLOADED_FILES = [
   {
     id: 1,
@@ -85,7 +70,7 @@ const UPLOADED_FILES = [
 
 const PatientDetailsGridRightSide = () => (
   <PatientDetailsGridRightSideWrapper>
-    <Notes savedNotes={SAVED_NOTES} />
+    <Notes />
     <Files uploadedFiles={UPLOADED_FILES} />
   </PatientDetailsGridRightSideWrapper>
 );

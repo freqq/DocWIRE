@@ -17,6 +17,6 @@ public interface AccountService {
     @PutMapping("/api/users/diagnose")
     ResponseEntity<?> setInitialDiagnoseDone();
 
-    @GetMapping("/api/users/{userId}")
+    @GetMapping("/api/users/details/{userId}")
     User getDetailsOfUserWithGivenId(@PathVariable("userId") String userId);
 }

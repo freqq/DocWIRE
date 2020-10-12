@@ -6,6 +6,7 @@ import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
 import com.pwit.accountservice.dto.response.NoteResponse;
 import com.pwit.accountservice.dto.response.PatientDetailsResponse;
+import com.pwit.accountservice.dto.response.SearchResponse;
 import com.pwit.accountservice.entity.PatientInfo;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.entity.enumeration.AccountType;
@@ -175,6 +176,29 @@ public class AccountServiceImpl implements AccountService {
                 .build();
 
         return ResponseEntity.ok(noteResponse);
+    }
+
+    @Override
+    public ResponseEntity<?> searchUsers(String query, String currentUserId) {
+        List<User> foundUsers =
+                userRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseAndUserIdNotContaining(query, query, currentUserId);
+
+        List<User> doctors = new ArrayList<>();
+        List<User> patients = new ArrayList<>();
+
+        for(User user : foundUsers)
+            if(user.getAccountType() == AccountType.DOCTOR)
+                doctors.add(user);
+            else
+                patients.add(user);
+
+        SearchResponse searchResponse = new SearchResponse()
+                .toBuilder()
+                .doctors(doctors)
+                .patients(patients)
+                .build();
+
+        return ResponseEntity.ok(searchResponse);
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

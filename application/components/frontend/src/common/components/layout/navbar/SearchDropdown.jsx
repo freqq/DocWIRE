@@ -1,5 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 
 const SearchDropdownWrapper = styled.div.attrs({ className: 'search-dropdown-wrapper' })`
   background: #ffffff;
@@ -11,6 +16,8 @@ const SearchDropdownWrapper = styled.div.attrs({ className: 'search-dropdown-wra
   width: 360px;
   top: 105%;
   left: 0;
+  z-index: 1;
+  min-height: 200px;
 `;
 
 const SearchCategoriesList = styled.ul.attrs({ className: 'search-categories-list' })`
@@ -31,11 +38,13 @@ const SearchContent = styled.div.attrs({ className: 'search-content' })`
   font-size: 10px;
 `;
 
-const SearchResult = styled.div.attrs({ className: 'search-result' })`
+const SearchResult = styled(Link).attrs({ className: 'search-result' })`
   display: flex;
   transition: 0.2s;
   padding: 8px 12px;
   cursor: pointer;
+  color: #000;
+  text-decoration: none;
 
   &:hover {
     background: #f0f0f0;
@@ -65,57 +74,86 @@ const UserCircle = styled.div.attrs({ className: 'user-circle' })`
   font-weight: 100;
 `;
 
-const SERACH_CATEGORIES = [
-  {
-    id: 1,
-    name: 'Patients',
-  },
-  {
-    id: 2,
-    name: 'Doctors',
-  },
-];
+const ErrorBlock = styled.div.attrs({ className: 'error-block' })`
+  padding: 20px 10px;
+  margin: 5px 0;
+  text-align: center;
+  background: #fce7e6;
+  font-size: 12px;
+  color: #552526;
+  width: 80%;
+  margin: 20px auto;
+`;
 
-const PEOPLE_LIST = [
-  {
-    id: 1,
-    firstName: 'Adam',
-    lastName: 'Sandler',
-  },
-  {
-    id: 2,
-    firstName: 'Cobbie',
-    lastName: 'Smudlers',
-  },
-  {
-    id: 3,
-    firstName: 'Paul',
-    lastName: 'Walker',
-  },
-];
+const NotFound = styled.div.attrs({ className: 'error-block' })`
+  margin: 5px 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 100;
+  width: 80%;
+  margin: 20px auto;
+`;
 
-const SearchDropdown = () => {
+const SearchDropdown = ({ isLoading, isError, searchData }) => {
   const getCircleData = (firstName, lastName) => firstName.charAt(0) + lastName.charAt(0);
+
+  if (isError)
+    return (
+      <SearchDropdownWrapper>
+        <SearchCategoriesList>
+          <ErrorBlock>There was an error while searching</ErrorBlock>
+        </SearchCategoriesList>
+      </SearchDropdownWrapper>
+    );
 
   return (
     <SearchDropdownWrapper>
       <SearchCategoriesList>
-        {SERACH_CATEGORIES.map(searchCategory => (
-          <SearchCategoriesListItem key={searchCategory.id}>
-            <SearchCategoryName>{searchCategory.name}</SearchCategoryName>
-            <PeopleWrapper>
-              {PEOPLE_LIST.map(person => (
-                <SearchResult>
-                  <UserCircle>{getCircleData(person.firstName, person.lastName)}</UserCircle>
-                  <SearchContent>{`${person.firstName} ${person.lastName}`}</SearchContent>
-                </SearchResult>
-              ))}
-            </PeopleWrapper>
-          </SearchCategoriesListItem>
-        ))}
+        {isLoading ? (
+          <ProgressIndicatorCircular />
+        ) : (
+          <>
+            <SearchCategoriesListItem>
+              <SearchCategoryName>Patients</SearchCategoryName>
+              {searchData.patients.length === 0 ? (
+                <NotFound>No patients found.</NotFound>
+              ) : (
+                <PeopleWrapper>
+                  {searchData.patients.map(person => (
+                    <SearchResult to={`/patient/${person.userId}`}>
+                      <UserCircle>{getCircleData(person.firstName, person.lastName)}</UserCircle>
+                      <SearchContent>{`${person.firstName} ${person.lastName}`}</SearchContent>
+                    </SearchResult>
+                  ))}
+                </PeopleWrapper>
+              )}
+            </SearchCategoriesListItem>
+            <SearchCategoriesListItem>
+              <SearchCategoryName>Doctors</SearchCategoryName>
+              {searchData.doctors.length === 0 ? (
+                <NotFound>No doctors found.</NotFound>
+              ) : (
+                <PeopleWrapper>
+                  {searchData.doctors.map(person => (
+                    <SearchResult to={`/doctor/${person.userId}`}>
+                      <UserCircle>{getCircleData(person.firstName, person.lastName)}</UserCircle>
+                      <SearchContent>{`${person.firstName} ${person.lastName}`}</SearchContent>
+                    </SearchResult>
+                  ))}
+                </PeopleWrapper>
+              )}
+            </SearchCategoriesListItem>
+          </>
+        )}
       </SearchCategoriesList>
     </SearchDropdownWrapper>
   );
+};
+
+SearchDropdown.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  searchData: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default SearchDropdown;

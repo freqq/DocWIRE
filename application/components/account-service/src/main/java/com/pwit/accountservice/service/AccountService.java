@@ -18,4 +18,5 @@ public interface AccountService {
     ResponseEntity<?> setInitialDiagnoseDone(String currentUserId);
     ResponseEntity<PatientDetailsResponse> getDetailsOfUserWithGivenId(String userId);
     ResponseEntity<?> createNewNote(NoteRequest noteRequest, String currentUserId);
+    ResponseEntity<?> searchUsers(String query, String currentUserId);
 }

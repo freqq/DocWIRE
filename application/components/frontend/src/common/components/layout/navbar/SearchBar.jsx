@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
+import { getSearch } from 'common/actions/searchActions';
 import SearchDropdown from 'common/components/layout/navbar/SearchDropdown';
 import searchIcon from 'images/icons/search.svg';
 
@@ -32,8 +35,13 @@ const StyledSearchInput = styled.input.attrs({ className: 'styled-search-input' 
   font-family: 'Roboto', sans-serif;
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ isLoading, isError, searchData, getSearchFunc }) => {
   const [searchValue, setSearchValue] = useState('');
+
+  const searchOnChange = search => {
+    setSearchValue(search);
+    getSearchFunc(search);
+  };
 
   return (
     <SearchBarWrapper>
@@ -41,13 +49,32 @@ const SearchBar = () => {
         <StyledSearchInput
           value={searchValue}
           placeholder="Search ..."
-          onChange={evt => setSearchValue(evt.target.value)}
+          onChange={evt => searchOnChange(evt.target.value)}
         />
         <SearchIcon src={searchIcon} alt="searchIcon" />
       </InputWrapper>
-      {searchValue.length > 0 && <SearchDropdown />}
+      {searchValue.length > 0 && (
+        <SearchDropdown isLoading={isLoading} isError={isError} searchData={searchData} />
+      )}
     </SearchBarWrapper>
   );
 };
 
-export default SearchBar;
+const mapStateToProps = state => ({
+  isLoading: state.common.search.isLoading,
+  isError: state.common.search.isError,
+  searchData: state.common.search.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getSearchFunc: query => dispatch(getSearch(query)),
+});
+
+SearchBar.propTypes = {
+  getSearchFunc: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  searchData: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
