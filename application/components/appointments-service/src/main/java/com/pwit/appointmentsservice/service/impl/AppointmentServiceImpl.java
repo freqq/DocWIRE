@@ -15,6 +15,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
+    private static final Logger LOGGER = new Logger();
+
     private final AppointmentRepository appointmentRepository;
     private final AccountService accountService;
 

@@ -57,7 +57,3 @@ keycloak:
   ssl-required: external
   auth-server-url: https://${MINIKUBE_IP}/auth
   disable-trust-manager: true
-
-feign:
-  hystrix:
-    enabled: true

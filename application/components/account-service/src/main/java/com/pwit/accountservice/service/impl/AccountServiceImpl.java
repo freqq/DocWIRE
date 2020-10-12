@@ -10,6 +10,7 @@ import com.pwit.accountservice.repository.UserRepository;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.common.utils.Logger;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<?> createAccount(RegisterRequest registerRequest) {
-        LOGGER.info ("Creating new user with username '{}'", getCurrentUsername());
-
         User createdUser = new User().toBuilder()
                 .userId(getCurrentUserId())
                 .firstName(registerRequest.getFirstName())
@@ -48,13 +47,11 @@ public class AccountServiceImpl implements AccountService {
 
         LOGGER.info("Successfully created new user with username '{}'", getCurrentUsername());
 
-        return ResponseEntity.ok(createdUser);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> getCurrentUserData() {
-        LOGGER.debug("Getting user details of user with username '{}'", getCurrentUsername());
-
         return Optional.ofNullable(userRepository.findUserByUserId(getCurrentUserId()))
                 .map(foundUser -> ResponseEntity.ok().body(foundUser))
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -62,8 +59,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<?> updateCurrentUserDetails(UserDetailsChangeDTO updateAccountDTO) {
-        LOGGER.debug("Updating user details of user with username '{}'", getCurrentUsername());
-
         User foundUser = userRepository.findUserByUserId(getCurrentUserId());
         if(foundUser == null)
             throw new UserNotFoundException();
