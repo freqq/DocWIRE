@@ -1,6 +1,13 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import moment from 'moment';
+
+import { addNote } from 'patient-details-page/actions/patientActions';
+import { MONTH_FULL_NAMES } from 'common/utils/date_constants';
+import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 
 import personIcon from 'images/icons/user.svg';
 
@@ -98,6 +105,11 @@ const NewNoteAddButton = styled.button.attrs({ className: 'new-note-add-buton' }
   transition: 0.2s;
   border: none;
 
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   &:hover {
     opacity: 0.8;
   }
@@ -105,24 +117,59 @@ const NewNoteAddButton = styled.button.attrs({ className: 'new-note-add-buton' }
 
 const NEW_NOTE_PLACEHOLDER = 'Add some new note...';
 
-const Notes = ({ savedNotes }) => {
+const Notes = ({ savedNotes, isLoading, isError, notesData, addNoteFunc, patientData }) => {
+  const [noteContent, setNoteContent] = useState('');
+
+  const sendNote = () => {
+    const noteObject = {
+      content: noteContent,
+      patientId: patientData.patientData.userId,
+      dateOfNote: moment(),
+    };
+
+    addNoteFunc(noteObject);
+    setNoteContent('');
+  };
+
+  const getNoteDate = date => {
+    const noteDate = moment(date);
+
+    const day = noteDate.date();
+    const month = MONTH_FULL_NAMES[noteDate.month()];
+    const year = noteDate.year();
+
+    return `${day} ${month}, ${year}`;
+  };
+
+  const onEnter = event => {
+    if (event.key === 'Enter') sendNote();
+  };
+
   return (
     <NotesWrapper>
       <CardTitle>Notes</CardTitle>
       <NewNoteWrapper>
-        <NewNoteInput placeholder={NEW_NOTE_PLACEHOLDER} />
-        <NewNoteAddButton>save note</NewNoteAddButton>
+        {isLoading && <ProgressIndicatorCircular />}
+        <NewNoteInput
+          placeholder={NEW_NOTE_PLACEHOLDER}
+          value={noteContent}
+          onChange={evt => setNoteContent(evt.target.value)}
+          onKeyDown={onEnter}
+        />
+        <NewNoteAddButton disabled={isLoading} onClick={sendNote}>
+          save note
+        </NewNoteAddButton>
       </NewNoteWrapper>
       <NotesList>
-        {savedNotes.map(note => (
+        {notesData.map(note => (
           <SavedNote key={note.id}>
-            <NoteShortcut>{note.shortcut}</NoteShortcut>
+            <NoteShortcut>{note.content}</NoteShortcut>
             <NoteDetails>
               <Author>
                 <AuthorIcon src={personIcon} alt="person-icon" />
-                <AuthorName>{note.author}</AuthorName>
+                <AuthorName>{`${note.doctorData.firstName} ${note.doctorData.lastName}`}</AuthorName>
               </Author>
-              <Date>{note.date}</Date>
+              <Date>{getNoteDate(note.dateOfNote)}</Date>
             </NoteDetails>
           </SavedNote>
         ))}
@@ -131,8 +178,24 @@ const Notes = ({ savedNotes }) => {
   );
 };
 
+const mapStateToProps = state => ({
+  isLoading: state.patient.patientDetails.isNotesLoading,
+  isError: state.patient.patientDetails.isNotesError,
+  notesData: state.patient.patientDetails.notes,
+  patientData: state.patient.patientDetails.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addNoteFunc: noteData => dispatch(addNote(noteData)),
+});
+
 Notes.propTypes = {
   savedNotes: PropTypes.instanceOf(Object).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  notesData: PropTypes.instanceOf(Object).isRequired,
+  patientData: PropTypes.instanceOf(Object).isRequired,
+  addNoteFunc: PropTypes.func.isRequired,
 };
 
-export default Notes;
+export default connect(mapStateToProps, mapDispatchToProps)(Notes);

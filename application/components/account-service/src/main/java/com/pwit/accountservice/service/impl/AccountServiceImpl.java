@@ -1,11 +1,16 @@
 package com.pwit.accountservice.service.impl;
 
+import com.pwit.accountservice.dto.Note;
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
+import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
+import com.pwit.accountservice.dto.response.NoteResponse;
+import com.pwit.accountservice.dto.response.PatientDetailsResponse;
 import com.pwit.accountservice.entity.PatientInfo;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.entity.enumeration.AccountType;
 import com.pwit.accountservice.error.exception.UserNotFoundException;
+import com.pwit.accountservice.repository.NoteRepository;
 import com.pwit.accountservice.repository.UserRepository;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.common.utils.Logger;
@@ -27,6 +32,7 @@ public class AccountServiceImpl implements AccountService {
     private static final Logger LOGGER = new Logger();
 
     private final UserRepository userRepository;
+    private final NoteRepository noteRepository;
 
     @Override
     public ResponseEntity<?> createAccount(RegisterRequest registerRequest) {
@@ -114,9 +120,61 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResponseEntity<User>  getDetailsOfUserWithGivenId(String userId) {
+    public ResponseEntity<PatientDetailsResponse>  getDetailsOfUserWithGivenId(String userId) {
         Optional<User> foundUser = userRepository.findUserByUserId(userId);
-        return foundUser.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        List<Note> notes = noteRepository.findAllByPatientIdOrderByDateOfNote(userId);
+        List<NoteResponse> noteResponses = new ArrayList<>();
+
+        for(Note note : notes){
+            NoteResponse noteResponse = new NoteResponse()
+                    .toBuilder()
+                    .dateOfNote(note.getDateOfNote())
+                    .content(note.getContent())
+                    .doctorData(userRepository.findUserByUserId(note.getAuthorId()).get())
+                    .build();
+            noteResponses.add(noteResponse);
+        }
+
+
+        if(foundUser.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        PatientDetailsResponse patientDetailsResponse = new PatientDetailsResponse().toBuilder()
+                .patientInfo(foundUser.get().getPatientInfo())
+                .accountType(foundUser.get().getAccountType())
+                .dayOfBirth(foundUser.get().getDayOfBirth())
+                .doctorInfo(foundUser.get().getDoctorInfo())
+                .firstName(foundUser.get().getFirstName())
+                .gender(foundUser.get().getGender())
+                .langKey(foundUser.get().getLangKey())
+                .lastName(foundUser.get().getLastName())
+                .noteResponses(noteResponses)
+                .userId(foundUser.get().getUserId())
+                .build();
+
+        return new ResponseEntity<>(patientDetailsResponse, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> createNewNote(NoteRequest noteRequest, String currentUserId) {
+        Note note = new Note()
+                .toBuilder()
+                .dateOfNote(noteRequest.getDateOfNote())
+                .patientId(noteRequest.getPatientId())
+                .content(noteRequest.getContent())
+                .authorId(currentUserId)
+                .build();
+
+        noteRepository.save(note);
+
+        NoteResponse noteResponse = new NoteResponse()
+                .toBuilder()
+                .doctorData(userRepository.findUserByUserId(note.getAuthorId()).get())
+                .content(note.getContent())
+                .dateOfNote(note.getDateOfNote())
+                .build();
+
+        return ResponseEntity.ok(noteResponse);
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

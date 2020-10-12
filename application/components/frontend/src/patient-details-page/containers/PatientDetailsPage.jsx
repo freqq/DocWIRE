@@ -110,26 +110,31 @@ const PatientDetailsPage = ({ isLoading, isError, data, getPatientDetailsFunc, m
     },
     {
       id: 3,
-      title: 'Phone Number',
-      content: '(239) 555-0180',
+      title: 'Weight',
+      content: data.patientData.patientInfo.weight,
     },
     {
       id: 4,
+      title: 'Height',
+      content: data.patientData.patientInfo.height,
+    },
+    {
+      id: 5,
       title: 'Street Address',
       content: data.patientData.patientInfo.address,
     },
     {
-      id: 5,
+      id: 6,
       title: 'City',
       content: data.patientData.patientInfo.city,
     },
     {
-      id: 6,
+      id: 7,
       title: 'ZIP Code',
       content: data.patientData.patientInfo.zipCode,
     },
     {
-      id: 7,
+      id: 8,
       title: 'Country',
       content: data.patientData.patientInfo.country,
     },

@@ -1,4 +1,4 @@
-package com.pwit.appointmentsservice.dto.request;
+package com.pwit.accountservice.dto.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,5 @@ public class NoteRequest {
     String patientId;
 
     @NotNull
-    @NotBlank
     LocalDateTime dateOfNote;
 }

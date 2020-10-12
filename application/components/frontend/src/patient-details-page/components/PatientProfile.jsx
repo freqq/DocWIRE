@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 const PatientProfileWrapper = styled.div.attrs({
   className: 'patient-profile-wrapper',
@@ -63,7 +64,7 @@ const SendMessageButton = styled.button.attrs({ className: 'send-message-button'
   }
 `;
 
-const PatientProfile = ({ firstName, lastName, email }) => {
+const PatientProfile = ({ firstName, lastName, email, loggedInUserId, userData }) => {
   const getCircleContent = () => firstName.charAt(0) + lastName.charAt(0);
 
   return (
@@ -71,7 +72,9 @@ const PatientProfile = ({ firstName, lastName, email }) => {
       <UserCircle>{getCircleContent()}</UserCircle>
       <UserName>{`${firstName} ${lastName}`}</UserName>
       <UserEmail>{email}</UserEmail>
-      <SendMessageButton>Send message</SendMessageButton>
+      {loggedInUserId !== userData.patientData.userId && (
+        <SendMessageButton>Send message</SendMessageButton>
+      )}
     </PatientProfileWrapper>
   );
 };
@@ -80,6 +83,13 @@ PatientProfile.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  loggedInUserId: PropTypes.string.isRequired,
+  userData: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default PatientProfile;
+const mapStateToProps = state => ({
+  loggedInUserId: state.common.authUser.keycloakInfo.subject,
+  userData: state.patient.patientDetails.data,
+});
+
+export default connect(mapStateToProps, null)(PatientProfile);

@@ -1,7 +1,9 @@
 package com.pwit.accountservice.controller;
 
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
+import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
+import com.pwit.accountservice.dto.response.PatientDetailsResponse;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.common.utils.Logger;
@@ -55,7 +57,7 @@ public class AccountController {
      */
     @Secured(ROLE_USER)
     @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getDetailsOfUserWithGivenId(@PathVariable("userId") String userId) {
+    public ResponseEntity<PatientDetailsResponse> getDetailsOfUserWithGivenId(@PathVariable("userId") String userId) {
         LOGGER.info("Getting info of user with given id '{}'.", userId);
         return accountService.getDetailsOfUserWithGivenId(userId);
     }
@@ -117,5 +119,15 @@ public class AccountController {
     public ResponseEntity<?> setInitialDiagnoseDone() {
         LOGGER.info("Setting initial diagnose done for user {}.", getCurrentUsername());
         return accountService.setInitialDiagnoseDone(getCurrentUserId());
+    }
+
+    /**
+     * Creates a new note for chosen patient.
+     */
+    @Secured(ROLE_USER)
+    @PostMapping("/note")
+    public ResponseEntity<?> createNewNote(@RequestBody @Valid NoteRequest noteRequest) {
+        LOGGER.info("Creating a new note for chosen patient by user {}.", getCurrentUsername());
+        return accountService.createNewNote(noteRequest, getCurrentUserId());
     }
 }

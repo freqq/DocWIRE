@@ -1,6 +1,6 @@
-package com.pwit.appointmentsservice.dto.response;
+package com.pwit.accountservice.dto.response;
 
-import com.pwit.appointmentsservice.dto.user.User;
+import com.pwit.accountservice.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,3 +23,4 @@ public class NoteResponse {
     @Field("dateOfNote")
     private LocalDateTime dateOfNote;
 }
+

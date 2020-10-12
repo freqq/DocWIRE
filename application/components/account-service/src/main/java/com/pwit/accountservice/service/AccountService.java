@@ -1,7 +1,9 @@
 package com.pwit.accountservice.service;
 
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
+import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
+import com.pwit.accountservice.dto.response.PatientDetailsResponse;
 import com.pwit.accountservice.entity.User;
 import org.springframework.http.ResponseEntity;
 
@@ -14,5 +16,6 @@ public interface AccountService {
     List<User> getAllUsersFilteredByFirstNameOrLastName(String search, Integer firstResult, Integer maxResults);
     List<User> getListOfDoctorsFilteredBySearchFilter(String search, Integer firstResult, Integer maxResults);
     ResponseEntity<?> setInitialDiagnoseDone(String currentUserId);
-    ResponseEntity<User> getDetailsOfUserWithGivenId(String userId);
+    ResponseEntity<PatientDetailsResponse> getDetailsOfUserWithGivenId(String userId);
+    ResponseEntity<?> createNewNote(NoteRequest noteRequest, String currentUserId);
 }
