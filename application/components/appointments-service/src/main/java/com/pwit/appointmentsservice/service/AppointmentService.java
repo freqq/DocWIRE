@@ -1,6 +1,7 @@
 package com.pwit.appointmentsservice.service;
 
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
+import com.pwit.appointmentsservice.dto.request.NoteRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface AppointmentService {
@@ -8,4 +9,5 @@ public interface AppointmentService {
     ResponseEntity<?> getAppointmentDetails(String appointmentId);
     ResponseEntity<?> getAllAppointmentsForCurrentUser(String currentUserId);
     ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId);
+    ResponseEntity<?> createNewNote(NoteRequest noteRequest, String currentUserId);
 }

@@ -1,10 +1,14 @@
 package com.pwit.appointmentsservice.service.impl;
 
 import com.pwit.appointmentsservice.dto.Appointment;
+import com.pwit.appointmentsservice.dto.Note;
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
+import com.pwit.appointmentsservice.dto.request.NoteRequest;
+import com.pwit.appointmentsservice.dto.response.NoteResponse;
 import com.pwit.appointmentsservice.dto.response.RecentAppointment;
 import com.pwit.appointmentsservice.feign.AccountService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
+import com.pwit.appointmentsservice.repository.NoteRepository;
 import com.pwit.appointmentsservice.service.AppointmentService;
 import com.pwit.common.utils.Logger;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final AccountService accountService;
+    private final NoteRepository noteRepository;
 
     @Override
     public ResponseEntity<?> createAppointment(AppointmentRequest appointmentRequest, String currentUserId) {
@@ -84,6 +89,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId) {
         Appointment appointment = appointmentRepository.findTopByPatientId(currentUserId);
+        List<Note> notes = noteRepository.findAllByPatientId(currentUserId);
+        List<NoteResponse> noteResponses = new ArrayList<>();
+
+        for(Note note : notes){
+            NoteResponse noteResponse = new NoteResponse().toBuilder()
+                    .dateOfNote(note.getDateOfNote())
+                    .content(note.getContent())
+                    .doctorData(accountService.getDetailsOfUserWithGivenId(note.getAuthorId()))
+                    .build();
+            noteResponses.add(noteResponse);
+        }
 
         RecentAppointment recentAppointment = new RecentAppointment().toBuilder()
                 .appointmentDate(appointment.getAppointmentDate())
@@ -91,8 +107,24 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .doctor(accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId()))
                 .lastSurvey(appointment.getLastSurvey())
                 .quickSurvey(appointment.getQuickSurvey())
-                .visitedRegions(appointment.getVisitedRegions()).build();
+                .visitedRegions(appointment.getVisitedRegions())
+                .notes(noteResponses)
+                .build();
 
         return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> createNewNote(NoteRequest noteRequest, String currentUserId) {
+        Note note = new Note().toBuilder()
+                .dateOfNote(noteRequest.getDateOfNote())
+                .patientId(noteRequest.getPatientId())
+                .content(noteRequest.getContent())
+                .authorId(currentUserId)
+                .build();
+
+        noteRepository.save(note);
+
+        return ResponseEntity.ok(note);
     }
 }

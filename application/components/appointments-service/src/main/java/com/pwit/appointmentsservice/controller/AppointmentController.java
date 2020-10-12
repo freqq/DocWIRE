@@ -1,6 +1,7 @@
 package com.pwit.appointmentsservice.controller;
 
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
+import com.pwit.appointmentsservice.dto.request.NoteRequest;
 import com.pwit.appointmentsservice.service.AppointmentService;
 import com.pwit.common.utils.Logger;
 import lombok.RequiredArgsConstructor;
@@ -66,5 +67,15 @@ public class AppointmentController {
     public ResponseEntity<?> getMostRecentAppointmentForCurrentUser() {
         LOGGER.info("Fetching most recent appointment for user {}.", getCurrentUsername());
         return appointmentService.getMostRecentAppointmentForCurrentUser(getCurrentUserId());
+    }
+
+    /**
+     * Creates a new note for chosen patient.
+     */
+    @Secured(ROLE_USER)
+    @PostMapping("/note")
+    public ResponseEntity<?> createNewNote(@RequestBody @Valid NoteRequest noteRequest) {
+        LOGGER.info("Creating a new note for chosen patient by user {}.", getCurrentUsername());
+        return appointmentService.createNewNote(noteRequest, getCurrentUserId());
     }
 }

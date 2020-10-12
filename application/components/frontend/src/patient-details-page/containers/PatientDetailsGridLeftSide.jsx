@@ -25,11 +25,17 @@ const TopGrid = styled.div.attrs({ className: 'top-grid' })`
   height: calc(100% - 20px);
 `;
 
-const PatientDetailsGridLeftSide = ({ firstName, lastName, email, treatmentHistory }) => (
+const PatientDetailsGridLeftSide = ({
+  firstName,
+  lastName,
+  email,
+  treatmentHistory,
+  patientData,
+}) => (
   <PatientDetailsGridLeftSideWrapper>
     <TopGrid>
       <PatientProfile firstName={firstName} lastName={lastName} email={email} />
-      <PatientDetails />
+      <PatientDetails patientData={patientData} />
     </TopGrid>
     <PatientHistory treatmentHistory={treatmentHistory} />
   </PatientDetailsGridLeftSideWrapper>
@@ -40,6 +46,7 @@ PatientDetailsGridLeftSide.propTypes = {
   lastName: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   treatmentHistory: PropTypes.instanceOf(Object).isRequired,
+  patientData: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default PatientDetailsGridLeftSide;

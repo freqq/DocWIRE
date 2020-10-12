@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import arrowDownIcon from 'images/icons/down-arrow.svg';
 
@@ -13,7 +14,7 @@ const FlexBox = styled.div.attrs({ className: 'flex-box' })`
   display: flex;
 `;
 
-const UserCircle = styled.div.attrs({ className: 'user-circle' })`
+const UserCircle = styled(Link).attrs({ className: 'user-circle' })`
   background: #2d4564;
   border-radius: 50%;
   text-align: center;
@@ -22,6 +23,7 @@ const UserCircle = styled.div.attrs({ className: 'user-circle' })`
   margin-right: 10px;
   cursor: pointer;
   transition: 0.2s;
+  text-decoration: none;
 
   &:hover {
     opacity: 0.8;
@@ -61,6 +63,7 @@ const UserSection = ({
   circleSize,
   circleFontSize,
   switchShowDropdown,
+  userId,
 }) => {
   const getCircleText = () => firstName.charAt(0) + lastName.charAt(0);
 
@@ -68,6 +71,7 @@ const UserSection = ({
     <UserSectionWrapper>
       <FlexBox style={{ height: `${circleSize}px` }}>
         <UserCircle
+          to={`/patient/${userId}`}
           style={{
             height: `${circleSize}px`,
             width: `${circleSize}px`,
@@ -111,6 +115,7 @@ UserSection.propTypes = {
   circleSize: PropTypes.number,
   circleFontSize: PropTypes.number,
   switchShowDropdown: PropTypes.func,
+  userId: PropTypes.string.isRequired,
 };
 
 export default UserSection;

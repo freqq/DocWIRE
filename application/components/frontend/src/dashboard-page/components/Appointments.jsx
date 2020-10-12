@@ -184,6 +184,7 @@ const Appointments = ({ isLoading, isError, data, getRecentAppointmentFunc }) =>
         ) : (
           <>
             <UserSection
+              userId={data.appointmentData.doctor.userId}
               firstName={getDoctorFirstName()}
               lastName={getDoctorLastName()}
               bottomText={getDoctorSpecialization()}

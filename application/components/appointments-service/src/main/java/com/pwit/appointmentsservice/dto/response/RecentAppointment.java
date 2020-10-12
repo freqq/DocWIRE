@@ -34,4 +34,6 @@ public class RecentAppointment {
 
     @NotNull
     private List<SurveyItem> lastSurvey;
+
+    private List<NoteResponse> notes;
 }

@@ -24,7 +24,7 @@ const RightSide = styled.div.attrs({ className: 'right-side' })`
   position: relative;
 `;
 
-const LayoutNavbar = ({ logoutUserFunc, firstName, lastName }) => {
+const LayoutNavbar = ({ logoutUserFunc, firstName, lastName, currentUserId }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const switchShowDropdown = () => setShowDropdown(!showDropdown);
@@ -35,6 +35,7 @@ const LayoutNavbar = ({ logoutUserFunc, firstName, lastName }) => {
       <RightSide>
         <NotificationsBell />
         <UserSection
+          userId={currentUserId}
           firstName={firstName}
           lastName={lastName}
           bottomText="Patient"
@@ -52,6 +53,7 @@ const LayoutNavbar = ({ logoutUserFunc, firstName, lastName }) => {
 const mapStateToProps = state => ({
   firstName: state.common.accountData.userData.firstName,
   lastName: state.common.accountData.userData.lastName,
+  currentUserId: state.common.authUser.keycloakInfo.subject,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -62,6 +64,7 @@ LayoutNavbar.propTypes = {
   logoutUserFunc: PropTypes.func.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
+  currentUserId: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LayoutNavbar);

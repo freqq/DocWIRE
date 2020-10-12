@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const PatientDetailsWrapper = styled.div.attrs({ className: 'patient-details-wrapper' })`
   border-radius: 5px;
@@ -30,53 +31,10 @@ const PatientDataContent = styled.p.attrs({ className: 'patient-data-content' })
   font-weight: 100;
 `;
 
-const PATIENT_DATA = [
-  {
-    id: 1,
-    title: 'Gender',
-    content: 'Female',
-  },
-  {
-    id: 2,
-    title: 'Birthday',
-    content: 'Feb 24th, 1997',
-  },
-  {
-    id: 3,
-    title: 'Phone Number',
-    content: '(239) 555-0180',
-  },
-  {
-    id: 4,
-    title: 'Street Address',
-    content: 'Jl. Diponergogo No. 21',
-  },
-  {
-    id: 5,
-    title: 'City',
-    content: 'Chicago',
-  },
-  {
-    id: 6,
-    title: 'ZIP Code',
-    content: '39-460',
-  },
-  {
-    id: 7,
-    title: 'Member Status',
-    content: 'Active Member',
-  },
-  {
-    id: 8,
-    title: 'Registered Date',
-    content: 'Jun 7th, 2019',
-  },
-];
-
-const PatientDetails = () => (
+const PatientDetails = ({ patientData }) => (
   <PatientDetailsWrapper>
     <ThreeSideGrid>
-      {PATIENT_DATA.map(patientDataItem => (
+      {patientData.map(patientDataItem => (
         <PatientDataItem key={patientDataItem.id}>
           <PatientDataTitle>{patientDataItem.title}</PatientDataTitle>
           <PatientDataContent>{patientDataItem.content}</PatientDataContent>
@@ -85,5 +43,9 @@ const PatientDetails = () => (
     </ThreeSideGrid>
   </PatientDetailsWrapper>
 );
+
+PatientDetails.propTypes = {
+  patientData: PropTypes.instanceOf(Object).isRequired,
+};
 
 export default PatientDetails;
