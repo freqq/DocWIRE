@@ -59,12 +59,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<?> updateCurrentUserDetails(UserDetailsChangeDTO updateAccountDTO) {
-        User foundUser = userRepository.findUserByUserId(getCurrentUserId());
-        if(foundUser == null)
+        Optional<User> foundUser = userRepository.findUserByUserId(getCurrentUserId());
+        if(foundUser.isEmpty())
             throw new UserNotFoundException();
 
-        checkRequestAndUpdateData(foundUser, updateAccountDTO);
-        userRepository.save(foundUser);
+        checkRequestAndUpdateData(foundUser.get(), updateAccountDTO);
+        userRepository.save(foundUser.get());
 
         LOGGER.debug("User with username '{}' updated successfully.", getCurrentUsername());
 
@@ -99,14 +99,24 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<?> setInitialDiagnoseDone(String currentUserId) {
-        User user = userRepository.findUserByUserId(currentUserId);
-        PatientInfo patientInfo = user.getPatientInfo();
-        patientInfo.setInitialDiagnoseDone(true);
-        user.setPatientInfo(patientInfo);
+        Optional<User> user = userRepository.findUserByUserId(currentUserId);
 
-        userRepository.save(user);
+        if(user.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        PatientInfo patientInfo = user.get().getPatientInfo();
+        patientInfo.setInitialDiagnoseDone(true);
+        user.get().setPatientInfo(patientInfo);
+
+        userRepository.save(user.get());
 
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<User>  getDetailsOfUserWithGivenId(String userId) {
+        Optional<User> foundUser = userRepository.findUserByUserId(userId);
+        return foundUser.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

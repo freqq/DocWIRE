@@ -6,4 +6,6 @@ import org.springframework.http.ResponseEntity;
 public interface AppointmentService {
     ResponseEntity<?> createAppointment(AppointmentRequest appointmentRequest, String currentUserId);
     ResponseEntity<?> getAppointmentDetails(String appointmentId);
+    ResponseEntity<?> getAllAppointmentsForCurrentUser(String currentUserId);
+    ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId);
 }

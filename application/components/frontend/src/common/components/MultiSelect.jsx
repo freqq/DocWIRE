@@ -10,6 +10,7 @@ const OptionWrapper = styled.div.attrs({ className: 'option-wrapper' })`
   display: block;
   margin-top: 25px;
   font-size: 14px;
+  cursor: pointer;
 `;
 
 const MultiSelect = ({ onChange, value, options, question }) => (

@@ -2,7 +2,7 @@ import React from 'react';
 import Placeholder from 'common/components/placeholders/Placeholder';
 import errorImage from 'images/illustrations/error.svg';
 
-const TITLE = 'Internal server error';
+const TITLE = 'Not found.';
 const SUBTITLE = 'There was an error fetching appointment data';
 const ALT = 'Error fetching appointment data';
 

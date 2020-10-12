@@ -14,4 +14,5 @@ public interface AccountService {
     List<User> getAllUsersFilteredByFirstNameOrLastName(String search, Integer firstResult, Integer maxResults);
     List<User> getListOfDoctorsFilteredBySearchFilter(String search, Integer firstResult, Integer maxResults);
     ResponseEntity<?> setInitialDiagnoseDone(String currentUserId);
+    ResponseEntity<User> getDetailsOfUserWithGivenId(String userId);
 }

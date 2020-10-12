@@ -119,7 +119,7 @@ const VideoConversationPage = ({
     } = match;
 
     setAppointmentId(callId);
-    // getAppointmentDetailsFunc(callId);
+    getAppointmentDetailsFunc(callId);
     addFullscreenEventListeners();
 
     return () => {

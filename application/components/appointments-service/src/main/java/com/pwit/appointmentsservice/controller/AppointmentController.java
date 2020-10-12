@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static com.pwit.common.security.Authorities.ROLE_USER;
-import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 import static com.pwit.common.security.SecurityUtils.getCurrentUserId;
+import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 
 @RequiredArgsConstructor
 @RestController
@@ -44,5 +44,27 @@ public class AppointmentController {
     public ResponseEntity<?> createAppointment(@RequestBody @Valid AppointmentRequest appointmentRequest) {
         LOGGER.info("Creating an appointment for user {}.", getCurrentUsername());
         return appointmentService.createAppointment(appointmentRequest, getCurrentUserId());
+    }
+
+    /**
+     * Fetches all appointments for current user.
+     *
+     */
+    @Secured(ROLE_USER)
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllAppointmentsForCurrentUser() {
+        LOGGER.info("Fetching all appointments for user {}.", getCurrentUsername());
+        return appointmentService.getAllAppointmentsForCurrentUser(getCurrentUserId());
+    }
+
+    /**
+     * Fetches most recent appointment for current user.
+     *
+     */
+    @Secured(ROLE_USER)
+    @GetMapping("/recent")
+    public ResponseEntity<?> getMostRecentAppointmentForCurrentUser() {
+        LOGGER.info("Fetching most recent appointment for user {}.", getCurrentUsername());
+        return appointmentService.getMostRecentAppointmentForCurrentUser(getCurrentUserId());
     }
 }

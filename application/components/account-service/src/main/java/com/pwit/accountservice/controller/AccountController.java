@@ -49,6 +49,18 @@ public class AccountController {
     }
 
     /**
+     * Gets info about user with given id.
+     *
+     * @param userId  Id of user to get data from
+     */
+    @Secured(ROLE_USER)
+    @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getDetailsOfUserWithGivenId(@PathVariable("userId") String userId) {
+        LOGGER.info("Getting info of user with given id '{}'.", userId);
+        return accountService.getDetailsOfUserWithGivenId(userId);
+    }
+
+    /**
      * Update current user data.
      *
      * @param userDetailsChangeDTO      Update user request

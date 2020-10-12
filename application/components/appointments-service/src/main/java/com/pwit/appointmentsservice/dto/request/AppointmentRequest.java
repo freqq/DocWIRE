@@ -14,6 +14,9 @@ public class AppointmentRequest {
     String doctorId;
 
     @NotNull
+    String patientId;
+
+    @NotNull
     List<String> chosenSymptoms;
 
     @NotNull

@@ -24,6 +24,10 @@ public class Appointment {
     private String doctorId;
 
     @NotNull
+    @Field("patientId")
+    private String patientId;
+
+    @NotNull
     @Field("chosenSymptoms")
     private List<String> chosenSymptoms;
 

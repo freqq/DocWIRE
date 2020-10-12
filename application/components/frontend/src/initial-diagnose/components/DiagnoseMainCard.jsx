@@ -63,7 +63,7 @@ const DiagnoseMainLogo = styled.img.attrs({ className: 'diagnose-main-logo' })`
   }
 `;
 
-const DiagnoseMainCard = ({ setCurrentStepNumber, createAppointmentFunc }) => {
+const DiagnoseMainCard = ({ setCurrentStepNumber, createAppointmentFunc, currentUserId }) => {
   const [chosenSymptoms, setChosenSymptoms] = useState([]);
   const [visitedRegions, setVisitedRegions] = useState([]);
   const [surveyObject, setSurveyObject] = useState([]);
@@ -93,6 +93,7 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, createAppointmentFunc }) => {
       visitedRegions,
       lastSurvey: surveyObject,
       doctorId: doctor.userId,
+      patientId: currentUserId,
       appointmentDate,
     };
 
@@ -190,10 +191,15 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, createAppointmentFunc }) => {
 DiagnoseMainCard.propTypes = {
   setCurrentStepNumber: PropTypes.func.isRequired,
   createAppointmentFunc: PropTypes.func.isRequired,
+  currentUserId: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = state => ({
+  currentUserId: state.common.authUser.keycloakInfo.subject,
+});
 
 const mapDispatchToProps = dispatch => ({
   createAppointmentFunc: appointmentData => dispatch(createAppointment(appointmentData)),
 });
 
-export default connect(null, mapDispatchToProps)(DiagnoseMainCard);
+export default connect(mapStateToProps, mapDispatchToProps)(DiagnoseMainCard);

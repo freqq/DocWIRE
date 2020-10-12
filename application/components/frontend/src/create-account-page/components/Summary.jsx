@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
+
 const SummaryWrapper = styled.div.attrs({ className: 'summary-wrapper' })`
   margin-top: 180px;
 `;
@@ -75,22 +77,29 @@ const Summary = ({ accountType, createLoading, createError }) => {
   return (
     <SummaryWrapper>
       <Title>Summary</Title>
-      {!createLoading && createError ? (
-        <ErrorBox>There was an error during creation of your account, try again!</ErrorBox>
+      {createLoading ? (
+        <ProgressIndicatorCircular />
       ) : (
         <>
-          {!createLoading && !createError && <SuccessBox>Account updated successfully!</SuccessBox>}
-
-          {shouldShowForPatient() ? (
-            <PatientSummary>
-              <SummaryText>Not its time for a mandatory inital diagnose</SummaryText>
-              <StyledLink to="/diagnose">Go to diagnose</StyledLink>
-            </PatientSummary>
+          {createError ? (
+            <ErrorBox>
+              There was an error during creation of your account, try again later!
+            </ErrorBox>
           ) : (
-            <DoctorSummary>
-              <SummaryText>Go ahead and checkout an app dashboard</SummaryText>
-              <StyledLink to="/dashboard">Go to dashboard</StyledLink>
-            </DoctorSummary>
+            <>
+              <SuccessBox>Account updated successfully!</SuccessBox>
+              {shouldShowForPatient() ? (
+                <PatientSummary>
+                  <SummaryText>Now it&apos;s time for a mandatory inital diagnose</SummaryText>
+                  <StyledLink to="/diagnose">Go to diagnose</StyledLink>
+                </PatientSummary>
+              ) : (
+                <DoctorSummary>
+                  <SummaryText>Go ahead and checkout an app dashboard</SummaryText>
+                  <StyledLink to="/dashboard">Go to dashboard</StyledLink>
+                </DoctorSummary>
+              )}
+            </>
           )}
         </>
       )}

@@ -10,6 +10,7 @@ const SelectWrapper = styled.div.attrs({ className: 'select-wrapper' })``;
 const OptionWrapper = styled.div.attrs({ className: 'option-wrapper' })`
   display: inline-block;
   margin-left: 20px;
+  cursor: pointer;
 `;
 
 const Select = ({ onChange, value, options, question, customStyle }) => (

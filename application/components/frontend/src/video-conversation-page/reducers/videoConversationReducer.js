@@ -6,7 +6,7 @@ import {
 
 const INITIAL_STATE = {
   data: undefined,
-  isLoading: false,
+  isLoading: true,
   isError: false,
 };
 
