@@ -13,6 +13,7 @@ logging:
     ROOT: INFO
     com.pwit: INFO
     jdk.eventsecurity: INFO
+    com.pwit.appointmentsservice.feign.accountservice: DEBUG
 
 spring:
   profiles:
@@ -56,3 +57,7 @@ keycloak:
   ssl-required: external
   auth-server-url: https://${MINIKUBE_IP}/auth
   disable-trust-manager: true
+
+feign:
+  hystrix:
+    enabled: true

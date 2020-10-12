@@ -5,6 +5,7 @@ import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
 import com.pwit.appointmentsservice.feign.AccountService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
 import com.pwit.appointmentsservice.service.AppointmentService;
+import com.pwit.common.utils.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
-    public final AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
     private final AccountService accountService;
 
     @Override
