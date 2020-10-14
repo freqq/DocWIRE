@@ -41,4 +41,9 @@ task waitForInstallWehbook(type: Exec, dependsOn: waitForInstall) {
             "waitForReadyPod ${project.name}-webhook"
 }
 
-appInstall.dependsOn waitForInstallWehbook
+task waitForInstallCanijector(type: Exec, dependsOn: waitForInstallWehbook) {
+    commandLine 'bash', '-c', ". ${project.ext.functionsScript} ${project.ext.certManagerNamespace} && " +
+            "waitForReadyPod ${project.name}-cainjector"
+}
+
+appInstall.dependsOn waitForInstallCanijector

@@ -51,7 +51,7 @@ public class AppointmentController {
      *
      */
     @Secured(ROLE_USER)
-    @GetMapping("/all")
+    @GetMapping("/details/all")
     public ResponseEntity<?> getAllAppointmentsForCurrentUser() {
         LOGGER.info("Fetching all appointments for user {}.", getCurrentUsername());
         return appointmentService.getAllAppointmentsForCurrentUser(getCurrentUserId());
@@ -62,7 +62,7 @@ public class AppointmentController {
      *
      */
     @Secured(ROLE_USER)
-    @GetMapping("/recent")
+    @GetMapping("/details/recent")
     public ResponseEntity<?> getMostRecentAppointmentForCurrentUser() {
         LOGGER.info("Fetching most recent appointment for user {}.", getCurrentUsername());
         return appointmentService.getMostRecentAppointmentForCurrentUser(getCurrentUserId());

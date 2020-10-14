@@ -43,6 +43,7 @@ const SeeAllButton = styled(Link).attrs({ className: 'see-all-button' })`
   transition: 0.2s;
   cursor: pointer;
   text-decoration: none;
+  color: #000;
 
   &:hover {
     opacity: 0.6;

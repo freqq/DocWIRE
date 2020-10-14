@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import settingsIcon from 'images/icons/settings.svg';
 import supportIcon from 'images/icons/support.svg';
 import signOutIcon from 'images/icons/sign_out.svg';
-import activityIcon from 'images/icons/activity.svg';
 
 const UserDropdownMenuWrapper = styled.div.attrs({ className: 'user-dropdown-menu-wrapper' })`
   border: 1px solid rgba(100, 100, 100, 0.4);
@@ -17,7 +16,8 @@ const UserDropdownMenuWrapper = styled.div.attrs({ className: 'user-dropdown-men
   font-size: 11px;
   position: absolute;
   top: 50px;
-  left: 60px;
+  left: 40px;
+  min-width: 150px;
   z-index: 9999;
   font-family: 'Roboto', sans-serif !important;
   cursor: auto;
@@ -73,24 +73,19 @@ const StyledLink = styled(Link).attrs({ className: 'styled-link' })`
 
 const MENU_ITEMS = [
   {
-    id: 2,
+    id: 1,
     icon: settingsIcon,
     to: '/settings',
     title: 'Account settings',
   },
   {
-    id: 3,
+    id: 2,
     icon: supportIcon,
     to: '/faq',
     title: 'FAQ',
   },
   {
-    id: 4,
-    icon: activityIcon,
-    title: 'Activity log',
-  },
-  {
-    id: 5,
+    id: 3,
     elemendId: 'logout-button',
     icon: signOutIcon,
     title: 'Sign out',

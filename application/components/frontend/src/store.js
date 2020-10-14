@@ -10,6 +10,7 @@ import diagnoseReducer from 'initial-diagnose/reducers';
 import videoConversationReducer from 'video-conversation-page/reducers';
 import dashboardReducer from 'dashboard-page/reducers';
 import patientReducer from 'patient-details-page/reducers';
+import appointmentReducer from 'appointments-page/reducers';
 
 export const history = createBrowserHistory();
 
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   diagnose: diagnoseReducer,
   dashboard: dashboardReducer,
   patient: patientReducer,
+  appointment: appointmentReducer,
 });
 
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
