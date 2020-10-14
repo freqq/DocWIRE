@@ -2,7 +2,7 @@
 
 Web application used to consult a family doctor using online videoconferences in microservices architecture.
 
-### Tech stack:
+### Tech stack
 
 Technologies:
 - Java 11
@@ -33,6 +33,17 @@ DevOps:
 - Helm
 - Kubernetes
 - Ansible (?)
+
+### Main features
+- live video call and live chat with doctor
+- private messages user to user
+- live notifications
+- payment handling
+- diagnose process page
+
+### Infrastructure diagram
+
+TBD
 
 ### Functional services
 - *account-service* - handle user details
@@ -82,6 +93,13 @@ Then in another terminal window execute:
 ```sh
 $ cd scripts && ./start.sh
 ```
+
+<details>
+  <summary>Example output</summary>
+
+    123
+
+</details>
 
 You can reach a website at URL logged at the end of start script.
 
