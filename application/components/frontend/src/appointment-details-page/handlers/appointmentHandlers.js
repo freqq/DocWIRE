@@ -2,4 +2,4 @@
 import RequestService from 'common/services/RequestService';
 
 export const appointmentDetails = appointmentId =>
-  RequestService.get(`/api/details/${appointmentId}`);
+  RequestService.get(`/api/appointments/${appointmentId}`);

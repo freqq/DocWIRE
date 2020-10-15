@@ -78,6 +78,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .appointmentDate(appointment.getAppointmentDate())
                 .chosenSymptoms(appointment.getChosenSymptoms())
                 .doctor(accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId()))
+                .patient(accountService.getDetailsOfUserWithGivenId(appointment.getPatientId()))
                 .lastSurvey(appointment.getLastSurvey())
                 .quickSurvey(appointment.getQuickSurvey())
                 .visitedRegions(appointment.getVisitedRegions())

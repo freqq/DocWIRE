@@ -11,7 +11,7 @@ import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 
 import cancelIcon from 'images/icons/close.svg';
-import rescheduleIcon from 'images/menu-icons/reports.svg';
+import detailsIcon from 'images/icons/details.svg';
 
 const AppointmentsWrapper = styled.div.attrs({ className: 'appointments-wrapper' })`
   border-radius: 5px;
@@ -92,6 +92,25 @@ const ActionButton = styled.button.attrs({ className: 'action-button' })`
   }
 `;
 
+const ActionLink = styled(Link).attrs({ className: 'action-link' })`
+  outline: none;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 100;
+  background: #ffffff;
+  padding: 10px;
+  font-size: 11px;
+  transition: 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+
+  &:hover {
+    opacity: 0.6;
+  }
+`;
+
 const GridElement = styled.div.attrs({ className: 'grid-element' })``;
 
 const Title = styled.div.attrs({ className: 'title' })`
@@ -125,8 +144,6 @@ const Appointments = ({ isLoading, isError, data, getRecentAppointmentFunc }) =>
   }, []);
 
   const cancelBooking = () => console.log('cancelBooking');
-
-  const rescheduleBooking = () => console.log('rescheduleBooking');
 
   if (isError)
     return (
@@ -208,10 +225,10 @@ const Appointments = ({ isLoading, isError, data, getRecentAppointmentFunc }) =>
                 <ButtonIcon src={cancelIcon} alt="cancelIcon" />
                 Cancel Booking
               </ActionButton>
-              <ActionButton onClick={rescheduleBooking}>
-                <ButtonIcon src={rescheduleIcon} alt="rescheduleIcon" />
-                Reschedule
-              </ActionButton>
+              <ActionLink to={`/appointments/${data.appointmentData.id}`}>
+                <ButtonIcon src={detailsIcon} alt="detailsIcon" />
+                See details
+              </ActionLink>
             </ActionButtons>
           </>
         )}

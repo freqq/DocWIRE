@@ -24,6 +24,9 @@ public class RecentAppointment {
     private User doctor;
 
     @NotNull
+    private User patient;
+
+    @NotNull
     private List<String> chosenSymptoms;
 
     @NotNull
