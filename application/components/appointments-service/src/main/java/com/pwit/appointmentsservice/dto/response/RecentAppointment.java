@@ -2,6 +2,7 @@ package com.pwit.appointmentsservice.dto.response;
 
 import com.pwit.appointmentsservice.dto.QuickSurvey;
 import com.pwit.appointmentsservice.dto.SurveyItem;
+import com.pwit.appointmentsservice.dto.enumeration.AppointmentState;
 import com.pwit.appointmentsservice.dto.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,12 @@ public class RecentAppointment {
 
     @NotNull
     private User patient;
+
+    @NotNull
+    private String appointmentPrice;
+
+    @NotNull
+    private AppointmentState appointmentState;
 
     @NotNull
     private List<String> chosenSymptoms;

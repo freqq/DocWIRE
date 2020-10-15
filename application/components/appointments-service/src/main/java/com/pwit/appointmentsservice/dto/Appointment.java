@@ -1,5 +1,6 @@
 package com.pwit.appointmentsservice.dto;
 
+import com.pwit.appointmentsservice.dto.enumeration.AppointmentState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,10 @@ public class Appointment {
     @NotNull
     @Field("patientId")
     private String patientId;
+
+    @NotNull
+    @Field("appointmentState")
+    private AppointmentState appointmentState;
 
     @NotNull
     @Field("chosenSymptoms")

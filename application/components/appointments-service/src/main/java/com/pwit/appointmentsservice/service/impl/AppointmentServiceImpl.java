@@ -3,6 +3,7 @@ package com.pwit.appointmentsservice.service.impl;
 import com.pwit.appointmentsservice.dto.Appointment;
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
 import com.pwit.appointmentsservice.dto.response.RecentAppointment;
+import com.pwit.appointmentsservice.dto.user.User;
 import com.pwit.appointmentsservice.feign.AccountService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
 import com.pwit.appointmentsservice.service.AppointmentService;
@@ -74,13 +75,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     private RecentAppointment createRecentAppointment(Appointment appointment) {
+        User doctor = accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId());
+
         return new RecentAppointment().toBuilder()
                 .appointmentDate(appointment.getAppointmentDate())
                 .chosenSymptoms(appointment.getChosenSymptoms())
-                .doctor(accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId()))
+                .doctor(doctor)
                 .patient(accountService.getDetailsOfUserWithGivenId(appointment.getPatientId()))
                 .lastSurvey(appointment.getLastSurvey())
                 .quickSurvey(appointment.getQuickSurvey())
+                .appointmentPrice(doctor.getDoctorInfo().getPrice())
+                .appointmentState(appointment.getAppointmentState())
                 .visitedRegions(appointment.getVisitedRegions())
                 .id(appointment.getId())
                 .build();
