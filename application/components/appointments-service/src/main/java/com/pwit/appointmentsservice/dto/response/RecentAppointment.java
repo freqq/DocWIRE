@@ -18,6 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 public class RecentAppointment {
     @NotNull
+    private String id;
+
+    @NotNull
     private User doctor;
 
     @NotNull

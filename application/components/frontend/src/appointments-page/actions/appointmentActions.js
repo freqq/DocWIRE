@@ -1,30 +1,30 @@
-import { appointmentDetails } from 'appointments-page/handlers/appointmentHandlers';
+import { appointmentsList } from 'appointments-page/handlers/appointmentHandlers';
 
-export const FETCH_APPOINTMENT_PENDING = 'FETCH_APPOINTMENT_PENDING';
-export const FETCH_APPOINTMENT_OK = 'FETCH_APPOINTMENT_OK';
-export const FETCH_APPOINTMENT_FAIL = 'FETCH_APPOINTMENT_FAIL';
+export const FETCH_APPOINTMENTS_LIST_PENDING = 'FETCH_APPOINTMENTS_LIST_PENDING';
+export const FETCH_APPOINTMENTS_LIST_OK = 'FETCH_APPOINTMENTS_LIST_OK';
+export const FETCH_APPOINTMENTS_LIST_FAIL = 'FETCH_APPOINTMENTS_LIST_FAIL';
 
-export const makeFetchAppointmentPending = () => ({
-  type: FETCH_APPOINTMENT_PENDING,
+export const makeFetchAppointmentsListPending = () => ({
+  type: FETCH_APPOINTMENTS_LIST_PENDING,
 });
 
-export const makeFetchAppointmentOk = appointmentData => ({
-  type: FETCH_APPOINTMENT_OK,
-  payload: { appointmentData },
+export const makeFetchAppointmentsListOk = appointmentsListData => ({
+  type: FETCH_APPOINTMENTS_LIST_OK,
+  payload: { appointmentsListData },
 });
 
-export const makeFetchAppointmentFail = () => ({
-  type: FETCH_APPOINTMENT_FAIL,
+export const makeFetchAppointmentsListFail = () => ({
+  type: FETCH_APPOINTMENTS_LIST_FAIL,
 });
 
-export const fetchAppointmentDetails = appointmentId => dispatch => {
-  dispatch(makeFetchAppointmentPending());
+export const fetchAppointmentsList = () => dispatch => {
+  dispatch(makeFetchAppointmentsListPending());
 
-  return appointmentDetails(appointmentId)
+  return appointmentsList()
     .then(res => {
-      dispatch(makeFetchAppointmentOk(res.data));
+      dispatch(makeFetchAppointmentsListOk(res.data));
     })
     .catch(() => {
-      dispatch(makeFetchAppointmentFail());
+      dispatch(makeFetchAppointmentsListFail());
     });
 };

@@ -1,8 +1,8 @@
 import {
-  FETCH_APPOINTMENTS_LIST_PENDING,
-  FETCH_APPOINTMENTS_LIST_OK,
-  FETCH_APPOINTMENTS_LIST_FAIL,
-} from 'appointments-page/actions/appointmentActions';
+  FETCH_APPOINTMENT_PENDING,
+  FETCH_APPOINTMENT_OK,
+  FETCH_APPOINTMENT_FAIL,
+} from 'appointment-details-page/actions/appointmentActions';
 
 const INITIAL_STATE = {
   data: undefined,
@@ -34,11 +34,11 @@ const fetchOk = (state, action) => ({
 export default (state, action) => {
   const stateDefinition = typeof state === 'undefined' ? INITIAL_STATE : state;
   switch (action.type) {
-    case FETCH_APPOINTMENTS_LIST_OK:
+    case FETCH_APPOINTMENT_OK:
       return fetchOk(stateDefinition, action);
-    case FETCH_APPOINTMENTS_LIST_PENDING:
+    case FETCH_APPOINTMENT_PENDING:
       return fetchPending(stateDefinition);
-    case FETCH_APPOINTMENTS_LIST_FAIL:
+    case FETCH_APPOINTMENT_FAIL:
       return fetchFail(stateDefinition);
     default:
       return stateDefinition;

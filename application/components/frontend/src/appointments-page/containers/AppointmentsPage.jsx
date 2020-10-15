@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import { APP_TITLE } from 'common/constants';
-import { fetchAppointmentDetails } from 'appointments-page/actions/appointmentActions';
+import { fetchAppointmentsList } from 'appointments-page/actions/appointmentActions';
 import AppointmentsLeftCard from 'appointments-page/containers/AppointmentsLeftCard';
 import AppointmentsRightCard from 'appointments-page/containers/AppointmentsRightCard';
 import AppointmentsColumn from 'appointments-page/components/AppointmentsColumn';
@@ -18,14 +18,10 @@ const AppointmentsPageWrapper = styled.div.attrs({ className: 'appointments-page
   gap: 30px;
 `;
 
-const AppointmentsPage = ({ match, fetchAppointmentDetailsFunc, isLoading, isError }) => {
+const AppointmentsPage = ({ fetchAppointmentsListFunc, isLoading, isError }) => {
   useEffect(() => {
-    const {
-      params: { appointmentId },
-    } = match;
-
     document.title = `Appointments - ${APP_TITLE}`;
-    fetchAppointmentDetailsFunc(appointmentId);
+    fetchAppointmentsListFunc();
   }, []);
 
   return (
@@ -38,21 +34,16 @@ const AppointmentsPage = ({ match, fetchAppointmentDetailsFunc, isLoading, isErr
 };
 
 const mapStateToProps = state => ({
-  isLoading: state.appointment.appointmentDetails.isLoading,
-  isError: state.appointment.appointmentDetails.isError,
+  isLoading: state.appointmentsList.appointments.isLoading,
+  isError: state.appointmentsList.appointments.isError,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchAppointmentDetailsFunc: appointmentId => dispatch(fetchAppointmentDetails(appointmentId)),
+  fetchAppointmentsListFunc: () => dispatch(fetchAppointmentsList()),
 });
 
 AppointmentsPage.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      appointmentId: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  fetchAppointmentDetailsFunc: PropTypes.func.isRequired,
+  fetchAppointmentsListFunc: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
 };

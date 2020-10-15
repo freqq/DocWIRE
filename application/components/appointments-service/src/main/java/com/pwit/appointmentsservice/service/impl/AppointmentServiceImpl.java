@@ -47,13 +47,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(appointment.isEmpty())
             return ResponseEntity.notFound().build();
 
-        RecentAppointment recentAppointment = new RecentAppointment().toBuilder()
-                .appointmentDate(appointment.get().getAppointmentDate())
-                .chosenSymptoms(appointment.get().getChosenSymptoms())
-                .doctor(accountService.getDetailsOfUserWithGivenId(appointment.get().getDoctorId()))
-                .lastSurvey(appointment.get().getLastSurvey())
-                .quickSurvey(appointment.get().getQuickSurvey())
-                .visitedRegions(appointment.get().getVisitedRegions()).build();
+        RecentAppointment recentAppointment = createRecentAppointment(appointment.get());
 
         return ResponseEntity.ok(recentAppointment);
     }
@@ -64,14 +58,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<RecentAppointment> recentAppointments = new ArrayList<>();
 
         for(Appointment appointment : appointments) {
-            RecentAppointment recentAppointment = new RecentAppointment().toBuilder()
-                    .appointmentDate(appointment.getAppointmentDate())
-                    .chosenSymptoms(appointment.getChosenSymptoms())
-                    .doctor(accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId()))
-                    .lastSurvey(appointment.getLastSurvey())
-                    .quickSurvey(appointment.getQuickSurvey())
-                    .visitedRegions(appointment.getVisitedRegions()).build();
-
+            RecentAppointment recentAppointment = createRecentAppointment(appointment);
             recentAppointments.add(recentAppointment);
         }
 
@@ -81,17 +68,20 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId) {
         Appointment appointment = appointmentRepository.findTopByPatientId(currentUserId);
+        RecentAppointment recentAppointment = createRecentAppointment(appointment);
 
+        return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
+    }
 
-        RecentAppointment recentAppointment = new RecentAppointment().toBuilder()
+    private RecentAppointment createRecentAppointment(Appointment appointment) {
+        return new RecentAppointment().toBuilder()
                 .appointmentDate(appointment.getAppointmentDate())
                 .chosenSymptoms(appointment.getChosenSymptoms())
                 .doctor(accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId()))
                 .lastSurvey(appointment.getLastSurvey())
                 .quickSurvey(appointment.getQuickSurvey())
                 .visitedRegions(appointment.getVisitedRegions())
+                .id(appointment.getId())
                 .build();
-
-        return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
     }
 }

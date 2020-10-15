@@ -1,6 +1,11 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { APP_TITLE } from 'common/constants';
+import { fetchAppointmentDetails } from 'appointment-details-page/actions/appointmentActions';
 import AppointmentLeft from 'appointment-details-page/components/AppointmentLeft';
 import AppointmentRight from 'appointment-details-page/components/AppointmentRight';
 import AppointmentDetailsBreadcrumb from 'appointment-details-page/components/AppointmentDetailsBreadcrumb';
@@ -20,14 +25,45 @@ const AppointmentGrid = styled.div.attrs({ className: 'message-grid' })`
   width: 100%;
 `;
 
-const AppointmentDetailsPage = () => (
-  <AppointmentDetailsPageWrapper>
-    <AppointmentDetailsBreadcrumb patientName="Alice Cooper" />
-    <AppointmentGrid>
-      <AppointmentLeft />
-      <AppointmentRight />
-    </AppointmentGrid>
-  </AppointmentDetailsPageWrapper>
-);
+const AppointmentDetailsPage = ({ fetchAppointmentDetailsFunc, isLoading, isError, match }) => {
+  useEffect(() => {
+    const {
+      params: { appointmentId },
+    } = match;
 
-export default AppointmentDetailsPage;
+    document.title = `Appointment details - ${APP_TITLE}`;
+    fetchAppointmentDetailsFunc(appointmentId);
+  }, []);
+
+  return (
+    <AppointmentDetailsPageWrapper>
+      <AppointmentDetailsBreadcrumb patientName="Alice Cooper" />
+      <AppointmentGrid>
+        <AppointmentLeft />
+        <AppointmentRight />
+      </AppointmentGrid>
+    </AppointmentDetailsPageWrapper>
+  );
+};
+
+const mapStateToProps = state => ({
+  isLoading: state.appointmentDetails.details.isLoading,
+  isError: state.appointmentDetails.details.isError,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchAppointmentDetailsFunc: appointmentId => dispatch(fetchAppointmentDetails(appointmentId)),
+});
+
+AppointmentDetailsPage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      appointmentId: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  fetchAppointmentDetailsFunc: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppointmentDetailsPage);
