@@ -59,12 +59,20 @@ public class AppointmentController {
 
     /**
      * Fetches most recent appointment for current user.
-     *
      */
     @Secured(ROLE_USER)
     @GetMapping("/details/recent")
     public ResponseEntity<?> getMostRecentAppointmentForCurrentUser() {
         LOGGER.info("Fetching most recent appointment for user {}.", getCurrentUsername());
         return appointmentService.getMostRecentAppointmentForCurrentUser(getCurrentUserId());
+    }
+
+    /**
+     * Accepting an appointment request by doctor.
+     */
+    @PutMapping("/accept/{appointmentId}")
+    public ResponseEntity<?> acceptAppointmentRequest(@PathVariable("appointmentId") String appointmentId) {
+        LOGGER.info("Accepting an appointment request by doctor for user {}.", getCurrentUsername());
+        return appointmentService.acceptAppointmentRequest(appointmentId);
     }
 }

@@ -90,7 +90,7 @@ const MainCardFooter = ({
             shouldBlocckPickAppointmentDate()
           }
         >
-          Next step &gt;
+          {currentStep === 7 ? 'Finish' : 'Next step &gt;'}
         </NextStepButton>
       )}
       {currentStep !== 1 && (

@@ -1,6 +1,20 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import Tabs from 'common/components/tabs/Tabs';
+import { getCurrentStepNumber } from 'appointment-details-page/utils/appointmentState';
+import { acceptAppointmentRequest } from 'appointment-details-page/actions/appointmentActions';
+import inlineLoaderImage from 'images/inline-loader.svg';
+
+import AppointmentDate from 'appointment-details-page/components/tabs/AppointmentDate';
+import QuickSurvey from 'appointment-details-page/components/tabs/QuickSurvey';
+import VisitedRegions from 'appointment-details-page/components/tabs/VisitedRegions';
+import LastSurvey from 'appointment-details-page/components/tabs/LastSurvey';
 
 const AppointmentTimelineWrapper = styled.div.attrs({ className: 'appointment-timeline-wrapper' })`
   background: #ffffff;
@@ -10,6 +24,8 @@ const AppointmentTimelineWrapper = styled.div.attrs({ className: 'appointment-ti
   padding: 20px;
   font-size: 12px;
   margin-top: 20px;
+  max-height: 60vh;
+  overflow-y: scroll;
 `;
 
 const CardTitle = styled.div.attrs({ className: 'card-title' })`
@@ -50,10 +66,31 @@ const StepDetails = styled.div.attrs({ className: 'step-details' })``;
 const StepStatus = styled.div.attrs({ className: 'step-status' })`
   padding-top: 10px;
   font-weight: 100;
+  text-align: center;
 `;
 
 const StepName = styled.div.attrs({ className: 'step-name' })`
   margin: 10px 0;
+`;
+
+const DetailsTabs = styled.div.attrs({ className: 'details-tab' })``;
+
+const InlineLoader = styled.img.attrs({ className: 'inline-loader' })`
+  width: 50%;
+  height: 20px;
+`;
+
+const AcceptRequestButton = styled.div.attrs({ className: 'accept-request-button' })`
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+
+  &:hover {
+    background: #eee;
+  }
 `;
 
 const StepDescription = styled.div.attrs({ className: 'step-description' })`
@@ -82,23 +119,29 @@ const ACTIVITY_STEPS = [
     id: 1,
     name: 'Request received',
     description:
-      'You received new request. Check medical files for this case and decide wheter you want to take it',
+      'New appointment request was filed. Waiting for doctor to decide wheter he wants to take this case.',
     notDone: 'Waiting for request approval...',
     done: 'Request has been accepted',
   },
   {
     id: 2,
     name: 'Patient booking and payment',
-    description: 'Waiting for patient to pay for the consultation',
+    description: 'Appointment request accepted. Waiting for patient to pay for the consultation',
     notDone: 'Awaiting for patient booking and payment...',
     done: 'Payment has been done.',
   },
   {
     id: 3,
     name: 'Video call with patient',
-    description: 'Connect with booked client and consult about his issue.',
+    description: 'Make a call and consult about patients issue.',
     notDone: 'Waiting for the video call deadline...',
     done: 'Consultation took place.',
+  },
+  {
+    id: 4,
+    name: 'Appointment finished',
+    description: 'Call was made and this issue is closed.',
+    notDone: 'Meeting has ended',
   },
 ];
 
@@ -112,11 +155,74 @@ const DONE_TEXT_COLOR = {
   fontWeight: '400',
 };
 
-const AppointmentTimeline = () => {
-  const [activeStep, setActiveStep] = useState(1);
+const AppointmentTimeline = ({
+  data,
+  loggedInUserId,
+  acceptAppointmentRequestFunc,
+  isAcceptRequestLoading,
+  isAcceptRequestError,
+}) => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    setActiveStep(getCurrentStepNumber(data.appointmentState));
+  }, [data]);
+
+  const acceptRequest = appointmentId => {
+    acceptAppointmentRequestFunc(appointmentId);
+  };
+
+  const payForAppointment = appointmentId => {
+    console.log(appointmentId);
+  };
+
+  const renderStepStatus = step => {
+    if (activeStep >= step.id) {
+      return <>{step.done}</>;
+    }
+
+    if (activeStep === 0 && data.doctor.userId === loggedInUserId) {
+      return (
+        <AcceptRequestButton onClick={() => acceptRequest(data.id)}>
+          {isAcceptRequestLoading ? (
+            <InlineLoader src={inlineLoaderImage} alt="inlineLoaderImage" />
+          ) : (
+            'Accept request'
+          )}
+        </AcceptRequestButton>
+      );
+    }
+
+    if (activeStep === 1 && data.patient.userId === loggedInUserId) {
+      return (
+        <AcceptRequestButton onClick={() => payForAppointment(data.id)}>
+          Pay for appointment
+        </AcceptRequestButton>
+      );
+    }
+
+    return <>{activeStep >= step.id ? <>{step.done}</> : <>{step.notDone}</>}</>;
+  };
 
   return (
     <AppointmentTimelineWrapper>
+      <CardTitle>Appointment details</CardTitle>
+      <DetailsTabs>
+        <Tabs>
+          <div label="Appointment date">
+            <AppointmentDate appointmentDate={data.appointmentDate} />
+          </div>
+          <div label="Quick survey">
+            <QuickSurvey quickSurveyData={data.quickSurvey} />
+          </div>
+          <div label="Visited regions">
+            <VisitedRegions visitedRegionsData={data.visitedRegions} />
+          </div>
+          <div label="Last survey">
+            <LastSurvey lastSurveyData={data.lastSurvey} />
+          </div>
+        </Tabs>
+      </DetailsTabs>
       <CardTitle>Consultation activity</CardTitle>
       <StepsWrapper>
         {ACTIVITY_STEPS.map(step => (
@@ -133,7 +239,7 @@ const AppointmentTimeline = () => {
             </StepDetails>
             {activeStep + 1 >= step.id && (
               <StepStatus style={activeStep >= step.id ? DONE_TEXT_COLOR : {}}>
-                {activeStep >= step.id ? <>{step.done}</> : <>{step.notDone}</>}
+                {renderStepStatus(step)}
               </StepStatus>
             )}
           </StepsItem>
@@ -143,4 +249,23 @@ const AppointmentTimeline = () => {
   );
 };
 
-export default AppointmentTimeline;
+const mapStateToProps = state => ({
+  data: state.appointmentDetails.details.data,
+  isAcceptRequestLoading: state.appointmentDetails.details.isAcceptRequestLoading,
+  isAcceptRequestError: state.appointmentDetails.details.isAcceptRequestError,
+  loggedInUserId: state.common.authUser.keycloakInfo.subject,
+});
+
+const mapDispatchToProps = dispatch => ({
+  acceptAppointmentRequestFunc: appointmentId => dispatch(acceptAppointmentRequest(appointmentId)),
+});
+
+AppointmentTimeline.propTypes = {
+  data: PropTypes.instanceOf(Object).isRequired,
+  loggedInUserId: PropTypes.string.isRequired,
+  acceptAppointmentRequestFunc: PropTypes.func.isRequired,
+  isAcceptRequestLoading: PropTypes.bool.isRequired,
+  isAcceptRequestError: PropTypes.bool.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppointmentTimeline);

@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { getAppointmentStateText } from 'appointment-details-page/utils/appointmentState';
 import AppointmentTimeline from 'appointment-details-page/components/AppointmentTimeline';
 
 const AppointmentRightWrapper = styled.div.attrs({ className: 'appointment-right-wrapper' })``;
@@ -37,20 +40,28 @@ const CardSubtitle = styled.div.attrs({ className: 'card-subtitle' })`
   font-size: 11px;
 `;
 
-const AppointmentRight = () => (
+const AppointmentRight = ({ data }) => (
   <AppointmentRightWrapper>
     <TopGrid>
       <CurrentStatusCard>
         <CardTitle>Current status</CardTitle>
-        <CardSubtitle>Awaiting for patient booking and payment...</CardSubtitle>
+        <CardSubtitle>{getAppointmentStateText(data.appointmentState)}</CardSubtitle>
       </CurrentStatusCard>
       <CurrentPriceCard>
         <CardTitle>Current price</CardTitle>
-        <CardSubtitle>$200</CardSubtitle>
+        <CardSubtitle>{`$${data.appointmentPrice}`}</CardSubtitle>
       </CurrentPriceCard>
     </TopGrid>
     <AppointmentTimeline />
   </AppointmentRightWrapper>
 );
 
-export default AppointmentRight;
+const mapStateToProps = state => ({
+  data: state.appointmentDetails.details.data,
+});
+
+AppointmentRight.propTypes = {
+  data: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default connect(mapStateToProps, null)(AppointmentRight);

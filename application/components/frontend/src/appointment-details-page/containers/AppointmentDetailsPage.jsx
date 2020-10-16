@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { APP_TITLE } from 'common/constants';
+import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 import { fetchAppointmentDetails } from 'appointment-details-page/actions/appointmentActions';
 import AppointmentLeft from 'appointment-details-page/components/AppointmentLeft';
 import AppointmentRight from 'appointment-details-page/components/AppointmentRight';
@@ -25,7 +26,24 @@ const AppointmentGrid = styled.div.attrs({ className: 'message-grid' })`
   width: 100%;
 `;
 
-const AppointmentDetailsPage = ({ fetchAppointmentDetailsFunc, isLoading, isError, match }) => {
+const ErrorBlock = styled.div.attrs({ className: 'error-block' })`
+  padding: 20px 10px;
+  margin: 5px 0;
+  text-align: center;
+  background: #fce7e6;
+  font-size: 12px;
+  color: #552526;
+  width: 80%;
+  margin: 20px auto;
+`;
+
+const AppointmentDetailsPage = ({
+  fetchAppointmentDetailsFunc,
+  isLoading,
+  isError,
+  match,
+  data,
+}) => {
   useEffect(() => {
     const {
       params: { appointmentId },
@@ -35,9 +53,25 @@ const AppointmentDetailsPage = ({ fetchAppointmentDetailsFunc, isLoading, isErro
     fetchAppointmentDetailsFunc(appointmentId);
   }, []);
 
+  const getFullName = person => `${person.firstName} ${person.lastName}`;
+
+  if (isError)
+    return (
+      <AppointmentDetailsPageWrapper>
+        <ErrorBlock>There was an error while fetching appointment details</ErrorBlock>
+      </AppointmentDetailsPageWrapper>
+    );
+
+  if (isLoading)
+    return (
+      <AppointmentDetailsPageWrapper>
+        <ProgressIndicatorCircular />
+      </AppointmentDetailsPageWrapper>
+    );
+
   return (
     <AppointmentDetailsPageWrapper>
-      <AppointmentDetailsBreadcrumb patientName="Alice Cooper" />
+      <AppointmentDetailsBreadcrumb patientName={getFullName(data.patient)} />
       <AppointmentGrid>
         <AppointmentLeft />
         <AppointmentRight />
@@ -49,6 +83,7 @@ const AppointmentDetailsPage = ({ fetchAppointmentDetailsFunc, isLoading, isErro
 const mapStateToProps = state => ({
   isLoading: state.appointmentDetails.details.isLoading,
   isError: state.appointmentDetails.details.isError,
+  data: state.appointmentDetails.details.data,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -64,6 +99,7 @@ AppointmentDetailsPage.propTypes = {
   fetchAppointmentDetailsFunc: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  data: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppointmentDetailsPage);

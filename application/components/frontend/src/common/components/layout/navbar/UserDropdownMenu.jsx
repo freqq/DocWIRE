@@ -111,7 +111,7 @@ const UserDropdownMenu = ({ onOutsideClick, logoutUserFunc }) => {
             key={menuItem.id}
             style={menuItem.style ? menuItem.style : {}}
           >
-            <StyledLink to={menuItem.to} onClick={menuItem.id === 5 ? logoutUserFunc : null}>
+            <StyledLink to={menuItem.to} onClick={menuItem.id === 3 ? logoutUserFunc : null}>
               {menuItem.icon && <ItemIcon src={menuItem.icon} alt="menu-icon" />}
               <ItemTitle style={menuItem.paragraphStyle ? menuItem.paragraphStyle : {}}>
                 {menuItem.title}

@@ -1,5 +1,8 @@
+/* eslint-disable prefer-template */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const AppointmentLeftWrapper = styled.div.attrs({ className: 'appointment-left-wrapper' })``;
 
@@ -51,16 +54,6 @@ const UserCard = styled.div.attrs({ className: 'user-card' })`
   background: #fff;
 `;
 
-const TwoSideGrid = styled.div.attrs({ className: 'two-side-grid' })`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-top: 40px;
-`;
-
-const GridComponent = styled.div.attrs({ className: 'grid-component' })`
-  text-align: center;
-`;
-
 const Title = styled.div.attrs({ className: 'title' })`
   font-weight: 100;
   font-size: 10px;
@@ -81,44 +74,52 @@ const UserDetail = styled.div.attrs({ className: 'user-detail' })`
   margin-top: 20px;
 `;
 
-const AppointmentLeft = () => (
-  <AppointmentLeftWrapper>
-    <PatientCard>
-      <UserCircle>AC</UserCircle>
-      <UserCard>
-        <UserName>Abba Barbarian</UserName>
-        <UserTitle>anna.barbarian@email.com</UserTitle>
-        <TwoSideGrid>
-          <GridComponent>
-            <Title>Role</Title>
-            <SubTitle>Patient</SubTitle>
-          </GridComponent>
-          <GridComponent>
-            <Title>Role</Title>
-            <SubTitle>Patient</SubTitle>
-          </GridComponent>
-        </TwoSideGrid>
-      </UserCard>
-      <UserDetailsWrapper>
-        <UserDetail>
-          <Title>Address</Title>
-          <SubTitle>99 Meadow City</SubTitle>
-        </UserDetail>
-        <UserDetail>
-          <Title>Zip code</Title>
-          <SubTitle>606584-3274</SubTitle>
-        </UserDetail>
-        <UserDetail>
-          <Title>City</Title>
-          <SubTitle>San Francisco</SubTitle>
-        </UserDetail>
-        <UserDetail>
-          <Title>Country</Title>
-          <SubTitle>United States of America</SubTitle>
-        </UserDetail>
-      </UserDetailsWrapper>
-    </PatientCard>
-  </AppointmentLeftWrapper>
-);
+const AppointmentLeft = ({ data }) => {
+  const getFullName = person => `${person.firstName} ${person.lastName}`;
 
-export default AppointmentLeft;
+  const getCircleData = person =>
+    person.firstName.charAt(0).toUpperCase() + person.lastName.charAt(0).toUpperCase();
+
+  const getEmail = person =>
+    person.firstName.toLowerCase() + '.' + person.lastName.toLowerCase() + '@docwire.com';
+
+  return (
+    <AppointmentLeftWrapper>
+      <PatientCard>
+        <UserCircle>{getCircleData(data.patient)}</UserCircle>
+        <UserCard>
+          <UserName>{getFullName(data.patient)}</UserName>
+          <UserTitle>{getEmail(data.patient)}</UserTitle>
+        </UserCard>
+        <UserDetailsWrapper>
+          <UserDetail>
+            <Title>Address</Title>
+            <SubTitle>{data.patient.patientInfo.address}</SubTitle>
+          </UserDetail>
+          <UserDetail>
+            <Title>Zip code</Title>
+            <SubTitle>{data.patient.patientInfo.zipCode}</SubTitle>
+          </UserDetail>
+          <UserDetail>
+            <Title>City</Title>
+            <SubTitle>{data.patient.patientInfo.city}</SubTitle>
+          </UserDetail>
+          <UserDetail>
+            <Title>Country</Title>
+            <SubTitle>{data.patient.patientInfo.country}</SubTitle>
+          </UserDetail>
+        </UserDetailsWrapper>
+      </PatientCard>
+    </AppointmentLeftWrapper>
+  );
+};
+
+const mapStateToProps = state => ({
+  data: state.appointmentDetails.details.data,
+});
+
+AppointmentLeft.propTypes = {
+  data: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default connect(mapStateToProps, null)(AppointmentLeft);

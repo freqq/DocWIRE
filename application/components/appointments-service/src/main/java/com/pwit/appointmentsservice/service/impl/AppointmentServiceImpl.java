@@ -1,6 +1,7 @@
 package com.pwit.appointmentsservice.service.impl;
 
 import com.pwit.appointmentsservice.dto.Appointment;
+import com.pwit.appointmentsservice.dto.enumeration.AppointmentState;
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
 import com.pwit.appointmentsservice.dto.response.RecentAppointment;
 import com.pwit.appointmentsservice.dto.user.User;
@@ -26,6 +27,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public ResponseEntity<?> createAppointment(AppointmentRequest appointmentRequest, String currentUserId) {
         Appointment appointment = new Appointment().toBuilder()
                 .appointmentDate(appointmentRequest.getAppointmentDate())
+                .appointmentState(AppointmentState.REQUESTED)
                 .chosenSymptoms(appointmentRequest.getChosenSymptoms())
                 .doctorId(appointmentRequest.getDoctorId())
                 .patientId(appointmentRequest.getPatientId())
@@ -70,6 +72,19 @@ public class AppointmentServiceImpl implements AppointmentService {
     public ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId) {
         Appointment appointment = appointmentRepository.findTopByPatientId(currentUserId);
         RecentAppointment recentAppointment = createRecentAppointment(appointment);
+
+        return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity<?> acceptAppointmentRequest(String appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+
+        if(appointment.isEmpty())
+            return new ResponseEntity<>("Appointment with given id not found.", HttpStatus.NOT_FOUND);
+
+        appointment.get().setAppointmentState(AppointmentState.ACCEPTED);
+        appointmentRepository.save(appointment.get());
+        RecentAppointment recentAppointment = createRecentAppointment(appointment.get());
 
         return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
     }
