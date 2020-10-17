@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@svg-maps/world": "^1.0.1",
+    "@stripe/stripe-js": "^1.10.0",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",

@@ -5,7 +5,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
+import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
+import { createPaymentSession } from 'appointment-details-page/actions/paymentActions';
 import Tabs from 'common/components/tabs/Tabs';
 import { getCurrentStepNumber } from 'appointment-details-page/utils/appointmentState';
 import { acceptAppointmentRequest } from 'appointment-details-page/actions/appointmentActions';
@@ -15,6 +18,7 @@ import AppointmentDate from 'appointment-details-page/components/tabs/Appointmen
 import QuickSurvey from 'appointment-details-page/components/tabs/QuickSurvey';
 import VisitedRegions from 'appointment-details-page/components/tabs/VisitedRegions';
 import LastSurvey from 'appointment-details-page/components/tabs/LastSurvey';
+import DoctorInfo from 'appointment-details-page/components/tabs/DoctorInfo';
 
 const AppointmentTimelineWrapper = styled.div.attrs({ className: 'appointment-timeline-wrapper' })`
   background: #ffffff;
@@ -159,6 +163,7 @@ const AppointmentTimeline = ({
   data,
   loggedInUserId,
   acceptAppointmentRequestFunc,
+  createPaymentSessionFunc,
   isAcceptRequestLoading,
   isAcceptRequestError,
 }) => {
@@ -172,8 +177,50 @@ const AppointmentTimeline = ({
     acceptAppointmentRequestFunc(appointmentId);
   };
 
+  const leadingZeros = param => (param < 10 ? '0' : '') + param;
+
+  const getAppointmentDate = dateObj => {
+    const chosenDate = moment(dateObj);
+
+    const year = chosenDate.year();
+    const monthName = MONTH_FULL_NAMES[chosenDate.month()];
+    const day = chosenDate.date();
+    const dayOfWeek = WEEK_DAYS_NAMES[chosenDate.day()];
+
+    return `${dayOfWeek} ${day} ${monthName}, ${year}`;
+  };
+
+  const getAppointmentTime = dateObj => {
+    const chosenDate = moment(dateObj);
+    const chosenDateEnd = moment(dateObj).add('30', 'minutes');
+
+    const hour = leadingZeros(chosenDate.hour());
+    const minutes = leadingZeros(chosenDate.minutes());
+
+    const hourEnd = leadingZeros(chosenDateEnd.hour());
+    const minutesEnd = leadingZeros(chosenDateEnd.minutes());
+
+    return `${hour}:${minutes} - ${hourEnd}:${minutesEnd}`;
+  };
+
+  const getFullDate = appointmentDate =>
+    `${getAppointmentDate(appointmentDate)}, ${getAppointmentTime(appointmentDate)}`;
+
+  const getFullNameWithSpec = doctorData =>
+    `${doctorData.doctorInfo.title} ${doctorData.firstName} ${doctorData.lastName}`;
+
   const payForAppointment = appointmentId => {
-    console.log(appointmentId);
+    const paymentDescription = `Appointment with doctor ${getFullNameWithSpec(
+      data.doctor,
+    )} on ${getFullDate(data.appointmentDate)}`;
+
+    const sessionRequest = {
+      appointmentId,
+      price: data.appointmentPrice,
+      paymentDescription,
+    };
+
+    createPaymentSessionFunc(sessionRequest);
   };
 
   const renderStepStatus = step => {
@@ -211,6 +258,9 @@ const AppointmentTimeline = ({
         <Tabs>
           <div label="Appointment date">
             <AppointmentDate appointmentDate={data.appointmentDate} />
+          </div>
+          <div label="Doctor info">
+            <DoctorInfo doctorData={data.doctor} />
           </div>
           <div label="Quick survey">
             <QuickSurvey quickSurveyData={data.quickSurvey} />
@@ -258,12 +308,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   acceptAppointmentRequestFunc: appointmentId => dispatch(acceptAppointmentRequest(appointmentId)),
+  createPaymentSessionFunc: sessionRequest => dispatch(createPaymentSession(sessionRequest)),
 });
 
 AppointmentTimeline.propTypes = {
   data: PropTypes.instanceOf(Object).isRequired,
   loggedInUserId: PropTypes.string.isRequired,
   acceptAppointmentRequestFunc: PropTypes.func.isRequired,
+  createPaymentSessionFunc: PropTypes.func.isRequired,
   isAcceptRequestLoading: PropTypes.bool.isRequired,
   isAcceptRequestError: PropTypes.bool.isRequired,
 };

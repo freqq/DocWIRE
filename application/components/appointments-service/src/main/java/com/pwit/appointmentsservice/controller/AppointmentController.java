@@ -69,6 +69,8 @@ public class AppointmentController {
 
     /**
      * Accepting an appointment request by doctor.
+     *
+     * @param appointmentId   Id of an appointment
      */
     @PutMapping("/accept/{appointmentId}")
     public ResponseEntity<?> acceptAppointmentRequest(@PathVariable("appointmentId") String appointmentId) {

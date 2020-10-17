@@ -9,9 +9,9 @@ const AppointmentDateWrapper = styled.div.attrs({ className: 'appointment-date-w
   padding: 20px;
 `;
 
-const leadingZeros = param => (param < 10 ? '0' : '') + param;
-
 const AppointmentDate = ({ appointmentDate }) => {
+  const leadingZeros = param => (param < 10 ? '0' : '') + param;
+
   const getAppointmentDate = dateObj => {
     const chosenDate = moment(dateObj);
 

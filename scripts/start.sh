@@ -114,12 +114,12 @@ function app_start() (
     # ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # ./gradlew charts:appointments-db:appInstall
-    ./gradlew charts:appointments-service:appLoad
-    ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    # ./gradlew charts:appointments-service:appLoad
+    # ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # ./gradlew charts:payment-db:appInstall
-    # ./gradlew charts:payment-service:appLoad
-    # ./gradlew charts:payment-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:payment-service:appLoad
+    ./gradlew charts:payment-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # ./gradlew charts:notifications-db:appInstall
     # ./gradlew charts:notifications-service:appLoad

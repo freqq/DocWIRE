@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -90,7 +91,7 @@ const MainCardFooter = ({
             shouldBlocckPickAppointmentDate()
           }
         >
-          {currentStep === 7 ? 'Finish' : 'Next step &gt;'}
+          {currentStep === 1 ? <>Start</> : currentStep === 7 ? <>Finish</> : <>Next step &gt;</>}
         </NextStepButton>
       )}
       {currentStep !== 1 && (

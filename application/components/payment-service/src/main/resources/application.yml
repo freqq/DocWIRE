@@ -28,6 +28,10 @@ spring:
     mongodb:
       uri: ${MONGO_URL}
 
+payment:
+  stripeApiKey: sk_test_51HdE8mDV6EZPJrHHkftff05Uwa2RNhDQLmnzUbPHuTb4PfYJShQ2OoQHFyPyIWCe3mwL46DM7XECaO68BqDO4GaD001VY2kjNY
+  callbackUrl: https://${MINIKUBE_IP}/appointments/
+
 keycloak:
   enabled: true
   realm: master
