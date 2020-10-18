@@ -49,13 +49,13 @@ function import_config() {
 }
 
 function main() {
-    log_info "Starting INPEAK Trainer Keycloak partial import..."
+    log_info "Starting DocWIRE Keycloak service partial import..."
 
     request_for_admin_token
     pass_minikube_ip_to_config_json
     import_config
 
-    log_info "INPEAK Trainer Keycloak partial import successfull."
+    log_info "DocWIRE Keycloak service partial import successfull."
 }
 
 main

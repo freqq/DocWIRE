@@ -39,6 +39,7 @@ config:
   paymentDb:
     hostname: payment-db
     port: 27017
+    nodePort: 32003
   notificationsService:
     hostname: notifications-service
     port: 8448

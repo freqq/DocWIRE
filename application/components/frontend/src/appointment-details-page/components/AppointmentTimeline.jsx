@@ -166,6 +166,7 @@ const AppointmentTimeline = ({
   createPaymentSessionFunc,
   isAcceptRequestLoading,
   isAcceptRequestError,
+  isPaymentLoading,
 }) => {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -234,7 +235,7 @@ const AppointmentTimeline = ({
           {isAcceptRequestLoading ? (
             <InlineLoader src={inlineLoaderImage} alt="inlineLoaderImage" />
           ) : (
-            'Accept request'
+            <>Accept request</>
           )}
         </AcceptRequestButton>
       );
@@ -243,7 +244,11 @@ const AppointmentTimeline = ({
     if (activeStep === 1 && data.patient.userId === loggedInUserId) {
       return (
         <AcceptRequestButton onClick={() => payForAppointment(data.id)}>
-          Pay for appointment
+          {isPaymentLoading ? (
+            <InlineLoader src={inlineLoaderImage} alt="inlineLoaderImage" />
+          ) : (
+            <>Pay for appointment</>
+          )}
         </AcceptRequestButton>
       );
     }
@@ -303,6 +308,7 @@ const mapStateToProps = state => ({
   data: state.appointmentDetails.details.data,
   isAcceptRequestLoading: state.appointmentDetails.details.isAcceptRequestLoading,
   isAcceptRequestError: state.appointmentDetails.details.isAcceptRequestError,
+  isPaymentLoading: state.appointmentDetails.payment.isLoading,
   loggedInUserId: state.common.authUser.keycloakInfo.subject,
 });
 
@@ -318,6 +324,7 @@ AppointmentTimeline.propTypes = {
   createPaymentSessionFunc: PropTypes.func.isRequired,
   isAcceptRequestLoading: PropTypes.bool.isRequired,
   isAcceptRequestError: PropTypes.bool.isRequired,
+  isPaymentLoading: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppointmentTimeline);

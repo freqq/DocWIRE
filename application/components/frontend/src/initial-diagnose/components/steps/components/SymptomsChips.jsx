@@ -26,7 +26,7 @@ const SymptomsChips = ({ chips, onRemove, onAdd }) => (
     {chips.length > 0 ? (
       chips.map(chip => <Chip key={chip} onRemove={onRemove} id={chip} content={chip} />)
     ) : (
-      <NoChipsBox>Please try to add atleast one symptom.</NoChipsBox>
+      <NoChipsBox>Please try to add at least one symptom.</NoChipsBox>
     )}
   </div>
 );

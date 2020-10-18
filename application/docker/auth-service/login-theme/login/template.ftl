@@ -34,7 +34,7 @@
             <meta name="${meta?split('==')[0]}" content="${meta?split('==')[1]}"/>
         </#list>
     </#if>
-    <title><#nested "title"> - ${realm.displayName!'INPEAK Trainer'}</title>
+    <title><#nested "title"> - ${realm.displayName!'DocWIRE'}</title>
 
     <link rel="icon" sizes="32x32" href="${url.resourcesPath}/images/favicon/favicon.ico">
 

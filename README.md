@@ -38,7 +38,7 @@ DevOps:
 - live video call and live chat with doctor
 - private messages user to user
 - live notifications
-- payment handling
+- payment integration with *Stripe*
 - diagnose process page
 
 ### Infrastructure diagram
@@ -59,6 +59,26 @@ TBD
 - *Prometheus* - software application used for event monitoring and alerting
 - *rabbit-mq* - queue for *messages-service* and *messages-service*
 - *sonarqube* - static code analysis
+
+### Application screenshots
+
+- Main landing page
+- Login page
+- Initial diagnose page
+  - Introduction
+  - Symptoms
+  - Visited regions
+  - Choose doctor
+  - Pick appointment date
+- Dashboard
+- Messages
+- Patient details page
+- Appointment details page
+- Appointments list page
+  - Doctor view
+  - Patient view
+- Messages page
+- Profile settings page
 
 ### Prerequisites
 In order to run this application you need to install:
