@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Tabs from 'common/components/tabs/Tabs';
 import ProfileEdit from 'profile-settings-page/components/tabs/ProfileEdit';
-import ProfilePaymentMethods from 'profile-settings-page/components/tabs/ProfilePaymentMethods';
+import NotificationsSettings from 'profile-settings-page/components/tabs/NotificationsSettings';
 
 const SettingsContentRightWrapper = styled.div.attrs({
   className: 'settings-content-right-wrapper',
@@ -20,11 +20,11 @@ const SettingsContentRightWrapper = styled.div.attrs({
 const SettingsContentRight = () => (
   <SettingsContentRightWrapper>
     <Tabs>
-      <div label="Account Settings">
+      <div label="Account settings">
         <ProfileEdit />
       </div>
-      <div label="Payment methods">
-        <ProfilePaymentMethods />
+      <div label="Notifications settings">
+        <NotificationsSettings />
       </div>
     </Tabs>
   </SettingsContentRightWrapper>

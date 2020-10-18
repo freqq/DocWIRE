@@ -8,9 +8,9 @@ set -eE
 SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CA_CERTS_DIR=$(pwd)/.certs
 
-function enable_ingres_on_minikube() (
+function enable_ingres_on_minikube() {
     minikube addons enable ingress
-)
+}
 
 function mount_frontend() {
     minikube mount application/components/frontend:/frontend/src
@@ -89,57 +89,57 @@ function upload_initial_users() {
     sh ./initial_import/upload_initial_data.sh
 }
 
-function app_start() (
+function app_start() {
     log_info "Starting DocWIRE..."
 
     cd ${SOURCE_DIR}/../application
 
-    # ./gradlew charts:namespace:appInstall
+    ./gradlew charts:namespace:appInstall
 
-    # ./gradlew charts:auth-db:appInstall
-    # ./gradlew charts:auth-service:appInstall
+    ./gradlew charts:auth-db:appInstall
+    ./gradlew charts:auth-service:appInstall
 
-    # ./gradlew charts:account-db:appInstall
-    # ./gradlew charts:account-service:appLoad
-    # ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:account-db:appInstall
+    ./gradlew charts:account-service:appLoad
+    ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:rabbit-mq:appInstall
+    ./gradlew charts:rabbit-mq:appInstall
 
-    # ./gradlew charts:messages-db:appInstall
-    # ./gradlew charts:messages-service:appLoad
-    # ./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:messages-db:appInstall
+    ./gradlew charts:messages-service:appLoad
+    ./gradlew charts:messages-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:openvidu-redis:appInstall
-    # ./gradlew charts:openvidu-coturn:appInstall
-    # ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:openvidu-redis:appInstall
+    ./gradlew charts:openvidu-coturn:appInstall
+    ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:appointments-db:appInstall
-    # ./gradlew charts:appointments-service:appLoad
-    # ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:appointments-db:appInstall
+    ./gradlew charts:appointments-service:appLoad
+    ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:payment-db:appInstall
-    # ./gradlew charts:payment-service:appLoad
-    # ./gradlew charts:payment-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:payment-db:appInstall
+    ./gradlew charts:payment-service:appLoad
+    ./gradlew charts:payment-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:notifications-db:appInstall
-    # ./gradlew charts:notifications-service:appLoad
-    # ./gradlew charts:notifications-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:notifications-db:appInstall
+    ./gradlew charts:notifications-service:appLoad
+    ./gradlew charts:notifications-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall
 
     cd -
-)
+}
 
 function main() {
     # mount_frontend
     # build_custom_images
 
-    # enable_ingres_on_minikube
-    # create_role_binding
-    # setup_cert_manager
+    enable_ingres_on_minikube
+    create_role_binding
+    setup_cert_manager
     app_start
-    # upload_initial_users
+    upload_initial_users
 
     log_info "DocWIRE started."
     log_info "GUI reachable at: https://${MINIKUBE_IP}"

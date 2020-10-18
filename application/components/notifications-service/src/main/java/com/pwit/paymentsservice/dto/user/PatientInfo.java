@@ -5,9 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 public class PatientInfo {
-    @Field("creditCardInfo")
-    private CreditCardInfo creditCardInfo;
-
     @Field("weight")
     private String weight;
 

@@ -27,7 +27,8 @@ public class PaymentHistoryServiceImpl implements PaymentHistoryService {
     public void handlePaymentRecord(Session session) {
         String appointmentId = session.getMetadata().get(APPOINTMENT_ID);
 
-        Payment payment = new Payment().toBuilder()
+        Payment payment = new Payment()
+                .toBuilder()
                 .paymentMethod(session.getPaymentMethodTypes().get(0))
                 .paidAt(Instant.now())
                 .appointmentId(appointmentId)
@@ -41,12 +42,13 @@ public class PaymentHistoryServiceImpl implements PaymentHistoryService {
     @Override
     public List<PaymentResponse> getUserPaymentHistory(String currentUserId) {
         List<PaymentResponse> paymentResponses = new ArrayList<>();
-        paymentRepository.findAll().forEach(payment -> paymentResponses.add(createPaymentResponse(payment)));
+        paymentRepository.findAllByPatientId(currentUserId).forEach(payment -> paymentResponses.add(createPaymentResponse(payment)));
         return paymentResponses;
     }
 
     private PaymentResponse createPaymentResponse(Payment payment) {
-        return new PaymentResponse().toBuilder()
+        return new PaymentResponse()
+                .toBuilder()
                 .paidAt(payment.getPaidAt())
                 .paymentMethod(payment.getPaymentMethod())
                 .price(payment.getPrice())

@@ -25,7 +25,6 @@
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-collapsible": "^2.8.0",
-    "react-credit-cards": "^0.8.3",
     "react-datepicker": "^2.14.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",

@@ -96,12 +96,6 @@ const CreateAccountPage = ({ accountCreation }) => {
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState(availableGenders[0].value);
 
-  const [cvc, setCvc] = useState('');
-  const [number, setNumber] = useState('');
-  const [name, setName] = useState('');
-  const [expiry, setExpiry] = useState('');
-  const [focus, setFocus] = useState('');
-
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
   const [address, setAddress] = useState('');
@@ -123,11 +117,7 @@ const CreateAccountPage = ({ accountCreation }) => {
     address.length === 0 ||
     zipCode.length === 0 ||
     city.length === 0 ||
-    country.length === 0 ||
-    cvc.length === 0 ||
-    number.length === 0 ||
-    name.length === 0 ||
-    expiry.length === 0;
+    country.length === 0;
 
   const isDoctorDetailsBlocked = () =>
     title.length === 0 || price.length === 0 || specialization.length === 0 || aboutMe.length === 0;
@@ -141,12 +131,6 @@ const CreateAccountPage = ({ accountCreation }) => {
       gender,
       langKey: 'en',
       patientInfo: {
-        creditCard: {
-          cvc,
-          number,
-          name,
-          expiry,
-        },
         weight,
         height,
         address,
@@ -156,7 +140,6 @@ const CreateAccountPage = ({ accountCreation }) => {
       },
     };
 
-    console.log(registerObject);
     accountCreation(registerObject);
   };
 
@@ -227,16 +210,6 @@ const CreateAccountPage = ({ accountCreation }) => {
             <PatientDetails
               hashKey="patient-details"
               registerMethod={registerPatient}
-              cvc={cvc}
-              setCvc={setCvc}
-              number={number}
-              setNumber={setNumber}
-              expiry={expiry}
-              setExpiry={setExpiry}
-              focus={focus}
-              setFocus={setFocus}
-              name={name}
-              setName={setName}
               height={height}
               setHeight={setHeight}
               weight={weight}

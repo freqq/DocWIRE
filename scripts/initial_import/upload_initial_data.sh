@@ -79,13 +79,7 @@ function save_users_into_mongo_db() {
                                 "zipCode": "'$ZIP_CODE'",
                                 "city": "'$CITY'",
                                 "country": "'$COUNTRY'",
-                                "initialDiagnoseDone": "'$INITIAL_DIAGNOSE_DONE'",
-                                "creditCardInfo": {
-                                    "cvc": "'$CVC'",
-                                    "number": "'$NUMBER'",
-                                    "expiry": "'$EXPIRY'",
-                                    "name": "'$NAME'"
-                                }
+                                "initialDiagnoseDone": "'$INITIAL_DIAGNOSE_DONE'"
                             }
                         }' > /dev/null
     done
