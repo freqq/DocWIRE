@@ -14,7 +14,7 @@ const renderToast = ({
   pauseOnHover = true,
   draggable = true,
   progress = undefined,
-  position = 'top-center',
+  position = 'top-right',
 } = {}) => {
   const options = {
     position,

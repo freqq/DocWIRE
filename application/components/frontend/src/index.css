@@ -161,3 +161,9 @@ video {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.Toastify__toast-body {
+  font-size: 12px;
+  font-weight: 100;
+  text-align: center;
+}
