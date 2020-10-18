@@ -2,6 +2,7 @@ package com.pwit.paymentsservice.service.impl;
 
 import com.pwit.common.utils.Logger;
 import com.pwit.paymentsservice.entity.SessionEntity;
+import com.pwit.paymentsservice.feign.AppointmentsService;
 import com.pwit.paymentsservice.repository.SessionRepository;
 import com.pwit.paymentsservice.service.PaymentHistoryService;
 import com.pwit.paymentsservice.service.PaymentWebhookService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
+import static com.pwit.paymentsservice.service.util.PaymentMetada.APPOINTMENT_ID;
+
 @Service
 @RequiredArgsConstructor
 public class PaymentWebhookServiceImpl implements PaymentWebhookService {
@@ -20,14 +23,17 @@ public class PaymentWebhookServiceImpl implements PaymentWebhookService {
 
     private final SessionRepository sessionRepository;
     private final PaymentHistoryService paymentHistoryService;
+    private final AppointmentsService appointmentsService;
 
     @Override
     public ResponseEntity<?> handleCheckoutSessionEvent(Event event) {
         if (event.getType().equals("checkout.session.completed")) {
             Session session = (Session) event.getDataObjectDeserializer().getObject().orElseThrow();
+            String appointmentId = session.getMetadata().get(APPOINTMENT_ID);
 
             if (session.getPaymentStatus().equals("paid")) {
                 fulfillOrder(session);
+                appointmentsService.setAppointmentsStateToPaid(appointmentId);
                 return ResponseEntity.ok().build();
             }
         }

@@ -6,7 +6,7 @@ import {
 
 const INITIAL_STATE = {
   sessionId: undefined,
-  isLoading: true,
+  isLoading: false,
   isError: false,
 };
 

@@ -9,4 +9,5 @@ public interface AppointmentService {
     ResponseEntity<?> getAllAppointmentsForCurrentUser(String currentUserId);
     ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId);
     ResponseEntity<?> acceptAppointmentRequest(String appointmentId);
+    ResponseEntity<?> setAppointmentsStateToPaid(String appointmentId);
 }

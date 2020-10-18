@@ -77,4 +77,15 @@ public class AppointmentController {
         LOGGER.info("Accepting an appointment request by doctor for user {}.", getCurrentUsername());
         return appointmentService.acceptAppointmentRequest(appointmentId);
     }
+
+    /**
+     * Setting an appointment state to paid.
+     *
+     * @param appointmentId   Id of an appointment
+     */
+    @PutMapping("/paid/{appointmentId}")
+    public ResponseEntity<?> setAppointmentsStateToPaid(@PathVariable("appointmentId") String appointmentId) {
+        LOGGER.info("Setting an appointment state to paid by patient with username '{}'.", getCurrentUsername());
+        return appointmentService.setAppointmentsStateToPaid(appointmentId);
+    }
 }

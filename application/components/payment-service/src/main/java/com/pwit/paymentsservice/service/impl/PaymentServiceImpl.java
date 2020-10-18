@@ -2,6 +2,7 @@ package com.pwit.paymentsservice.service.impl;
 
 import com.pwit.common.utils.Logger;
 import com.pwit.paymentsservice.dto.PaymentRequest;
+import com.pwit.paymentsservice.dto.SessionResponse;
 import com.pwit.paymentsservice.properties.PaymentProperties;
 import com.pwit.paymentsservice.service.util.PaymentMethodsProvider;
 import com.pwit.paymentsservice.service.PaymentService;
@@ -10,6 +11,8 @@ import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.pwit.paymentsservice.service.util.PaymentMetada.APPOINTMENT_ID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +23,9 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentMethodsProvider paymentMethodsProvider;
 
     @Override
-    public Session createSession(PaymentRequest paymentRequest, String currentUserId) throws StripeException {
+    public SessionResponse createSession(PaymentRequest paymentRequest,
+                                         String currentUserId,
+                                         String currentUserEmail) throws StripeException {
         String redirectUrl = paymentProperties.getCallbackUrl() + paymentRequest.getAppointmentId();
 
         SessionCreateParams params = SessionCreateParams.builder()
@@ -37,10 +42,16 @@ public class PaymentServiceImpl implements PaymentService {
                                 .setUnitAmount(Long.parseLong(paymentRequest.getPrice()) * 100)
                                 .setProductData( createItem(paymentRequest)).build()
                         ).build()
-                ).build();
+                )
+                .setCustomerEmail(currentUserEmail)
+                .setClientReferenceId(currentUserId)
+                .putMetadata(APPOINTMENT_ID, paymentRequest.getAppointmentId())
+                .build();
 
+        Session session = Session.create(params);
         LOGGER.info("Payment session for appointment {} created. ", paymentRequest.getAppointmentId());
-        return Session.create(params);
+
+        return new SessionResponse(session);
     }
 
     private SessionCreateParams.LineItem.PriceData.ProductData createItem(PaymentRequest paymentRequest) {

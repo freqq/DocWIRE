@@ -89,6 +89,20 @@ public class AppointmentServiceImpl implements AppointmentService {
         return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<?> setAppointmentsStateToPaid(String appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+
+        if(appointment.isEmpty())
+            return new ResponseEntity<>("Appointment with given id not found.", HttpStatus.NOT_FOUND);
+
+        appointment.get().setAppointmentState(AppointmentState.PAID);
+        appointmentRepository.save(appointment.get());
+        RecentAppointment recentAppointment = createRecentAppointment(appointment.get());
+
+        return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
+    }
+
     private RecentAppointment createRecentAppointment(Appointment appointment) {
         User doctor = accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId());
 

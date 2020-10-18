@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { successToast, errorToast } from 'common/components/notifications/notifications';
 import { APP_TITLE } from 'common/constants';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 import { fetchAppointmentDetails } from 'appointment-details-page/actions/appointmentActions';
@@ -51,6 +52,11 @@ const AppointmentDetailsPage = ({
 
     document.title = `Appointment details - ${APP_TITLE}`;
     fetchAppointmentDetailsFunc(appointmentId);
+
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get('success')) successToast('Payment succesfully booked.');
+    if (query.get('canceled')) errorToast('Payment canceled');
   }, []);
 
   const getFullName = person => `${person.firstName} ${person.lastName}`;

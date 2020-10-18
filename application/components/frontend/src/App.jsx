@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { createGlobalStyle } from 'styled-components';
 import RootRouter from 'RootRouter';
+import { ToastContainer } from 'react-toastify';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -18,6 +19,7 @@ const App = () => (
       <>
         <GlobalStyle />
         <RootRouter />
+        <ToastContainer />
       </>
     </ConnectedRouter>
   </Provider>

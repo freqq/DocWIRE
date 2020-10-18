@@ -6,6 +6,7 @@ import 'react-rangeslider/lib/index.css';
 import 'react-svg-map/lib/index.css';
 import 'react-credit-cards/es/styles-compiled.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-toastify/dist/ReactToastify.css';
 import 'index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
