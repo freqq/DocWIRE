@@ -21,15 +21,18 @@ public class Payment {
     @Id
     private String id;
 
+    @Field("patientId")
+    private String patientId;
+
     @Field("appointmentId")
     private String appointmentId;
 
     @Field("price")
-    private String price;
+    private Long price;
 
     @Field("paidAt")
     private Instant paidAt;
 
     @Field("method")
-    private PaymentMethod paymentMethod;
+    private String paymentMethod;
 }

@@ -10,4 +10,6 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 public class PaymentProperties {
     private String stripeApiKey;
     private String callbackUrl;
+    private String webhookUri;
+    private String webhookSecret;
 }

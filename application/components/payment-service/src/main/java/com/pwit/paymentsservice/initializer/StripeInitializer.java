@@ -17,6 +17,7 @@ public class StripeInitializer implements ApplicationListener<ContextRefreshedEv
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        LOGGER.info("Setting Stripe API key ...");
         setStripeApiKey();
     }
 

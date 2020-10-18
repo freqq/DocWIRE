@@ -1,6 +1,5 @@
 package com.pwit.paymentsservice.entity;
 
-import com.stripe.param.checkout.SessionCreateParams;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,22 +8,35 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Document("payment_methods")
-@TypeAlias("PaymentMethod")
-public class PaymentMethod {
+@Document("sessions")
+@TypeAlias("SessionEntity")
+public class SessionEntity {
     @Id
     private String id;
 
-    @Field("method")
     @Indexed(unique = true)
-    private SessionCreateParams.PaymentMethodType method;
+    private String stripeId;
 
-    @Field("isEnabled")
-    private boolean isEnabled;
+    private boolean isSuccessful;
+
+    private boolean isHandled;
+
+    private Instant receivedAt;
+
+    private Instant handledAt = null;
+
+    private String clientReferenceId;
+
+    private Long amountTotal;
+
+    private String customer;
+
+    private String customerEmail;
 }

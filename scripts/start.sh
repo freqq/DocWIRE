@@ -125,8 +125,8 @@ function app_start() (
     # ./gradlew charts:notifications-service:appLoad
     # ./gradlew charts:notifications-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:frontend:appLoad
-    # ./gradlew charts:frontend:appInstall
+    ./gradlew charts:frontend:appLoad
+    ./gradlew charts:frontend:appInstall
 
     cd -
 )
@@ -139,7 +139,7 @@ function main() {
     # create_role_binding
     # setup_cert_manager
     app_start
-    # upload_initial_users
+    upload_initial_users
 
     log_info "DocWIRE started."
     log_info "GUI reachable at: https://${MINIKUBE_IP}"
