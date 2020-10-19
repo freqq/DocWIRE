@@ -50,7 +50,6 @@ const AppointmentType = styled.div.attrs({ className: 'appointment-type' })`
 
 const InlineLoader = styled.img.attrs({ className: 'inline-loader' })`
   width: 50%;
-  height: 20px;
 `;
 
 const Price = styled.div.attrs({ className: 'price' })`

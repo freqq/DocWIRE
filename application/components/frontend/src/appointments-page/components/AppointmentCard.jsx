@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
+import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
 import UserSection from 'common/components/layout/navbar/UserSection';
 import moreIcon from 'images/icons/more.svg';
 import phoneIcon from 'images/icons/phone.svg';
 import messageIcon from 'images/icons/message.svg';
 
-const AppointmentCardWrapper = styled.div.attrs({
+const AppointmentCardWrapper = styled(Link).attrs({
   className: 'appointments-card-wrapper',
 })`
   width: calc(100% - 32px);
@@ -19,6 +22,9 @@ const AppointmentCardWrapper = styled.div.attrs({
   cursor: pointer;
   transition: 0.2s;
   background: #fafbfd;
+  color: #000;
+  text-decoration: none;
+  display: block;
 
   &:hover {
     transform: scale(1.02);
@@ -64,11 +70,40 @@ const AppointmentCardFooter = styled.div.attrs({
   text-align: right;
 `;
 
-const AppointmentCard = ({ time, firstName, lastName, appointmentType }) => {
+const AppointmentCard = ({ time, firstName, lastName, appointmentType, appointmentId }) => {
+  const leadingZeros = param => (param < 10 ? '0' : '') + param;
+
+  const getAppointmentDate = dateObj => {
+    const chosenDate = moment(dateObj);
+
+    const year = chosenDate.year();
+    const monthName = MONTH_FULL_NAMES[chosenDate.month()];
+    const day = chosenDate.date();
+    const dayOfWeek = WEEK_DAYS_NAMES[chosenDate.day()];
+
+    return `${dayOfWeek} ${day} ${monthName}, ${year}`;
+  };
+
+  const getAppointmentTime = dateObj => {
+    const chosenDate = moment(dateObj);
+    const chosenDateEnd = moment(dateObj).add('30', 'minutes');
+
+    const hour = leadingZeros(chosenDate.hour());
+    const minutes = leadingZeros(chosenDate.minutes());
+
+    const hourEnd = leadingZeros(chosenDateEnd.hour());
+    const minutesEnd = leadingZeros(chosenDateEnd.minutes());
+
+    return `${hour}:${minutes} - ${hourEnd}:${minutesEnd}`;
+  };
+
+  const getFullDate = appointmentDate =>
+    `${getAppointmentDate(appointmentDate)}, ${getAppointmentTime(appointmentDate)}`;
+
   return (
-    <AppointmentCardWrapper>
+    <AppointmentCardWrapper to={`/appointments/${appointmentId}`}>
       <AppointmentCardHeader>
-        <AppointmentTime>{time}</AppointmentTime>
+        <AppointmentTime>{getFullDate(time)}</AppointmentTime>
         <AppointmentMoreIconContainer>
           <CardIconImage alt="more-icon" src={moreIcon} />
         </AppointmentMoreIconContainer>
@@ -93,6 +128,7 @@ AppointmentCard.propTypes = {
   time: PropTypes.instanceOf(Date).isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
+  appointmentId: PropTypes.string.isRequired,
   appointmentType: PropTypes.string.isRequired,
 };
 

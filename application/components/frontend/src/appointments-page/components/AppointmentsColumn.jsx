@@ -18,6 +18,18 @@ const ColumnTitle = styled.div.attrs({ className: 'column-title' })`
   margin-bottom: 10px;
 `;
 
+const NoNewRequests = styled.div.attrs({ className: 'no-new-requests' })`
+  margin: 20px auto;
+  width: 80%;
+  background: rgba(45, 69, 100, 0.85);
+  color: #fff;
+  padding: 30px 10px;
+  font-size: 11px;
+  font-weight: 100;
+  border-radius: 4px;
+  text-align: center;
+`;
+
 const ErrorBlock = styled.div.attrs({ className: 'error-block' })`
   padding: 20px 10px;
   margin: 5px 0;
@@ -59,6 +71,14 @@ const AppointmentsColumn = ({ fetchAppointmentsRequestsFunc, isLoading, isError,
     return `${hour}:${minutes} - ${hourEnd}:${minutesEnd}`;
   };
 
+  if (isLoading)
+    return (
+      <AppointmentsColumnWrapper>
+        <ColumnTitle>New appointment requests</ColumnTitle>
+        <ProgressIndicatorCircular />
+      </AppointmentsColumnWrapper>
+    );
+
   if (isError)
     return (
       <AppointmentsColumnWrapper>
@@ -70,8 +90,8 @@ const AppointmentsColumn = ({ fetchAppointmentsRequestsFunc, isLoading, isError,
   return (
     <AppointmentsColumnWrapper>
       <ColumnTitle>New appointment requests</ColumnTitle>
-      {isLoading ? (
-        <ProgressIndicatorCircular />
+      {requests.length === 0 ? (
+        <NoNewRequests>No new requests found</NoNewRequests>
       ) : (
         <>
           {requests.map(request => (

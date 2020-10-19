@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { fetchAppointmentsForDay } from 'appointments-page/actions/appointmentActions';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
@@ -23,13 +24,18 @@ const ErrorBlock = styled.div.attrs({ className: 'error-block' })`
   margin: 20px auto;
 `;
 
-const AppointmentsCardsWrapper = styled.div.attrs({ className: 'appointments-cards-wrapper' })``;
+const AppointmentsCardsWrapper = styled.div.attrs({ className: 'appointments-cards-wrapper' })`
+  padding-right: 20px;
+`;
 
 const NotFound = styled.div.attrs({ className: 'not-found' })`
   margin: 20px auto;
   width: 80%;
-  background: #ccc;
-  padding: 10px;
+  background: rgba(45, 69, 100, 0.85);
+  color: #fff;
+  padding: 30px 10px;
+  font-size: 11px;
+  font-weight: 100;
   border-radius: 4px;
   text-align: center;
 `;
@@ -42,12 +48,9 @@ const AppointmentsAtHour = ({
   isLoading,
 }) => {
   useEffect(() => {
-    const dateObject = {
-      chosenDate,
-    };
-
-    fetchAppointmentsForDayFunc(dateObject.toISOString());
-  }, chosenDate);
+    const dateObject = moment(chosenDate);
+    fetchAppointmentsForDayFunc(dateObject.add(1, 'd').toISOString());
+  }, [chosenDate]);
 
   if (isLoading)
     return (
@@ -75,10 +78,11 @@ const AppointmentsAtHour = ({
             {appointmentsList.map(appointment => (
               <AppointmentCard
                 key={appointment.id}
-                time={appointment.time}
-                firstName={appointment.firstName}
-                lastName={appointment.lastName}
-                appointmentType={appointment.appointmentType}
+                appointmentId={appointment.id}
+                time={appointment.appointmentDate}
+                firstName={appointment.patient.firstName}
+                lastName={appointment.patient.lastName}
+                appointmentType="TYPE"
               />
             ))}
           </>

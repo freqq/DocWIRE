@@ -101,8 +101,8 @@ public class AppointmentController {
     /**
      * Getting all accepted requests for current doctor.
      */
-    @GetMapping("/accepted?date={date}")
-    public ResponseEntity<?> getAcceptedAppointments(@PathVariable("date") String date) {
+    @GetMapping("/accepted")
+    public ResponseEntity<?> getAcceptedAppointments(@RequestParam(value = "date") String date) {
         LOGGER.info("Getting accepted appointments for doctor with username '{}'.", getCurrentUsername());
         return appointmentService.getAcceptedAppointments(date, getCurrentUserId());
     }

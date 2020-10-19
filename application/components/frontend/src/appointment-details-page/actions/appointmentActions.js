@@ -2,6 +2,7 @@ import {
   appointmentDetails,
   acceptRequest,
 } from 'appointment-details-page/handlers/appointmentHandlers';
+import { push } from 'react-router-redux';
 
 export const FETCH_APPOINTMENT_PENDING = 'FETCH_APPOINTMENT_PENDING';
 export const FETCH_APPOINTMENT_OK = 'FETCH_APPOINTMENT_OK';
@@ -55,6 +56,7 @@ export const acceptAppointmentRequest = appointmentId => dispatch => {
   return acceptRequest(appointmentId)
     .then(res => {
       dispatch(makeAcceptAppointmentRequestOk(res.data));
+      dispatch(push(`/appointments/${appointmentId}`));
     })
     .catch(() => {
       dispatch(makeAcceptAppointmentRequestFail());

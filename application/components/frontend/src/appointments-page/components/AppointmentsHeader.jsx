@@ -98,9 +98,10 @@ const AppointmentsHeader = ({ chosenDate, setChosenDate }) => {
     const endOfTheWeek = moment().endOf('isoweek');
 
     for (let i = 1; i < 6; i += 1) {
-      if (startOfTheWeek.toDate().getDate() + i >= daysInCurrentMonth())
-        returnArray.push(startOfTheWeek.subtract(i - daysInCurrentMonth(), 'd'));
-      else returnArray.push(startOfTheWeek.add(i, 'd'));
+      const objectToCopy = moment(startOfTheWeek);
+      if (objectToCopy.toDate().getDate() + i >= daysInCurrentMonth())
+        returnArray.push(objectToCopy.subtract(i - daysInCurrentMonth(), 'd'));
+      else returnArray.push(objectToCopy.add(i, 'd'));
     }
 
     return [startOfTheWeek, ...returnArray, endOfTheWeek];
@@ -156,8 +157,12 @@ const AppointmentsHeader = ({ chosenDate, setChosenDate }) => {
         </ArrowButton>
         {DAYS_ARRAY.map(dayData => (
           <DayButton
-            onClick={() => setChosenDate()}
-            style={dayData.date === chosenDate ? ACTIVE_DAY_STYLE : {}}
+            onClick={() => setChosenDate(dayData.date)}
+            style={
+              dayData.date.toDate().getDate() === chosenDate.toDate().getDate()
+                ? ACTIVE_DAY_STYLE
+                : {}
+            }
           >
             <DayName>{dayData.name}</DayName>
             <DayNumber>{dayData.number}</DayNumber>

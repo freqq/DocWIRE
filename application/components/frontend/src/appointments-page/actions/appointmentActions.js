@@ -67,18 +67,6 @@ export const fetchAppointmentsList = () => dispatch => {
     });
 };
 
-export const fetchAppointmentsRequests = () => dispatch => {
-  dispatch(makeFetchAppointmentsRequestsPending());
-
-  return requestsList()
-    .then(res => {
-      dispatch(makeFetchAppointmentsRequestsOk(res.data));
-    })
-    .catch(() => {
-      dispatch(makeFetchAppointmentsRequestsFail());
-    });
-};
-
 export const fetchAppointmentsForDay = dateObject => dispatch => {
   dispatch(makeFetchAppointmentsForDayPending());
 
@@ -88,5 +76,17 @@ export const fetchAppointmentsForDay = dateObject => dispatch => {
     })
     .catch(() => {
       dispatch(makeFetchAppointmentsForDayFail());
+    });
+};
+
+export const fetchAppointmentsRequests = () => dispatch => {
+  dispatch(makeFetchAppointmentsRequestsPending());
+
+  return requestsList()
+    .then(res => {
+      dispatch(makeFetchAppointmentsRequestsOk(res.data));
+    })
+    .catch(() => {
+      dispatch(makeFetchAppointmentsRequestsFail());
     });
 };

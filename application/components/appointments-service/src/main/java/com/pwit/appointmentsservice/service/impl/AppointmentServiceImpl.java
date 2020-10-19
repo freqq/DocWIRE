@@ -125,7 +125,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                                                      String currentUserId) {
         List<Appointment> appointments = appointmentRepository.findAllByDoctorId(currentUserId);
         List<RecentAppointment> recentAppointments = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
         LocalDateTime requestDay = LocalDateTime.parse(date, formatter);
 
         for(Appointment appointment : appointments) {

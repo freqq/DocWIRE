@@ -24,10 +24,11 @@ const AppointmentsListWrapper = styled.div.attrs({
   height: 80%;
   overflow-y: scroll;
   overflow-x: hidden;
+  position: relative;
 `;
 
 const AppointmentsLeftCard = () => {
-  const [chosenDate, setChosenDate] = useState(moment());
+  const [chosenDate, setChosenDate] = useState(moment().utc());
 
   return (
     <AppointmentsLeftCardWrapper>
