@@ -19,6 +19,7 @@ import QuickSurvey from 'appointment-details-page/components/tabs/QuickSurvey';
 import VisitedRegions from 'appointment-details-page/components/tabs/VisitedRegions';
 import LastSurvey from 'appointment-details-page/components/tabs/LastSurvey';
 import DoctorInfo from 'appointment-details-page/components/tabs/DoctorInfo';
+import Symptoms from 'appointment-details-page/components/tabs/Symptoms';
 
 const AppointmentTimelineWrapper = styled.div.attrs({ className: 'appointment-timeline-wrapper' })`
   background: #ffffff;
@@ -266,6 +267,9 @@ const AppointmentTimeline = ({
           </div>
           <div label="Doctor info">
             <DoctorInfo doctorData={data.doctor} />
+          </div>
+          <div label="Symptoms">
+            <Symptoms symptomsData={data.chosenSymptoms} />
           </div>
           <div label="Quick survey">
             <QuickSurvey quickSurveyData={data.quickSurvey} />

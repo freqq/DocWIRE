@@ -20,7 +20,7 @@ const PatientGrid = styled.div.attrs({ className: 'patient-grid' })`
   width: 80%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr) 20%;
+  grid-template-columns: 1fr 20%;
 `;
 
 const Details = styled.div.attrs({ className: 'details' })`

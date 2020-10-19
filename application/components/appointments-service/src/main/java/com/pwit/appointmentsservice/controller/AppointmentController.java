@@ -88,4 +88,22 @@ public class AppointmentController {
         LOGGER.info("Setting an appointment state to paid by patient with username '{}'.", getCurrentUsername());
         return appointmentService.setAppointmentsStateToPaid(appointmentId);
     }
+
+    /**
+     * Getting all requests for current doctor.
+     */
+    @GetMapping("/requests")
+    public ResponseEntity<?> getAppointmentsRequests() {
+        LOGGER.info("Getting an appointment requests for doctor with username '{}'.", getCurrentUsername());
+        return appointmentService.getAppointmentsRequests(getCurrentUserId());
+    }
+
+    /**
+     * Getting all accepted requests for current doctor.
+     */
+    @GetMapping("/accepted?date={date}")
+    public ResponseEntity<?> getAcceptedAppointments(@PathVariable("date") String date) {
+        LOGGER.info("Getting accepted appointments for doctor with username '{}'.", getCurrentUsername());
+        return appointmentService.getAcceptedAppointments(date, getCurrentUserId());
+    }
 }

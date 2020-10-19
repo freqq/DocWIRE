@@ -103,6 +103,12 @@ const Icon = styled.img.attrs({ className: 'icon' })`
   margin-right: 5px;
 `;
 
+const EnterTextBlock = styled.div.attrs({ className: 'enter-text-block' })`
+  text-align: center;
+  font-weight: 100;
+  margin-top: 25px;
+`;
+
 const Text = styled.div.attrs({ className: 'text' })`
   line-height: 12px;
   font-size: 10px;
@@ -231,7 +237,7 @@ const ChooseDoctor = ({
             {shouldShowEntriesCount() && (
               <FoundEntries>{`${getEntriesCount()} entries found`}</FoundEntries>
             )}
-            {searchValue.length > 0 && (
+            {searchValue.length > 0 ? (
               <DoctorsList>
                 {doctorsList !== undefined &&
                   doctorsList.map(doctor => (
@@ -260,6 +266,8 @@ const ChooseDoctor = ({
                     </DoctorsListItem>
                   ))}
               </DoctorsList>
+            ) : (
+              <EnterTextBlock>Start writing in input above to show doctors list...</EnterTextBlock>
             )}
           </>
         )}

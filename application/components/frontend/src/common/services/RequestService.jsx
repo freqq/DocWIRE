@@ -32,8 +32,8 @@ class RequestService {
       : null;
   }
 
-  get(url) {
-    return this.axiosInstance.get(url, {
+  get(url, data = null) {
+    return this.axiosInstance.get(url, data, {
       headers: { Authorization: `Bearer ${RequestService.getToken()}` },
     });
   }

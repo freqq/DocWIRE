@@ -2,7 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
+import inlineLoaderImage from 'images/inline-loader.svg';
+import { acceptAppointmentRequest } from 'appointment-details-page/actions/appointmentActions';
 import UserSection from 'common/components/layout/navbar/UserSection';
 import messageIcon from 'images/icons/message.svg';
 
@@ -45,6 +48,11 @@ const AppointmentType = styled.div.attrs({ className: 'appointment-type' })`
   font-weight: 100;
 `;
 
+const InlineLoader = styled.img.attrs({ className: 'inline-loader' })`
+  width: 50%;
+  height: 20px;
+`;
+
 const Price = styled.div.attrs({ className: 'price' })`
   text-align: right;
 `;
@@ -78,6 +86,11 @@ const ApproveButton = styled.div.attrs({ className: 'approve-button' })`
   border: 1px solid #2d4564;
   border-radius: 4px;
 
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   &:hover {
     opacity: 0.8;
   }
@@ -102,10 +115,23 @@ const RescheduleButton = styled.div.attrs({ className: 'reschedule-button' })`
   }
 `;
 
-const NewAppointmentCard = ({ firstName, lastName, date, time, appointmentType, price }) => (
+const NewAppointmentCard = ({
+  firstName,
+  lastName,
+  date,
+  time,
+  appointmentType,
+  appointmentId,
+  price,
+  isAcceptRequestLoading,
+  isAcceptRequestError,
+  patientId,
+  acceptAppointmentRequestFunc,
+}) => (
   <NewAppointmentCardWrapper>
     <TwoSideGrid>
       <UserSection
+        userId={patientId}
         firstName={firstName}
         lastName={lastName}
         bottomText="Patient"
@@ -121,10 +147,19 @@ const NewAppointmentCard = ({ firstName, lastName, date, time, appointmentType, 
     <Date>{date}</Date>
     <TwoSideGrid>
       <AppointmentType>{appointmentType}</AppointmentType>
-      <Price>{price}</Price>
+      <Price>{`${price} $`}</Price>
     </TwoSideGrid>
-    <ApproveButton>Approve</ApproveButton>
-    <RescheduleButton>Reschedule</RescheduleButton>
+    <ApproveButton
+      onClick={() => acceptAppointmentRequestFunc(appointmentId)}
+      disabled={isAcceptRequestLoading}
+    >
+      {isAcceptRequestLoading ? (
+        <InlineLoader src={inlineLoaderImage} alt="inlineLoaderImage" />
+      ) : (
+        <>Accept</>
+      )}
+    </ApproveButton>
+    <RescheduleButton>Cancel</RescheduleButton>
   </NewAppointmentCardWrapper>
 );
 
@@ -135,6 +170,20 @@ NewAppointmentCard.propTypes = {
   time: PropTypes.string.isRequired,
   appointmentType: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
+  appointmentId: PropTypes.string.isRequired,
+  patientId: PropTypes.string.isRequired,
+  isAcceptRequestLoading: PropTypes.bool.isRequired,
+  isAcceptRequestError: PropTypes.bool.isRequired,
+  acceptAppointmentRequestFunc: PropTypes.func.isRequired,
 };
 
-export default NewAppointmentCard;
+const mapStateToProps = state => ({
+  isAcceptRequestLoading: state.appointmentDetails.details.isAcceptRequestLoading,
+  isAcceptRequestError: state.appointmentDetails.details.isAcceptRequestError,
+});
+
+const mapDispatchToProps = dispatch => ({
+  acceptAppointmentRequestFunc: appointmentId => dispatch(acceptAppointmentRequest(appointmentId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewAppointmentCard);

@@ -10,4 +10,6 @@ public interface AppointmentService {
     ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId);
     ResponseEntity<?> acceptAppointmentRequest(String appointmentId);
     ResponseEntity<?> setAppointmentsStateToPaid(String appointmentId);
+    ResponseEntity<?> getAppointmentsRequests(String currentUserId);
+    ResponseEntity<?> getAcceptedAppointments(String date, String currentUserId);
 }

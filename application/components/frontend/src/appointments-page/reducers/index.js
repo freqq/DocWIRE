@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import appointmentReducer from 'appointment-details-page/reducers/appointmentReducer';
+import appointmentsReducer from 'appointments-page/reducers/appointmentsReducer';
 
 export default combineReducers({
-  appointments: appointmentReducer,
+  appointments: appointmentsReducer,
 });

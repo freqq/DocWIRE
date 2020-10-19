@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import { MONTH_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
 
@@ -23,12 +24,12 @@ const DateWeekDayName = styled.span.attrs({ className: 'date-week-day-name' })`
 
 const AppointmentsCurrentDate = ({ date }) => {
   const getMonthAndDayOfMohth = () => {
-    const monthName = MONTH_NAMES[date.getMonth()];
+    const monthName = MONTH_NAMES[date.toDate().getMonth()];
 
-    return `${monthName} ${date.getDate()}, `;
+    return `${monthName} ${date.toDate().getDate()}, `;
   };
 
-  const getNameOfTheDay = () => WEEK_DAYS_NAMES[date.getDay() - 1];
+  const getNameOfTheDay = () => WEEK_DAYS_NAMES[date.toDate().getDay() - 1];
 
   return (
     <AppointmentsCurrentDateWrapper>
@@ -39,7 +40,7 @@ const AppointmentsCurrentDate = ({ date }) => {
 };
 
 AppointmentsCurrentDate.propTypes = {
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.instanceOf(moment).isRequired,
 };
 
 export default AppointmentsCurrentDate;

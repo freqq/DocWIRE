@@ -7,14 +7,13 @@ import { connect } from 'react-redux';
 import { APP_TITLE } from 'common/constants';
 import { fetchAppointmentsList } from 'appointments-page/actions/appointmentActions';
 import AppointmentsLeftCard from 'appointments-page/containers/AppointmentsLeftCard';
-import AppointmentsRightCard from 'appointments-page/containers/AppointmentsRightCard';
 import AppointmentsColumn from 'appointments-page/components/AppointmentsColumn';
 
 const AppointmentsPageWrapper = styled.div.attrs({ className: 'appointments-page-wrapper' })`
   height: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 40% 20%;
+  grid-template-columns: 1fr 40%;
   gap: 30px;
 `;
 
@@ -28,7 +27,6 @@ const AppointmentsPage = ({ fetchAppointmentsListFunc, isLoading, isError }) => 
     <AppointmentsPageWrapper>
       <AppointmentsLeftCard />
       <AppointmentsColumn />
-      <AppointmentsRightCard />
     </AppointmentsPageWrapper>
   );
 };

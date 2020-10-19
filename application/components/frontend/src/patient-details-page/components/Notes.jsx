@@ -61,6 +61,17 @@ const Date = styled.div.attrs({ className: 'date' })`
   text-align: right;
 `;
 
+const NoNotes = styled.div.attrs({ className: 'no-notes' })`
+  text-align: center;
+  font-weight: 100;
+  margin: 20px auto 0 auto;
+  padding: 10px 0;
+  background: #eff1f7;
+  width: 50%;
+  border-radius: 4px;
+  font-size: 10px;
+`;
+
 const SavedNote = styled.div.attrs({ className: 'saved-note' })`
   border-radius: 5px;
   border: 1px solid #f0f0f0;
@@ -165,20 +176,24 @@ const Notes = ({ isLoading, isError, notesData, addNoteFunc, patientData }) => {
           save note
         </NewNoteAddButton>
       </NewNoteWrapper>
-      <NotesList>
-        {notesData.map(note => (
-          <SavedNote key={note.id}>
-            <NoteShortcut>{note.content}</NoteShortcut>
-            <NoteDetails>
-              <Author>
-                <AuthorIcon src={personIcon} alt="person-icon" />
-                <AuthorName>{`${note.doctorData.firstName} ${note.doctorData.lastName}`}</AuthorName>
-              </Author>
-              <Date>{getNoteDate(note.dateOfNote)}</Date>
-            </NoteDetails>
-          </SavedNote>
-        ))}
-      </NotesList>
+      {notesData.length > 0 ? (
+        <NotesList>
+          {notesData.map(note => (
+            <SavedNote key={note.id}>
+              <NoteShortcut>{note.content}</NoteShortcut>
+              <NoteDetails>
+                <Author>
+                  <AuthorIcon src={personIcon} alt="person-icon" />
+                  <AuthorName>{`${note.doctorData.firstName} ${note.doctorData.lastName}`}</AuthorName>
+                </Author>
+                <Date>{getNoteDate(note.dateOfNote)}</Date>
+              </NoteDetails>
+            </SavedNote>
+          ))}
+        </NotesList>
+      ) : (
+        <NoNotes>There are no notes for this patient.</NoNotes>
+      )}
     </NotesWrapper>
   );
 };

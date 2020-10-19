@@ -148,7 +148,7 @@ const MoreIcon = styled.img.attrs({ className: 'more-icon' })`
 
 const RecentBills = () => (
   <RecentBillsWrapper>
-    <CardTitle>Recent Bills</CardTitle>
+    <CardTitle>Recent Bill</CardTitle>
     <CardContent>
       <MoreIcon src={moreIcon} alt="moreIcon" />
       <TwoSideGrid>

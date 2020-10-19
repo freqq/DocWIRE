@@ -32,7 +32,7 @@ export const LoadableMessagesPage = makeLoadable(() =>
 );
 
 export const LoadableAppointmentsPage = makeLoadable(() =>
-  import('appointments-page/containers/AppointmentsPage'),
+  import('appointments-page/containers/AppointmentsListChoice'),
 );
 
 export const LoadableProfileSettingsPage = makeLoadable(() =>

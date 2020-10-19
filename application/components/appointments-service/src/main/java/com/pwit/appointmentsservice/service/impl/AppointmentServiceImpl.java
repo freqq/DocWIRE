@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -101,6 +103,46 @@ public class AppointmentServiceImpl implements AppointmentService {
         RecentAppointment recentAppointment = createRecentAppointment(appointment.get());
 
         return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getAppointmentsRequests(String currentUserId) {
+        List<Appointment> appointments = appointmentRepository.findAllByDoctorId(currentUserId);
+        List<RecentAppointment> recentAppointments = new ArrayList<>();
+
+        for(Appointment appointment : appointments) {
+            if(appointment.getAppointmentState() == AppointmentState.REQUESTED) {
+                RecentAppointment recentAppointment = createRecentAppointment(appointment);
+                recentAppointments.add(recentAppointment);
+            }
+        }
+
+        return new ResponseEntity<>(recentAppointments, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getAcceptedAppointments(String date,
+                                                     String currentUserId) {
+        List<Appointment> appointments = appointmentRepository.findAllByDoctorId(currentUserId);
+        List<RecentAppointment> recentAppointments = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime requestDay = LocalDateTime.parse(date, formatter);
+
+        for(Appointment appointment : appointments) {
+            if(appointment.getAppointmentState() != AppointmentState.REQUESTED
+                && areDatesWithoutTimeEqual(appointment.getAppointmentDate(), requestDay)) {
+                RecentAppointment recentAppointment = createRecentAppointment(appointment);
+                recentAppointments.add(recentAppointment);
+            }
+        }
+
+        return new ResponseEntity<>(recentAppointments, HttpStatus.OK);
+    }
+
+    private boolean areDatesWithoutTimeEqual(LocalDateTime dateOne, LocalDateTime dateTwo) {
+        return dateOne.getMonth() == dateTwo.getMonth()
+                && dateOne.getDayOfMonth() == dateTwo.getDayOfMonth()
+                && dateOne.getYear() == dateTwo.getYear();
     }
 
     private RecentAppointment createRecentAppointment(Appointment appointment) {

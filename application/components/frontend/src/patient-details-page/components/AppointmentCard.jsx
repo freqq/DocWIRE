@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const AppointmentCardWrapper = styled.div.attrs({ className: 'appointment-card-wrapper' })`
+const AppointmentCardWrapper = styled(Link).attrs({ className: 'appointment-card-wrapper' })`
   padding: 15px;
   background: #ffffff;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.02);
@@ -13,6 +14,8 @@ const AppointmentCardWrapper = styled.div.attrs({ className: 'appointment-card-w
   cursor: pointer;
   transition: 0.2s;
   margin: 10px 0;
+  color: #000;
+  text-decoration: none;
 
   &:hover {
     transform: scale(1.02);
@@ -34,8 +37,8 @@ const Name = styled.div.attrs({ className: 'name' })`
   }
 `;
 
-const AppointmentCard = ({ date, time, treatmentType, doctorName }) => (
-  <AppointmentCardWrapper>
+const AppointmentCard = ({ date, time, treatmentType, doctorName, appointmentId }) => (
+  <AppointmentCardWrapper to={`/appointments/${appointmentId}`}>
     <Column>
       <Name>{date}</Name>
       <Title>{time}</Title>
@@ -56,6 +59,7 @@ AppointmentCard.propTypes = {
   time: PropTypes.string.isRequired,
   treatmentType: PropTypes.string.isRequired,
   doctorName: PropTypes.string.isRequired,
+  appointmentId: PropTypes.string.isRequired,
 };
 
 export default AppointmentCard;

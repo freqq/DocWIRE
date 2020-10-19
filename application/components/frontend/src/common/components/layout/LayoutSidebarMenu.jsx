@@ -5,16 +5,12 @@ import styled from 'styled-components';
 
 import appointmentsIcon from 'images/menu-icons/appointments.svg';
 import billingsIcon from 'images/menu-icons/billings.svg';
-import carePlansIcon from 'images/menu-icons/care_plans.svg';
 import chatIcon from 'images/menu-icons/chat.svg';
 import historyIcon from 'images/menu-icons/history.svg';
 import homeIcon from 'images/menu-icons/home.svg';
-import labIcon from 'images/menu-icons/lab.svg';
 import medicalIcon from 'images/menu-icons/medical.svg';
 import prescriptionsIcon from 'images/menu-icons/prescriptions.svg';
-import reportsIcon from 'images/menu-icons/reports.svg';
 import faqIcon from 'images/menu-icons/faq.svg';
-import formsIcon from 'images/menu-icons/forms.svg';
 
 const LayoutSidebarMenuWrapper = styled.div.attrs({ className: 'layout-sidebar-menu-wrapper' })`
   width: calc(100% - 30px);
@@ -86,11 +82,8 @@ const MENU_ITEMS = [
   {
     sectionTitle: 'Medical',
     options: [
-      { name: 'Lab results', icon: labIcon, to: '/lab-results' },
-      { name: 'Medical results', icon: medicalIcon, to: '/medical-results' },
+      { name: 'Medications', icon: medicalIcon, to: '/medications' },
       { name: 'Prescriptions', icon: prescriptionsIcon, to: '/prescriptions' },
-      { name: 'Care plans', icon: carePlansIcon, to: '/care-plans' },
-      { name: 'Forms', icon: formsIcon, to: '/forms' },
     ],
   },
   {
@@ -98,7 +91,6 @@ const MENU_ITEMS = [
     options: [
       { name: 'Billing', icon: billingsIcon, to: '/billings' },
       { name: 'History', icon: historyIcon, to: '/history' },
-      { name: 'Reports', icon: reportsIcon, to: '/reports' },
     ],
   },
   {

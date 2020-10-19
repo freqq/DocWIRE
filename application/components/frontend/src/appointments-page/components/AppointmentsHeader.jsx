@@ -1,13 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import {
-  getCurrentMonthName,
-  getCurrentYear,
-  getCurrentDayOfMonth,
-  daysInCurrentMonth,
-} from 'common/utils/date_utils';
+import { getCurrentMonthName, getCurrentYear, daysInCurrentMonth } from 'common/utils/date_utils';
 import arrowLeft from 'images/icons/left-arrow.svg';
 import arrowRight from 'images/icons/right-arrow.svg';
 
@@ -95,16 +91,16 @@ const ACTIVE_DAY_STYLE = {
   border: '1px solid #f0f0f0',
 };
 
-const AppointmentsHeader = () => {
+const AppointmentsHeader = ({ chosenDate, setChosenDate }) => {
   const createWeekNumbersArray = () => {
     const returnArray = [];
-    const startOfTheWeek = moment().startOf('isoweek').toDate().getDate();
-    const endOfTheWeek = moment().endOf('isoweek').toDate().getDate();
+    const startOfTheWeek = moment().startOf('isoweek');
+    const endOfTheWeek = moment().endOf('isoweek');
 
     for (let i = 1; i < 6; i += 1) {
-      if (startOfTheWeek + i >= daysInCurrentMonth())
-        returnArray.push(startOfTheWeek + i - daysInCurrentMonth());
-      else returnArray.push(startOfTheWeek + i);
+      if (startOfTheWeek.toDate().getDate() + i >= daysInCurrentMonth())
+        returnArray.push(startOfTheWeek.subtract(i - daysInCurrentMonth(), 'd'));
+      else returnArray.push(startOfTheWeek.add(i, 'd'));
     }
 
     return [startOfTheWeek, ...returnArray, endOfTheWeek];
@@ -113,31 +109,38 @@ const AppointmentsHeader = () => {
   const DAYS_ARRAY = [
     {
       name: 'M',
-      number: createWeekNumbersArray()[0],
+      number: createWeekNumbersArray()[0].toDate().getDate(),
+      date: createWeekNumbersArray()[0],
     },
     {
       name: 'T',
-      number: createWeekNumbersArray()[1],
+      number: createWeekNumbersArray()[1].toDate().getDate(),
+      date: createWeekNumbersArray()[1],
     },
     {
       name: 'W',
-      number: createWeekNumbersArray()[2],
+      number: createWeekNumbersArray()[2].toDate().getDate(),
+      date: createWeekNumbersArray()[2],
     },
     {
       name: 'T',
-      number: createWeekNumbersArray()[3],
+      number: createWeekNumbersArray()[3].toDate().getDate(),
+      date: createWeekNumbersArray()[3],
     },
     {
       name: 'F',
-      number: createWeekNumbersArray()[4],
+      number: createWeekNumbersArray()[4].toDate().getDate(),
+      date: createWeekNumbersArray()[4],
     },
     {
       name: 'S',
-      number: createWeekNumbersArray()[5],
+      number: createWeekNumbersArray()[5].toDate().getDate(),
+      date: createWeekNumbersArray()[5],
     },
     {
       name: 'S',
-      number: createWeekNumbersArray()[6],
+      number: createWeekNumbersArray()[6].toDate().getDate(),
+      date: createWeekNumbersArray()[6],
     },
   ];
 
@@ -152,7 +155,10 @@ const AppointmentsHeader = () => {
           <ArrowButtonImage src={arrowLeft} alt="arrow-rigth" />
         </ArrowButton>
         {DAYS_ARRAY.map(dayData => (
-          <DayButton style={dayData.number === getCurrentDayOfMonth() ? ACTIVE_DAY_STYLE : {}}>
+          <DayButton
+            onClick={() => setChosenDate()}
+            style={dayData.date === chosenDate ? ACTIVE_DAY_STYLE : {}}
+          >
             <DayName>{dayData.name}</DayName>
             <DayNumber>{dayData.number}</DayNumber>
           </DayButton>
@@ -163,6 +169,11 @@ const AppointmentsHeader = () => {
       </DayChooseWarpper>
     </AppointmentsHeaderWrapper>
   );
+};
+
+AppointmentsHeader.propTypes = {
+  chosenDate: PropTypes.instanceOf(Date).isRequired,
+  setChosenDate: PropTypes.func.isRequired,
 };
 
 export default AppointmentsHeader;
