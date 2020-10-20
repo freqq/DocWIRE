@@ -36,4 +36,6 @@ public class PatientDetailsResponse {
     private DoctorInfo doctorInfo;
 
     private List<NoteResponse> noteResponses;
+
+    private List<ReviewResponse> reviewResponses;
 }

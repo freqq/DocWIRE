@@ -3,6 +3,7 @@ package com.pwit.accountservice.controller;
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
 import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
+import com.pwit.accountservice.dto.request.ReviewRequest;
 import com.pwit.accountservice.dto.response.PatientDetailsResponse;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.service.AccountService;
@@ -132,6 +133,16 @@ public class AccountController {
     public ResponseEntity<?> createNewNote(@RequestBody @Valid NoteRequest noteRequest) {
         LOGGER.info("Creating a new note for chosen patient by user {}.", getCurrentUsername());
         return accountService.createNewNote(noteRequest, getCurrentUserId());
+    }
+
+    /**
+     * Creates a new review for chosen doctor.
+     */
+    @Secured(ROLE_USER)
+    @PostMapping("/review")
+    public ResponseEntity<?> createNewReview(@RequestBody @Valid ReviewRequest reviewRequest) {
+        LOGGER.info("Creating a new review for chosen doctor by user {}.", getCurrentUsername());
+        return accountService.createNewReview(reviewRequest, getCurrentUserId());
     }
 
     /**
