@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import printIcon from 'images/icons/print.svg';
 
-const PatientDetailsBreadcrumbWrapper = styled.div.attrs({
-  className: 'patient-details-breadcrumb-wrapper',
+const DoctorDetailsBreadcrumbWrapper = styled.div.attrs({
+  className: 'doctor-details-breadcrumb-wrapper',
 })`
   width: 100%;
   font-size: 11px;
@@ -38,27 +38,27 @@ const PageTitle = styled.span.attrs({ className: 'page-title' })`
   margin-right: 3px;
 `;
 
-const PatientName = styled.span.attrs({ className: 'patient-name' })`
+const DoctorName = styled.span.attrs({ className: 'doctor-name' })`
   font-weight: 100;
   display: inline-block;
 `;
 
-const PatientDetailsBreadcrumb = ({ patientName }) => {
+const DoctorDetailsBreadcrumb = ({ doctorName }) => {
   return (
-    <PatientDetailsBreadcrumbWrapper>
+    <DoctorDetailsBreadcrumbWrapper>
       <LeftSide>
-        <PageTitle>Patient Details &gt;</PageTitle>
-        <PatientName>{patientName}</PatientName>
+        <PageTitle>Doctor Details &gt;</PageTitle>
+        <DoctorName>{doctorName}</DoctorName>
       </LeftSide>
       <RightSide>
         <PrintIcon src={printIcon} alt="print-icon" />
       </RightSide>
-    </PatientDetailsBreadcrumbWrapper>
+    </DoctorDetailsBreadcrumbWrapper>
   );
 };
 
-PatientDetailsBreadcrumb.propTypes = {
-  patientName: PropTypes.string.isRequired,
+DoctorDetailsBreadcrumb.propTypes = {
+  doctorName: PropTypes.string.isRequired,
 };
 
-export default PatientDetailsBreadcrumb;
+export default DoctorDetailsBreadcrumb;

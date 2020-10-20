@@ -12,6 +12,7 @@ import AuthService from 'AuthService';
 export const ROOT_PATH = getPath('/');
 export const DASHBOARD_PATH = getPath('/dashboard');
 export const PATIENT_DETAILS_PATH = getPath('/patient/:patientId');
+export const DOCTOR_DETAILS_PATH = getPath('/doctor/:doctorId');
 export const PROFILE_SETTINGS_PATH = getPath('/settings');
 export const MESSAGES_PATH = getPath('/messages');
 export const APPOINTMENTS_PATH = getPath('/appointments');
@@ -43,6 +44,10 @@ export const LoadablePatientDetailsPage = makeLoadable(() =>
   import('patient-details-page/containers/PatientDetailsPage'),
 );
 
+export const LoadableDoctorPage = makeLoadable(() =>
+  import('doctor-details-page/containers/DoctorDetailsPage'),
+);
+
 export const LoadableFAQPage = makeLoadable(() => import('faq-page/containers/FAQPage'));
 
 export const LoadableAppointmentDetailsPage = makeLoadable(() =>
@@ -61,21 +66,25 @@ export const LoadableCreateAccountPage = makeLoadable(() =>
   import('create-account-page/containers/CreateAccountPage'),
 );
 
-const RootRouter = ({ isAccountError, userInfo }) => (
-  <Switch>
-    <Route exact path={ROOT_PATH} component={LoadableMainPage} />
-    <AuthService>
-      <Route exact path={DIAGNOSE_PATH} component={LoadableInitialDiagnosePage} />
-      <Route exact path={CREATE_ACCOUNT_PATH} component={LoadableCreateAccountPage} />
-      {!isAccountError &&
-        userInfo &&
-        ((userInfo.patientInfo && userInfo.patientInfo.initialDiagnoseDone) ||
-          userInfo.doctorInfo) && (
+const RootRouter = ({ isAccountError, userInfo }) => {
+  const shouldRedirectToMainLayout = () =>
+    !isAccountError &&
+    userInfo &&
+    ((userInfo.patientInfo && userInfo.patientInfo.initialDiagnoseDone) || userInfo.doctorInfo);
+
+  return (
+    <Switch>
+      <Route exact path={ROOT_PATH} component={LoadableMainPage} />
+      <AuthService>
+        <Route exact path={DIAGNOSE_PATH} component={LoadableInitialDiagnosePage} />
+        <Route exact path={CREATE_ACCOUNT_PATH} component={LoadableCreateAccountPage} />
+        {shouldRedirectToMainLayout() && (
           <Layout>
             <Route exact path={DASHBOARD_PATH} component={LoadableDashboardPage} />
             <Route exact path={MESSAGES_PATH} component={LoadableMessagesPage} />
             <Route exact path={APPOINTMENTS_PATH} component={LoadableAppointmentsPage} />
             <Route exact path={PATIENT_DETAILS_PATH} component={LoadablePatientDetailsPage} />
+            <Route exact path={DOCTOR_DETAILS_PATH} component={LoadableDoctorPage} />
             <Route exact path={PROFILE_SETTINGS_PATH} component={LoadableProfileSettingsPage} />
             <Route
               exact
@@ -86,10 +95,11 @@ const RootRouter = ({ isAccountError, userInfo }) => (
             <Route exact path={VIDEO_CONVERSATION_PAGE} component={LoadableVideoConversationPage} />
           </Layout>
         )}
-    </AuthService>
-    <Route component={NotFoundPage} />
-  </Switch>
-);
+      </AuthService>
+      <Route component={NotFoundPage} />
+    </Switch>
+  );
+};
 
 const mapStateToProps = state => ({
   isAccountError: state.common.accountData.isError,
