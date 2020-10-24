@@ -23,8 +23,7 @@ const StreamBoxTopbarWrapper = styled.div.attrs({ className: 'stream-box-topbar'
 const TopBarLeft = styled.div.attrs({ className: 'top-bar-left' })`
   grid: bar-left-area;
   font-size: 14px;
-  font-weight: bold;
-  font-family: 'Titillium Web', sans-serif;
+  font-weight: 100;
 `;
 
 const TopBarRight = styled.div.attrs({ className: 'top-bar-right' })`
@@ -54,10 +53,12 @@ const LiveName = styled.span.attrs({ className: 'live-count' })`
   border-bottom-right-radius: 3px;
 `;
 
-const StreamBoxTopbar = ({ appointmentId }) => {
+const StreamBoxTopbar = ({ appointmentData }) => {
+  const getAppointmentID = () => (appointmentData !== undefined ? appointmentData.id : null);
+
   return (
     <StreamBoxTopbarWrapper>
-      <TopBarLeft>{`Room id: ${appointmentId}`}</TopBarLeft>
+      <TopBarLeft>{`Call id: ${getAppointmentID()}`}</TopBarLeft>
       <TopBarRight>
         <LiveCount>00:18:29</LiveCount>
         <LiveName>LIVE</LiveName>
@@ -67,11 +68,11 @@ const StreamBoxTopbar = ({ appointmentId }) => {
 };
 
 StreamBoxTopbar.propTypes = {
-  appointmentId: PropTypes.string.isRequired,
+  appointmentData: PropTypes.instanteOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
-  appointmentId: state.call.appointmentDetails.appointmentId,
+  appointmentData: state.call.appointmentDetails.data,
 });
 
 export default connect(mapStateToProps, null)(StreamBoxTopbar);

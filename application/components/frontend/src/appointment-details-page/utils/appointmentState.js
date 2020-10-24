@@ -4,6 +4,7 @@ export const APPOINTMENT_STATES = {
   PAID: 'PAID',
   CANCELED: 'CANCELED',
   FINISHED: 'FINISHED',
+  REVIEWED: 'REVIEWED',
 };
 
 export const getAppointmentStateText = state => {
@@ -18,6 +19,8 @@ export const getAppointmentStateText = state => {
       return 'Appointment was cancelled.';
     case APPOINTMENT_STATES.FINISHED:
       return 'Appointment finished.';
+    case APPOINTMENT_STATES.REVIEWED:
+      return 'Doctor was reviewed.';
     default:
       return 'There was an error with appointment state.';
   }
@@ -33,6 +36,8 @@ export const getCurrentStepNumber = state => {
       return 2;
     case APPOINTMENT_STATES.FINISHED:
       return 3;
+    case APPOINTMENT_STATES.REVIEWED:
+      return 4;
     case APPOINTMENT_STATES.CANCELED:
       return 10;
     default:

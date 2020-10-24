@@ -7,6 +7,8 @@ import { OpenVidu } from 'openvidu-browser';
 import axios from 'axios';
 import shortid from 'shortid';
 
+import { APPOINTMENT_STATES } from 'appointment-details-page/utils/appointmentState';
+import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 import StreamBox from 'video-conversation-page/components/StreamBox';
 import NoAppointmentFoundPlaceholder from 'common/components/placeholders/NoAppointmentFoundPlaceholder';
 import ChatBox from 'video-conversation-page/components/ChatBox';
@@ -33,6 +35,17 @@ const VideoGrid = styled.div.attrs({ className: 'video-grid' })`
   width: 100%;
 `;
 
+const UserNotAllowed = styled.div.attrs({ className: 'user-not-allowed' })`
+  padding: 20px 10px;
+  margin: 5px 0;
+  text-align: center;
+  background: #fce7e6;
+  font-size: 12px;
+  color: #552526;
+  width: 80%;
+  margin: 20px auto;
+`;
+
 const JSON_CONTENT_TYPE = 'application/json';
 const SPEECH_DETECTION_VALUE = 10;
 const SPEAKING_THRESHOLD_VALUE = 50;
@@ -51,6 +64,8 @@ const VideoConversationPage = ({
   match,
   isError,
   isLoading,
+  appointmentData,
+  currentUserId,
 }) => {
   const [initialVideo, setInitialVideo] = useState(true);
   const [initialAudio, setInitialAudio] = useState(true);
@@ -346,9 +361,29 @@ const VideoConversationPage = ({
     }
   };
 
+  const isUserAllowed = () =>
+    !isLoading &&
+    appointmentData !== undefined &&
+    (appointmentData.patient.userId === currentUserId ||
+      appointmentData.doctor.userID === currentUserId);
+
+  const isCallEnded = () =>
+    !isLoading &&
+    appointmentData !== undefined &&
+    appointmentData.appointmentState === APPOINTMENT_STATES.FINISHED;
+
+  if (isLoading) return <ProgressIndicatorCircular />;
+
   if (isError) {
     return <NoAppointmentFoundPlaceholder />;
   }
+
+  if (isCallEnded()) {
+    return <UserNotAllowed>Appointment already finished.</UserNotAllowed>;
+  }
+
+  if (!isUserAllowed())
+    return <UserNotAllowed>You are not allowed to this call page.</UserNotAllowed>;
 
   return (
     <VideoConversationPageWithLoading isLoading={isLoading}>
@@ -396,6 +431,8 @@ VideoConversationPage.propTypes = {
   getAppointmentDetailsFunc: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
+  currentUserId: PropTypes.string.isRequired,
+  appointmentData: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -403,6 +440,8 @@ const mapStateToProps = state => ({
   isError: state.call.appointmentDetails.isError,
   token: state.common.authUser.keycloakInfo.token,
   username: state.common.authUser.keycloakInfo.userInfo.preferred_username,
+  appointmentData: state.call.appointmentDetails.data,
+  currentUserId: state.common.authUser.keycloakInfo.subject,
 });
 
 const mapDispatchToProps = dispatch => ({

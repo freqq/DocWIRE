@@ -1,14 +1,18 @@
 package com.pwit.appointmentsservice.service.impl;
 
 import com.pwit.appointmentsservice.dto.Appointment;
+import com.pwit.appointmentsservice.dto.Review;
 import com.pwit.appointmentsservice.dto.enumeration.AppointmentState;
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
+import com.pwit.appointmentsservice.dto.request.ReviewRequest;
 import com.pwit.appointmentsservice.dto.response.RecentAppointment;
 import com.pwit.appointmentsservice.dto.user.User;
 import com.pwit.appointmentsservice.feign.AccountService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
+import com.pwit.appointmentsservice.repository.ReviewRepository;
 import com.pwit.appointmentsservice.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,7 @@ import java.util.Optional;
 public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final AccountService accountService;
+    private final ReviewRepository reviewRepository;
 
     @Override
     public ResponseEntity<?> createAppointment(AppointmentRequest appointmentRequest, String currentUserId) {
@@ -101,7 +106,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.get().setAppointmentState(AppointmentState.PAID);
         appointmentRepository.save(appointment.get());
 
-        return new ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -136,6 +141,31 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
         return new ResponseEntity<>(recentAppointments, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> reviewDoctorAfterAppointment(ReviewRequest reviewRequest) {
+        Optional<Appointment> appointment = appointmentRepository.findById(reviewRequest.getAppointmentId());
+
+        if(appointment.isEmpty())
+            return new ResponseEntity<>("Appointment with given id not found.", HttpStatus.NOT_FOUND);
+
+        Review review = new Review().toBuilder()
+                .appointmentId(reviewRequest.getAppointmentId())
+                .doctorId(reviewRequest.getDoctorId())
+                .patientId(reviewRequest.getPatientdD())
+                .rating(reviewRequest.getRating())
+                .build();
+
+        reviewRepository.save(review);
+
+        appointment.get().setAppointmentState(AppointmentState.REVIEWED);
+        appointmentRepository.save(appointment.get());
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("success", true);
+
+        return new ResponseEntity<>(jsonObject, HttpStatus.OK);
     }
 
     private boolean areDatesWithoutTimeEqual(LocalDateTime dateOne, LocalDateTime dateTwo) {

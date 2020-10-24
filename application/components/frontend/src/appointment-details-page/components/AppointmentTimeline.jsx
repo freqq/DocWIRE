@@ -6,7 +6,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 
+import ReviewDoctor from 'appointment-details-page/components/ReviewDoctor';
 import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
 import { createPaymentSession } from 'appointment-details-page/actions/paymentActions';
 import Tabs from 'common/components/tabs/Tabs';
@@ -98,6 +100,19 @@ const AcceptRequestButton = styled.div.attrs({ className: 'accept-request-button
   }
 `;
 
+const GoToCallButton = styled.div.attrs({ className: 'go-to-call-button' })`
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+
+  &:hover {
+    background: #eee;
+  }
+`;
+
 const StepDescription = styled.div.attrs({ className: 'step-description' })`
   font-weight: 100;
   font-size: 10px;
@@ -145,7 +160,7 @@ const ACTIVITY_STEPS = [
   {
     id: 4,
     name: 'Appointment finished',
-    description: 'Call was made and this issue is closed.',
+    description: 'Call was made and this issue is closed. Now you can review your doctor.',
     notDone: 'Meeting has ended',
   },
 ];
@@ -168,6 +183,7 @@ const AppointmentTimeline = ({
   isAcceptRequestLoading,
   isAcceptRequestError,
   isPaymentLoading,
+  history,
 }) => {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -178,6 +194,8 @@ const AppointmentTimeline = ({
   const acceptRequest = appointmentId => {
     acceptAppointmentRequestFunc(appointmentId);
   };
+
+  const goToCall = callId => history.push(`/call/${callId}`);
 
   const leadingZeros = param => (param < 10 ? '0' : '') + param;
 
@@ -203,6 +221,15 @@ const AppointmentTimeline = ({
     const minutesEnd = leadingZeros(chosenDateEnd.minutes());
 
     return `${hour}:${minutes} - ${hourEnd}:${minutesEnd}`;
+  };
+
+  const isTimeForAppointment = date => {
+    const currentTime = moment();
+    const appointmentDateTIme = moment(date);
+
+    const timeDiff = moment.duration(currentTime.diff(appointmentDateTIme));
+
+    return timeDiff.asMinutes() <= 10;
   };
 
   const getFullDate = appointmentDate =>
@@ -254,6 +281,10 @@ const AppointmentTimeline = ({
       );
     }
 
+    if (activeStep === 2 && isTimeForAppointment(data.appointmentDate)) {
+      return <GoToCallButton onClick={() => goToCall(data.id)}>Go to call page</GoToCallButton>;
+    }
+
     return <>{activeStep >= step.id ? <>{step.done}</> : <>{step.notDone}</>}</>;
   };
 
@@ -295,6 +326,14 @@ const AppointmentTimeline = ({
             <StepDetails>
               <StepName>{step.name}</StepName>
               <StepDescription>{step.description}</StepDescription>
+              {step.id === 4 && activeStep === 3 && (
+                <ReviewDoctor
+                  doctorData={data.doctor}
+                  appointmentId={data.id}
+                  patientId={data.patient.userId}
+                  appointmentState={data.appointmentState}
+                />
+              )}
             </StepDetails>
             {activeStep + 1 >= step.id && (
               <StepStatus style={activeStep >= step.id ? DONE_TEXT_COLOR : {}}>
@@ -322,6 +361,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 AppointmentTimeline.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   data: PropTypes.instanceOf(Object).isRequired,
   loggedInUserId: PropTypes.string.isRequired,
   acceptAppointmentRequestFunc: PropTypes.func.isRequired,
@@ -331,4 +373,4 @@ AppointmentTimeline.propTypes = {
   isPaymentLoading: PropTypes.bool.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppointmentTimeline);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppointmentTimeline));

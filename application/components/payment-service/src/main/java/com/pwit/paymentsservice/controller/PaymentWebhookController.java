@@ -24,11 +24,7 @@ public class PaymentWebhookController {
                                                 @RequestHeader("Stripe-Signature") String stripeSignature) {
         LOGGER.info("Handling payment session event.");
         try {
-            LOGGER.info(stripeSignature);
-            LOGGER.info(body);
-            LOGGER.info(paymentProperties.getWebhookSecret());
             Event event = Webhook.constructEvent(body, stripeSignature, paymentProperties.getWebhookSecret());
-            LOGGER.info(event.getData().toJson());
             return paymentWebhookService.handleCheckoutSessionEvent(event);
         } catch (SignatureVerificationException e) {
             LOGGER.info(e.getMessage());

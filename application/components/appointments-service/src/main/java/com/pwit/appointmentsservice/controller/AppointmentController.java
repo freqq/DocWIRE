@@ -1,6 +1,7 @@
 package com.pwit.appointmentsservice.controller;
 
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
+import com.pwit.appointmentsservice.dto.request.ReviewRequest;
 import com.pwit.appointmentsservice.service.AppointmentService;
 import com.pwit.common.utils.Logger;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +86,19 @@ public class AppointmentController {
      */
     @PutMapping("/paid/{appointmentId}")
     public ResponseEntity<?> setAppointmentsStateToPaid(@PathVariable("appointmentId") String appointmentId) {
+        LOGGER.info("Setting an appointment state with id {} to paid .", appointmentId);
         return appointmentService.setAppointmentsStateToPaid(appointmentId);
+    }
+
+    /**
+     * Setting an appointment state to paid.
+     *
+     * @param reviewRequest   Object of a review request
+     */
+    @PutMapping("/review")
+    public ResponseEntity<?> reviewDoctorAfterAppointment(@RequestBody @Valid ReviewRequest reviewRequest) {
+        LOGGER.info("Reviewing doctor after an appointment id {}.", reviewRequest.getAppointmentId());
+        return appointmentService.reviewDoctorAfterAppointment(reviewRequest);
     }
 
     /**

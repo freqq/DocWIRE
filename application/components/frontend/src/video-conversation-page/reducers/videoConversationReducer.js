@@ -26,7 +26,7 @@ const connectFail = state => ({
 
 const connectOk = (state, action) => ({
   ...state,
-  data: action.payload,
+  data: action.payload.appointmentData,
   isError: false,
   isLoading: false,
 });

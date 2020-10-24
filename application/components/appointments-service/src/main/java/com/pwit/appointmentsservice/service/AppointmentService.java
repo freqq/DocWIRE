@@ -1,6 +1,7 @@
 package com.pwit.appointmentsservice.service;
 
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
+import com.pwit.appointmentsservice.dto.request.ReviewRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface AppointmentService {
@@ -10,6 +11,7 @@ public interface AppointmentService {
     ResponseEntity<?> getMostRecentAppointmentForCurrentUser(String currentUserId);
     ResponseEntity<?> acceptAppointmentRequest(String appointmentId);
     ResponseEntity<?> setAppointmentsStateToPaid(String appointmentId);
+    ResponseEntity<?> reviewDoctorAfterAppointment(ReviewRequest reviewRequest);
     ResponseEntity<?> getAppointmentsRequests(String currentUserId);
     ResponseEntity<?> getAcceptedAppointments(String date, String currentUserId);
 }

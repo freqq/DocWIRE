@@ -5,3 +5,6 @@ export const appointmentDetails = appointmentId =>
 
 export const acceptRequest = appointmentId =>
   RequestService.put(`/api/appointments/accept/${appointmentId}`);
+
+export const reviewDoctor = ratingObject =>
+  RequestService.put(`/api/appointments/review/`, ratingObject);
