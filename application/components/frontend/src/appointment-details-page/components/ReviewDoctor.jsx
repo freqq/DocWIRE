@@ -70,8 +70,8 @@ const ReviewDoctor = ({
   const getDoctorFullName = () => `${doctorData.firstName} ${doctorData.lastName}`;
 
   return (
-    <ReviewDoctorWrapper style={isReviewLoading && { opacity: '0.4' }}>
-      {reviewData !== undefined && reviewData.status ? (
+    <ReviewDoctorWrapper style={isReviewLoading ? { opacity: '0.4' } : {}}>
+      {reviewData !== undefined ? (
         <ReviewSuccess>Succesfully reviewed.</ReviewSuccess>
       ) : (
         <>
