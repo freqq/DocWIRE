@@ -100,9 +100,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointment.get().setAppointmentState(AppointmentState.PAID);
         appointmentRepository.save(appointment.get());
-        RecentAppointment recentAppointment = createRecentAppointment(appointment.get());
 
-        return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
+        return new ResponseEntity.ok().build();
     }
 
     @Override
