@@ -27,6 +27,7 @@ public class PaymentWebhookController {
             Event event = Webhook.constructEvent(body, stripeSignature, paymentProperties.getWebhookSecret());
             return paymentWebhookService.handleCheckoutSessionEvent(event);
         } catch (SignatureVerificationException e) {
+            LOGGER.info
             return ResponseEntity.badRequest().build();
         }
     }

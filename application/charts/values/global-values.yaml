@@ -36,6 +36,7 @@ config:
   paymentService:
     hostname: payment-service
     port: 8447
+    nodePort: 32004
   paymentDb:
     hostname: payment-db
     port: 27017

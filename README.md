@@ -123,6 +123,15 @@ $ cd scripts && ./start.sh
 
 You can reach a website at URL logged at the end of start script.
 
+
+## Payments
+
+In order to checkout payments in development environment execute command:
+
+```sh
+$ stripe listen --api-key sk_test_51HdE8mDV6EZPJrHHkftff05Uwa2RNhDQLmnzUbPHuTb4PfYJShQ2OoQHFyPyIWCe3mwL46DM7XECaO68BqDO4GaD001VY2kjNY --load-from-webhooks-api --forward-to https://<MINIKUBE_IP>:32004 --skip-verify
+```
+
 ## Starting monitoring services
 
 In order to run application in development profile execute:

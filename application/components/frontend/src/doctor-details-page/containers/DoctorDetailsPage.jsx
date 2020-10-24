@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getDoctorDetails } from 'doctor-details-page/actions/doctorActions';
-import DoctorDetailsGridLeftSide from 'doctor-details-page/containers/DoctorDetailsGridLeftSide';
+import DoctorDetailsGridLeftSide from 'doctor-details-page/components/DoctorDetailsGridLeftSide';
 import DoctorDetailsBreadcrumb from 'doctor-details-page/components/DoctorDetailsBreadcrumb';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 
