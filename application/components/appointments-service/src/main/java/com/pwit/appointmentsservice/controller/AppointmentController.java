@@ -85,7 +85,6 @@ public class AppointmentController {
      */
     @PutMapping("/paid/{appointmentId}")
     public ResponseEntity<?> setAppointmentsStateToPaid(@PathVariable("appointmentId") String appointmentId) {
-        LOGGER.info("Setting an appointment state to paid by patient with username '{}'.", getCurrentUsername());
         return appointmentService.setAppointmentsStateToPaid(appointmentId);
     }
 

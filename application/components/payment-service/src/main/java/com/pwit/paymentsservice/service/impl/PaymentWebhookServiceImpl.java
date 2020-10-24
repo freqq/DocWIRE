@@ -42,7 +42,7 @@ public class PaymentWebhookServiceImpl implements PaymentWebhookService {
     }
 
     private void fulfillOrder(Session session) {
-        if (!sessionRepository.existsByStripeIdAndHandledTrue(session.getId())) {
+        if (!sessionRepository.existsByStripeIdAndIsHandledTrue(session.getId())) {
 
             SessionEntity sessionEntity = new SessionEntity().toBuilder()
                     .isSuccessful(true)

@@ -15,6 +15,7 @@ import java.util.List;
 
 import static com.pwit.common.security.SecurityUtils.getCurrentUserId;
 import static com.pwit.paymentsservice.service.util.PaymentMetada.APPOINTMENT_ID;
+import static com.pwit.paymentsservice.service.util.PaymentMetada.PATIENT_ID;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class PaymentHistoryServiceImpl implements PaymentHistoryService {
     @Override
     public void handlePaymentRecord(Session session) {
         String appointmentId = session.getMetadata().get(APPOINTMENT_ID);
+        String patientId = session.getMetadata().get(PATIENT_ID);
 
         Payment payment = new Payment()
                 .toBuilder()
@@ -33,7 +35,7 @@ public class PaymentHistoryServiceImpl implements PaymentHistoryService {
                 .paidAt(Instant.now())
                 .appointmentId(appointmentId)
                 .price(session.getAmountTotal())
-                .patientId(getCurrentUserId())
+                .patientId(patientId)
                 .build();
 
         paymentRepository.save(payment);

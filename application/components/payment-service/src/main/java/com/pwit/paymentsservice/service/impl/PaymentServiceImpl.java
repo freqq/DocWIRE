@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static com.pwit.paymentsservice.service.util.PaymentMetada.APPOINTMENT_ID;
+import static com.pwit.paymentsservice.service.util.PaymentMetada.PATIENT_ID;
+
+import static com.pwit.common.security.SecurityUtils.getCurrentUserId;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +49,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .setCustomerEmail(currentUserEmail)
                 .setClientReferenceId(currentUserId)
                 .putMetadata(APPOINTMENT_ID, paymentRequest.getAppointmentId())
+                .putMetadata(PATIENT_ID, getCurrentUserId())
                 .build();
 
         Session session = Session.create(params);

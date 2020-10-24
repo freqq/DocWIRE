@@ -32,7 +32,7 @@ payment:
   stripeApiKey: sk_test_51HdE8mDV6EZPJrHHkftff05Uwa2RNhDQLmnzUbPHuTb4PfYJShQ2OoQHFyPyIWCe3mwL46DM7XECaO68BqDO4GaD001VY2kjNY
   callbackUrl: https://${MINIKUBE_IP}/appointments/
   webhookUri: /api/payment/webhook/checkout
-  webhookSecret: whsec_7tmIiPMzXGf5UFLYG4ba0KbKJIlNbVpe
+  webhookSecret: whsec_Yp5RN8XNUzwVJpztjrwWPkThwtrO47hp
 
 keycloak:
   enabled: true

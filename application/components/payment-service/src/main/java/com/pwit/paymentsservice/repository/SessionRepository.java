@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SessionRepository extends MongoRepository<SessionEntity, String> {
-    boolean existsByStripeIdAndHandledTrue(String stripeId);
+    boolean existsByStripeIdAndIsHandledTrue(String stripeId);
     SessionEntity findByStripeId(String stripeId);
 }
