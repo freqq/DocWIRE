@@ -38,4 +38,6 @@ public class PatientDetailsResponse {
     private List<NoteResponse> noteResponses;
 
     private List<ReviewResponse> reviewResponses;
+
+    private List<AppointmentResponse> appointmentResponses;
 }

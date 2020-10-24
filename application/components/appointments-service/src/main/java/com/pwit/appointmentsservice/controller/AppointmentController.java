@@ -59,6 +59,17 @@ public class AppointmentController {
     }
 
     /**
+     * Fetches all appointments for current user with.
+     *
+     */
+    @Secured(ROLE_USER)
+    @GetMapping("/details/short")
+    public ResponseEntity<?> getAllAppointmentsForCurrentUserShort() {
+        LOGGER.info("Fetching all appointments for user {}.", getCurrentUsername());
+        return appointmentService.getAllAppointmentsForCurrentUserShort(getCurrentUserId());
+    }
+
+    /**
      * Fetches most recent appointment for current user.
      */
     @Secured(ROLE_USER)

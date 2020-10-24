@@ -6,14 +6,13 @@ import com.pwit.accountservice.dto.UserDetailsChangeDTO;
 import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
 import com.pwit.accountservice.dto.request.ReviewRequest;
-import com.pwit.accountservice.dto.response.NoteResponse;
-import com.pwit.accountservice.dto.response.PatientDetailsResponse;
-import com.pwit.accountservice.dto.response.ReviewResponse;
-import com.pwit.accountservice.dto.response.SearchResponse;
+import com.pwit.accountservice.dto.response.*;
 import com.pwit.accountservice.entity.PatientInfo;
+import com.pwit.accountservice.entity.RecentAppointmentShort;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.entity.enumeration.AccountType;
 import com.pwit.accountservice.error.exception.UserNotFoundException;
+import com.pwit.accountservice.feign.AppointmentsService;
 import com.pwit.accountservice.repository.NoteRepository;
 import com.pwit.accountservice.repository.ReviewRepository;
 import com.pwit.accountservice.repository.UserRepository;
@@ -24,7 +23,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +39,7 @@ public class AccountServiceImpl implements AccountService {
     private final UserRepository userRepository;
     private final NoteRepository noteRepository;
     private final ReviewRepository reviewRepository;
+    private final AppointmentsService appointmentsService;
 
     @Override
     public ResponseEntity<?> createAccount(RegisterRequest registerRequest) {
@@ -132,8 +131,22 @@ public class AccountServiceImpl implements AccountService {
         Optional<User> foundUser = userRepository.findUserByUserId(userId);
         List<Note> notes = noteRepository.findAllByPatientIdOrderByDateOfNote(userId);
         List<Review> reviews = reviewRepository.findAllByDoctorIdOrderByDateOfReview(userId);
+        List<AppointmentResponse> appointmentResponses = new ArrayList<>();
         List<NoteResponse> noteResponses = new ArrayList<>();
         List<ReviewResponse> reviewResponses = new ArrayList<>();
+
+        List<RecentAppointmentShort> appointments = appointmentsService.getAllAppointmentsForCurrentUser();
+
+        for (RecentAppointmentShort recentAppointmentShort : appointments){
+            AppointmentResponse appointmentResponse = new AppointmentResponse().toBuilder()
+                    .appointmentDate(recentAppointmentShort.getAppointmentDate())
+                    .appointmentId(recentAppointmentShort.getId())
+                    .appointmentState(recentAppointmentShort.getAppointmentState())
+                    .doctorData(userRepository.findUserByUserId(recentAppointmentShort.getDoctorId()).get())
+                    .build();
+
+            appointmentResponses.add(appointmentResponse);
+        }
 
         for(Note note : notes){
             NoteResponse noteResponse = new NoteResponse()
@@ -172,6 +185,7 @@ public class AccountServiceImpl implements AccountService {
                 .noteResponses(noteResponses)
                 .reviewResponses(reviewResponses)
                 .userId(foundUser.get().getUserId())
+                .appointmentResponses(appointmentResponses)
                 .build();
 
         return new ResponseEntity<>(patientDetailsResponse, HttpStatus.OK);

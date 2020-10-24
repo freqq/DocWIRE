@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
-import AppointmentCard from 'patient-details-page/components/AppointmentCard';
+import PatientAppointmentCard from 'appointments-page/components/PatientAppointmentCard';
 
 const PatientHistoryWrapper = styled.div.attrs({
   className: 'patient-history-wrapper',
@@ -30,26 +30,6 @@ const PatientHistoryTabs = styled.ul.attrs({ className: 'patient-history-tabs' }
   border: 1px solid #f0f0f0;
 `;
 
-const PatientHistoryTabItem = styled.li.attrs({ className: 'patient-history-tab-item' })`
-  display: inline-block;
-  padding: 10px 15px;
-  border-radius: 4px;
-  margin: 0 5px;
-  transition: 0.2s;
-  cursor: pointer;
-  font-weight: 100;
-  border: 1px solid #f0f0f0;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:hover {
-    background: #607086;
-    color: #ffffff;
-  }
-`;
-
 const PatientHistoryList = styled.div.attrs({ className: 'patient-history-list' })`
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -61,12 +41,6 @@ const PatientHistoryList = styled.div.attrs({ className: 'patient-history-list' 
   overflow-x: hidden;
 `;
 
-const TreatmentName = styled.div.attrs({ className: 'treatment-name' })`
-  padding: 15px;
-  border-bottom: 1px solid #aaa;
-  border-top: 1px solid #aaa;
-`;
-
 const AppointmentsGrid = styled.div.attrs({ className: 'appointments-grid' })`
   display: grid;
   grid-template-columns: 5% 1fr;
@@ -75,10 +49,6 @@ const AppointmentsGrid = styled.div.attrs({ className: 'appointments-grid' })`
 
 const AppointmentDotWrapper = styled.div.attrs({ className: 'appointments-dot-wrapper' })`
   position: relative;
-`;
-const TreatmentItem = styled.div.attrs({ className: 'treatment-item' })``;
-const AppointmentsList = styled.div.attrs({ className: 'appointments-list' })`
-  padding: 0 15px;
 `;
 
 const AppointmentDot = styled.div.attrs({ className: 'appointments-dot' })`
@@ -104,67 +74,37 @@ const VerticalLine = styled.div.attrs({ className: 'vertical-line' })`
   transform: translate(-50%, -50%);
 `;
 
-const HISTORY_TABS = [
-  {
-    id: 1,
-    name: 'Upcoming Appointments',
-  },
-  {
-    id: 2,
-    name: 'Past Appointments',
-  },
-];
+const PatientHistory = ({ data }) => (
+  <PatientHistoryWrapper>
+    <PatientHistoryTabs>Recent appointments</PatientHistoryTabs>
+    <PatientHistoryList>
+      {data.patientData.appointmentResponses.map(appointment => (
+        <AppointmentsGrid>
+          <AppointmentDotWrapper>
+            <VerticalLine />
+            <AppointmentDot />
+          </AppointmentDotWrapper>
+          <PatientAppointmentCard
+            appointmentDate={appointment.appointmentDate}
+            doctorData={appointment.doctorData}
+            appointmentState={appointment.appointmentState}
+            appointmentId={appointment.appointmentId}
+          />
+        </AppointmentsGrid>
+      ))}
+    </PatientHistoryList>
+  </PatientHistoryWrapper>
+);
 
-const ACTIVE_TAB_STYLE = {
-  background: '#607086',
-  color: '#ffffff',
-};
-
-const PatientHistory = ({ treatmentHistory }) => {
-  const [activeTab, setActiveTab] = useState(HISTORY_TABS[0].name);
-
-  return (
-    <PatientHistoryWrapper>
-      <PatientHistoryTabs>
-        {HISTORY_TABS.map(historyTab => (
-          <PatientHistoryTabItem
-            style={activeTab === historyTab.name ? ACTIVE_TAB_STYLE : {}}
-            key={historyTab.id}
-            onClick={() => setActiveTab(historyTab.name)}
-          >
-            {historyTab.name}
-          </PatientHistoryTabItem>
-        ))}
-      </PatientHistoryTabs>
-      <PatientHistoryList>
-        {treatmentHistory.map(treatment => (
-          <TreatmentItem>
-            <TreatmentName key={treatment.id}>{treatment.treatmentName}</TreatmentName>
-            <AppointmentsList>
-              {treatment.meetingsList.map(meeting => (
-                <AppointmentsGrid>
-                  <AppointmentDotWrapper>
-                    <VerticalLine />
-                    <AppointmentDot />
-                  </AppointmentDotWrapper>
-                  <AppointmentCard
-                    date={meeting.date}
-                    time={meeting.time}
-                    treatmentType={meeting.treatmentType}
-                    doctorName={meeting.doctorName}
-                  />
-                </AppointmentsGrid>
-              ))}
-            </AppointmentsList>
-          </TreatmentItem>
-        ))}
-      </PatientHistoryList>
-    </PatientHistoryWrapper>
-  );
-};
+const mapStateToProps = state => ({
+  isLoading: state.patient.patientDetails.isNotesLoading,
+  isError: state.patient.patientDetails.isNotesError,
+  notesData: state.patient.patientDetails.notes,
+  data: state.patient.patientDetails.data,
+});
 
 PatientHistory.propTypes = {
-  treatmentHistory: PropTypes.instanceOf(Object).isRequired,
+  data: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default PatientHistory;
+export default connect(mapStateToProps, null)(PatientHistory);

@@ -39,6 +39,9 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
     compile group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.5.5'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-kubernetes-all', version: '1.1.6.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-ribbon', version: '2.2.5.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-kubernetes-loadbalancer', version: '1.1.6.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.5.RELEASE'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: '2.2.5.RELEASE'
 
     compileOnly 'org.projectlombok:lombok'

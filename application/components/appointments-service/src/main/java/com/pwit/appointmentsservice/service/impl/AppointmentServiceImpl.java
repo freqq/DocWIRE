@@ -6,6 +6,7 @@ import com.pwit.appointmentsservice.dto.enumeration.AppointmentState;
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
 import com.pwit.appointmentsservice.dto.request.ReviewRequest;
 import com.pwit.appointmentsservice.dto.response.RecentAppointment;
+import com.pwit.appointmentsservice.dto.response.RecentAppointmentShort;
 import com.pwit.appointmentsservice.dto.user.User;
 import com.pwit.appointmentsservice.feign.AccountService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
@@ -70,6 +71,19 @@ public class AppointmentServiceImpl implements AppointmentService {
         for(Appointment appointment : appointments) {
             RecentAppointment recentAppointment = createRecentAppointment(appointment);
             recentAppointments.add(recentAppointment);
+        }
+
+        return new ResponseEntity<>(recentAppointments, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getAllAppointmentsForCurrentUserShort(String currentUserId) {
+        List<Appointment> appointments = appointmentRepository.findAllByPatientId(currentUserId);
+        List<RecentAppointmentShort> recentAppointments = new ArrayList<>();
+
+        for(Appointment appointment : appointments) {
+            RecentAppointmentShort recentAppointmentShort = createRecentAppointmentShort(appointment);
+            recentAppointments.add(recentAppointmentShort);
         }
 
         return new ResponseEntity<>(recentAppointments, HttpStatus.OK);
@@ -187,6 +201,17 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .appointmentPrice(doctor.getDoctorInfo().getPrice())
                 .appointmentState(appointment.getAppointmentState())
                 .visitedRegions(appointment.getVisitedRegions())
+                .id(appointment.getId())
+                .build();
+    }
+
+    private RecentAppointmentShort createRecentAppointmentShort(Appointment appointment) {
+
+        return new RecentAppointmentShort().toBuilder()
+                .appointmentDate(appointment.getAppointmentDate())
+                .doctorId(appointment.getDoctorId())
+                .patientId(appointment.getPatientId())
+                .appointmentState(appointment.getAppointmentState())
                 .id(appointment.getId())
                 .build();
     }

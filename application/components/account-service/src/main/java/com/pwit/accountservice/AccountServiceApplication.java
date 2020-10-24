@@ -10,6 +10,7 @@ import com.pwit.common.utils.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -28,6 +29,7 @@ import java.net.UnknownHostException;
 })
 @EnableSwagger2
 @EnableDiscoveryClient
+@EnableFeignClients
 public class AccountServiceApplication {
     private static final Logger LOGGER = new Logger();
 
