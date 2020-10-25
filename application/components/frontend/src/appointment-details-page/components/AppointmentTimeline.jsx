@@ -17,6 +17,7 @@ import { acceptAppointmentRequest } from 'appointment-details-page/actions/appoi
 import inlineLoaderImage from 'images/inline-loader.svg';
 
 import AppointmentDate from 'appointment-details-page/components/tabs/AppointmentDate';
+import MedicalFiles from 'appointment-details-page/components/tabs/MedicalFiles';
 import QuickSurvey from 'appointment-details-page/components/tabs/QuickSurvey';
 import VisitedRegions from 'appointment-details-page/components/tabs/VisitedRegions';
 import LastSurvey from 'appointment-details-page/components/tabs/LastSurvey';
@@ -295,6 +296,9 @@ const AppointmentTimeline = ({
         <Tabs>
           <div label="Appointment date">
             <AppointmentDate appointmentDate={data.appointmentDate} />
+          </div>
+          <div label="Medical files">
+            <MedicalFiles  />
           </div>
           <div label="Doctor info">
             <DoctorInfo doctorData={data.doctor} />
