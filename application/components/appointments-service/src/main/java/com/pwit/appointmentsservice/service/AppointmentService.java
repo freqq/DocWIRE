@@ -15,4 +15,5 @@ public interface AppointmentService {
     ResponseEntity<?> reviewDoctorAfterAppointment(ReviewRequest reviewRequest);
     ResponseEntity<?> getAppointmentsRequests(String currentUserId);
     ResponseEntity<?> getAcceptedAppointments(String date, String currentUserId);
+    ResponseEntity<?> getAllReviewsForCurrentUser(String userId, String currentUserId);
 }

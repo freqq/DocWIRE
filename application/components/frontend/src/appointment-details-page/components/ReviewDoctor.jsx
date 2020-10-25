@@ -61,7 +61,7 @@ const ReviewDoctor = ({
       rating,
       appointmentId,
       patientId,
-      doctorId: doctorData.userID,
+      doctorId: doctorData.userId,
     };
 
     if (!isReviewLoading) doctorReviewFunc(ratingObject);

@@ -64,6 +64,7 @@ const UserSection = ({
   circleFontSize,
   switchShowDropdown,
   userId,
+  accountType,
 }) => {
   const getCircleText = () => firstName.charAt(0) + lastName.charAt(0);
 
@@ -71,7 +72,7 @@ const UserSection = ({
     <UserSectionWrapper>
       <FlexBox style={{ height: `${circleSize}px` }}>
         <UserCircle
-          to={`/patient/${userId}`}
+          to={accountType === 'DOCTOR' ? `/doctor/${userId}` : `/patient/${userId}`}
           style={{
             height: `${circleSize}px`,
             width: `${circleSize}px`,
@@ -116,6 +117,7 @@ UserSection.propTypes = {
   circleFontSize: PropTypes.number,
   switchShowDropdown: PropTypes.func,
   userId: PropTypes.string.isRequired,
+  accountType: PropTypes.string.isRequired,
 };
 
 export default UserSection;

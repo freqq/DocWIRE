@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -167,8 +168,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         Review review = new Review().toBuilder()
                 .appointmentId(reviewRequest.getAppointmentId())
                 .doctorId(reviewRequest.getDoctorId())
-                .patientId(reviewRequest.getPatientdD())
+                .patientId(reviewRequest.getPatientId())
                 .rating(reviewRequest.getRating())
+                .ratingDate(Instant.now())
                 .build();
 
         reviewRepository.save(review);
@@ -180,6 +182,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         jsonObject.put("success", true);
 
         return new ResponseEntity<>(jsonObject, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getAllReviewsForCurrentUser(String userId, String currentUserId) {
+        return ResponseEntity.ok(reviewRepository.findAllByDoctorId(userId));
     }
 
     private boolean areDatesWithoutTimeEqual(LocalDateTime dateOne, LocalDateTime dateTwo) {

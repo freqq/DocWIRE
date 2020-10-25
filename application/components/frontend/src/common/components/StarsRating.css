@@ -17,7 +17,7 @@
   font-size: 1rem;
 }
 .rating__icon--star {
-  color: orange;
+  color: #ddd;
 }
 .rating__input:checked ~ .rating__label .rating__icon--star {
   color: #ddd;
@@ -27,4 +27,8 @@
 }
 .rating__input:hover ~ .rating__label .rating__icon--star {
   color: #ddd;
+}
+
+.checked-star {
+  color: orange;
 }

@@ -4,6 +4,7 @@ import com.pwit.accountservice.dto.UserDetailsChangeDTO;
 import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
 import com.pwit.accountservice.dto.request.ReviewRequest;
+import com.pwit.accountservice.dto.response.DoctorDetailsResponse;
 import com.pwit.accountservice.dto.response.PatientDetailsResponse;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.service.AccountService;
@@ -61,6 +62,18 @@ public class AccountController {
     public ResponseEntity<PatientDetailsResponse> getDetailsOfUserWithGivenId(@PathVariable("userId") String userId) {
         LOGGER.info("Getting info of user with given id '{}'.", userId);
         return accountService.getDetailsOfUserWithGivenId(userId);
+    }
+
+    /**
+     * Gets info about doctor with given id.
+     *
+     * @param doctorId  Id of doctor to get data from
+     */
+    @Secured(ROLE_USER)
+    @GetMapping(value = "/doctor/{doctorId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DoctorDetailsResponse> getDetailsODoctorWithGivenId(@PathVariable("doctorId") String doctorId) {
+        LOGGER.info("Getting info of doctor with given id '{}'.", doctorId);
+        return accountService.getDetailsODoctorWithGivenId(doctorId);
     }
 
     /**
@@ -133,16 +146,6 @@ public class AccountController {
     public ResponseEntity<?> createNewNote(@RequestBody @Valid NoteRequest noteRequest) {
         LOGGER.info("Creating a new note for chosen patient by user {}.", getCurrentUsername());
         return accountService.createNewNote(noteRequest, getCurrentUserId());
-    }
-
-    /**
-     * Creates a new review for chosen doctor.
-     */
-    @Secured(ROLE_USER)
-    @PostMapping("/review")
-    public ResponseEntity<?> createNewReview(@RequestBody @Valid ReviewRequest reviewRequest) {
-        LOGGER.info("Creating a new review for chosen doctor by user {}.", getCurrentUsername());
-        return accountService.createNewReview(reviewRequest, getCurrentUserId());
     }
 
     /**

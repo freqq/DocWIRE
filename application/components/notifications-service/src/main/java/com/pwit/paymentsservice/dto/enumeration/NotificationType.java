@@ -4,9 +4,11 @@ import javax.validation.constraints.NotNull;
 
 public enum NotificationType {
     APPOINTMENT_CREATED(1),
-    APPOINTMENT_DECLINED(2),
-    APPOINTMENT_PAID(2),
-    APPOINTMENT_ACCEPTED(3);
+    APPOINTMENT_ACCEPTED(2),
+    APPOINTMENT_PAID(3),
+    APPOINTMENT_REVIEWED(4),
+    APPOINTMENT_FINISHED(5),
+    APPOINTMENT_CANCELED(6);
 
     private final int id;
     private final String name;

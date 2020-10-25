@@ -35,11 +35,10 @@ const DoctorDetailsPage = ({ isLoading, isError, data, getDoctorDetailsFunc, mat
     getDoctorDetailsFunc(doctorId);
   }, []);
 
-  const getFullName = () =>
-    `${data.doctorData.doctorInfo.title} ${data.doctorData.firstName} ${data.doctorData.lastName}`;
+  const getFullName = () => `${data.doctorInfo.title} ${data.firstName} ${data.lastName}`;
 
   const getEmail = () =>
-    `${data.doctorData.firstName.toLowerCase()}.${data.doctorData.lastName.toLowerCase()}@docwire.com`;
+    `${data.firstName.toLowerCase()}.${data.lastName.toLowerCase()}@docwire.com`;
 
   const getDayOfBirth = () => 'Feb 24th, 1997';
 
@@ -49,27 +48,32 @@ const DoctorDetailsPage = ({ isLoading, isError, data, getDoctorDetailsFunc, mat
     {
       id: 1,
       title: 'Gender',
-      content: camelize(data.docorData.gender.toLowerCase()),
+      content: camelize(data.gender.toLowerCase()),
     },
     {
       id: 2,
       title: 'About me',
-      content: data.doctorData.doctorInfo.aboutMe,
+      content: data.doctorInfo.aboutMe,
     },
     {
       id: 3,
       title: 'Specialization',
-      content: data.doctorData.doctorInfo.specialization,
+      content: data.doctorInfo.specialization,
     },
     {
       id: 4,
       title: 'Price',
-      content: data.doctorData.doctorInfo.price,
+      content: data.doctorInfo.price,
     },
     {
-      id: 4,
+      id: 5,
       title: 'Birthday',
       content: getDayOfBirth(),
+    },
+    {
+      id: 6,
+      title: 'Rating',
+      content: data.rating !== 0 ? data.rating : 'N/A',
     },
   ];
 
@@ -88,8 +92,9 @@ const DoctorDetailsPage = ({ isLoading, isError, data, getDoctorDetailsFunc, mat
         <>
           <DoctorDetailsBreadcrumb doctorName={getFullName()} />
           <DoctorDetailsGridLeftSide
-            firstName={data.doctorData.firstName}
-            lastName={data.doctorData.lastName}
+            reviews={data.reviewResponses}
+            firstName={data.firstName}
+            lastName={data.lastName}
             email={getEmail()}
             doctorData={createDoctorDataArray()}
           />

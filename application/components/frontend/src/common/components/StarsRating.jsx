@@ -10,8 +10,6 @@ const StartRating = ({ rating, id, onClick }) => (
   <div id="full-stars-example-two">
     <div className="rating-group">
       <input
-        disabled
-        checked
         className="rating__input rating__input--none"
         name={id}
         id="rating3-none"
@@ -24,7 +22,11 @@ const StartRating = ({ rating, id, onClick }) => (
         htmlFor="rating3-1"
         onClick={() => onClick(1)}
       >
-        <i className="rating__icon rating__icon--star fa fa-star" />
+        <i
+          className={`rating__icon rating__icon--star fa fa-star ${
+            rating >= 1 ? 'checked-star' : ''
+          }`}
+        />
       </label>
       <input className="rating__input" name={id} id="rating3-1" value="1" type="radio" />
       <label
@@ -33,7 +35,11 @@ const StartRating = ({ rating, id, onClick }) => (
         htmlFor="rating3-2"
         onClick={() => onClick(2)}
       >
-        <i className="rating__icon rating__icon--star fa fa-star" />
+        <i
+          className={`rating__icon rating__icon--star fa fa-star ${
+            rating >= 2 ? 'checked-star' : ''
+          }`}
+        />
       </label>
       <input className="rating__input" name={id} id="rating3-2" value="2" type="radio" />
       <label
@@ -42,7 +48,11 @@ const StartRating = ({ rating, id, onClick }) => (
         htmlFor="rating3-3"
         onClick={() => onClick(3)}
       >
-        <i className="rating__icon rating__icon--star fa fa-star" />
+        <i
+          className={`rating__icon rating__icon--star fa fa-star ${
+            rating >= 3 ? 'checked-star' : ''
+          }`}
+        />
       </label>
       <input className="rating__input" name={id} id="rating3-3" value="3" type="radio" />
       <label
@@ -51,7 +61,11 @@ const StartRating = ({ rating, id, onClick }) => (
         htmlFor="rating3-4"
         onClick={() => onClick(4)}
       >
-        <i className="rating__icon rating__icon--star fa fa-star" />
+        <i
+          className={`rating__icon rating__icon--star fa fa-star ${
+            rating >= 4 ? 'checked-star' : ''
+          }`}
+        />
       </label>
       <input className="rating__input" name={id} id="rating3-4" value="4" type="radio" />
       <label
@@ -60,7 +74,11 @@ const StartRating = ({ rating, id, onClick }) => (
         htmlFor="rating3-5"
         onClick={() => onClick(5)}
       >
-        <i className="rating__icon rating__icon--star fa fa-star" />
+        <i
+          className={`rating__icon rating__icon--star fa fa-star ${
+            rating >= 5 ? 'checked-star' : ''
+          }`}
+        />
       </label>
       <input className="rating__input" name={id} id="rating3-5" value="5" type="radio" />
     </div>

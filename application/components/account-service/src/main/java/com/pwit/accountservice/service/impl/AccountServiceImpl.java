@@ -1,20 +1,18 @@
 package com.pwit.accountservice.service.impl;
 
 import com.pwit.accountservice.dto.Note;
-import com.pwit.accountservice.dto.Review;
 import com.pwit.accountservice.dto.UserDetailsChangeDTO;
 import com.pwit.accountservice.dto.request.NoteRequest;
 import com.pwit.accountservice.dto.request.RegisterRequest;
-import com.pwit.accountservice.dto.request.ReviewRequest;
 import com.pwit.accountservice.dto.response.*;
 import com.pwit.accountservice.entity.PatientInfo;
 import com.pwit.accountservice.entity.RecentAppointmentShort;
+import com.pwit.accountservice.entity.Review;
 import com.pwit.accountservice.entity.User;
 import com.pwit.accountservice.entity.enumeration.AccountType;
 import com.pwit.accountservice.error.exception.UserNotFoundException;
 import com.pwit.accountservice.feign.AppointmentsService;
 import com.pwit.accountservice.repository.NoteRepository;
-import com.pwit.accountservice.repository.ReviewRepository;
 import com.pwit.accountservice.repository.UserRepository;
 import com.pwit.accountservice.service.AccountService;
 import com.pwit.common.utils.Logger;
@@ -23,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +35,6 @@ public class AccountServiceImpl implements AccountService {
 
     private final UserRepository userRepository;
     private final NoteRepository noteRepository;
-    private final ReviewRepository reviewRepository;
     private final AppointmentsService appointmentsService;
 
     @Override
@@ -130,10 +126,8 @@ public class AccountServiceImpl implements AccountService {
     public ResponseEntity<PatientDetailsResponse>  getDetailsOfUserWithGivenId(String userId) {
         Optional<User> foundUser = userRepository.findUserByUserId(userId);
         List<Note> notes = noteRepository.findAllByPatientIdOrderByDateOfNote(userId);
-        List<Review> reviews = reviewRepository.findAllByDoctorIdOrderByDateOfReview(userId);
         List<AppointmentResponse> appointmentResponses = new ArrayList<>();
         List<NoteResponse> noteResponses = new ArrayList<>();
-        List<ReviewResponse> reviewResponses = new ArrayList<>();
 
         List<RecentAppointmentShort> appointments = appointmentsService.getAllAppointmentsForCurrentUser();
 
@@ -148,7 +142,7 @@ public class AccountServiceImpl implements AccountService {
             appointmentResponses.add(appointmentResponse);
         }
 
-        for(Note note : notes){
+        for(Note note : notes) {
             NoteResponse noteResponse = new NoteResponse()
                     .toBuilder()
                     .dateOfNote(note.getDateOfNote())
@@ -157,18 +151,6 @@ public class AccountServiceImpl implements AccountService {
                     .build();
             noteResponses.add(noteResponse);
         }
-
-        for(Review review : reviews){
-            ReviewResponse reviewResponse = new ReviewResponse()
-                    .toBuilder()
-                    .patientData(userRepository.findUserByUserId(review.getAuthorId()).get())
-                    .content(review.getContent())
-                    .dateOfReview(review.getDateOfReview())
-                    .rating(review.getRating())
-                    .build();
-            reviewResponses.add(reviewResponse);
-        }
-
 
         if(foundUser.isEmpty())
             return ResponseEntity.notFound().build();
@@ -183,7 +165,6 @@ public class AccountServiceImpl implements AccountService {
                 .langKey(foundUser.get().getLangKey())
                 .lastName(foundUser.get().getLastName())
                 .noteResponses(noteResponses)
-                .reviewResponses(reviewResponses)
                 .userId(foundUser.get().getUserId())
                 .appointmentResponses(appointmentResponses)
                 .build();
@@ -237,27 +218,40 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResponseEntity<?> createNewReview(ReviewRequest reviewRequest, String currentUserId) {
-        Review review = new Review()
-                .toBuilder()
-                .dateOfReview(LocalDateTime.now())
-                .doctorId(reviewRequest.getDoctorId())
-                .content(reviewRequest.getContent())
-                .rating(reviewRequest.getRating())
-                .authorId(currentUserId)
+    public ResponseEntity<DoctorDetailsResponse> getDetailsODoctorWithGivenId(String doctorId) {
+        Optional<User> foundDoctor = userRepository.findUserByUserId(doctorId);
+        List<Review> reviews = appointmentsService.getAllReviewsForCurrentUser(doctorId);
+        List<ReviewResponse> reviewResponses = new ArrayList<>();
+        Long allRatings = 0L;
+
+        if(foundDoctor.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        for(Review review : reviews) {
+            ReviewResponse reviewResponse = new ReviewResponse().toBuilder()
+                    .dateOfReview(review.getRatingDate())
+                    .patientData(userRepository.findUserByUserId(review.getPatientId()).get())
+                    .rating(review.getRating())
+                    .build();
+
+            allRatings += review.getRating();
+
+            reviewResponses.add(reviewResponse);
+        }
+
+        DoctorDetailsResponse doctorDetailsResponse = new DoctorDetailsResponse().toBuilder()
+                .doctorInfo(foundDoctor.get().getDoctorInfo())
+                .dayOfBirth(foundDoctor.get().getDayOfBirth())
+                .firstName(foundDoctor.get().getFirstName())
+                .langKey(foundDoctor.get().getLangKey())
+                .gender(foundDoctor.get().getGender())
+                .lastName(foundDoctor.get().getLastName())
+                .userId(foundDoctor.get().getUserId())
+                .rating(reviews.size() == 0 ? 0 : (double) (allRatings / reviews.size()))
+                .reviewResponses(reviewResponses)
                 .build();
 
-        reviewRepository.save(review);
-
-        ReviewResponse reviewResponse = new ReviewResponse()
-                .toBuilder()
-                .patientData(userRepository.findUserByUserId(review.getAuthorId()).get())
-                .content(review.getContent())
-                .dateOfReview(review.getDateOfReview())
-                .rating(review.getRating())
-                .build();
-
-        return ResponseEntity.ok(reviewResponse);
+        return new ResponseEntity<>(doctorDetailsResponse, HttpStatus.OK);
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

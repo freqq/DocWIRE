@@ -7,7 +7,7 @@ import DoctorDetails from 'doctor-details-page/components/DoctorDetails';
 import DoctorReviews from 'doctor-details-page/components/DoctorReviews';
 
 const DoctorDetailsGridLeftSideWrapper = styled.div.attrs({
-  className: 'patient-details-grid-left-side-wrapper',
+  className: 'doctor-details-grid-left-side-wrapper',
 })`
   width: 100%;
   display: grid;
@@ -15,6 +15,7 @@ const DoctorDetailsGridLeftSideWrapper = styled.div.attrs({
   grid-template-rows: 40% 60%;
   height: 100%;
   overflow: hidden;
+  max-height: 78vh;
 `;
 
 const TopGrid = styled.div.attrs({ className: 'top-grid' })`
@@ -25,13 +26,13 @@ const TopGrid = styled.div.attrs({ className: 'top-grid' })`
   height: calc(100% - 20px);
 `;
 
-const DoctorDetailsGridLeftSide = ({ firstName, lastName, email, doctorData }) => (
+const DoctorDetailsGridLeftSide = ({ firstName, lastName, email, doctorData, reviews }) => (
   <DoctorDetailsGridLeftSideWrapper>
     <TopGrid>
       <DoctorProfile firstName={firstName} lastName={lastName} email={email} />
       <DoctorDetails doctorData={doctorData} />
     </TopGrid>
-    <DoctorReviews />
+    <DoctorReviews reviews={reviews} />
   </DoctorDetailsGridLeftSideWrapper>
 );
 
@@ -40,6 +41,7 @@ DoctorDetailsGridLeftSide.propTypes = {
   lastName: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   doctorData: PropTypes.instanceOf(Object).isRequired,
+  reviews: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default DoctorDetailsGridLeftSide;

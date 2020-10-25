@@ -24,7 +24,7 @@ const RightSide = styled.div.attrs({ className: 'right-side' })`
   position: relative;
 `;
 
-const LayoutNavbar = ({ logoutUserFunc, firstName, lastName, currentUserId }) => {
+const LayoutNavbar = ({ logoutUserFunc, firstName, lastName, currentUserId, accountType }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const switchShowDropdown = () => setShowDropdown(!showDropdown);
@@ -38,8 +38,9 @@ const LayoutNavbar = ({ logoutUserFunc, firstName, lastName, currentUserId }) =>
           userId={currentUserId}
           firstName={firstName}
           lastName={lastName}
-          bottomText="Patient"
+          bottomText={accountType === 'DOCTOR' ? 'Doctor' : 'Patient'}
           circleSize={35}
+          accountType={accountType}
           switchShowDropdown={switchShowDropdown}
         />
         {showDropdown && (
@@ -53,6 +54,7 @@ const LayoutNavbar = ({ logoutUserFunc, firstName, lastName, currentUserId }) =>
 const mapStateToProps = state => ({
   firstName: state.common.accountData.userData.firstName,
   lastName: state.common.accountData.userData.lastName,
+  accountType: state.common.accountData.userData.accountType,
   currentUserId: state.common.authUser.keycloakInfo.subject,
 });
 
@@ -65,6 +67,7 @@ LayoutNavbar.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   currentUserId: PropTypes.string.isRequired,
+  accountType: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LayoutNavbar);

@@ -64,7 +64,7 @@ const SendMessageButton = styled.button.attrs({ className: 'send-message-button'
   }
 `;
 
-const DoctorProfile = ({ firstName, lastName, email, loggedInUserId, userData }) => {
+const DoctorProfile = ({ firstName, lastName, email, loggedInUserId, doctorData }) => {
   const getCircleContent = () => firstName.charAt(0) + lastName.charAt(0);
 
   return (
@@ -72,9 +72,7 @@ const DoctorProfile = ({ firstName, lastName, email, loggedInUserId, userData })
       <UserCircle>{getCircleContent()}</UserCircle>
       <UserName>{`${firstName} ${lastName}`}</UserName>
       <UserEmail>{email}</UserEmail>
-      {loggedInUserId !== userData.doctorData.userId && (
-        <SendMessageButton>Send message</SendMessageButton>
-      )}
+      {loggedInUserId !== doctorData.userId && <SendMessageButton>Send message</SendMessageButton>}
     </DoctorProfileWrapper>
   );
 };
@@ -84,12 +82,12 @@ DoctorProfile.propTypes = {
   lastName: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   loggedInUserId: PropTypes.string.isRequired,
-  userData: PropTypes.instanceOf(Object).isRequired,
+  doctorData: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
   loggedInUserId: state.common.authUser.keycloakInfo.subject,
-  userData: state.doctor.doctorDetails.data,
+  doctorData: state.doctor.doctorDetails.data,
 });
 
 export default connect(mapStateToProps, null)(DoctorProfile);

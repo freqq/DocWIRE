@@ -113,6 +113,17 @@ public class AppointmentController {
     }
 
     /**
+     * Getting all reviews for user with given id
+     *
+     * @param userId   Object of a review request
+     */
+    @GetMapping("/review/{userId}")
+    public ResponseEntity<?> getAllReviewsForCurrentUser(@PathVariable("userId") String userId) {
+        LOGGER.info("Getting all reviews for user with id {}.", getCurrentUserId());
+        return appointmentService.getAllReviewsForCurrentUser(userId, getCurrentUserId());
+    }
+
+    /**
      * Getting all requests for current doctor.
      */
     @GetMapping("/requests")

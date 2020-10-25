@@ -1,8 +1,11 @@
 package com.pwit.accountservice.feign;
 
 import com.pwit.accountservice.entity.RecentAppointmentShort;
+import com.pwit.accountservice.entity.Review;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -15,4 +18,7 @@ import java.util.List;
 public interface AppointmentsService {
     @GetMapping("/api/appointments/details/short")
     List<RecentAppointmentShort> getAllAppointmentsForCurrentUser();
+
+    @GetMapping("/api/appointments/review/{userId}")
+    List<Review> getAllReviewsForCurrentUser(@PathVariable("userId") String userId);
 }
