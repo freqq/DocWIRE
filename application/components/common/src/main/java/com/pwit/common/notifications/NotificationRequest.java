@@ -20,4 +20,8 @@ public class NotificationRequest {
     @NotNull
     @Field("receiverId")
     private String receiverId;
+
+    @NotNull
+    @Field("appointmentId")
+    private String appointmentId;
 }

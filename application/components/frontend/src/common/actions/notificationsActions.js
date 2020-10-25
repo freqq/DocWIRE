@@ -11,6 +11,12 @@ export const NOTIFICATION_LIST_PENDING = 'NOTIFICATION_LIST_PENDING';
 export const NOTIFICATION_LIST_OK = 'NOTIFICATION_LIST_OK';
 export const NOTIFICATION_LIST_FAIL = 'NOTIFICATION_LIST_FAIL';
 
+export const HANDLE_NEW_NOTIFICATIONS = 'HANDLE_NEW_NOTIFICATIONS';
+
+export const handleNotification = () => ({
+  type: HANDLE_NEW_NOTIFICATIONS,
+});
+
 export const makeNewNotificationsCountPending = () => ({
   type: NEW_NOTIFICATIONS_COUNT_PENDING,
 });
@@ -59,4 +65,8 @@ export const getNotificationsList = () => dispatch => {
     .catch(() => {
       dispatch(makeNotificationsListFail());
     });
+};
+
+export const handleNewNotification = () => dispatch => {
+  dispatch(handleNotification());
 };

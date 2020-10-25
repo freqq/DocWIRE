@@ -1,6 +1,5 @@
 package com.pwit.appointmentsservice;
 
-import com.pwit.appointmentsservice.properties.FileStorageProperties;
 import com.pwit.common.config.DatabaseConfiguration;
 import com.pwit.common.config.SwaggerConfiguration;
 import com.pwit.common.security.AuthorityMapper;
@@ -10,7 +9,6 @@ import com.pwit.common.security.WebMvcConfig;
 import com.pwit.common.utils.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
@@ -32,9 +30,6 @@ import java.net.UnknownHostException;
 @EnableSwagger2
 @EnableFeignClients
 @EnableDiscoveryClient
-@EnableConfigurationProperties({
-		FileStorageProperties.class
-})
 public class AppointmentsServiceApplication {
 	private static final Logger LOGGER = new Logger();
 

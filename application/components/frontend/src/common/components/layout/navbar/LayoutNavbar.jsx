@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import { logoutUser } from 'common/actions/authUserActions';
+import SockJsClient from 'react-stomp';
 import { connect } from 'react-redux';
 
+import { handleNewNotification } from 'common/actions/notificationsActions';
+import { logoutUser } from 'common/actions/authUserActions';
 import SearchBar from 'common/components/layout/navbar/SearchBar';
 import UserSection from 'common/components/layout/navbar/UserSection';
 import NotificationsBell from 'common/components/layout/navbar/NotificationsBell';
@@ -24,10 +26,25 @@ const RightSide = styled.div.attrs({ className: 'right-side' })`
   position: relative;
 `;
 
-const LayoutNavbar = ({ logoutUserFunc, firstName, lastName, currentUserId, accountType }) => {
+const LayoutNavbar = ({
+  logoutUserFunc,
+  firstName,
+  lastName,
+  currentUserId,
+  accountType,
+  handleNewNotificationFunc,
+}) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [clientRef, setClientRef] = useState(null);
 
   const switchShowDropdown = () => setShowDropdown(!showDropdown);
+
+  const onNotificationReceived = notification => {
+    console.log(notification);
+    handleNewNotificationFunc();
+  };
+
+  const wsSourceUrl = `https://${window.location.host}/api/notifications/ws`;
 
   return (
     <LayoutNavbarWrapper>
@@ -47,6 +64,15 @@ const LayoutNavbar = ({ logoutUserFunc, firstName, lastName, currentUserId, acco
           <UserDropdownMenu logoutUserFunc={logoutUserFunc} onOutsideClick={switchShowDropdown} />
         )}
       </RightSide>
+      <SockJsClient
+        url={wsSourceUrl}
+        topics={[`/topic/private.notifications.${currentUserId}`]}
+        onMessage={onNotificationReceived}
+        ref={client => {
+          setClientRef(client);
+        }}
+        autoReconnect={false}
+      />
     </LayoutNavbarWrapper>
   );
 };
@@ -60,10 +86,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logoutUserFunc: () => dispatch(logoutUser()),
+  handleNewNotificationFunc: () => dispatch(handleNewNotification()),
 });
 
 LayoutNavbar.propTypes = {
   logoutUserFunc: PropTypes.func.isRequired,
+  handleNewNotificationFunc: PropTypes.func.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   currentUserId: PropTypes.string.isRequired,

@@ -58,6 +58,7 @@ public class NotificationsServiceImpl implements NotificationsService {
                 .authorId(currentUserId)
                 .receiverId(notificationRequest.getReceiverId())
                 .dateTime(LocalDateTime.now())
+                .appointmentId(notificationRequest.getAppointmentId())
                 .read(false)
                 .build();
 
@@ -68,9 +69,11 @@ public class NotificationsServiceImpl implements NotificationsService {
                 .author(userService.getDetailsOfUserWithGivenId(notification.getAuthorId()))
                 .content(createNotificationContent(notification.getNotificationType()))
                 .read(notification.isRead())
+                .appointmentId(notification.getAppointmentId())
                 .build();
 
-        simpMessagingTemplate.convertAndSend("/notify", notificationResponse);
+        simpMessagingTemplate.convertAndSend("/app/private.notifications." + notification.getReceiverId(),
+                notificationResponse);
 
         LOGGER.info("Added new notification by user with id {}.", currentUserId);
 
@@ -91,6 +94,10 @@ public class NotificationsServiceImpl implements NotificationsService {
                 return "has just finished your appointment.";
             case APPOINTMENT_CANCELED:
                 return "has just canceled this appointment.";
+            case APPOINTMENT_REMINDER:
+                return "There is a call with a doctor really soon.";
+            case APPOINTMENT_PAYMENT_REMINDER:
+                return "There is an appointment that you didnt pay for yet.";
             default:
                 return "Error";
         }

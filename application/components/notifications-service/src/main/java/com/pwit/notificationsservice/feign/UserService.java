@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
         fallback = UserServiceFallback.class
 )
 public interface UserService {
-    @GetMapping("/api/users/details/short/{userId}")
+    @GetMapping("/api/users/details/{userId}")
     User getDetailsOfUserWithGivenId(@PathVariable("userId") String userId);
 }

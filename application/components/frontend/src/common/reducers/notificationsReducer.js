@@ -5,6 +5,7 @@ import {
   NOTIFICATION_LIST_PENDING,
   NOTIFICATION_LIST_OK,
   NOTIFICATION_LIST_FAIL,
+  HANDLE_NEW_NOTIFICATIONS,
 } from 'common/actions/notificationsActions';
 
 export const SEARCH_INITIAL_STATE = {
@@ -36,6 +37,7 @@ export default (state, { type, payload }) => {
         isListError: false,
         isListLoading: false,
         notificationsData: payload.notificationsList,
+        data: 0,
       };
     case NOTIFICATION_LIST_FAIL:
       return {
@@ -50,6 +52,11 @@ export default (state, { type, payload }) => {
         notificationsData: null,
         isListLoading: true,
         isListError: false,
+      };
+    case HANDLE_NEW_NOTIFICATIONS:
+      return {
+        ...stateDefinition,
+        data: state.data + 1,
       };
     default:
       return stateDefinition;

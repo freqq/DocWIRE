@@ -53,7 +53,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointmentRepository.save(appointment);
         accountService.setInitialDiagnoseDone();
-        createAndSendNotificationRequest(NotificationType.APPOINTMENT_CREATED, appointment.getDoctorId());
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_CREATED, appointment.getDoctorId(), appointment.getId());
 
         return ResponseEntity.ok(appointment);
     }
@@ -113,7 +113,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.get().setAppointmentState(AppointmentState.ACCEPTED);
         appointmentRepository.save(appointment.get());
         RecentAppointment recentAppointment = createRecentAppointment(appointment.get());
-        createAndSendNotificationRequest(NotificationType.APPOINTMENT_ACCEPTED, appointment.get().getPatientId());
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_ACCEPTED,
+                appointment.get().getPatientId(),
+                appointment.get().getId());
 
         return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
     }
@@ -127,7 +129,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointment.get().setAppointmentState(AppointmentState.PAID);
         appointmentRepository.save(appointment.get());
-        createAndSendNotificationRequest(NotificationType.APPOINTMENT_PAID, appointment.get().getDoctorId());
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_PAID,
+                appointment.get().getDoctorId(),
+                appointment.get().getId());
 
         return ResponseEntity.ok().build();
     }
@@ -185,7 +189,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointment.get().setAppointmentState(AppointmentState.REVIEWED);
         appointmentRepository.save(appointment.get());
-        createAndSendNotificationRequest(NotificationType.APPOINTMENT_REVIEWED, appointment.get().getDoctorId());
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_REVIEWED,
+                appointment.get().getDoctorId(),
+                appointment.get().getId());
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("success", true);
@@ -221,10 +227,11 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .build();
     }
 
-    private void createAndSendNotificationRequest(NotificationType notificationType, String receiverId) {
+    private void createAndSendNotificationRequest(NotificationType notificationType, String receiverId, String appointmentId) {
         NotificationRequest notificationRequest = new NotificationRequest().toBuilder()
-                .notificationType(NotificationType.APPOINTMENT_CREATED)
+                .notificationType(notificationType)
                 .receiverId(receiverId)
+                .appointmentId(appointmentId)
                 .build();
 
         notificationsService.createNewNotification(notificationRequest);

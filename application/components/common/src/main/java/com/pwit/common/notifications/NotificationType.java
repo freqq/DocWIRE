@@ -8,7 +8,9 @@ public enum NotificationType {
     APPOINTMENT_PAID(3),
     APPOINTMENT_REVIEWED(4),
     APPOINTMENT_FINISHED(5),
-    APPOINTMENT_CANCELED(6);
+    APPOINTMENT_REMINDER(6),
+    APPOINTMENT_PAYMENT_REMINDER(7),
+    APPOINTMENT_CANCELED(8);
 
     private final int id;
     private final String name;

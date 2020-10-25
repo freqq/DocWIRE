@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
 import { getNotificationsList } from 'common/actions/notificationsActions';
 import triangleImg from 'images/triangle-img.png';
 import eventDateIcon from 'images/icons/event_date_icon.svg';
@@ -121,8 +122,9 @@ const NotificationItemImg = styled.div.attrs({
   margin: 3px;
   border-radius: 50%;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   background: #2d4564;
+  letter-spacing: -2px;
 `;
 
 const NotificationTextName = styled.div.attrs({ className: 'notification-text-name' })`
@@ -206,58 +208,6 @@ const NotificationDateIcon = styled.img.attrs({
   float: left;
 `;
 
-const NOTIFICATIONS = [
-  {
-    id: 1,
-    read: false,
-    author: 'admin',
-    content: 'Notification content - 1',
-    dateTime: Date.UTC(),
-  },
-  {
-    id: 2,
-    read: false,
-    author: 'przemek',
-    content: 'Notification content - 2',
-    dateTime: Date.UTC(),
-  },
-  {
-    id: 3,
-    read: true,
-    author: 'przemek',
-    content: 'Notification content - 2',
-    dateTime: Date.UTC(),
-  },
-  {
-    id: 4,
-    read: true,
-    author: 'przemek',
-    content: 'Notification content - 2',
-    dateTime: Date.UTC(),
-  },
-  {
-    id: 5,
-    read: true,
-    author: 'przemek',
-    content: 'Notification content - 2',
-    dateTime: Date.UTC(),
-  },
-  {
-    id: 6,
-    read: true,
-    author: 'przemek',
-    content: 'Notification content - 2',
-    dateTime: Date.UTC(),
-  },
-  {
-    id: 7,
-    read: true,
-    author: 'przemek',
-    content: 'Notification content - 2',
-    dateTime: Date.UTC(),
-  },
-];
-
 const NotificationDropdown = ({
   onOutsideClick,
   notificationsList,
@@ -283,25 +233,31 @@ const NotificationDropdown = ({
   };
 
   const checkIfAnyUnreadNotifications = () =>
-    NOTIFICATIONS.some(notification => !notification.read);
+    notificationsList.some(notification => !notification.read);
+
+  const getFullName = user => `${user.firstName} ${user.lastName}`;
+
+  const getCirlceData = user =>
+    `${user.firstName.charAt(0).toUpperCase()} ${user.lastName.charAt(0).toUpperCase()}`;
 
   const renderList = () => (
     <NotificationsList>
-      {NOTIFICATIONS.map(notification => (
-        <StyledLink to="/" key={notification.id}>
+      {notificationsList.map(notification => (
+        <StyledLink
+          to={`'/appointments/${notification.appointmentId}`}
+          key={notification.appointmentId}
+        >
           <NotificationListItem style={notification.read ? {} : { background: '#f4f4f4' }}>
             <NotificationItemBox>
-              <NotificationItemImg>
-                {notification.author.charAt(0).toUpperCase()}
-              </NotificationItemImg>
+              <NotificationItemImg>{getCirlceData(notification.author)}</NotificationItemImg>
               {!notification.read && <NewNotificationDot />}
             </NotificationItemBox>
             <NotificationTextName>
-              <BoldText>{notification.author}</BoldText>
+              <BoldText>{getFullName(notification.author)}</BoldText>
               {notification.content}
               <NotificationDate>
                 <NotificationDateIcon src={eventDateIcon} />
-                {timeAgo.format(convertUTCDateToLocalDate(new Date(notification.dateTime)))}
+                {timeAgo.format(convertUTCDateToLocalDate(new Date(notification.notificationDate)))}
               </NotificationDate>
             </NotificationTextName>
           </NotificationListItem>
@@ -313,19 +269,25 @@ const NotificationDropdown = ({
   return (
     <NotificationsMenu>
       <RelativeBox>
-        <NotificationsHeader>
-          <NotificationsHeaderTitle>Notifications</NotificationsHeaderTitle>
-          {checkIfAnyUnreadNotifications() && (
-            <NotificationsHeaderMarkAsRead>Mark all as read</NotificationsHeaderMarkAsRead>
-          )}
-        </NotificationsHeader>
-        {NOTIFICATIONS.length === 0 ? (
-          <NoNotificationsBox>No avialable notifictations.</NoNotificationsBox>
+        {isLoading ? (
+          <ProgressIndicatorCircular />
         ) : (
-          renderList()
+          <>
+            <NotificationsHeader>
+              <NotificationsHeaderTitle>Notifications</NotificationsHeaderTitle>
+              {checkIfAnyUnreadNotifications() && (
+                <NotificationsHeaderMarkAsRead>Mark all as read</NotificationsHeaderMarkAsRead>
+              )}
+            </NotificationsHeader>
+            {notificationsList.length === 0 ? (
+              <NoNotificationsBox>No avialable notifictations.</NoNotificationsBox>
+            ) : (
+              renderList()
+            )}
+            <NotificationsFooter>Show all</NotificationsFooter>
+            <TopTriangle />
+          </>
         )}
-        <NotificationsFooter>Show all</NotificationsFooter>
-        <TopTriangle />
       </RelativeBox>
     </NotificationsMenu>
   );
@@ -338,7 +300,7 @@ const clickOutsideConfig = {
 const mapStateToProps = state => ({
   isLoading: state.common.notifications.isListLoading,
   isError: state.common.notifications.isListError,
-  notificationsList: state.common.notifications.notificationsList,
+  notificationsList: state.common.notifications.notificationsData,
 });
 
 const mapDispatchToProps = dispatch => ({

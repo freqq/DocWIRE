@@ -30,6 +30,10 @@ public class Notification {
     private NotificationType notificationType;
 
     @NotNull
+    @Field("appointmentId")
+    private String appointmentId;
+
+    @NotNull
     @Field("authorId")
     private String authorId;
 

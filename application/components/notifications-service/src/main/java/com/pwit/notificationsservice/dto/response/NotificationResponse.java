@@ -25,4 +25,7 @@ public class NotificationResponse {
 
     @NotNull
     private boolean read;
+
+    @NotNull
+    private String appointmentId;
 }
