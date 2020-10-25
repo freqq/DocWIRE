@@ -1,11 +1,12 @@
 package com.pwit.notificationsservice.dto;
 
-
 import com.pwit.common.notifications.NotificationType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -18,6 +19,8 @@ import java.time.LocalDateTime;
 @Document("notifications")
 @TypeAlias("Notification")
 public class Notification {
+    @Id
+    @Indexed(unique = true)
     private String id;
 
     @NotNull
