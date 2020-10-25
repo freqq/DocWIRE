@@ -22,6 +22,11 @@ spring:
       - swagger
   application:
     name: appointments-service
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 10MB
+      enabled: true
   main:
     allow-bean-definition-overriding: true
   data:
@@ -57,3 +62,6 @@ keycloak:
   ssl-required: external
   auth-server-url: https://${MINIKUBE_IP}/auth
   disable-trust-manager: true
+
+file:
+  upload-dir: ./files

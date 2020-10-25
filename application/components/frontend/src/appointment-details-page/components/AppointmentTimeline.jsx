@@ -298,7 +298,7 @@ const AppointmentTimeline = ({
             <AppointmentDate appointmentDate={data.appointmentDate} />
           </div>
           <div label="Medical files">
-            <MedicalFiles  />
+            <MedicalFiles appointmentId={data.id} patientId={data.patient.userId} />
           </div>
           <div label="Doctor info">
             <DoctorInfo doctorData={data.doctor} />

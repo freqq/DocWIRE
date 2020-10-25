@@ -17,10 +17,10 @@ export const makeUploadFilesFail = () => ({
   type: UPLOAD_FILES_FAIL,
 });
 
-export const uploadFiles = filesList => dispatch => {
+export const uploadFiles = (uploadRequest, filesList) => dispatch => {
   dispatch(makeUploadFilesPending());
 
-  return filesUpload(filesList)
+  return filesUpload(uploadRequest, filesList)
     .then(res => {
       dispatch(makeUploadFilesOk(res.data));
     })

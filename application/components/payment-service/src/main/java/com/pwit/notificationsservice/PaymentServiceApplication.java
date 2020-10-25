@@ -1,6 +1,5 @@
-package com.pwit.appointmentsservice;
+package com.pwit.notificationsservice;
 
-import com.pwit.appointmentsservice.properties.FileStorageProperties;
 import com.pwit.common.config.DatabaseConfiguration;
 import com.pwit.common.config.SwaggerConfiguration;
 import com.pwit.common.security.AuthorityMapper;
@@ -10,7 +9,7 @@ import com.pwit.common.security.WebMvcConfig;
 import com.pwit.common.utils.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
@@ -30,16 +29,14 @@ import java.net.UnknownHostException;
 		SwaggerConfiguration.class
 })
 @EnableSwagger2
+@ConfigurationPropertiesScan(basePackages = "com.pwit")
 @EnableFeignClients
 @EnableDiscoveryClient
-@EnableConfigurationProperties({
-		FileStorageProperties.class
-})
-public class AppointmentsServiceApplication {
+public class PaymentServiceApplication {
 	private static final Logger LOGGER = new Logger();
 
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(AppointmentsServiceApplication.class);
+		SpringApplication app = new SpringApplication(PaymentServiceApplication.class);
 		Environment env = app.run(args).getEnvironment();
 		logApplicationStartup(env);
 	}

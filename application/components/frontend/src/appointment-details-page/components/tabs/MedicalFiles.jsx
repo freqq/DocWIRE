@@ -18,7 +18,14 @@ const FilesDropdown = styled.div.attrs({ className: 'files-dropdownr' })`
   margin: 0;
 `;
 
-const MedicalFiles = ({ uploadFilesFunc, isLoading, isError, filesData }) => {
+const MedicalFiles = ({
+  uploadFilesFunc,
+  isLoading,
+  isError,
+  filesData,
+  appointmentId,
+  patientId,
+}) => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
   const selectedFiles = acceptedFiles.map(file => (
@@ -26,7 +33,12 @@ const MedicalFiles = ({ uploadFilesFunc, isLoading, isError, filesData }) => {
   ));
 
   const onFilesSend = () => {
-    uploadFilesFunc(acceptedFiles);
+    const uploadFileRequest = {
+      appointmentId,
+      patientId,
+    };
+
+    uploadFilesFunc(uploadFileRequest, acceptedFiles);
   };
 
   return (
@@ -60,6 +72,8 @@ MedicalFiles.propTypes = {
   uploadFilesFunc: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  appointmentId: PropTypes.string.isRequired,
+  patientId: PropTypes.string.isRequired,
   filesData: PropTypes.instanceOf(Object).isRequired,
 };
 
