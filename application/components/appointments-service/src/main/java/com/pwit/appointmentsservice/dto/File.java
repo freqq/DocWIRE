@@ -34,4 +34,8 @@ public class File {
     @NotNull
     @Field("patientId")
     private String patientId;
+
+    @NotNull
+    @Field("content")
+    private byte[] content;
 }

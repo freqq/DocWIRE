@@ -3,6 +3,7 @@ package com.pwit.appointmentsservice.service.impl;
 import com.pwit.appointmentsservice.dto.File;
 import com.pwit.appointmentsservice.dto.request.UploadRequest;
 import com.pwit.appointmentsservice.dto.response.FileResponse;
+import com.pwit.appointmentsservice.exception.InvalidFilesException;
 import com.pwit.appointmentsservice.repository.FilesRepository;
 import com.pwit.appointmentsservice.service.FileStorageService;
 import com.pwit.appointmentsservice.service.FilesService;
@@ -11,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +25,7 @@ public class FilesServiceImpl implements FilesService {
     private final FileStorageService fileStorageService;
 
     @Override
-    public ResponseEntity<?> getFilesForUser(String userId) {
+    public ResponseEntity<?> getListOfFilesForUser(String userId) {
         List<File> files = filesRepository.findAllByPatientId(userId);
         List<FileResponse> fileResponses = new ArrayList<>();
 
@@ -38,22 +41,40 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-    public ResponseEntity<?> addFileToAppointment(MultipartFile[] files, UploadRequest uploadRequest) {
+    public ResponseEntity<?> addFilesToAppointment(List<MultipartFile> files, UploadRequest uploadRequest) {
         List<String> fileNames = new ArrayList<>();
 
-        for(MultipartFile multipartFile : files){
-            String fileName = fileStorageService.storeFile(multipartFile);
-
-            File file = new File().toBuilder()
-                    .appointmentId(uploadRequest.getAppointmentId())
-                    .name(fileName)
-                    .patientId(uploadRequest.getPatientId())
-                    .build();
-
-            filesRepository.save(file);
-            fileNames.add(fileName);
+        try {
+            fileStorageService.validateFiles(files);
+        } catch (InvalidFilesException e) {
+            return ResponseEntity.badRequest().build();
         }
 
+        for(MultipartFile multipartFile : files) {
+            try {
+                File file = new File().toBuilder()
+                        .appointmentId(uploadRequest.getAppointmentId())
+                        .name(multipartFile.getOriginalFilename())
+                        .content(multipartFile.getBytes())
+                        .patientId(uploadRequest.getPatientId())
+                        .build();
+
+                filesRepository.save(file);
+                fileNames.add(file.getName());
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
         return ResponseEntity.ok(fileNames);
+    }
+
+    @Override
+    public ResponseEntity<?> getFileWithId(String fileId) {
+        Optional<File> foundFile = filesRepository.findById(fileId);
+
+        if(foundFile.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(foundFile.get().getContent());
     }
 }

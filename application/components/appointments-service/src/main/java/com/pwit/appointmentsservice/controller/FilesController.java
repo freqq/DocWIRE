@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static com.pwit.common.security.Authorities.ROLE_USER;
 import static com.pwit.common.security.SecurityUtils.getCurrentUsername;
 
@@ -30,9 +32,21 @@ public class FilesController {
      */
     @Secured(ROLE_USER)
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getFilesForUser(@PathVariable("userId") String userId) {
-        LOGGER.info("Getting files of user with id {}.", userId);
-        return filesService.getFilesForUser(userId);
+    public ResponseEntity<?> getListOfFilesForUser(@PathVariable("userId") String userId) {
+        LOGGER.info("Getting list of files of user with id {}.", userId);
+        return filesService.getListOfFilesForUser(userId);
+    }
+
+    /**
+     * Gets files with given id.
+     *
+     * @param fileId  Id of user to get the files for
+     */
+    @Secured(ROLE_USER)
+    @GetMapping("/download/{fileId}")
+    public ResponseEntity<?> getFileWithId(@PathVariable("fileId") String fileId) {
+        LOGGER.info("Getting file with id {}.", fileId);
+        return filesService.getFileWithId(fileId);
     }
 
     /**
@@ -43,9 +57,9 @@ public class FilesController {
     @Secured(ROLE_USER)
     @PostMapping(value = "/upload", consumes = { MediaType.APPLICATION_JSON_VALUE,
                                                  MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> addFileToAppointment(@RequestPart("file") final MultipartFile[] files,
-                                                  @RequestPart("json") @Valid UploadRequest uploadRequest) {
+    public ResponseEntity<?> addFilesToAppointment(@RequestParam(value = "multipartfiles") List<MultipartFile> files,
+                                                   UploadRequest uploadRequest) {
         LOGGER.info("Uploading files for the appointment with id {}.", getCurrentUsername());
-        return filesService.addFileToAppointment(files, uploadRequest);
+        return filesService.addFilesToAppointment(files, uploadRequest);
     }
 }

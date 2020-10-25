@@ -1,70 +1,26 @@
 package com.pwit.appointmentsservice.service;
 
-import com.pwit.appointmentsservice.exception.FileNotFoundException;
-import com.pwit.appointmentsservice.exception.FileStorageException;
-import com.pwit.appointmentsservice.properties.FileStorageProperties;
-import com.pwit.common.utils.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
+import com.pwit.appointmentsservice.exception.InvalidFilesException;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import org.springframework.core.io.Resource;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class FileStorageService {
-    private static final Logger LOGGER = new Logger();
-    private final Path fileStorageLocation;
+    private static final List<String> ALLOWED_EXTENSION_LIST = Arrays.asList("jpg", "jpeg", "gif", "png", "bmp", "pdf");
+    private static final int ALLOWED_MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
+    private static final int ALLOWED_MAX_FILES_COUNT = 5;
 
-    @Autowired
-    public FileStorageService(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
-                .toAbsolutePath().normalize();
+    public void validateFiles(List<MultipartFile> files) {
+        if (files.size() > ALLOWED_MAX_FILES_COUNT)
+            throw new InvalidFilesException("Invalid files size.");
 
-        LOGGER.info(this.fileStorageLocation.toString());
-        try {
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (Exception ex) {
-            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
-        }
-    }
-
-    public String storeFile(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-
-        try {
-            if (fileName.contains("..")) {
-                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-            return fileName;
-        } catch (IOException ex) {
-            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
-        }
-    }
-
-    public Resource loadFileAsResource(String fileName) {
-        try {
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-            if (resource.exists()) {
-                return resource;
-            } else {
-                throw new FileNotFoundException("File not found " + fileName);
-            }
-        } catch (MalformedURLException ex) {
-            throw new FileNotFoundException("File not found " + fileName, ex);
+        for (MultipartFile file : files) {
+            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+            if (!ALLOWED_EXTENSION_LIST.contains(extension) || file.getSize() > ALLOWED_MAX_FILE_SIZE_BYTES)
+                throw new InvalidFilesException("Invalid files extension.");
         }
     }
 }
