@@ -15,20 +15,26 @@ const HumanModelWrapper = styled.div.attrs({ className: 'human-model-wrapper' })
 const HumanModel = ({ onAdd, chosenSymptoms }) => {
   const [chosenBodyPart, setChosenBodyPart] = useState(null);
 
+  const setPart = body => {
+    setChosenBodyPart(body);
+  };
+
   useEffect(() => {
-    window.onload = function () {
-      const pieces = document.getElementsByTagName('svg');
-      for (let i = 0; pieces.length; i++) {
-        const _piece = pieces[i];
-        _piece.onclick = function (t) {
-          if (t.target.getAttribute('data-position') != null)
-            setChosenBodyPart(t.target.getAttribute('data-position'));
-          if (t.target.parentElement.getAttribute('data-position') != null)
-            setChosenBodyPart(t.target.parentElement.getAttribute('data-position'));
-        };
-      }
-    };
-  });
+    setTimeout(() => {
+      window.onload = function () {
+        const pieces = document.getElementsByTagName('svg');
+        for (let i = 0; pieces.length; i++) {
+          const _piece = pieces[i];
+          _piece.onclick = function (t) {
+            if (t.target.getAttribute('data-position') != null)
+              setPart(t.target.getAttribute('data-position'));
+            if (t.target.parentElement.getAttribute('data-position') != null)
+              setPart(t.target.parentElement.getAttribute('data-position'));
+          };
+        }
+      };
+    }, 3000);
+  }, []);
 
   const onClose = () => {
     setChosenBodyPart(null);

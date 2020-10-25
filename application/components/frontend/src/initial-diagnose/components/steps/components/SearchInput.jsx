@@ -33,10 +33,16 @@ const SearchIcon = styled.img.attrs({ className: 'search-icon' })`
 const SearchInput = ({ id, placeholder, onAdd, chips }) => {
   const [searchValue, setSearchValue] = useState('');
 
+  const onAddFunction = item => {
+    setSearchValue('');
+    onAdd(item);
+  };
+
   return (
     <SearchInputWrapper>
       <InputWrapper>
         <InputComponent
+          autoComplete="false"
           placeholder={placeholder}
           value={searchValue}
           onChange={evt => setSearchValue(evt.target.value)}
@@ -44,7 +50,7 @@ const SearchInput = ({ id, placeholder, onAdd, chips }) => {
         />
         <SearchIcon src={searchIcon} alt="searchIcon" />
         {searchValue.length > 0 && (
-          <SymptomsSearchDropdown searchValue={searchValue} onAdd={onAdd} chips={chips} />
+          <SymptomsSearchDropdown searchValue={searchValue} onAdd={onAddFunction} chips={chips} />
         )}
       </InputWrapper>
     </SearchInputWrapper>

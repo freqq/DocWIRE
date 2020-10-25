@@ -103,7 +103,7 @@ function app_start() {
     ./gradlew charts:account-service:appLoad
     ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    ./gradlew charts:rabbit-mq:appInstall
+    # ./gradlew charts:rabbit-mq:appInstall
 
     # ./gradlew charts:messages-db:appInstall
     # ./gradlew charts:messages-service:appLoad
@@ -113,17 +113,17 @@ function app_start() {
     # ./gradlew charts:openvidu-coturn:appInstall
     # ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    ./gradlew charts:appointments-db:appInstall
-    ./gradlew charts:appointments-service:appLoad
-    ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    # ./gradlew charts:appointments-db:appInstall
+    # ./gradlew charts:appointments-service:appLoad
+    # ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     # ./gradlew charts:payment-db:appInstall
     # ./gradlew charts:payment-service:appLoad
     # ./gradlew charts:payment-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    ./gradlew charts:notifications-db:appInstall
-    ./gradlew charts:notifications-service:appLoad
-    ./gradlew charts:notifications-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    # ./gradlew charts:notifications-db:appInstall
+    # ./gradlew charts:notifications-service:appLoad
+    # ./gradlew charts:notifications-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
     ./gradlew charts:frontend:appLoad
     ./gradlew charts:frontend:appInstall

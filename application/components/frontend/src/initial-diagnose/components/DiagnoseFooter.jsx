@@ -23,6 +23,7 @@ const DiagnoseFooterListItem = styled.li.attrs({ className: 'diagnose-footer-lis
   cursor: pointer;
 
   &:hover {
+    text-decoration: underline;
     color: #4e93d7;
   }
 `;
