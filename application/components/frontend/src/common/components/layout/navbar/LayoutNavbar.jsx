@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import SockJsClient from 'react-stomp';
 import { connect } from 'react-redux';
 
+import { successToast } from 'common/components/notifications/notifications';
 import { handleNewNotification } from 'common/actions/notificationsActions';
 import { logoutUser } from 'common/actions/authUserActions';
 import SearchBar from 'common/components/layout/navbar/SearchBar';
@@ -40,7 +41,9 @@ const LayoutNavbar = ({
   const switchShowDropdown = () => setShowDropdown(!showDropdown);
 
   const onNotificationReceived = notification => {
-    console.log(notification);
+    const author = `${notification.author.firstName} ${notification.author.lastName}`;
+    const toastContent = `${author} ${notification.content}`;
+    successToast(toastContent);
     handleNewNotificationFunc();
   };
 
@@ -71,7 +74,7 @@ const LayoutNavbar = ({
         ref={client => {
           setClientRef(client);
         }}
-        autoReconnect={false}
+        debug
       />
     </LayoutNavbarWrapper>
   );

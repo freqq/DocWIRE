@@ -37,6 +37,7 @@ public class NotificationsServiceImpl implements NotificationsService {
                     .notificationDate(notification.getDateTime())
                     .author(userService.getDetailsOfUserWithGivenId(notification.getAuthorId()))
                     .content(createNotificationContent(notification.getNotificationType()))
+                    .appointmentId(notification.getAppointmentId())
                     .read(notification.isRead())
                     .build();
 
@@ -72,9 +73,9 @@ public class NotificationsServiceImpl implements NotificationsService {
                 .appointmentId(notification.getAppointmentId())
                 .build();
 
-        simpMessagingTemplate.convertAndSend("/app/private.notifications." + notification.getReceiverId(),
-                notificationResponse);
-
+        String destination = "/topic/private.notifications." + notification.getReceiverId();
+        LOGGER.info("Sending websocket message to destination: '{}'", destination);
+        simpMessagingTemplate.convertAndSend(destination,notificationResponse);
         LOGGER.info("Added new notification by user with id {}.", currentUserId);
 
         return ResponseEntity.ok(notificationResponse);

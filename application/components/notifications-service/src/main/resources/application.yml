@@ -26,6 +26,11 @@ spring:
   data:
     mongodb:
       uri: ${MONGO_URL}
+  rabbitmq:
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
+    username: admin
+    password: password
 
 management:
   endpoints:
