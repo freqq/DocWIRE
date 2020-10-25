@@ -167,3 +167,17 @@ video {
   font-weight: 100;
   text-align: center;
 }
+
+.dropzone {
+  padding: 6px;
+  border: 1px solid #ccc;
+  background: #ffe;
+  border-radius: 5px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+}
+
+.dropzone input {
+  outline: none;
+}

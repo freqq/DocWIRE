@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-properties */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
@@ -18,6 +19,30 @@ const FilesDropdown = styled.div.attrs({ className: 'files-dropdownr' })`
   margin: 0;
 `;
 
+const SendButton = styled.button.attrs({ className: 'send-button' })`
+  margin: 0;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background: #2d4564;
+  font-size: 10px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  outline: none;
+  border: none;
+  margin-top: 10px;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
+
 const MedicalFiles = ({
   uploadFilesFunc,
   isLoading,
@@ -28,8 +53,10 @@ const MedicalFiles = ({
 }) => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
+  const getMbSize = file => (file.size / Math.pow(1024, 2)).toFixed(2);
+
   const selectedFiles = acceptedFiles.map(file => (
-    <li key={file.path}>{`${file.path} - ${file.size} bytes`}</li>
+    <li key={file.path}>{`${file.path} - ${getMbSize(file)} MB`}</li>
   ));
 
   const onFilesSend = () => {
@@ -41,6 +68,8 @@ const MedicalFiles = ({
     uploadFilesFunc(uploadFileRequest, acceptedFiles);
   };
 
+  const isUploadDisabled = () => isLoading || acceptedFiles.length === 0;
+
   return (
     <MedicalFilesWrapper>
       <FilesDropdown>
@@ -49,9 +78,16 @@ const MedicalFiles = ({
           <p>Drag &apos;n drop files here, or click to select files...</p>
         </div>
         <div>
-          <h4>Files list</h4>
-          <ul>{selectedFiles}</ul>
+          <h4>Files list:</h4>
+          {acceptedFiles.length !== 0 ? (
+            <ul>{selectedFiles}</ul>
+          ) : (
+            <div>No files selected yet.</div>
+          )}
         </div>
+        <SendButton type="button" onClick={onFilesSend} disabled={isUploadDisabled()}>
+          Send files
+        </SendButton>
       </FilesDropdown>
       {isLoading && <ProgressIndicatorCircular />}
     </MedicalFilesWrapper>
