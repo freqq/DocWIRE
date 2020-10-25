@@ -122,9 +122,9 @@ const NAVBAR_MENU_ITEMS = [
     icon: accountIcon,
   },
   {
-    name: 'My account',
+    name: 'GO TO APPLICATION',
     icon: accountIcon,
-    to: '/login',
+    to: '/dasboard',
   },
 ];
 

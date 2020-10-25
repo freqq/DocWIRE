@@ -1,7 +1,7 @@
-package com.pwit.notificationsservice.dto.request;
+package com.pwit.common.notifications;
 
-import com.pwit.common.notifications.NotificationType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -9,8 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.NotNull;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class NotificationRequest {
     @NotNull
     @Field("notificationType")

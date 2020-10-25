@@ -1,6 +1,7 @@
-package com.pwit.appointmentsservice.feign;
+package com.pwit.appointmentsservice.feign.account;
 
 import com.pwit.appointmentsservice.dto.user.User;
+import com.pwit.appointmentsservice.feign.FeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

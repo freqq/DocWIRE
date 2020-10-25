@@ -8,10 +8,13 @@ import com.pwit.appointmentsservice.dto.request.ReviewRequest;
 import com.pwit.appointmentsservice.dto.response.RecentAppointment;
 import com.pwit.appointmentsservice.dto.response.RecentAppointmentShort;
 import com.pwit.appointmentsservice.dto.user.User;
-import com.pwit.appointmentsservice.feign.AccountService;
+import com.pwit.appointmentsservice.feign.account.AccountService;
+import com.pwit.appointmentsservice.feign.notifications.NotificationsService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
 import com.pwit.appointmentsservice.repository.ReviewRepository;
 import com.pwit.appointmentsservice.service.AppointmentService;
+import com.pwit.common.notifications.NotificationRequest;
+import com.pwit.common.notifications.NotificationType;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -28,9 +31,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
+
     private final AppointmentRepository appointmentRepository;
     private final AccountService accountService;
     private final ReviewRepository reviewRepository;
+    private final NotificationsService notificationsService;
 
     @Override
     public ResponseEntity<?> createAppointment(AppointmentRequest appointmentRequest, String currentUserId) {
@@ -48,6 +53,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointmentRepository.save(appointment);
         accountService.setInitialDiagnoseDone();
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_CREATED, appointment.getDoctorId());
 
         return ResponseEntity.ok(appointment);
     }
@@ -107,6 +113,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.get().setAppointmentState(AppointmentState.ACCEPTED);
         appointmentRepository.save(appointment.get());
         RecentAppointment recentAppointment = createRecentAppointment(appointment.get());
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_ACCEPTED, appointment.get().getPatientId());
 
         return new ResponseEntity<>(recentAppointment, HttpStatus.OK);
     }
@@ -120,6 +127,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointment.get().setAppointmentState(AppointmentState.PAID);
         appointmentRepository.save(appointment.get());
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_PAID, appointment.get().getDoctorId());
 
         return ResponseEntity.ok().build();
     }
@@ -177,6 +185,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointment.get().setAppointmentState(AppointmentState.REVIEWED);
         appointmentRepository.save(appointment.get());
+        createAndSendNotificationRequest(NotificationType.APPOINTMENT_REVIEWED, appointment.get().getDoctorId());
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("success", true);
@@ -210,6 +219,15 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .visitedRegions(appointment.getVisitedRegions())
                 .id(appointment.getId())
                 .build();
+    }
+
+    private void createAndSendNotificationRequest(NotificationType notificationType, String receiverId) {
+        NotificationRequest notificationRequest = new NotificationRequest().toBuilder()
+                .notificationType(NotificationType.APPOINTMENT_CREATED)
+                .receiverId(receiverId)
+                .build();
+
+        notificationsService.createNewNotification(notificationRequest);
     }
 
     private RecentAppointmentShort createRecentAppointmentShort(Appointment appointment) {

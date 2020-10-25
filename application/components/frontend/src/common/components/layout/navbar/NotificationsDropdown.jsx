@@ -1,12 +1,15 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react';
 import onClickOutside from 'react-onclickoutside';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
+import { getNotificationsList } from 'common/actions/notificationsActions';
 import triangleImg from 'images/triangle-img.png';
 import eventDateIcon from 'images/icons/event_date_icon.svg';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 TimeAgo.addLocale(en);
@@ -255,8 +258,18 @@ const NOTIFICATIONS = [
   },
 ];
 
-const NotificationDropdown = ({ onOutsideClick }) => {
+const NotificationDropdown = ({
+  onOutsideClick,
+  notificationsList,
+  isLoading,
+  isError,
+  getNotificationsListFunc,
+}) => {
   NotificationDropdown.handleClickOutside = () => onOutsideClick();
+
+  useEffect(() => {
+    getNotificationsListFunc();
+  }, []);
 
   const convertUTCDateToLocalDate = date => {
     const newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
@@ -322,8 +335,25 @@ const clickOutsideConfig = {
   handleClickOutside: () => NotificationDropdown.handleClickOutside,
 };
 
+const mapStateToProps = state => ({
+  isLoading: state.common.notifications.isListLoading,
+  isError: state.common.notifications.isListError,
+  notificationsList: state.common.notifications.notificationsList,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getNotificationsListFunc: () => dispatch(getNotificationsList()),
+});
+
 NotificationDropdown.propTypes = {
+  getNotificationsListFunc: PropTypes.func.isRequired,
   onOutsideClick: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  notificationsList: PropTypes.number.isRequired,
 };
 
-export default onClickOutside(NotificationDropdown, clickOutsideConfig);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(onClickOutside(NotificationDropdown, clickOutsideConfig));

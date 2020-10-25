@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends MongoRepository<Notification, String> {
     List<Notification> findAllByIdNotNullAndReceiverIdEqualsOrderByDateTimeDesc(String receiverId);
-    Boolean existsByIdNotNullAndReadFalseAndReceiverIdEquals(String receiverId);
+    Long countAllByIdNotNullAndReadFalseAndReceiverIdEquals(String receiverId);
 }

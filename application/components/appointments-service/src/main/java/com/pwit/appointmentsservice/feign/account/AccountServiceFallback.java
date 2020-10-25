@@ -1,4 +1,4 @@
-package com.pwit.appointmentsservice.feign;
+package com.pwit.appointmentsservice.feign.account;
 
 import com.pwit.appointmentsservice.dto.user.User;
 import org.springframework.http.ResponseEntity;

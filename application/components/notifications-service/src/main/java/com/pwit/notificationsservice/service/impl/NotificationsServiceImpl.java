@@ -3,7 +3,7 @@ package com.pwit.notificationsservice.service.impl;
 import com.pwit.common.utils.Logger;
 import com.pwit.notificationsservice.dto.Notification;
 import com.pwit.common.notifications.NotificationType;
-import com.pwit.notificationsservice.dto.request.NotificationRequest;
+import com.pwit.common.notifications.NotificationRequest;
 import com.pwit.notificationsservice.dto.response.NotificationResponse;
 import com.pwit.notificationsservice.feign.UserService;
 import com.pwit.notificationsservice.repository.NotificationRepository;
@@ -47,8 +47,8 @@ public class NotificationsServiceImpl implements NotificationsService {
     }
 
     @Override
-    public Boolean checkIfAnyNewNotifications(String currentUserId) {
-        return notificationRepository.existsByIdNotNullAndReadFalseAndReceiverIdEquals(currentUserId);
+    public Long getNewNotificationsCount(String currentUserId) {
+        return notificationRepository.countAllByIdNotNullAndReadFalseAndReceiverIdEquals(currentUserId);
     }
 
     @Override
