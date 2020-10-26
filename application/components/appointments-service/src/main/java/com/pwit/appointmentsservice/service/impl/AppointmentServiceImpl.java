@@ -1,16 +1,19 @@
 package com.pwit.appointmentsservice.service.impl;
 
 import com.pwit.appointmentsservice.dto.Appointment;
+import com.pwit.appointmentsservice.dto.File;
 import com.pwit.appointmentsservice.dto.Review;
 import com.pwit.appointmentsservice.dto.enumeration.AppointmentState;
 import com.pwit.appointmentsservice.dto.request.AppointmentRequest;
 import com.pwit.appointmentsservice.dto.request.ReviewRequest;
+import com.pwit.appointmentsservice.dto.response.FileResponse;
 import com.pwit.appointmentsservice.dto.response.RecentAppointment;
 import com.pwit.appointmentsservice.dto.response.RecentAppointmentShort;
 import com.pwit.appointmentsservice.dto.user.User;
 import com.pwit.appointmentsservice.feign.account.AccountService;
 import com.pwit.appointmentsservice.feign.notifications.NotificationsService;
 import com.pwit.appointmentsservice.repository.AppointmentRepository;
+import com.pwit.appointmentsservice.repository.FilesRepository;
 import com.pwit.appointmentsservice.repository.ReviewRepository;
 import com.pwit.appointmentsservice.service.AppointmentService;
 import com.pwit.common.notifications.NotificationRequest;
@@ -36,6 +39,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final AccountService accountService;
     private final ReviewRepository reviewRepository;
     private final NotificationsService notificationsService;
+    private final FilesRepository filesRepository;
 
     @Override
     public ResponseEntity<?> createAppointment(AppointmentRequest appointmentRequest, String currentUserId) {
@@ -212,6 +216,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private RecentAppointment createRecentAppointment(Appointment appointment) {
         User doctor = accountService.getDetailsOfUserWithGivenId(appointment.getDoctorId());
+        List<File> files = filesRepository.findAllByAppointmentId(appointment.getId());
+        List<FileResponse> fileResponses = mapFilesToFilesResponses(files);
 
         return new RecentAppointment().toBuilder()
                 .appointmentDate(appointment.getAppointmentDate())
@@ -224,7 +230,23 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .appointmentState(appointment.getAppointmentState())
                 .visitedRegions(appointment.getVisitedRegions())
                 .id(appointment.getId())
+                .listOfFiles(fileResponses)
                 .build();
+    }
+
+    private List<FileResponse> mapFilesToFilesResponses(List<File> files) {
+        List<FileResponse> listOfFiles = new ArrayList<>();
+
+        for(File file : files) {
+            FileResponse fileResponse = new FileResponse().toBuilder()
+                    .id(file.getId())
+                    .name(file.getName())
+                    .build();
+
+            listOfFiles.add(fileResponse);
+        }
+
+        return listOfFiles;
     }
 
     private void createAndSendNotificationRequest(NotificationType notificationType, String receiverId, String appointmentId) {

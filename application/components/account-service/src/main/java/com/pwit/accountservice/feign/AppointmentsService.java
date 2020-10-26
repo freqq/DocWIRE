@@ -1,9 +1,9 @@
 package com.pwit.accountservice.feign;
 
+import com.pwit.accountservice.dto.response.FileObject;
 import com.pwit.accountservice.entity.RecentAppointmentShort;
 import com.pwit.accountservice.entity.Review;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -21,4 +21,7 @@ public interface AppointmentsService {
 
     @GetMapping("/api/appointments/review/{userId}")
     List<Review> getAllReviewsForCurrentUser(@PathVariable("userId") String userId);
+
+    @GetMapping("/api/appointments/files/user/{userId}")
+    List<FileObject> getListOfFilesForUser(@PathVariable("userId") String userId);
 }

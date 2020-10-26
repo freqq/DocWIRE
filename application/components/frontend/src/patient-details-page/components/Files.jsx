@@ -1,8 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
+import { downloadFile } from 'appointment-details-page/actions/fileActions';
 import fileIcon from 'images/icons/file.svg';
 import downloadIcon from 'images/icons/download.svg';
 
@@ -51,6 +52,16 @@ const FileIcon = styled.img.attrs({ className: 'files-icon' })`
 
 const FileName = styled.div.attrs({ className: 'files-name' })`
   line-height: 18px;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  overflow: hidden;
+`;
+
+const NoFilesUploaded = styled.div.attrs({ className: 'no-files-uploaded' })`
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  background: #333;
 `;
 
 const FileDetails = styled.div.attrs({ className: 'files-details' })`
@@ -70,39 +81,50 @@ const DownloadIcon = styled.img.attrs({ className: 'download-icon' })`
   cursor: pointer;
 `;
 
-const Files = ({ uploadedFiles }) => {
-  const [detailsHover, setDetailsHover] = useState(null);
+const Files = ({ data, downloadFileFunc }) => {
+  const onDownloadMethod = fileId => {
+    downloadFileFunc(fileId);
+  };
 
   return (
     <FilesWrapper>
       <CardTitle>Files/Documents</CardTitle>
-      <FilesList>
-        {uploadedFiles.map(file => (
-          <FilesListItem
-            key={file.id}
-            onMouseEnter={() => setDetailsHover(file.name)}
-            onMouseLeave={() => setDetailsHover(null)}
-          >
-            <FileIconWrapper>
-              <FileIcon src={fileIcon} alt="file-icon" />
-            </FileIconWrapper>
-            <FileName>{file.name}</FileName>
-            <FileDetails>
-              {detailsHover === file.name ? (
-                <DownloadIcon src={downloadIcon} alt="download-icon" />
-              ) : (
-                <>{file.size}</>
-              )}
-            </FileDetails>
-          </FilesListItem>
-        ))}
-      </FilesList>
+      {data.patientData.fileResponses.length === 0 ? (
+        <NoFilesUploaded>No files upladed for user yet.</NoFilesUploaded>
+      ) : (
+        <FilesList>
+          {data.patientData.fileResponses.map(file => (
+            <FilesListItem key={file.id}>
+              <FileIconWrapper>
+                <FileIcon src={fileIcon} alt="file-icon" />
+              </FileIconWrapper>
+              <FileName>{file.name}</FileName>
+              <FileDetails>
+                <DownloadIcon
+                  onClick={() => onDownloadMethod(file.id)}
+                  src={downloadIcon}
+                  alt="download-icon"
+                />
+              </FileDetails>
+            </FilesListItem>
+          ))}
+        </FilesList>
+      )}
     </FilesWrapper>
   );
 };
 
+const mapStateToProps = state => ({
+  data: state.patient.patientDetails.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+  downloadFileFunc: fileId => dispatch(downloadFile(fileId)),
+});
+
 Files.propTypes = {
-  uploadedFiles: PropTypes.instanceOf(Object).isRequired,
+  data: PropTypes.instanceOf(Object).isRequired,
+  downloadFileFunc: PropTypes.func.isRequired,
 };
 
-export default Files;
+export default connect(mapStateToProps, mapDispatchToProps)(Files);

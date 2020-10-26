@@ -15,63 +15,10 @@ const PatientDetailsGridRightSideWrapper = styled.div.attrs({
   height: calc(100% - 14px);
 `;
 
-const UPLOADED_FILES = [
-  {
-    id: 1,
-    name: 'Check_Up_Result.pdf',
-    size: '123kb',
-  },
-  {
-    id: 2,
-    name: 'Dental_X-Ray_Result_2.pdf',
-    size: '2.5Mb',
-  },
-  {
-    id: 3,
-    name: 'Medial_Prescriptions.pdf',
-    size: '76kb',
-  },
-  {
-    id: 4,
-    name: 'Results_Chemistry.pdf',
-    size: '123kb',
-  },
-  {
-    id: 5,
-    name: 'GEO-Redundancy.pdf',
-    size: '2.5Mb',
-  },
-  {
-    id: 6,
-    name: 'Medial_Prescriptions.pdf',
-    size: '76kb',
-  },
-  {
-    id: 7,
-    name: 'Medial_Prescriptions.pdf',
-    size: '76kb',
-  },
-  {
-    id: 8,
-    name: 'Check_Up_Result.pdf',
-    size: '123kb',
-  },
-  {
-    id: 9,
-    name: 'Dental_X-Ray_Result_2.pdf',
-    size: '2.5Mb',
-  },
-  {
-    id: 10,
-    name: 'Medial_Prescriptions.pdf',
-    size: '76kb',
-  },
-];
-
 const PatientDetailsGridRightSide = () => (
   <PatientDetailsGridRightSideWrapper>
     <Notes />
-    <Files uploadedFiles={UPLOADED_FILES} />
+    <Files />
   </PatientDetailsGridRightSideWrapper>
 );
 

@@ -1,5 +1,7 @@
-/* eslint-disable import/prefer-default-export */
 import RequestService from 'common/services/RequestService';
 
-export const filesUpload = (uploadRequest, filesList) =>
-  RequestService.post(`/api/appointments/upload/${filesList}`, uploadRequest);
+export const filesUpload = uploadFormData =>
+  RequestService.postFile(`/api/appointments/files/upload`, uploadFormData);
+
+export const fileDownload = fileId =>
+  RequestService.get(`/api/appointments/files/download/${fileId}`);

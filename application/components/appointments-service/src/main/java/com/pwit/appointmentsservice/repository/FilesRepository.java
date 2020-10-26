@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface FilesRepository extends MongoRepository<File, String> {
     List<File> findAllByPatientId(String patientId);
+    List<File> findAllByAppointmentId(String appointmentId);
 }

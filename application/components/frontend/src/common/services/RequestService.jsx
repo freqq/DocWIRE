@@ -35,7 +35,16 @@ class RequestService {
   get(url, params = null) {
     return this.axiosInstance.get(url, {
       headers: { Authorization: `Bearer ${RequestService.getToken()}` },
-      params
+      params,
+    });
+  }
+
+  postFile(url, data) {
+    return this.axiosInstance.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${RequestService.getToken()}`,
+        'Content-Type': 'multipart/form-data',
+      },
     });
   }
 

@@ -40,4 +40,6 @@ public class PatientDetailsResponse {
     private List<ReviewResponse> reviewResponses;
 
     private List<AppointmentResponse> appointmentResponses;
+
+    private List<FileResponse> fileResponses;
 }

@@ -126,6 +126,7 @@ public class AccountServiceImpl implements AccountService {
     public ResponseEntity<PatientDetailsResponse>  getDetailsOfUserWithGivenId(String userId) {
         Optional<User> foundUser = userRepository.findUserByUserId(userId);
         List<Note> notes = noteRepository.findAllByPatientIdOrderByDateOfNote(userId);
+        List<FileObject> files = appointmentsService.getListOfFilesForUser(userId);
         List<AppointmentResponse> appointmentResponses = new ArrayList<>();
         List<NoteResponse> noteResponses = new ArrayList<>();
 
@@ -167,6 +168,7 @@ public class AccountServiceImpl implements AccountService {
                 .noteResponses(noteResponses)
                 .userId(foundUser.get().getUserId())
                 .appointmentResponses(appointmentResponses)
+                .fileResponses(mapFilesToFilesResponses(files))
                 .build();
 
         return new ResponseEntity<>(patientDetailsResponse, HttpStatus.OK);
@@ -252,6 +254,21 @@ public class AccountServiceImpl implements AccountService {
                 .build();
 
         return new ResponseEntity<>(doctorDetailsResponse, HttpStatus.OK);
+    }
+
+    private List<FileResponse> mapFilesToFilesResponses(List<FileObject> files) {
+        List<FileResponse> listOfFiles = new ArrayList<>();
+
+        for(FileObject file : files) {
+            FileResponse fileResponse = new FileResponse().toBuilder()
+                    .id(file.getId())
+                    .name(file.getName())
+                    .build();
+
+            listOfFiles.add(fileResponse);
+        }
+
+        return listOfFiles;
     }
 
     private void checkRequestAndUpdateData(User foundUser, UserDetailsChangeDTO updateAccountDTO) {

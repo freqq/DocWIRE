@@ -46,5 +46,8 @@ public class RecentAppointment {
     private QuickSurvey quickSurvey;
 
     @NotNull
+    private List<FileResponse> listOfFiles;
+
+    @NotNull
     private List<SurveyItem> lastSurvey;
 }
