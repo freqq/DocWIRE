@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -22,7 +21,7 @@ const Box = styled.span.attrs({ className: 'box' })`
 const ScaletQuestion = ({ questionBody, onChose }) => (
   <ScaleQuestionWrapper>
     <ScaleBoxesGrid>
-      {[...Array(questionBody.scaleRange).keys()].forEach(box => (
+      {[...Array(questionBody.scaleRange).keys()].forEach(() => (
         <Box onClick={onChose} />
       ))}
     </ScaleBoxesGrid>

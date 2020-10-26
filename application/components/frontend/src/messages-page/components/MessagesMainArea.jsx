@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable prefer-template */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import shortid from 'shortid';

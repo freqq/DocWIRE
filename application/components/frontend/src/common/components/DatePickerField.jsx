@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';

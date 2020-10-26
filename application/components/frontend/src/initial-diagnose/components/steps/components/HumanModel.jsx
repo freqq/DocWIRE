@@ -1,6 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -23,7 +21,7 @@ const HumanModel = ({ onAdd, chosenSymptoms }) => {
     setTimeout(() => {
       window.onload = function () {
         const pieces = document.getElementsByTagName('svg');
-        for (let i = 0; pieces.length; i++) {
+        for (let i = 0; pieces.length; i += 1) {
           const _piece = pieces[i];
           _piece.onclick = function (t) {
             if (t.target.getAttribute('data-position') != null)

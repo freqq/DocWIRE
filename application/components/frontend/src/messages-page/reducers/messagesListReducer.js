@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template */
 /* eslint-disable no-case-declarations */
 import {
   FETCH_CHAT_BOX_LIST_PENDING,
@@ -114,10 +113,10 @@ export default (state, { type, payload }) => {
             item.sender.lastName.toLowerCase().includes(payload.keyword.toLowerCase()) ||
             item.receiver.firstName.toLowerCase().includes(payload.keyword.toLowerCase()) ||
             item.receiver.lastName.toLowerCase().includes(payload.keyword.toLowerCase()) ||
-            (item.receiver.firstName + ' ' + item.receiver.lastName)
+            `${item.receiver.firstName} ${item.receiver.lastName}`
               .toLowerCase()
               .includes(payload.keyword.toLowerCase()) ||
-            (item.sender.firstName + ' ' + item.sender.lastName)
+            `${item.sender.firstName} ${item.sender.lastName}`
               .toLowerCase()
               .includes(payload.keyword.toLowerCase()),
         ),

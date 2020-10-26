@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -82,7 +81,6 @@ const VideoConversationPage = ({
   const [appointmentId, setAppointmentId] = useState('');
   const [messages, setMessages] = useState([]);
   const [openVidu, setOpenVidu] = useState();
-  const [sessionToken, setSessionToken] = useState('');
 
   const exitHandler = () => {
     setFullScreenMode(!fullScreenMode);
@@ -233,7 +231,6 @@ const VideoConversationPage = ({
 
     getToken(sessionRequest).then(tokenObj => {
       const tokenString = tokenObj.data[0];
-      setSessionToken(tokenString);
 
       mySession
         .connect(tokenString, { clientData: username })

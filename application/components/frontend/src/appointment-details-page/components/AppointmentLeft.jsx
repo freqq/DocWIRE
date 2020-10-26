@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -81,7 +80,7 @@ const AppointmentLeft = ({ data }) => {
     person.firstName.charAt(0).toUpperCase() + person.lastName.charAt(0).toUpperCase();
 
   const getEmail = person =>
-    person.firstName.toLowerCase() + '.' + person.lastName.toLowerCase() + '@docwire.com';
+    `${person.firstName.toLowerCase()}.${person.lastName.toLowerCase()}@docwire.com`;
 
   return (
     <AppointmentLeftWrapper>

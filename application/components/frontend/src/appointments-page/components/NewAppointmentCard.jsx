@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -123,7 +122,6 @@ const NewAppointmentCard = ({
   appointmentId,
   price,
   isAcceptRequestLoading,
-  isAcceptRequestError,
   patientId,
   acceptAppointmentRequestFunc,
 }) => (
@@ -172,13 +170,11 @@ NewAppointmentCard.propTypes = {
   appointmentId: PropTypes.string.isRequired,
   patientId: PropTypes.string.isRequired,
   isAcceptRequestLoading: PropTypes.bool.isRequired,
-  isAcceptRequestError: PropTypes.bool.isRequired,
   acceptAppointmentRequestFunc: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   isAcceptRequestLoading: state.appointmentDetails.details.isAcceptRequestLoading,
-  isAcceptRequestError: state.appointmentDetails.details.isAcceptRequestError,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { replace } from 'react-router-redux';
-import { INITIAL_DIAGNOSIS_PATH, DASHBOARD_PATH, CREATE_ACCOUNT_PATH } from 'common/paths';
+import { INITIAL_DIAGNOSIS_PATH, CREATE_ACCOUNT_PATH } from 'common/paths';
 
-import { fetchUserdata, createUser, editUser } from 'common/handlers/accountHandler';
+import { fetchUserdata, createUser } from 'common/handlers/accountHandler';
 
 export const ACCOUNT_INFO_OK = 'ACCOUNT_INFO_OK';
 export const ACCOUNT_INFO_FAIL = 'ACCOUNT_INFO_FAIL';

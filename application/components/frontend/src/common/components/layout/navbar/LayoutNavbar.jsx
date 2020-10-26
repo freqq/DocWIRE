@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -36,7 +35,6 @@ const LayoutNavbar = ({
   handleNewNotificationFunc,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [clientRef, setClientRef] = useState(null);
 
   const switchShowDropdown = () => setShowDropdown(!showDropdown);
 
@@ -71,10 +69,6 @@ const LayoutNavbar = ({
         url={wsSourceUrl}
         topics={[`/topic/private.notifications.${currentUserId}`]}
         onMessage={onNotificationReceived}
-        ref={client => {
-          setClientRef(client);
-        }}
-        debug
       />
     </LayoutNavbarWrapper>
   );

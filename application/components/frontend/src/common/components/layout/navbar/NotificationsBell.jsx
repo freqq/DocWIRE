@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -35,12 +34,7 @@ const NotificationCount = styled.div.attrs({ className: 'notifications-count' })
   color: #ffffff;
 `;
 
-const NotificationsBell = ({
-  getNewNotificationsCountFunc,
-  isLoading,
-  isError,
-  notificationsCount,
-}) => {
+const NotificationsBell = ({ getNewNotificationsCountFunc, isLoading, notificationsCount }) => {
   useEffect(() => {
     getNewNotificationsCountFunc();
   }, []);
@@ -66,7 +60,6 @@ const NotificationsBell = ({
 
 const mapStateToProps = state => ({
   isLoading: state.common.notifications.isLoading,
-  isError: state.common.notifications.isError,
   notificationsCount: state.common.notifications.data,
 });
 
@@ -77,7 +70,6 @@ const mapDispatchToProps = dispatch => ({
 NotificationsBell.propTypes = {
   getNewNotificationsCountFunc: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   notificationsCount: PropTypes.number.isRequired,
 };
 

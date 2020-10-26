@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,7 +6,6 @@ import GenericStep from 'initial-diagnose/components/GenericStep';
 import interviewQuestions from 'initial-diagnose/components/steps/utils/questions_list';
 
 const CHOSEN_QUESTIONS = interviewQuestions;
-const QUESTIONS_NUMBER = 4;
 
 const LastSurvey = ({
   currentStep,

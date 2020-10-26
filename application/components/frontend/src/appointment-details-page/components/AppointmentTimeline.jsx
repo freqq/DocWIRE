@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -182,7 +179,6 @@ const AppointmentTimeline = ({
   acceptAppointmentRequestFunc,
   createPaymentSessionFunc,
   isAcceptRequestLoading,
-  isAcceptRequestError,
   isPaymentLoading,
   history,
 }) => {
@@ -358,7 +354,6 @@ const AppointmentTimeline = ({
 const mapStateToProps = state => ({
   data: state.appointmentDetails.details.data,
   isAcceptRequestLoading: state.appointmentDetails.details.isAcceptRequestLoading,
-  isAcceptRequestError: state.appointmentDetails.details.isAcceptRequestError,
   isPaymentLoading: state.appointmentDetails.payment.isLoading,
   loggedInUserId: state.common.authUser.keycloakInfo.subject,
 });
@@ -377,7 +372,6 @@ AppointmentTimeline.propTypes = {
   acceptAppointmentRequestFunc: PropTypes.func.isRequired,
   createPaymentSessionFunc: PropTypes.func.isRequired,
   isAcceptRequestLoading: PropTypes.bool.isRequired,
-  isAcceptRequestError: PropTypes.bool.isRequired,
   isPaymentLoading: PropTypes.bool.isRequired,
 };
 

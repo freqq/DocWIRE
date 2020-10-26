@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { loadStripe } from '@stripe/stripe-js';
 
 import { payForAppointment } from 'appointment-details-page/handlers/paymentHandlers';

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -17,7 +16,7 @@ const AppointmentsPageWrapper = styled.div.attrs({ className: 'appointments-page
   gap: 30px;
 `;
 
-const AppointmentsPage = ({ fetchAppointmentsListFunc, isLoading, isError }) => {
+const AppointmentsPage = ({ fetchAppointmentsListFunc }) => {
   useEffect(() => {
     document.title = `Appointments - ${APP_TITLE}`;
     fetchAppointmentsListFunc();
@@ -31,19 +30,12 @@ const AppointmentsPage = ({ fetchAppointmentsListFunc, isLoading, isError }) => 
   );
 };
 
-const mapStateToProps = state => ({
-  isLoading: state.appointmentsList.appointments.isLoading,
-  isError: state.appointmentsList.appointments.isError,
-});
-
 const mapDispatchToProps = dispatch => ({
   fetchAppointmentsListFunc: () => dispatch(fetchAppointmentsList()),
 });
 
 AppointmentsPage.propTypes = {
   fetchAppointmentsListFunc: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppointmentsPage);
+export default connect(null, mapDispatchToProps)(AppointmentsPage);

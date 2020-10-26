@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -191,7 +190,6 @@ const ChooseDoctor = ({
   totalSteps,
   fetchDoctorsListFunc,
   isLoading,
-  isError,
   doctorsList,
   nextStep,
   setDoctor,
@@ -289,13 +287,11 @@ ChooseDoctor.propTypes = {
   nextStep: PropTypes.func.isRequired,
   setDoctor: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   doctorsList: PropTypes.instanceOf(Array).isRequired,
 };
 
 const mapStateToProps = state => ({
   isLoading: state.diagnose.chooseDoctor.isFetching,
-  isError: state.diagnose.chooseDoctor.isError,
   doctorsList: state.diagnose.chooseDoctor.doctorsList,
 });
 

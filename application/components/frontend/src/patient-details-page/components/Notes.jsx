@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -132,7 +131,7 @@ const BLOCKED_INPUT = {
   opacity: '0.5',
 };
 
-const Notes = ({ isLoading, isError, notesData, addNoteFunc, patientData }) => {
+const Notes = ({ isLoading, notesData, addNoteFunc, patientData }) => {
   const [noteContent, setNoteContent] = useState('');
 
   const sendNote = () => {
@@ -200,7 +199,6 @@ const Notes = ({ isLoading, isError, notesData, addNoteFunc, patientData }) => {
 
 const mapStateToProps = state => ({
   isLoading: state.patient.patientDetails.isNotesLoading,
-  isError: state.patient.patientDetails.isNotesError,
   notesData: state.patient.patientDetails.notes,
   patientData: state.patient.patientDetails.data,
 });
@@ -211,7 +209,6 @@ const mapDispatchToProps = dispatch => ({
 
 Notes.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   notesData: PropTypes.instanceOf(Object).isRequired,
   patientData: PropTypes.instanceOf(Object).isRequired,
   addNoteFunc: PropTypes.func.isRequired,

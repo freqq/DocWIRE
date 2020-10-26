@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
+
 const AppointmentCardWrapper = styled(Link).attrs({ className: 'appointment-card-wrapper' })`
   padding: 15px;
   background: #ffffff;

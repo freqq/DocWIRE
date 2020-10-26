@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import onClickOutside from 'react-onclickoutside';
 import styled from 'styled-components';
@@ -212,7 +211,6 @@ const NotificationDropdown = ({
   onOutsideClick,
   notificationsList,
   isLoading,
-  isError,
   getNotificationsListFunc,
 }) => {
   NotificationDropdown.handleClickOutside = () => onOutsideClick();
@@ -299,7 +297,6 @@ const clickOutsideConfig = {
 
 const mapStateToProps = state => ({
   isLoading: state.common.notifications.isListLoading,
-  isError: state.common.notifications.isListError,
   notificationsList: state.common.notifications.notificationsData,
 });
 
@@ -311,7 +308,6 @@ NotificationDropdown.propTypes = {
   getNotificationsListFunc: PropTypes.func.isRequired,
   onOutsideClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   notificationsList: PropTypes.number.isRequired,
 };
 

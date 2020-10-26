@@ -1,6 +1,4 @@
-/* eslint-disable prefer-template */
 /* eslint-disable react/jsx-wrap-multilines */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import StepWizard from 'react-step-wizard';
@@ -78,8 +76,8 @@ const DiagnoseMainCard = ({ setCurrentStepNumber, createAppointmentFunc, current
   const [pickedTime, setPickedTime] = useState(null);
 
   const sendDiagnose = () => {
-    const chosenDate = getCurrentYear() + '-' + getCurrentMonth() + '-' + pickedDate;
-    const dateFormat = chosenDate + ' ' + pickedTime;
+    const chosenDate = `${getCurrentYear()}-${getCurrentMonth()}-${pickedDate}`;
+    const dateFormat = `${chosenDate} ${pickedTime}`;
     const appointmentDate = moment(dateFormat);
 
     const diagnoseObject = {

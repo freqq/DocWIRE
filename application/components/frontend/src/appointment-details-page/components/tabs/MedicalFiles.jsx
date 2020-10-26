@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-properties */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
@@ -76,7 +74,6 @@ const SendButton = styled.button.attrs({ className: 'send-button' })`
 const MedicalFiles = ({
   uploadFilesFunc,
   isLoading,
-  isError,
   filesData,
   appointmentId,
   patientId,
@@ -84,7 +81,7 @@ const MedicalFiles = ({
 }) => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
-  const getMbSize = file => (file.size / Math.pow(1024, 2)).toFixed(2);
+  const getMbSize = file => (file.size / 1024 ** 2).toFixed(2);
 
   const selectedFiles = acceptedFiles.map(file => (
     <li key={file.path}>{`${file.path} - ${getMbSize(file)} MB`}</li>

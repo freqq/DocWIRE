@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template */
 import {
   FETCH_USERS_PENDING,
   FETCH_USERS_OK,

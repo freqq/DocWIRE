@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -37,24 +35,6 @@ const ListOfPeopleItem = styled.li.attrs({ className: 'list-of-people-item' })`
   &:hover {
     background: #fafafa;
   }
-`;
-
-const PersonAvatar = styled.div.attrs({ className: 'person-avatar' })`
-  grid: person-avatar;
-  display: inline-block;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  color: #fff;
-  background: #2d4564;
-  text-align: center;
-  font-size: 12px;
-`;
-
-const PersonUsername = styled.div.attrs({ className: 'person-username' })`
-  grid: person-username;
-  font-size: 12px;
 `;
 
 const NewMessageModal = ({

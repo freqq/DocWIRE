@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import shortid from 'shortid';
 
 import GenericStep from 'initial-diagnose/components/GenericStep';
 import { SHORT_WEEK_DAYS_NAMES } from 'common/utils/date_constants';
