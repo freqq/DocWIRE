@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
-import BillPDF from 'dashboard-page/component/BillPDF';
+import BillPDF from 'dashboard-page/components/BillPDF';
 import UserSection from 'common/components/layout/navbar/UserSection';
 import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
