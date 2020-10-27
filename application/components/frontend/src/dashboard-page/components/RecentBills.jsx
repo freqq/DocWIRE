@@ -1,9 +1,19 @@
-import React from 'react';
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
-import locationIcon from 'images/icons/pin.svg';
+import BillPDF from 'dashboard-page/component/BillPDF';
+import UserSection from 'common/components/layout/navbar/UserSection';
+import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
+import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
+import { getRecentBill } from 'dashboard-page/actions/recentBillActions';
 import fileIcon from 'images/icons/document.svg';
-import doctorImage from 'images/doctor.jpg';
 import moreIcon from 'images/icons/more.svg';
 
 const RecentBillsWrapper = styled.div.attrs({ className: 'recent-bills-wrapper' })`
@@ -92,25 +102,16 @@ const DoctorImage = styled.img.attrs({ className: 'doctor-image' })`
   margin-right: 10px;
 `;
 
-const DoctorData = styled.div.attrs({ className: 'doctor-data' })`
-  display: inline-block;
-  font-size: 12px;
-  line-height: 15px;
+const BillDetails = styled.div.attrs({ className: 'bill-details' })`
+  margin-top: 25px;
 `;
 
-const DoctorName = styled.p.attrs({ className: 'doctor-name' })`
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
+const NoRecentBill = styled.div.attrs({ className: 'no-recent-bill' })`
+  width: 80%;
+  background: #ccc;
+  borde-radius: 4px;
+  text-align: center;
 `;
-
-const DoctorRole = styled.p.attrs({ className: 'doctor-role' })`
-  margin: 0;
-  padding: 0;
-  font-weight: 100;
-`;
-
-const BillDetails = styled.div.attrs({ className: 'bill-details' })``;
 
 const BillDetailItem = styled.div.attrs({ className: 'bill-details-item' })`
   display: flex;
@@ -135,6 +136,10 @@ const BillDetailItemFile = styled.p.attrs({ className: 'bill-details-item-file' 
   text-decoration: underline;
   cursor: pointer;
   line-height: 20px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const MoreIcon = styled.img.attrs({ className: 'more-icon' })`
@@ -146,56 +151,104 @@ const MoreIcon = styled.img.attrs({ className: 'more-icon' })`
   right: 20px;
 `;
 
-const RecentBills = () => (
-  <RecentBillsWrapper>
-    <CardTitle>Recent Bill</CardTitle>
-    <CardContent>
-      <MoreIcon src={moreIcon} alt="moreIcon" />
-      <TwoSideGrid>
-        <GridElement>
-          <Title>Your payment</Title>
-          <PaymentBig>$110.00</PaymentBig>
-        </GridElement>
-        <GridElement>
-          <Title>Medicare</Title>
-          <Content>$124.00</Content>
-        </GridElement>
-      </TwoSideGrid>
-      <TwoSideGrid>
-        <GridElement>
-          <Content>Paid on the 27 april, 2020</Content>
-          <Content>
-            to
-            <CheckmarkIcon>&#x2713;</CheckmarkIcon>
-            Dorian Med Pty Ltd
-          </Content>
-        </GridElement>
-        <GridElement>
-          <Title>Total</Title>
-          <Content>$234.00</Content>
-        </GridElement>
-      </TwoSideGrid>
-      <DoctorDetails>
-        <DoctorImage src={doctorImage} alt="doctorImage" />
-        <DoctorData>
-          <DoctorName>Dr Ramadi Entrylols</DoctorName>
-          <DoctorRole>Gastroentterologist</DoctorRole>
-        </DoctorData>
-      </DoctorDetails>
-      <BillDetails>
-        <BillDetailItem>
-          <BillDetailItemIcon src={locationIcon} />
-          <BillDetailItemContent>
-            Suite 206/203-233 New King James Rd, Edgecliff NSW 2027
-          </BillDetailItemContent>
-        </BillDetailItem>
-        <BillDetailItem>
-          <BillDetailItemIcon src={fileIcon} />
-          <BillDetailItemFile>Standard_ENT_Consult.pdf</BillDetailItemFile>
-        </BillDetailItem>
-      </BillDetails>
-    </CardContent>
-  </RecentBillsWrapper>
-);
+const RecentBills = ({ isLoading, isError, data, getRecentBillFunc }) => {
+  useEffect(() => {
+    getRecentBillFunc();
+  }, []);
 
-export default RecentBills;
+  const getAppointmentDate = dateObj => {
+    const chosenDate = moment(dateObj);
+
+    const year = chosenDate.year();
+    const monthName = MONTH_FULL_NAMES[chosenDate.month()];
+    const day = chosenDate.date();
+    const dayOfWeek = WEEK_DAYS_NAMES[chosenDate.day()];
+
+    return `${dayOfWeek} ${day} ${monthName}, ${year}`;
+  };
+
+  const getPrice = price => (price / 100).toFixed(2);
+
+  return (
+    <RecentBillsWrapper>
+      <CardTitle>Recent Bill</CardTitle>
+      <CardContent>
+        <MoreIcon src={moreIcon} alt="moreIcon" />
+        {isLoading ? (
+          <ProgressIndicatorCircular />
+        ) : (
+          <>
+            {data.paidAt !== undefined ? (
+              <>
+                <TwoSideGrid>
+                  <GridElement>
+                    <Title>Your payment</Title>
+                    <PaymentBig>{`$${getPrice(data.price)}`}</PaymentBig>
+                  </GridElement>
+                  <GridElement>
+                    <Title>Medicare</Title>
+                    <Content>{`$${getPrice(data.price)}`}</Content>
+                  </GridElement>
+                </TwoSideGrid>
+                <TwoSideGrid>
+                  <GridElement>
+                    <Content>{`Paid on ${getAppointmentDate(data.paitAd)}`}</Content>
+                  </GridElement>
+                </TwoSideGrid>
+                <UserSection
+                  userId={data.doctor.userId}
+                  firstName={data.doctor.firstName}
+                  lastName={data.doctor.lastName}
+                  bottomText="Doctor"
+                  showIcon={false}
+                  circleSize={30}
+                  circleFontSize={9}
+                />
+                <BillDetails>
+                  <BillDetailItem>
+                    <BillDetailItemIcon src={fileIcon} />
+                    <PDFDownloadLink
+                      document={
+                        <BillPDF
+                          doctor={data.doctor}
+                          paymentType={data.paymentMethod}
+                          paymentDate={getAppointmentDate(data.paitAd)}
+                        />
+                      }
+                      fileName="medial_bill.pdf"
+                    >
+                      {({ blob, url, loading, error }) =>
+                        loading ? 'Loading document...' : 'Get PDF file'
+                      }
+                    </PDFDownloadLink>
+                  </BillDetailItem>
+                </BillDetails>
+              </>
+            ) : (
+              <NoRecentBill>No recent bill found.</NoRecentBill>
+            )}
+          </>
+        )}
+      </CardContent>
+    </RecentBillsWrapper>
+  );
+};
+
+RecentBills.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  data: PropTypes.bool.isRequired,
+  getRecentBillFunc: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isLoading: state.dashboard.recentBill.isLoading,
+  isError: state.dashboard.recentBill.isError,
+  data: state.dashboard.recentBill.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getRecentBillFunc: () => dispatch(getRecentBill()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentBills);

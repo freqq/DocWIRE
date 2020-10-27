@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.pwit.paymentservice.service.util.PaymentMetada.APPOINTMENT_ID;
 import static com.pwit.paymentservice.service.util.PaymentMetada.PATIENT_ID;
@@ -52,15 +53,19 @@ public class PaymentHistoryServiceImpl implements PaymentHistoryService {
 
     @Override
     public ResponseEntity<?> getRecentPayment(String currentUserId) {
-        Payment payment = paymentRepository.findTopByPatientIdOrderByPaidAt(currentUserId);
-        RecentAppointment recentAppointment = appointmentsService.getAppointmentDetails(payment.getAppointmentId());
+        Optional<Payment> payment = paymentRepository.findTopByPatientIdOrderByPaidAt(currentUserId);
+
+        if(payment.isEmpty())
+            return ResponseEntity.ok().build();
+
+        RecentAppointment recentAppointment = appointmentsService.getAppointmentDetails(payment.get().getAppointmentId());
         User user =recentAppointment.getDoctor();
 
         RecentPaymentResponse recentPaymentResponse = new RecentPaymentResponse().toBuilder()
-                .paymentMethod(payment.getPaymentMethod())
+                .paymentMethod(payment.get().getPaymentMethod())
                 .doctor(user)
-                .paidAt(payment.getPaidAt())
-                .price(payment.getPrice())
+                .paidAt(payment.get().getPaidAt())
+                .price(payment.get().getPrice())
                 .build();
 
         return ResponseEntity.ok(recentPaymentResponse);

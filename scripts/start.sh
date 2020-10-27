@@ -94,12 +94,12 @@ function app_start() {
 
     cd ${SOURCE_DIR}/../application
 
-    # ./gradlew charts:namespace:appInstall
+    ./gradlew charts:namespace:appInstall
 
-    # ./gradlew charts:auth-db:appInstall
-    # ./gradlew charts:auth-service:appInstall
+    ./gradlew charts:auth-db:appInstall
+    ./gradlew charts:auth-service:appInstall
 
-    # ./gradlew charts:account-db:appInstall
+    ./gradlew charts:account-db:appInstall
     ./gradlew charts:account-service:appLoad
     ./gradlew charts:account-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
@@ -113,20 +113,20 @@ function app_start() {
     # ./gradlew charts:openvidu-coturn:appInstall
     # ./gradlew charts:openvidu-server:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:appointments-db:appInstall
+    ./gradlew charts:appointments-db:appInstall
     ./gradlew charts:appointments-service:appLoad
     ./gradlew charts:appointments-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:payment-db:appInstall
-    # ./gradlew charts:payment-service:appLoad
-    # ./gradlew charts:payment-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:payment-db:appInstall
+    ./gradlew charts:payment-service:appLoad
+    ./gradlew charts:payment-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:notifications-db:appInstall
-    # ./gradlew charts:notifications-service:appLoad
-    # ./gradlew charts:notifications-service:appInstall -PminikubeIp=${MINIKUBE_IP}
+    ./gradlew charts:notifications-db:appInstall
+    ./gradlew charts:notifications-service:appLoad
+    ./gradlew charts:notifications-service:appInstall -PminikubeIp=${MINIKUBE_IP}
 
-    # ./gradlew charts:frontend:appLoad
-    # ./gradlew charts:frontend:appInstall
+    ./gradlew charts:frontend:appLoad
+    ./gradlew charts:frontend:appInstall
 
     cd -
 }
@@ -135,11 +135,11 @@ function main() {
     # mount_frontend
     # build_custom_images
 
-    # enable_ingres_on_minikube
-    # create_role_binding
-    # setup_cert_manager
+    enable_ingres_on_minikube
+    create_role_binding
+    setup_cert_manager
     app_start
-    # upload_initial_users
+    upload_initial_users
 
     log_info "DocWIRE started."
     log_info "GUI reachable at: https://${MINIKUBE_IP}"
