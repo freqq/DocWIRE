@@ -6,9 +6,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 
-import BillPDF from 'dashboard-page/components/BillPDF';
 import UserSection from 'common/components/layout/navbar/UserSection';
 import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
@@ -207,20 +205,7 @@ const RecentBills = ({ isLoading, isError, data, getRecentBillFunc }) => {
                 <BillDetails>
                   <BillDetailItem>
                     <BillDetailItemIcon src={fileIcon} />
-                    <PDFDownloadLink
-                      document={
-                        <BillPDF
-                          doctor={data.doctor}
-                          paymentType={data.paymentMethod}
-                          paymentDate={getAppointmentDate(data.paitAd)}
-                        />
-                      }
-                      fileName="medial_bill.pdf"
-                    >
-                      {({ blob, url, loading, error }) =>
-                        loading ? 'Loading document...' : 'Get PDF file'
-                      }
-                    </PDFDownloadLink>
+                    123
                   </BillDetailItem>
                 </BillDetails>
               </>

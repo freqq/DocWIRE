@@ -139,7 +139,7 @@ function main() {
     # create_role_binding
     # setup_cert_manager
     app_start
-    upload_initial_users
+    # upload_initial_users
 
     log_info "DocWIRE started."
     log_info "GUI reachable at: https://${MINIKUBE_IP}"
