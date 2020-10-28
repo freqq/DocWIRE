@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import billGenerator from 'dashboard-page/utils/pdf_generator';
 import UserSection from 'common/components/layout/navbar/UserSection';
 import { MONTH_FULL_NAMES, WEEK_DAYS_NAMES } from 'common/utils/date_constants';
 import ProgressIndicatorCircular from 'common/components/ProgressIndicatorCircular';
@@ -63,6 +64,17 @@ const Content = styled.div.attrs({ className: 'content' })`
 const PaymentBig = styled.div.attrs({ className: 'payment-big' })`
   font-weight: 400;
   font-size: 30px;
+`;
+
+const BillDetailsItemName = styled.div.attrs({ className: 'bill-details-item-name' })`
+  transition: 0.2s;
+  cursor: pointer;
+  line-height: 20px;
+  height: 20px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const DoctorDetails = styled.div.attrs({ className: 'doctor-details' })`
@@ -205,7 +217,18 @@ const RecentBills = ({ isLoading, isError, data, getRecentBillFunc }) => {
                 <BillDetails>
                   <BillDetailItem>
                     <BillDetailItemIcon src={fileIcon} />
-                    123
+                    <BillDetailsItemName
+                      onClick={() =>
+                        billGenerator(
+                          data.doctor,
+                          getPrice(data.price),
+                          getAppointmentDate(data.paitAd),
+                          data.paymentMethod,
+                        )
+                      }
+                    >
+                      Get PDF file
+                    </BillDetailsItemName>
                   </BillDetailItem>
                 </BillDetails>
               </>
