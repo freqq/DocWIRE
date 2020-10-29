@@ -43,7 +43,7 @@ DevOps:
 
 ### Infrastructure diagram
 
-TBD
+![Diagram](screenshots/architecture.png?raw=true "Diagram")
 
 ### Functional services
 - *account-service* - handle user details
