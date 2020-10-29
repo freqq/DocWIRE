@@ -30,14 +30,21 @@ public class MessagesController {
 
     private final MessagesService messagesService;
 
+    /**
+     * Sending private message user-to-user
+     *
+     * @param chatMessageRequest Body of message to send
+     */
     @MessageMapping("/private.chat.{channelId}")
     @SendTo("/topic/private.chat.{channelId}")
-    public ChatMessage sendPrivateMessage(@Payload ChatMessageRequest chatMessageRequest,
-                                          @DestinationVariable String channelId) {
+    public ChatMessage sendPrivateMessage(@Payload ChatMessageRequest chatMessageRequest) {
         LOGGER.info("Sending private message with content: {}.", chatMessageRequest.getContent());
         return messagesService.sendPrivateMessage(chatMessageRequest);
     }
 
+    /**
+     * Getting all messages saved for current user
+     */
     @GetMapping(value="/messages", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
     public List<ChatMessageItem> getMessagesList() {
@@ -45,6 +52,9 @@ public class MessagesController {
         return messagesService.getMessagesList( getCurrentUserId());
     }
 
+    /**
+     * Getting all messages saved for current user with user of given id
+     */
     @GetMapping(value="/history", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
     public List<ChatMessage> getChatHistoryWithUser(@RequestParam(value = "userId") String userId) {
@@ -52,6 +62,9 @@ public class MessagesController {
         return messagesService.getChatHistoryWithUser(getCurrentUserId(), userId);
     }
 
+    /**
+     * Getting count of unread messages for current user
+     */
     @GetMapping(value="/count", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
     public Integer countUnreadMessages() {
@@ -59,6 +72,11 @@ public class MessagesController {
         return messagesService.countUnreadMessages(getCurrentUserId());
     }
 
+    /**
+     * Marking all messages with given user as read
+     *
+     * @param userId Id of user to mark all messages as read
+     */
     @GetMapping(value="/read", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ROLE_USER)
     public List<ChatMessage> markMessagesWithUserAsRead(@RequestParam(value = "userId") String userId) {

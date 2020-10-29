@@ -34,6 +34,8 @@ public class NotificationsController {
 
     /**
      * Creating new notification
+     *
+     * @param notificationRequest Body of new notification request
      */
     @Secured(ROLE_USER)
     @PostMapping("/create")
@@ -42,6 +44,9 @@ public class NotificationsController {
         return notificationsService.createNewNotification(notificationRequest, getCurrentUserId());
     }
 
+    /**
+     * Getting a number of new notifications for current user
+     */
     @GetMapping(value="/new")
     public Long getNewNotificationsCount() {
         LOGGER.info("Checking if any new notifications for user {}.", getCurrentUsername());

@@ -25,6 +25,11 @@ public class OpenViduController {
 
     private final OpenViduService openViduService;
 
+    /**
+     * Joining a call session and getting a token
+     *
+     * @param sessionRequest Body of session request
+     */
     @Secured(ROLE_USER)
     @PostMapping("/join")
     public ResponseEntity<?> getToken(@RequestBody @Valid SessionRequest sessionRequest) {
@@ -34,6 +39,11 @@ public class OpenViduController {
         return openViduService.getToken(sessionRequest);
     }
 
+    /**
+     * Quiting ongoing call session
+     *
+     * @param leaveSessionRequest Body of leave session request
+     */
     @Secured(ROLE_USER)
     @PostMapping("/leave")
     public ResponseEntity<?> removeUser(@RequestBody LeaveSessionRequest leaveSessionRequest) {

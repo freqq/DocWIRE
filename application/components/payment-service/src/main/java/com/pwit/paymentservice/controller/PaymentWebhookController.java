@@ -19,6 +19,12 @@ public class PaymentWebhookController {
     private final PaymentProperties paymentProperties;
     private final PaymentWebhookService paymentWebhookService;
 
+    /**
+     * Handling webhook coming back from Stripe after payment checkout
+     *
+     * @param body              Body element with request
+     * @param stripeSignature   Signature of Stripe to determine if this is an actual checkout request
+     */
     @PostMapping("/checkout")
     public ResponseEntity<?> handleSessionEvent(@RequestBody String body,
                                                 @RequestHeader("Stripe-Signature") String stripeSignature) {

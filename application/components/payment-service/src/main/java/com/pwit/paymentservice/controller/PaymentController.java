@@ -27,18 +27,29 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final PaymentHistoryService paymentHistoryService;
 
+    /**
+     * Creating new payment session
+     *
+     * @param paymentRequest Body of new payment request
+     */
     @PostMapping("/session")
     public SessionResponse createSession(@RequestBody @Valid PaymentRequest paymentRequest) throws StripeException {
         LOGGER.info("Creating payment session for user with id {}.", getCurrentUserId());
         return paymentService.createSession(paymentRequest, getCurrentUserId(), getCurrentUserEmail());
     }
 
+    /**
+     * Getting all payment records for current user
+     */
     @GetMapping("/history")
     public List<PaymentResponse> getUserPaymentHistory() {
         LOGGER.info("Getting list of payments history for user with id {}.", getCurrentUserId());
         return paymentHistoryService.getUserPaymentHistory(getCurrentUserId());
     }
 
+    /**
+     * Getting most recent payment record for current user
+     */
     @GetMapping("/history/recent")
     public ResponseEntity<?> getRecentPayment() {
         LOGGER.info("Getting most recent payment entry for user with id {}.", getCurrentUserId());

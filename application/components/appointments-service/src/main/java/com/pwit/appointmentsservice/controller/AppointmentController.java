@@ -49,7 +49,6 @@ public class AppointmentController {
 
     /**
      * Fetches all appointments for current user.
-     *
      */
     @Secured(ROLE_USER)
     @GetMapping("/details/all")
@@ -60,7 +59,6 @@ public class AppointmentController {
 
     /**
      * Fetches all appointments for current user with.
-     *
      */
     @Secured(ROLE_USER)
     @GetMapping("/details/short")
