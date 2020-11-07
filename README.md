@@ -32,7 +32,6 @@ DevOps:
 - Docker
 - Helm
 - Kubernetes
-- Ansible (?)
 
 ### Main features
 - live video call and live chat with doctor
@@ -81,7 +80,7 @@ DevOps:
 - Profile settings page
 
 ### Prerequisites
-In order to run this application you need to install:
+In order to run this application you need to have installed:
 
 - minikube > v1.6.2
 - kubectl > v1.17.0
