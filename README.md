@@ -62,6 +62,9 @@ DevOps:
 ### Application screenshots
 
 - Main landing page
+
+![Main landing page](screenshots/app/main_page.png?raw=true "Main landing page")
+
 - Login page
 - Initial diagnose page
   - Introduction
