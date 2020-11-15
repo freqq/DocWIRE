@@ -219,7 +219,7 @@ To run script run command below with chosen parameters:
 $ cd scripts/e2e && ./run_e2e_tests.sh
 ```
 
-## Analyzing sonarqube analysis
+## Analyzing sonarqube output
 
 In order to deploy *sonarqube* on run command below:
 
