@@ -66,21 +66,71 @@ DevOps:
 ![Main landing page](screenshots/app/main_page.png?raw=true "Main landing page")
 
 - Login page
+
+![Login page](screenshots/app/login.png?raw=true "Login page")
+
 - Initial diagnose page
   - Introduction
+
+  ![Introduction](screenshots/app/diagnose_introduction.png?raw=true "Introduction")
+
   - Symptoms
+
+  ![Symptoms](screenshots/app/diagnose_symptoms.png?raw=true "Symptoms")
+
   - Visited regions
+
+  ![Visited regions](screenshots/app/diagnose_visited_regions.png?raw=true "Visited regions")
+
   - Choose doctor
+
+  ![Choose doctor](screenshots/app/diagnose_chose_doctor.png?raw=true "Choose doctor")
+
   - Pick appointment date
-- Dashboard
-- Messages
+
+  ![Pick appointment date](screenshots/app/diagnose_pick_date.png?raw=true "Pick appointment date")
+
+- Dashboard page
+
+![Dashboard page](screenshots/app/dashboard.png?raw=true "Dashboard page")
+
+- Messages page
+
+![Messages page](screenshots/app/messages.png?raw=true "Messages page")
+
 - Patient details page
+
+![Patient details page](screenshots/app/patient_details.png?raw=true "Patient details page")
+
 - Appointment details page
+
+![Appointment details page](screenshots/app/appointment_details.png?raw=true "Appointment details page")
+
 - Appointments list page
   - Doctor view
+
+  ![Doctor view](screenshots/app/appointments_list_doctor.png?raw=true "Doctor view")
+
   - Patient view
-- Messages page
+
+  ![Patient view](screenshots/app/appointments_list_patient.png?raw=true "Patient view")
+
 - Profile settings page
+
+![Profile settings page](screenshots/app/user_settings.png?raw=true "Profile settings page")
+
+- Notifications
+
+![Notifications](screenshots/app/notifications.png?raw=true "Notifications")
+
+- Video talk page
+  - Configuration
+
+  ![Video talk page - Configuration](screenshots/app/video_configuration.png?raw=true "Video talk page - Configuration")
+
+  - Connected
+
+  ![Video talk page - Connected](screenshots/app/video_talk.png?raw=true "Video talk page - Connected")
 
 ### Prerequisites
 In order to run this application you need to have installed:
