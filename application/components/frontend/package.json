@@ -17,7 +17,7 @@
     "jspdf": "^2.1.1",
     "jspdf-autotable": "3.5.13",
     "keycloak-js": "^11.0.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "morgan": "^1.10.0",
     "nocache": "^2.1.0",
