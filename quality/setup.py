@@ -5,7 +5,7 @@ Test runner module
 from setuptools import setup, find_packages
 
 REQUIREMENTS = [
-    'urllib3==1.25.6',
+    'urllib3==1.26.5',
     'selenium',
     'requests',
     'nose',
