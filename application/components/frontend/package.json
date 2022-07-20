@@ -88,7 +88,7 @@
     "prettier": "^2.0.5",
     "redux-mock-store": "^1.5.4",
     "style-loader": "^1.2.1",
-    "terser": "^5.3.8",
+    "terser": "^5.14.2",
     "terser-webpack-plugin": "^4.2.3",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
